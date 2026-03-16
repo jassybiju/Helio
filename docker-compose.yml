@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./server:/home/node/app
+      - /home/node/app/node_modules
+    container_name: backend
+    expose:
+      - '5000'
+    ports:
+      - '5000:5000'
+    command: sh -c "npm run lint && npm run dev"
+
+  frontend:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./client:/home/next/
+      - /home/next/node_modules
+    container_name: frontend
+    ports:
+      - '3000:3000'
+    command: sh -c "npm run lint && npm run dev"
+    depends_on:
+      - backend
