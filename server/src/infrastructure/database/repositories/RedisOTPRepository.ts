@@ -10,7 +10,7 @@ export class RedisOTPRepository implements IOTPRepository{
   ){}
   async save(otp: OTP): Promise<void> {
     try {
-        
+      await client
     } catch (error) {
       this._logger.error("Error saving otp", error as Error)
       throw new AppError('Error saving otp', HTTPStatus.INTERNAL_ERROR)

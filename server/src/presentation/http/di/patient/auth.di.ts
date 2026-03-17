@@ -5,20 +5,25 @@ import { MongoPatientRepository } from "@infrastructure/database/repositories/Mo
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
+import { OTPService } from "@infrastructure/services/OTPService.ts";
+import { RedisOTPRepository } from "@infrastructure/database/repositories/RedisOTPRepository.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService()
 const nanoidGenerator = new NanoidGenerator()
+const otpService = new OTPService()
 
 const patientRepo = new MongoPatientRepository(loggerService);
+const otpRepo = new RedisOTPRepository(loggerService)
 
 const registerPatientUseCase = new RegisterPatientUseCase(
-  new PatientValidator(),
+  new PatientValidator(patientRepo),
   patientRepo,
   bcryptPasswordService,
   nanoidGenerator,
   loggerService,
-  
+  otpService,
+  otpRepo
 );
 
-export const authController = new PatientAuthController();
+export const authController = new PatientAuthController(registerPatientUseCase);
