@@ -31,7 +31,7 @@ export class Patient {
   }
 
   get email() {
-    return this._email.email;
+    return this._email.value;;
   }
 
   get firstName() {
