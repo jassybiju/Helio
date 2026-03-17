@@ -1,6 +1,24 @@
 version: '3.9'
 
 services:
+  mongo:
+    image: mongo:6
+    container_name: mongo_db
+    command: ["mongod", "--logpath", "/dev/null"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+     - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+
   backend:
     build:
       context: ./server
@@ -10,6 +28,8 @@ services:
       - ./server:/home/node/app
       - /home/node/app/node_modules
     container_name: backend
+    env_file:
+      - ./server/.env
     expose:
       - '5000'
     ports:
@@ -30,3 +50,7 @@ services:
     command: sh -c "npm run lint && npm run dev"
     depends_on:
       - backend
+
+
+volumes:
+  mongo_data:
