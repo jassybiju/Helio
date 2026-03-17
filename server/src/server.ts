@@ -5,8 +5,8 @@ import { connectRedis } from "@config/redis.config.ts";
 const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   try {
-    await connectRedis()
-    await connectDB()
+    await connectRedis();
+    await connectDB();
     app.listen(PORT, () => {
       console.log("Listening to PORT 5000");
     });

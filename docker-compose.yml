@@ -34,7 +34,7 @@ services:
       - '5000'
     ports:
       - '5000:5000'
-    command: sh -c "npm run lint && npm run dev"
+    command: sh -c "npm run eslint-fix && npm run dev"
     depends_on:
       - redis
       - mongo
@@ -50,7 +50,7 @@ services:
     container_name: frontend
     ports:
       - '3000:3000'
-    command: sh -c "npm run lint && npm run dev"
+    command: sh -c "npm run eslint-fix && npm run dev"
     depends_on:
       - backend
 

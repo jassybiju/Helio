@@ -38,7 +38,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       await this._patientValidator.ensureEmailAvailable(email);
 
     // creating new patient ( if unverified patient exists keep the id to prevent duplicating email in db )
-    new Patient(
+    const patient = new Patient(
       existingPatient ? existingPatient.id : this._idGenerator.generate("USR"),
       new Email(email),
       await this._passwordService.hash(password),
@@ -52,6 +52,8 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       new Date(),
       new Date()
     );
+
+    await this._patientRepo.save(patient)
 
     // generate otp
     let otp = OTP.create({
