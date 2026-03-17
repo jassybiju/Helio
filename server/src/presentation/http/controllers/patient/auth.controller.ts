@@ -15,18 +15,21 @@ export class PatientAuthController {
   ) {}
 
   register = async (req: Request, res: Response, next: NextFunction) => {
-   try {
-     const result: IRegisterPatientRequestDTO = patientRegisterSchema.parse(
-       req.body
-     );
-     const response = await this._registerPatientUseCase.execute(result);
-     return res
-       .status(HTTPStatus.CREATED)
-       .json(
-         successResponse<IRegisterPatientResponseDTO>(response, MESSAGE.OTP_SENT)
-       );
-   } catch (error) {
-      next(error)
-   }
+    try {
+      const result: IRegisterPatientRequestDTO = patientRegisterSchema.parse(
+        req.body
+      );
+      const response = await this._registerPatientUseCase.execute(result);
+      return res
+        .status(HTTPStatus.CREATED)
+        .json(
+          successResponse<IRegisterPatientResponseDTO>(
+            response,
+            MESSAGE.OTP_SENT
+          )
+        );
+    } catch (error) {
+      next(error);
+    }
   };
 }

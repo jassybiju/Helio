@@ -9,12 +9,12 @@ import { OTPService } from "@infrastructure/services/OTPService.ts";
 import { RedisOTPRepository } from "@infrastructure/database/repositories/RedisOTPRepository.ts";
 
 const loggerService = new PinoLoggerService();
-const bcryptPasswordService = new BcryptPasswordService()
-const nanoidGenerator = new NanoidGenerator()
-const otpService = new OTPService()
+const bcryptPasswordService = new BcryptPasswordService();
+const nanoidGenerator = new NanoidGenerator();
+const otpService = new OTPService();
 
 const patientRepo = new MongoPatientRepository(loggerService);
-const otpRepo = new RedisOTPRepository(loggerService)
+const otpRepo = new RedisOTPRepository(loggerService);
 
 const registerPatientUseCase = new RegisterPatientUseCase(
   new PatientValidator(patientRepo),

@@ -3,6 +3,6 @@ import { nanoid } from "nanoid";
 
 export class NanoidGenerator implements IIDGenerator {
   generate(append: string): string {
-    return append + nanoid(12)
+    return append +"_"+ nanoid(12);
   }
 }

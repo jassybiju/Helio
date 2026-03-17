@@ -16,7 +16,7 @@ export class Email {
     this._emailAddress = email;
   }
 
-  get email() {
+  get value() {
     return this._emailAddress;
   }
 

@@ -9,6 +9,7 @@ export class OTP {
     private readonly _email: Email,
     private readonly _otp: string,
     private readonly _purpose: OTP_PURPOSE,
+    private readonly _context: "patient" | "doctor",
     private readonly _validUntil: Date,
     private readonly _expiration: Date,
     private _resendCount: number,
@@ -30,16 +31,46 @@ export class OTP {
     return this._validUntil;
   }
 
+  get code() {
+    return this._otp;
+  }
+
+  get email() {
+    return this._email;
+  }
+
+  get resendCount() {
+    return this._resendCount;
+  }
+
+  get failedAttempts() {
+    return this._failedAttempts;
+  }
+
+  get purpose() {
+    return this._purpose;
+  }
+
+  get context() {
+    return this._context;
+  }
+
+  get expiresAt() {
+    return this._expiration;
+  }
+
   static create({
     id,
     email,
     otp,
     purpose,
+    context,
   }: {
     id: string;
     email: Email;
     otp: string;
     purpose: OTP_PURPOSE;
+    context: "patient" | "doctor";
   }) {
     const now = new Date().getTime();
     const VALID_UNTIL = new Date(
@@ -48,6 +79,16 @@ export class OTP {
     const EXPIRATION = new Date(
       now + Number(process.env.OTP_EXPIRATION_MINUTES || 5) * 60 * 1000
     );
-    return new OTP(id, email, otp, purpose, VALID_UNTIL, EXPIRATION, 0, 0);
+    return new OTP(
+      id,
+      email,
+      otp,
+      purpose,
+      context,
+      VALID_UNTIL,
+      EXPIRATION,
+      0,
+      0
+    );
   }
 }

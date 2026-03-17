@@ -10,9 +10,7 @@ import type { IOTPService } from "@application/ports/services/IOTPService.ts";
 import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
 import type { IRegisterPatientUseCase } from "@application/ports/use-cases/patient/auth/IRegisterPatientUseCase.ts";
 import type { PatientValidator } from "@application/validators/PatientValidator.ts";
-import { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
 import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import { Result } from "@domain/common/result.ts";
 import { OTP } from "@domain/entities/OTP.ts";
 import { Patient } from "@domain/entities/Patient.ts";
 import { Email } from "@domain/value-objects/Email.ts";
@@ -40,7 +38,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       await this._patientValidator.ensureEmailAvailable(email);
 
     // creating new patient ( if unverified patient exists keep the id to prevent duplicating email in db )
-    let patient = new Patient(
+    new Patient(
       existingPatient ? existingPatient.id : this._idGenerator.generate("USR"),
       new Email(email),
       await this._passwordService.hash(password),
@@ -61,6 +59,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       purpose: "REGISTER",
       email: new Email(email),
       otp: this._otpService.generate(),
+      context: "patient",
     });
     await this._otpRepo.save(otp);
 

@@ -4,7 +4,7 @@ services:
   mongo:
     image: mongo:6
     container_name: mongo_db
-    command: ["mongod", "--logpath", "/dev/null"]
+    command: ["mongod", "--quiet"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret
@@ -35,6 +35,9 @@ services:
     ports:
       - '5000:5000'
     command: sh -c "npm run lint && npm run dev"
+    depends_on:
+      - redis
+      - mongo
 
   frontend:
     build: 

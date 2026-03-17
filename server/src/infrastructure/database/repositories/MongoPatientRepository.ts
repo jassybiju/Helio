@@ -3,7 +3,7 @@ import type { ILogger } from "@application/ports/services/ILogger.ts";
 import { Patient } from "@domain/entities/Patient.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
 import { AppError } from "@shared/errors/AppError.ts";
-import { PatientMapper } from "../../../mappers/Patient.mapper.ts";
+import { PatientMapper } from "../../../mappers/PatientMapper.ts";
 import { patientModel } from "../model/PatientModel.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
@@ -12,15 +12,16 @@ export class MongoPatientRepository implements IPatientRepository {
 
   async findByEmail(email: Email): Promise<Patient | null> {
     try {
-      this._loggerService.info("Finding Patient with email " + email);
-      const patient = await patientModel.findOne({ email: email });
+      this._loggerService.info("Finding Patient with email ", email);
+      console.log(email, 1);
+      const patient = await patientModel.findOne({ email: email.value });
       this._loggerService.info("Patient Found," + patient);
       if (!patient) {
         return null;
       }
       return PatientMapper.toDomain(patient);
     } catch (error) {
-      this._loggerService.error("Failed to fetch ");
+      this._loggerService.error("Failed to fetch ", error as Error);
       throw new AppError("Failed to fetch patient by email", 500);
     }
   }
@@ -55,7 +56,7 @@ export class MongoPatientRepository implements IPatientRepository {
       }
       return PatientMapper.toDomain(patient);
     } catch (error) {
-      this._loggerService.error("Failed to fetch ");
+      this._loggerService.error("Failed to fetch ", error as Error);
       throw new AppError(
         "Failed to fetch patient by id",
         HTTPStatus.INTERNAL_ERROR

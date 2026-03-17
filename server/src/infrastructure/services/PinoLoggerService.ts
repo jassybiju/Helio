@@ -13,15 +13,24 @@ export class PinoLoggerService implements ILogger {
     });
   }
 
-  info(message: string, meta?: Record<string, any>): void {
+  info(
+    message: string,
+    meta?: Record<string, unknown> | unknown | string
+  ): void {
     this._logger.info(meta, message);
   }
 
-  error(message: string, meta?: Record<string, any>): void {
+  error(
+    message: string,
+    meta?: Record<string, unknown> | unknown | string
+  ): void {
     this._logger.error(meta, message);
   }
 
-  debug(message: string, meta?: Record<string, any>): void {
+  debug(
+    message: string,
+    meta?: Record<string, unknown> | unknown | string
+  ): void {
     this._logger.debug(meta, message);
   }
 }
