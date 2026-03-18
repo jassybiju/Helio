@@ -4,6 +4,7 @@ import type {
 } from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IOTPService } from "@application/ports/services/IOTPService.ts";
@@ -22,9 +23,9 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     private readonly _idGenerator: IIDGenerator,
     private readonly _passwordService: IPasswordService,
     private readonly _fileUpload: IFileUpload,
-    private readonly _doctorRepo : IDoctorRepository,
-    private readonly _otpRepo : IOTPRepository,
-    private readonly _otpService : IOTPService
+    private readonly _doctorRepo: IDoctorRepository,
+    private readonly _otpRepo: IOTPRepository,
+    private readonly _otpService: IOTPService
   ) {}
 
   async execute(
@@ -43,16 +44,19 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     } = input;
 
     // checking if doctor already exists with isVerified true
-    const existingDoctor = await this._doctorValidator.ensureEmailAvailable(email);
+    const existingDoctor =
+      await this._doctorValidator.ensureEmailAvailable(email);
 
     // saving documnets to bucket
-    const documentKey = this._fileUpload.upload(document);
+    const documentKey = await this._fileUpload.upload(document);
 
     // creating new doctor ( if unverified doctor exists keep the id and changes data )
     const doctor = Doctor.create({
-      id: existingDoctor ? existingDoctor.id : this._idGenerator.generate(process.env.DOCTOR_PREFIX || "DOC"),
+      id: existingDoctor
+        ? existingDoctor.id
+        : this._idGenerator.generate(process.env.DOCTOR_PREFIX || "DOC"),
       passwordHash: await this._passwordService.hash(password),
-      email : new Email(email),
+      email: new Email(email),
       gender: gender as GENDER,
       fullName,
       specialization,
@@ -63,18 +67,24 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     });
 
     // saving doctor
-    this._doctorRepo.save(doctor)
+    this._doctorRepo.save(doctor);
 
     // generating otp
-    let otp = OTP.create({id : this._idGenerator.generate(process.env.OTP_PREFIX || "OTP"),purpose : "REGISTER", otp :  this._otpService.generate(), email : new Email(email), context :'doctor'})
+    let otp = OTP.create({
+      id: this._idGenerator.generate(process.env.OTP_PREFIX || "OTP"),
+      purpose: "REGISTER",
+      otp: this._otpService.generate(),
+      email: new Email(email),
+      context: "doctor",
+    });
 
     // saving otp
-    this._otpRepo.save(otp)
+    this._otpRepo.save(otp);
 
     // sending otp
 
     return {
-      status : "pending"
-    }
+      status: "pending",
+    };
   }
 }

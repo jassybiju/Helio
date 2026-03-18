@@ -53,7 +53,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       new Date()
     );
 
-    await this._patientRepo.save(patient)
+    await this._patientRepo.save(patient);
 
     // generate otp
     let otp = OTP.create({

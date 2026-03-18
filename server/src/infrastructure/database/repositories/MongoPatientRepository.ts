@@ -13,7 +13,6 @@ export class MongoPatientRepository implements IPatientRepository {
   async findByEmail(email: Email): Promise<Patient | null> {
     try {
       this._loggerService.info("Finding Patient with email ", email);
-      console.log(email, 1);
       const patient = await patientModel.findOne({ email: email.value });
       this._loggerService.info("Patient Found," + patient);
       if (!patient) {
@@ -30,7 +29,7 @@ export class MongoPatientRepository implements IPatientRepository {
       this._loggerService.info("Saving Patient : " + patient.email);
       const updatedPatient = await patientModel.findOneAndUpdate(
         {
-          email: patient.email,
+          id: patient.id,
         },
         PatientMapper.toPersistance(patient),
         {

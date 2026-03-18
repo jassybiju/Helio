@@ -54,25 +54,102 @@ export class Doctor {
     specialization,
     careerStartYear,
     documentKey,
-    createdAt ,
-    updatedAt
+    createdAt,
+    updatedAt,
   }: {
     id: string;
     email: Email;
     passwordHash: string;
-    gender : GENDER;
-    fullName : string;
+    gender: GENDER;
+    fullName: string;
     specialization: string;
     careerStartYear: number;
     documentKey: string;
-    createdAt : Date;
-    updatedAt : Date
+    createdAt: Date;
+    updatedAt: Date;
   }) {
-
-    return new Doctor(id, email, passwordHash, fullName, gender, specialization, careerStartYear, null, DOCTOR_VERIFICATION_STATUS.PENDING, documentKey, null, null, null, false, false,  createdAt, updatedAt)
+    return new Doctor(
+      id,
+      email,
+      passwordHash,
+      fullName,
+      gender,
+      specialization,
+      careerStartYear,
+      null,
+      DOCTOR_VERIFICATION_STATUS.PENDING,
+      documentKey,
+      null,
+      null,
+      null,
+      false,
+      false,
+      createdAt,
+      updatedAt
+    );
   }
 
-  get id(){
-    return this._id
+  get id() {
+    return this._id;
+  }
+
+  get email() {
+    return this._email;
+  }
+
+  get passwordHash() {
+    return this.__passwordHash;
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  get gender() {
+    return this._gender;
+  }
+
+  get specialization() {
+    return this._specialization;
+  }
+
+  get careerStartYear() {
+    return this._careerStartYear;
+  }
+
+  get bio() {
+    return this._bio;
+  }
+
+  get verificationStatus() {
+    return this._verificationStatus;
+  }
+
+  get documentKey() {
+    return this._documentKey;
+  }
+
+  get rejectionReason() {
+    return this._rejectionReason;
+  }
+
+  get onlineFee() {
+    return this._onlineFee;
+  }
+
+  get clinicFee() {
+    return this._clinicFee;
+  }
+
+  get isBlocked() {
+    return this._isBlocked;
+  }
+
+  get createdAt() {
+    return this._createdAt;
+  }
+
+  get updatedAt() {
+    return this._updatedAt;
   }
 }

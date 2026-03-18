@@ -1,7 +1,8 @@
-import type { IRegisterDoctorReponseDTO, IRegisterDoctorRequestDTO } from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
+import type {
+  IRegisterDoctorReponseDTO,
+  IRegisterDoctorRequestDTO,
+} from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
 
 export interface IRegisterDoctorUseCase {
-  execute(
-    input: IRegisterDoctorRequestDTO
-  ): Promise<IRegisterDoctorReponseDTO>;
+  execute(input: IRegisterDoctorRequestDTO): Promise<IRegisterDoctorReponseDTO>;
 }

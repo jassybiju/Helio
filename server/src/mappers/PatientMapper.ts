@@ -22,20 +22,7 @@ export class PatientMapper {
     };
   }
 
-  static toDomain(
-    raw: {
-      id: string;
-      email: string;
-      first_name: string;
-      last_name: string;
-      passwordHash: string;
-      gender: "Male" | "Female" | "Other";
-      dob: NativeDate;
-      is_verified: boolean;
-      is_blocked: boolean;
-      blood_group?: string | null;
-    } & DefaultTimestampProps
-  ): Patient {
+  static toDomain(raw: PatientDoc): Patient {
     return new Patient(
       raw.id,
       new Email(raw.email),

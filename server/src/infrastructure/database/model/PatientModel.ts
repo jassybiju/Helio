@@ -3,47 +3,47 @@ import { model, Schema, type InferSchemaType } from "mongoose";
 const patientSchema = new Schema(
   {
     id: {
-      type: "string",
+      type: String,
       unique: true,
       required: true,
     },
     email: {
-      type: "string",
+      type: String,
       unique: true,
       required: true,
     },
     first_name: {
-      type: "string",
+      type: String,
       required: true,
     },
     last_name: {
-      type: "string",
+      type: String,
       required: true,
     },
     passwordHash: {
-      type: "string",
+      type: String,
       required: true,
     },
     gender: {
-      type: "string",
+      type: String,
       required: true,
       enum: ["Male", "Female", "Other"],
     },
     dob: {
-      type: "date",
+      type: Date,
       required: true,
     },
     blood_group: {
-      type: "string",
+      type: String,
       default: null,
     },
     is_verified: {
-      type: "boolean",
+      type: Boolean,
       required: true,
     },
     is_blocked: {
       required: true,
-      type: "boolean",
+      type: Boolean,
     },
   },
   {
