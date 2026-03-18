@@ -50,9 +50,9 @@ export class Doctor {
     email,
     passwordHash,
     gender,
-    fullName,
+    full_name,
     specialization,
-    careerStartYear,
+    career_start_year,
     documentKey,
     createdAt,
     updatedAt,
@@ -61,9 +61,9 @@ export class Doctor {
     email: Email;
     passwordHash: string;
     gender: GENDER;
-    fullName: string;
+    full_name: string;
     specialization: string;
-    careerStartYear: number;
+    career_start_year: number;
     documentKey: string;
     createdAt: Date;
     updatedAt: Date;
@@ -72,10 +72,10 @@ export class Doctor {
       id,
       email,
       passwordHash,
-      fullName,
+      full_name ,
       gender,
       specialization,
-      careerStartYear,
+      career_start_year,
       null,
       DOCTOR_VERIFICATION_STATUS.PENDING,
       documentKey,

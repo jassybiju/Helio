@@ -2,11 +2,11 @@ export type IRegisterDoctorRequestDTO = {
   email: string;
   password: string;
 
-  fullName: string;
+  full_name: string;
   gender: string;
 
   specialization: string;
-  careerStartYear: number;
+  career_start_year: number;
 
   document: {
     buffer: Buffer;

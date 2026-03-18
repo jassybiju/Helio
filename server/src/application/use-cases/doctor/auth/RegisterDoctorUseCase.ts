@@ -35,9 +35,9 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
 
     const {
       email,
-      fullName,
+      full_name,
       specialization,
-      careerStartYear,
+      career_start_year,
       gender,
       password,
       document,
@@ -58,9 +58,9 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       passwordHash: await this._passwordService.hash(password),
       email: new Email(email),
       gender: gender as GENDER,
-      fullName,
+      full_name,
       specialization,
-      careerStartYear,
+      career_start_year,
       documentKey,
       createdAt: new Date(),
       updatedAt: new Date(),
