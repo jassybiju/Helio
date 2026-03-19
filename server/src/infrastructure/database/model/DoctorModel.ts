@@ -2,7 +2,7 @@ import { model, Schema, type InferSchemaType } from "mongoose";
 
 const doctorSchema = new Schema(
   {
-    id: {
+    _id: {
       type: String,
       unique: true,
       required: true,

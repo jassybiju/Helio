@@ -14,9 +14,8 @@ export class DoctorAuthController {
 
   register = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.body);
       const parsed = doctorRegisterSchema.safeParse(req.body);
-
+      this._logger.debug("Body", req.files);
       if (!parsed.success) {
         this._logger.error("Zod Validation erorr", parsed.error);
         throw new AppError(

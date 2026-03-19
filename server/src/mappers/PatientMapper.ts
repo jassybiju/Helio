@@ -7,7 +7,7 @@ import type { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
 export class PatientMapper {
   static toPersistance(t: Patient): PatientDoc {
     return {
-      id: t.id,
+      _id: t.id,
       email: t.email,
       first_name: t.firstName,
       last_name: t.lastName,
@@ -24,7 +24,7 @@ export class PatientMapper {
 
   static toDomain(raw: PatientDoc): Patient {
     return new Patient(
-      raw.id,
+      raw._id,
       new Email(raw.email),
       raw.passwordHash,
       raw.first_name,

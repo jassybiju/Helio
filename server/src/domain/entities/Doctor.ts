@@ -72,7 +72,7 @@ export class Doctor {
       id,
       email,
       passwordHash,
-      full_name ,
+      full_name,
       gender,
       specialization,
       career_start_year,

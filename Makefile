@@ -18,5 +18,8 @@ i-cd:
 	cd client && npm install -D $(filter-out $@,$(MAKECMDGOALS))
 	docker compose exec frontend npm install -D $(filter-out $@,$(MAKECMDGOALS))
 
+mongo:
+	docker compose exec mongo mongosh -u admin -p secret --authenticationDatabase admin
+	
 %:
 	@:

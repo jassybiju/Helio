@@ -6,7 +6,7 @@ import type { DoctorDoc } from "@infrastructure/database/model/DoctorModel.ts";
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {
     return new Doctor(
-      raw.id,
+      raw._id,
       new Email(raw.email),
       raw.passwordHash,
       raw.fullName,
@@ -28,7 +28,7 @@ export class DoctorMapper {
 
   static toPersistance(doctor: Doctor): DoctorDoc {
     return {
-      id: doctor.id,
+      _id: doctor.id,
       email: doctor.email.value,
       fullName: doctor.fullName,
       passwordHash: doctor.passwordHash,

@@ -5,7 +5,7 @@ export class PinoLoggerService implements ILogger {
   private readonly _logger;
   constructor() {
     this._logger = pino({
-      level: process.env.LOG_LEVEL || "info",
+      level: process.env.LOG_LEVEL || "debug",
       transport: {
         target: "pino-pretty",
         options: { colorize: true },

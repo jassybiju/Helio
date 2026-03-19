@@ -42,7 +42,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       password,
       document,
     } = input;
-
+    console.log(input);
     // checking if doctor already exists with isVerified true
     const existingDoctor =
       await this._doctorValidator.ensureEmailAvailable(email);

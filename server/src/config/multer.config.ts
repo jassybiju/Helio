@@ -7,7 +7,7 @@ export const documentUpload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    logger.debug("Uploaded file",file)
+    logger.debug("Uploaded file", file);
     if (file.mimetype === "application/pdf") {
       cb(null, true);
     } else {
