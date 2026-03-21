@@ -27,6 +27,7 @@ export class DoctorMapper {
   }
 
   static toPersistance(doctor: Doctor): DoctorDoc {
+    console.log(doctor.id);
     return {
       _id: doctor.id,
       email: doctor.email.value,

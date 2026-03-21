@@ -4,6 +4,7 @@ export type OTPData = {
   email: string;
   otp: string;
   invalidAt: Date;
+  expiresAt: Date;
   purpose: OTP_PURPOSE;
   failedAttempts: number;
   resendCount: number;

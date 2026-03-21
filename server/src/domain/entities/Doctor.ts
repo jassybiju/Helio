@@ -24,7 +24,7 @@ export class Doctor {
     private readonly _onlineFee: number | null,
     private readonly _clinicFee: number | null,
 
-    private readonly _isVerified: boolean,
+    private _isVerified: boolean,
     private readonly _isBlocked: boolean,
 
     private readonly _createdAt: Date,
@@ -43,6 +43,10 @@ export class Doctor {
 
   get isVerified() {
     return this._isVerified;
+  }
+
+  verifyDoctor() {
+    this._isVerified = true;
   }
 
   static create({

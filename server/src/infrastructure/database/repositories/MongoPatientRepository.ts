@@ -29,7 +29,7 @@ export class MongoPatientRepository implements IPatientRepository {
       this._loggerService.info("Saving Patient : " + patient.email);
       const updatedPatient = await patientModel.findOneAndUpdate(
         {
-          id: patient.id,
+          _id: patient.id,
         },
         PatientMapper.toPersistance(patient),
         {

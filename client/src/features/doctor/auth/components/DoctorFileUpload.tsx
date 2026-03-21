@@ -1,10 +1,11 @@
 import React from 'react'
-import { UseFormRegister } from 'react-hook-form';
+import {  FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { DoctorRegisterFormData } from '../schema/auth.schema';
 
 type PropType = {
   label : string,
-  name : string,
-  register : UseFormRegister<any>,
+  name : Path<DoctorRegisterFormData>,
+  register : UseFormRegister<DoctorRegisterFormData>,
   error? :string
 }
 

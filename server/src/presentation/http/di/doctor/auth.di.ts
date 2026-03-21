@@ -9,6 +9,8 @@ import { OTPService } from "@infrastructure/services/OTPService.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { S3FileUploadService } from "@infrastructure/services/S3FileUploadService.ts";
 import { DoctorAuthController } from "../../controllers/doctor/auth.controller.ts";
+import { VerifyOTPUseCase } from "@application/use-cases/VerifyOTPUseCase.ts";
+import { ResendOTPUseCase } from "@application/use-cases/ResendOTPUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -17,6 +19,7 @@ const otpService = new OTPService();
 const s3FileUploadService = new S3FileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
+const patientRepo = new MongoPatientRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
 
 const doctorValidator = new DoctorValidator(doctorRepo);
@@ -32,7 +35,22 @@ const registerUsecase = new RegisterDoctorUseCase(
   otpService
 );
 
+const verifyDoctorUseCase = new VerifyOTPUseCase(
+  loggerService,
+  otpRepo,
+  patientRepo,
+  doctorRepo
+);
+
+const resendDoctorOTPUseCase = new ResendOTPUseCase(
+  loggerService,
+  otpRepo,
+  otpService
+);
+
 export const doctorAuthController = new DoctorAuthController(
   registerUsecase,
+  verifyDoctorUseCase,
+  resendDoctorOTPUseCase,
   loggerService
 );

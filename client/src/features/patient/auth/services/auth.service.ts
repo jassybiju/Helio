@@ -1,5 +1,5 @@
-import { PatientRegistrationFormData } from '../schemas/registration.schema'
 import { apiRequest } from '@/src/libs/axios.config'
+import { PatientRegistrationFormData } from '../schemas/auth.schema'
 
 interface RegisterPayload {
   first_name : string,
@@ -21,5 +21,15 @@ export const authService = {
 
     const response = await apiRequest('auth/patient/register',"POST", payload)
     return response
-  }
-}
+  },
+  async verify_otp({id , otp }: {id : string, otp : string}) : Promise<unknown>{
+    const response = await apiRequest('/auth/patient/verify-otp',"POST", {id, otp})
+    return response
+  },
+
+  async resend_otp({ id}: { id: string }) {
+    const response = await apiRequest("/auth/doctor/resend-otp", "POST", {
+      id,
+    });
+    return response;
+  },}

@@ -26,4 +26,41 @@ export class RedisOTPRepository implements IOTPRepository {
       throw new AppError("Error saving otp", HTTPStatus.INTERNAL_ERROR);
     }
   }
+
+  async findById(id: string): Promise<OTP | null> {
+    try {
+      const otp = await redisClient.get("otp:" + id);
+      if (!otp) {
+        return null;
+      }
+      return OTPMapper.toDomain(JSON.parse(otp), id);
+    } catch (error) {
+      this._logger.error("Error Getting OTP", error as Error);
+      throw new AppError("Error getting otp", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
+
+  async findByIdAndContext(
+    id: string,
+    context: "patient" | "doctor"
+  ): Promise<OTP | null> {
+    const otpData = await this.findById(id);
+    if (!otpData) {
+      return null;
+    }
+    if (otpData.context !== context) {
+      return null;
+    }
+
+    return otpData;
+  }
+
+  async delete(id: string): Promise<void> {
+    try {
+      await redisClient.del("otp:" + id);
+    } catch (error) {
+      this._logger.error("Error Deleting OTP", error as Error);
+      throw new AppError("Error deleting otp", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
 }

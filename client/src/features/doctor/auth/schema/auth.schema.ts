@@ -13,7 +13,12 @@ export const doctorRegisterSchema = z.object({
     error: (issue) =>
       issue.input === undefined ? "gender is required" : "Gender must be valid",
   }),
-  document: z.instanceof(FileList, { message: "Document is required" }),
+  document: z.any()
+    .refine((file) => {
+      if (typeof window === "undefined") return true; // skip on server
+      return file instanceof FileList && file.length > 0;
+    }, "Document is required"),
+
 });
 
 export type DoctorRegisterFormData = z.infer<typeof doctorRegisterSchema>;

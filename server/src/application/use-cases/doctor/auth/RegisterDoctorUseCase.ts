@@ -67,8 +67,8 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     });
 
     // saving doctor
-    this._doctorRepo.save(doctor);
-
+    await this._doctorRepo.save(doctor);
+    this._logger.debug("Doctor Saved");
     // generating otp
     let otp = OTP.create({
       id: this._idGenerator.generate(process.env.OTP_PREFIX || "OTP"),
@@ -79,12 +79,16 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     });
 
     // saving otp
-    this._otpRepo.save(otp);
+    await this._otpRepo.save(otp);
+    this._logger.debug("OTP Saved");
 
     // sending otp
 
     return {
       status: "pending",
+      otp_invalid_at: String(otp.invalidAt.getTime()),
+      id: otp.id,
+      email: otp.email.value,
     };
   }
 }

@@ -7,6 +7,9 @@ import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordSe
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { OTPService } from "@infrastructure/services/OTPService.ts";
 import { RedisOTPRepository } from "@infrastructure/database/repositories/RedisOTPRepository.ts";
+import { VerifyOTPUseCase } from "@application/use-cases/VerifyOTPUseCase.ts";
+import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
+import { ResendOTPUseCase } from "@application/use-cases/ResendOTPUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -14,6 +17,7 @@ const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();
 
 const patientRepo = new MongoPatientRepository(loggerService);
+const doctorRepo = new MongoDoctorRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
 
 const registerPatientUseCase = new RegisterPatientUseCase(
@@ -25,5 +29,20 @@ const registerPatientUseCase = new RegisterPatientUseCase(
   otpService,
   otpRepo
 );
+const verifyPatientUseCase = new VerifyOTPUseCase(
+  loggerService,
+  otpRepo,
+  patientRepo,
+  doctorRepo
+);
+const resendPatientOTPUseCase = new ResendOTPUseCase(
+  loggerService,
+  otpRepo,
+  otpService
+);
 
-export const authController = new PatientAuthController(registerPatientUseCase);
+export const authController = new PatientAuthController(
+  registerPatientUseCase,
+  resendPatientOTPUseCase,
+  verifyPatientUseCase
+);

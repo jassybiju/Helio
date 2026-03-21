@@ -9,3 +9,6 @@ doctorAuthRouter.post(
   documentUpload.single("document"),
   doctorAuthController.register
 );
+
+doctorAuthRouter.post("/verify-otp", doctorAuthController.verify_otp);
+doctorAuthRouter.post("/resend-otp", doctorAuthController.resend_otp);

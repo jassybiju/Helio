@@ -17,4 +17,7 @@ export type IRegisterDoctorRequestDTO = {
 
 export type IRegisterDoctorReponseDTO = {
   status: string;
+  email: string;
+  id: string;
+  otp_invalid_at: string;
 };

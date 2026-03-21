@@ -2,8 +2,18 @@ import axios from "axios";
 import { authService } from "../services/auth.service";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DoctorRegisterFormData, doctorRegisterSchema } from "../schema/registration.schema";
+import { DoctorRegisterFormData, doctorRegisterSchema } from "../schema/auth.schema";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+
+  type IRegisterResponse = {
+    message : string,
+    data : {
+      id : string
+      otp_invalid_at : string
+    }
+  }
 
 export const useDoctorRegistration = () => {
    const [submitError, setSubmitError] = useState<string | null>(null);
@@ -15,16 +25,12 @@ export const useDoctorRegistration = () => {
     setValue,
     formState: { errors, isSubmitting },
     reset,
-    control //remove
   } = useForm<DoctorRegisterFormData>({
     resolver : zodResolver(doctorRegisterSchema)
   });
 
-  const v =  useWatch({
-    control,
-    name : "document"
-  })
-  console.log(v)
+  const router = useRouter()
+
 
   const onSubmit = async (data: DoctorRegisterFormData) => {
     setSubmitError(null);
@@ -32,10 +38,11 @@ export const useDoctorRegistration = () => {
 
     try {
    
-      await authService.register(data);
+      const res  = await authService.register(data) as IRegisterResponse;
 
       setSubmitSuccess(true);
       reset();
+      router.push(`/doctor/verify-otp?otpId=${res.data.id}&expires=${res.data.otp_invalid_at                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }`)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setSubmitError(

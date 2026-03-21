@@ -16,3 +16,21 @@ export const doctorRegisterSchema = z.object({
       issue.input === undefined ? "gender is required" : "Gender must be valid",
   }),
 });
+
+// doctor verify otp
+export const doctorVerifyOTPSchema = z.object({
+  id: z.string("Id Required"),
+  otp: z.string().length(6, "OTP must be 6 characters"),
+});
+
+// doctor resent otp
+export const doctorResendOTPSchema = z.object({
+  id: z.string("Invalid ID"),
+});
+
+//doctor login
+
+export const doctorLoginSchema = z.object({
+  email: z.email("Invalid email address"),
+  password: z.string(),
+});

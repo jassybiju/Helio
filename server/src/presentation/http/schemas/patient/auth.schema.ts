@@ -20,3 +20,21 @@ export const patientRegisterSchema = z.object({
       "Date of birth must be a valid date string"
     ),
 });
+
+// patient verify otp
+export const patientVerifyOTPSchema = z.object({
+  id: z.string("Id Required"),
+  otp: z.string().length(6, "OTP must be 6 characters"),
+});
+
+// patient resent otp
+export const patientResendOTPSchema = z.object({
+  id: z.string("Invalid Id"),
+});
+
+//patient login
+
+export const patientLoginSchema = z.object({
+  email: z.email("Invalid email address"),
+  password: z.string(),
+});

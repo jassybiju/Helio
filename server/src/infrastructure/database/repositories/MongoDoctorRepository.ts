@@ -35,7 +35,7 @@ export class MongoDoctorRepository implements IDoctorRepository {
       this._loggerService.info("Saving Doctor", doctor.email);
       const updatedDoctor = await doctorModel.findOneAndUpdate(
         {
-          id: doctor.id,
+          _id: doctor.id,
         },
         DoctorMapper.toPersistance(doctor),
         {
@@ -44,7 +44,7 @@ export class MongoDoctorRepository implements IDoctorRepository {
         }
       );
       this._loggerService.info(
-        "Doctor Saved Successfully id : " + updatedDoctor.id
+        "Doctor Saved Successfully id : " + updatedDoctor._id
       );
     } catch (error) {
       this._loggerService.error("Failed to save doctor of email " + error);

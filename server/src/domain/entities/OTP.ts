@@ -20,43 +20,47 @@ export class OTP {
     }
   }
 
-  get id() {
-    return this._verficationId;
-  }
   incrementAttempts() {
-    this._failedAttempts++;
+    this._failedAttempts = this._failedAttempts + 1;
   }
 
-  get invalidAt() {
-    return this._validUntil;
+  incrementResendAttempts() {
+    this._resendCount = this._resendCount + 1;
   }
 
-  get code() {
-    return this._otp;
+  hasExceededLimit(limit: number) {
+    return limit <= this.failedAttempts;
   }
 
-  get email() {
-    return this._email;
+  hasExpired() {
+    return new Date(this.invalidAt) < new Date();
   }
 
-  get resendCount() {
-    return this._resendCount;
+  isOTPValid(inputOTP: string) {
+    return inputOTP === this._otp;
   }
 
-  get failedAttempts() {
-    return this._failedAttempts;
-  }
+  verify(inputOTP: string, limit: number) {
+    // if otp is expired throw error
+    if (this.hasExpired()) {
+      throw new AppError("OTP was expired", HTTPStatus.BAD_REQUEST);
+    }
 
-  get purpose() {
-    return this._purpose;
-  }
+    console.log(limit < this._failedAttempts);
 
-  get context() {
-    return this._context;
-  }
-
-  get expiresAt() {
-    return this._expiration;
+    // if otp is incorrect throw error
+    if (!this.isOTPValid(inputOTP)) {
+      this.incrementAttempts();
+      // if otp limit reached throw error
+      if (this.hasExceededLimit(limit)) {
+        throw new AppError(
+          "OTP limit has reached, resend otp",
+          HTTPStatus.BAD_REQUEST
+        );
+      }
+      console.log("otpsd");
+      throw new AppError("OTP is incorrect", HTTPStatus.BAD_REQUEST);
+    }
   }
 
   static create({
@@ -90,5 +94,41 @@ export class OTP {
       0,
       0
     );
+  }
+
+  get id() {
+    return this._verficationId;
+  }
+
+  get invalidAt() {
+    return this._validUntil;
+  }
+
+  get code() {
+    return this._otp;
+  }
+
+  get email() {
+    return this._email;
+  }
+
+  get resendCount() {
+    return this._resendCount;
+  }
+
+  get failedAttempts() {
+    return this._failedAttempts;
+  }
+
+  get purpose() {
+    return this._purpose;
+  }
+
+  get context() {
+    return this._context;
+  }
+
+  get expiresAt() {
+    return this._expiration;
   }
 }

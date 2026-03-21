@@ -4,7 +4,6 @@ const patientSchema = new Schema(
   {
     _id: {
       type: String,
-      unique: true,
       required: true,
     },
     email: {
