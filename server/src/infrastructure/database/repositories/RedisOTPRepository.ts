@@ -6,9 +6,15 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import type { OTPData } from "@shared/types/OTPData.ts";
 import { OTPMapper } from "../../../mappers/OTPMapper.ts";
+import { RedisBaseRepository } from "./RedisBaseRepository.ts";
 
-export class RedisOTPRepository implements IOTPRepository {
-  constructor(private readonly _logger: ILogger) {}
+export class RedisOTPRepository
+  extends RedisBaseRepository
+  implements IOTPRepository
+{
+  constructor(private readonly _logger: ILogger) {
+    super();
+  }
 
   async save(otp: OTP): Promise<void> {
     try {
@@ -16,10 +22,10 @@ export class RedisOTPRepository implements IOTPRepository {
         Math.floor(otp.expiresAt.getTime() / 1000) -
         Math.floor(Date.now() / 1000);
 
-      await redisClient.setEx(
+      await super.set(
         "otp:" + otp.id,
-        ttl,
-        JSON.stringify(OTPMapper.toPersistance(otp) as OTPData)
+        OTPMapper.toPersistance(otp) as OTPData,
+        ttl
       );
     } catch (error) {
       this._logger.error("Error saving otp", error as Error);
@@ -29,11 +35,11 @@ export class RedisOTPRepository implements IOTPRepository {
 
   async findById(id: string): Promise<OTP | null> {
     try {
-      const otp = await redisClient.get("otp:" + id);
+      const otp = await super.get("otp:" + id);
       if (!otp) {
         return null;
       }
-      return OTPMapper.toDomain(JSON.parse(otp), id);
+      return OTPMapper.toDomain(otp as OTPData, id);
     } catch (error) {
       this._logger.error("Error Getting OTP", error as Error);
       throw new AppError("Error getting otp", HTTPStatus.INTERNAL_ERROR);
@@ -57,7 +63,7 @@ export class RedisOTPRepository implements IOTPRepository {
 
   async delete(id: string): Promise<void> {
     try {
-      await redisClient.del("otp:" + id);
+      await super.delete("otp:" + id);
     } catch (error) {
       this._logger.error("Error Deleting OTP", error as Error);
       throw new AppError("Error deleting otp", HTTPStatus.INTERNAL_ERROR);

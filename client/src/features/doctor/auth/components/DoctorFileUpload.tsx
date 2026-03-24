@@ -13,13 +13,12 @@ const DoctorFileUpload : React.FC<PropType> = ({
   label, name , register, error 
 }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="font-medium">{label}</label>
+    <div className="flex flex-col gap-2 text-black">
 
       <input
         type="file"
         {...register(name)}
-        className="border p-2 rounded"
+        className="border p-2 rounded text-gray-500"
       />
 
       {error && <span className="text-red-500 text-sm">{error}</span>}

@@ -5,22 +5,22 @@ import type { Email } from "@domain/value-objects/Email.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { doctorModel } from "../model/DoctorModel.ts";
+import { doctorModel, type DoctorDoc } from "../model/DoctorModel.ts";
 import { DoctorMapper } from "../../../mappers/DoctorMapper.ts";
+import { MongoBaseRepository } from "./MongoBaseRepository.ts";
 
-export class MongoDoctorRepository implements IDoctorRepository {
-  constructor(private readonly _loggerService: ILogger) {}
+export class MongoDoctorRepository
+  extends MongoBaseRepository<Doctor, DoctorDoc>
+  implements IDoctorRepository
+{
+  constructor(private readonly _loggerService: ILogger) {
+    super(doctorModel);
+  }
 
   async findByEmail(email: Email): Promise<Doctor | null> {
     try {
       this._loggerService.info("Finding Doctor with email", email);
-      const doctor = await doctorModel.findOne({ email: email.value });
-      if (!doctor) {
-        return null;
-      }
-      this._loggerService.info("doctor Found", doctor);
-
-      return DoctorMapper.toDomain(doctor);
+      return await super.findOne({ email: email.value }, DoctorMapper.toDomain);
     } catch (error) {
       this._loggerService.error("Failed to fetch by email", error as Error);
       throw new AppError(
@@ -33,33 +33,17 @@ export class MongoDoctorRepository implements IDoctorRepository {
   async save(doctor: Doctor): Promise<void> {
     try {
       this._loggerService.info("Saving Doctor", doctor.email);
-      const updatedDoctor = await doctorModel.findOneAndUpdate(
-        {
-          _id: doctor.id,
-        },
-        DoctorMapper.toPersistance(doctor),
-        {
-          new: true,
-          upsert: true,
-        }
-      );
-      this._loggerService.info(
-        "Doctor Saved Successfully id : " + updatedDoctor._id
-      );
+      await super.save(doctor, doctor.id, DoctorMapper.toPersistance);
+      this._loggerService.info("Doctor Saved Successfully id : " + doctor.id);
     } catch (error) {
       this._loggerService.error("Failed to save doctor of email " + error);
       throw new AppError(MESSAGE.FAILED_SAVE_DOCTOR, HTTPStatus.INTERNAL_ERROR);
     }
   }
 
-  async findById(id: string): Promise<Doctor> {
+  async findById(id: string): Promise<Doctor | null> {
     try {
-      const doctor = await doctorModel.findById(id);
-
-      if (!doctor) {
-        throw new AppError("doctor Not Found", HTTPStatus.NOT_FOUND);
-      }
-      return DoctorMapper.toDomain(doctor);
+      return await super.findById(id, DoctorMapper.toDomain);
     } catch (error) {
       this._loggerService.error("Failed to fetch doctor", error as Error);
       throw new AppError(

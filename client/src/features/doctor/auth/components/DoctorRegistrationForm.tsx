@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import ClayButton from '@/src/components/ui/ClayButton';
-import Input from '@/src/components/ui/Input';
-import React from 'react'
-import { useDoctorRegistration } from '../hooks/useDoctorRegistration';
-import DoctorFileUpload from './DoctorFileUpload';
+import ClayButton from "@/src/components/ui/ClayButton";
+import Input from "@/src/components/ui/Input";
+import React from "react";
+import { useDoctorRegistration } from "../hooks/useDoctorRegistration";
+import DoctorFileUpload from "./DoctorFileUpload";
 
 const DoctorRegistrationForm = () => {
-    const {
+  const {
     register,
     onSubmit,
     errors,
@@ -17,7 +17,7 @@ const DoctorRegistrationForm = () => {
     setValue,
   } = useDoctorRegistration();
   return (
-  <>
+    <>
       <form onSubmit={onSubmit} className="space-y-6">
         {/* Success */}
         {submitSuccess && (
@@ -44,7 +44,9 @@ const DoctorRegistrationForm = () => {
             type="text"
             placeholder="Dr. John Doe"
             {...register("full_name")}
-            className={errors.full_name ? "border-red-500" : ""}
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              errors.full_name ? "border-red-500" : "border-slate-200"
+            }`}
           />
           {errors.full_name && (
             <p className="text-red-600 text-sm mt-1">
@@ -62,23 +64,24 @@ const DoctorRegistrationForm = () => {
             type="email"
             placeholder="doctor@clinic.com"
             {...register("email")}
-            className={errors.email ? "border-red-500" : ""}
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              errors.email ? "border-red-500" : "border-slate-200"
+            }`}
           />
           {errors.email && (
-            <p className="text-red-600 text-sm mt-1">
-              {errors.email.message}
-            </p>
+            <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
 
         {/* Gender */}
+       
         <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Gender
           </label>
           <select
             {...register("gender")}
-            className={`w-full px-4 py-3 border rounded-lg bg-slate-50 ${
+            className={`w-full px-4 py-3 border text-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
               errors.gender ? "border-red-500" : "border-slate-200"
             }`}
           >
@@ -88,12 +91,9 @@ const DoctorRegistrationForm = () => {
             <option value="Other">Other</option>
           </select>
           {errors.gender && (
-            <p className="text-red-600 text-sm mt-1">
-              {errors.gender.message}
-            </p>
+            <p className="text-red-600 text-sm mt-1">{errors.gender.message}</p>
           )}
         </div>
-
         {/* Specialization */}
         <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
@@ -103,7 +103,9 @@ const DoctorRegistrationForm = () => {
             type="text"
             placeholder="Cardiologist"
             {...register("specialization")}
-            className={errors.specialization ? "border-red-500" : ""}
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              errors.specialization ? "border-red-500" : "border-slate-200"
+            }`}
           />
           {errors.specialization && (
             <p className="text-red-600 text-sm mt-1">
@@ -121,7 +123,9 @@ const DoctorRegistrationForm = () => {
             type="number"
             placeholder="2015"
             {...register("career_start_year")}
-            className={errors.career_start_year ? "border-red-500" : ""}
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              errors.career_start_year ? "border-red-500" : "border-slate-200"
+            }`}
           />
           {errors.career_start_year && (
             <p className="text-red-600 text-sm mt-1">
@@ -135,8 +139,12 @@ const DoctorRegistrationForm = () => {
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Upload License / Certificate
           </label>
-          <DoctorFileUpload name='document' register={register} label={'Upload Document'}  />
-  
+          <DoctorFileUpload
+            name="document"
+            register={register}
+            label={"Upload Document"}
+          />
+
           {errors.document && (
             <p className="text-red-600 text-sm mt-1">
               {errors.document.message}
@@ -153,7 +161,9 @@ const DoctorRegistrationForm = () => {
             type="password"
             placeholder="••••••••"
             {...register("password")}
-            className={errors.password ? "border-red-500" : ""}
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              errors.password ? "border-red-500" : "border-slate-200"
+            }`}
           />
           {errors.password && (
             <p className="text-red-600 text-sm mt-1">
@@ -162,16 +172,31 @@ const DoctorRegistrationForm = () => {
           )}
         </div>
 
+    <div>
+          <label className="block text-sm font-semibold text-slate-900 mb-2">
+            Confirm Password
+          </label>
+          <Input
+            type="password"
+            placeholder="••••••••"
+            {...register("confirmPassword")}
+            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              errors.confirmPassword ? "border-red-500" : "border-slate-200"
+            }`}
+          />
+          {errors.confirmPassword && (
+            <p className="text-red-600 text-sm mt-1">
+              {errors?.confirmPassword?.message}
+            </p>
+          )}
+        </div>
         {/* Submit */}
-        <ClayButton
-          type="submit"
-          className="w-full"
-          disabled={isSubmitting}
-        >
+        <ClayButton type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "Creating Account..." : "Create Doctor Account"}
         </ClayButton>
       </form>
-    </>  )
-}
+    </>
+  );
+};
 
-export default DoctorRegistrationForm
+export default DoctorRegistrationForm;

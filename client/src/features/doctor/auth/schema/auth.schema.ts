@@ -13,12 +13,18 @@ export const doctorRegisterSchema = z.object({
     error: (issue) =>
       issue.input === undefined ? "gender is required" : "Gender must be valid",
   }),
+  confirmPassword : z.string(),
+
   document: z.any()
     .refine((file) => {
       if (typeof window === "undefined") return true; // skip on server
       return file instanceof FileList && file.length > 0;
     }, "Document is required"),
 
-});
+}) .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"], 
+  });;
+;
 
 export type DoctorRegisterFormData = z.infer<typeof doctorRegisterSchema>;

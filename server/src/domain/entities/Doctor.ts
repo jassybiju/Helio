@@ -98,7 +98,7 @@ export class Doctor {
   }
 
   get email() {
-    return this._email;
+    return this._email.value;
   }
 
   get passwordHash() {

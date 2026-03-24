@@ -9,20 +9,27 @@ import { OTPService } from "@infrastructure/services/OTPService.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { S3FileUploadService } from "@infrastructure/services/S3FileUploadService.ts";
 import { DoctorAuthController } from "../../controllers/doctor/auth.controller.ts";
-import { VerifyOTPUseCase } from "@application/use-cases/VerifyOTPUseCase.ts";
-import { ResendOTPUseCase } from "@application/use-cases/ResendOTPUseCase.ts";
+import { VerifyOTPUseCase } from "@application/use-cases/auth/VerifyOTPUseCase.ts";
+import { ResendOTPUseCase } from "@application/use-cases/auth/ResendOTPUseCase.ts";
+import { LoginDoctorUseCase } from "@application/use-cases/doctor/auth/LoginDoctorUseCase.ts";
+import { RedisSessionRepository } from "@infrastructure/database/repositories/RedisSessionRepository.ts";
+import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenService.ts";
+import { CryptoRefreshTokenService } from "@infrastructure/services/CryptoRefreshTokenService.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
 const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();
 const s3FileUploadService = new S3FileUploadService();
+const accessTokenService = new JWTAccessTokenService();
+const refreshTokenService = new CryptoRefreshTokenService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const patientRepo = new MongoPatientRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
+const refreshTokenRepo = new RedisSessionRepository(loggerService);
 
-const doctorValidator = new DoctorValidator(doctorRepo);
+const doctorValidator = new DoctorValidator(doctorRepo, bcryptPasswordService);
 
 const registerUsecase = new RegisterDoctorUseCase(
   loggerService,
@@ -48,9 +55,19 @@ const resendDoctorOTPUseCase = new ResendOTPUseCase(
   otpService
 );
 
+const loginDoctorUseCase = new LoginDoctorUseCase(
+  loggerService,
+  doctorRepo,
+  doctorValidator,
+  accessTokenService,
+  refreshTokenService,
+  refreshTokenRepo
+);
+
 export const doctorAuthController = new DoctorAuthController(
   registerUsecase,
   verifyDoctorUseCase,
   resendDoctorOTPUseCase,
+  loginDoctorUseCase,
   loggerService
 );

@@ -4,6 +4,7 @@ export enum MESSAGE {
   REGISTRATION_SUCCESSFUL = "Registration Successful, OTP Sent",
   OTP_VERIFIED = "OTP Verified Successfully",
   RESEND_SUCCESSFUL = "OTP Resend Successfully",
+  LOGIN_SUCCESSFUL = "LOGIN Succesful",
 
   EMAIL_ALREADY_EXISTS = "Email Already exists",
 

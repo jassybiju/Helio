@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { documentUpload } from "@config/multer.config.ts";
 import { doctorAuthController } from "../../di/doctor/auth.di.ts";
+import { optional } from "zod";
 
 export const doctorAuthRouter = Router();
 
@@ -12,3 +13,5 @@ doctorAuthRouter.post(
 
 doctorAuthRouter.post("/verify-otp", doctorAuthController.verify_otp);
 doctorAuthRouter.post("/resend-otp", doctorAuthController.resend_otp);
+
+doctorAuthRouter.post("/login", doctorAuthController.login);
