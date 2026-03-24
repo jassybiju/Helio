@@ -5,12 +5,17 @@ import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenSe
 import { RedisSessionRepository } from "@infrastructure/database/repositories/RedisSessionRepository.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 
-const refreshTokenService = new CryptoRefreshTokenService()
-const accessTokenService = new JWTAccessTokenService()
-const loggerService = new PinoLoggerService()
+const refreshTokenService = new CryptoRefreshTokenService();
+const accessTokenService = new JWTAccessTokenService();
+const loggerService = new PinoLoggerService();
 
-const sessionRepo = new RedisSessionRepository(loggerService)
+const sessionRepo = new RedisSessionRepository(loggerService);
 
-const loginAdminUseCase = new LoginAdminUseCase(loggerService,accessTokenService, refreshTokenService, sessionRepo)
+const loginAdminUseCase = new LoginAdminUseCase(
+  loggerService,
+  accessTokenService,
+  refreshTokenService,
+  sessionRepo
+);
 
-export const adminAuthController = new AdminAuthController(loginAdminUseCase)
+export const adminAuthController = new AdminAuthController(loginAdminUseCase);

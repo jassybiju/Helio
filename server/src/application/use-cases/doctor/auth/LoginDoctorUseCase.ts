@@ -40,8 +40,7 @@ export class LoginDoctorUseCase implements ILoginUseCase {
     }
 
     // check if password same
-    await this._doctorValidator.validateDoctorPassword(doctor, password)
-    
+    await this._doctorValidator.validateDoctorPassword(doctor, password);
 
     // create token
     const accessToken = this._accessTokenService.generateAccessToken(
@@ -53,7 +52,7 @@ export class LoginDoctorUseCase implements ILoginUseCase {
     await this._sessionService.storeRefreshToken(
       doctor.id,
       USER_ROLES.DOCTOR,
-      this._refreshTokenService.hash(refreshToken),
+      this._refreshTokenService.hash(refreshToken)
     );
 
     // return obj

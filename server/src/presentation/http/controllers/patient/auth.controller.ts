@@ -11,7 +11,10 @@ import {
 } from "../../schemas/patient/auth.schema.ts";
 import type { IRegisterPatientUseCase } from "@application/ports/use-cases/patient/auth/IRegisterPatientUseCase.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { apiResponse, successResponse } from "@shared/utils/apiReponse.utils.ts";
+import {
+  apiResponse,
+  successResponse,
+} from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import type { IVerifyOTPUseCase } from "@application/ports/use-cases/auth/IVerifyOTPUseCase.ts";
@@ -116,8 +119,29 @@ export class PatientAuthController {
         );
       }
 
-      const response = await this._loginPatientUseCase.execute(parsed.data)
-      return apiResponse(res, HTTPStatus.OK, successResponse(response.user, MESSAGE.LOGIN_SUCCESSFUL))
+      const response = await this._loginPatientUseCase.execute(parsed.data);
+
+      const ACCESS_TOKEN_EXPIRY_MS =
+        Number(process.env.JWT_ACCESS_VALID_SECS) * 1000;
+      const REFRESH_TOKEN_EXPIRY_MS =
+        Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
+      res.cookie("refreshToken", response.refreshToken, {
+        maxAge: REFRESH_TOKEN_EXPIRY_MS,
+        sameSite: true,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      });
+      res.cookie("accessToken", response.accessToken, {
+        maxAge: ACCESS_TOKEN_EXPIRY_MS,
+        sameSite: true,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      });
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response.user, MESSAGE.LOGIN_SUCCESSFUL)
+      );
     } catch (error) {
       next(error);
     }

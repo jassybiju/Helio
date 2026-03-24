@@ -10,7 +10,7 @@ export type ILoginResponseDTO = {
   refreshToken: string;
   user: {
     id: string;
-    role: USER_ROLES
+    role: USER_ROLES;
     email: string;
   };
 };

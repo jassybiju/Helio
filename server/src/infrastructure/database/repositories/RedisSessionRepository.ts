@@ -20,10 +20,11 @@ export class RedisSessionRepository
   async storeRefreshToken(
     userId: string,
     role: USER_ROLES,
-    token: string,
+    token: string
   ): Promise<void> {
     try {
-      const ttlSeconds = Number(process.env.REFRESH_TOKEN_EXPIRY_SECS)
+      const ttlSeconds = Number(process.env.JWT_REFRESH_VALID_SECS);
+      console.log(ttlSeconds)
       await super.set(this.getKey(userId, role), token, ttlSeconds);
     } catch (error) {
       this._logger.error("Error saving refresh token", error as Error);

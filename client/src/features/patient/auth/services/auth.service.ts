@@ -1,5 +1,6 @@
 import { apiRequest } from '@/src/libs/axios.config'
 import { PatientRegistrationFormData } from '../schemas/auth.schema'
+import { HTTP_METHOD } from '@/src/types/API.types'
 
 interface RegisterPayload {
   first_name : string,
@@ -28,8 +29,13 @@ export const authService = {
   },
 
   async resend_otp({ id}: { id: string }) {
-    const response = await apiRequest("/auth/doctor/resend-otp", "POST", {
+    const response = await apiRequest("/auth/patient/resend-otp", "POST", {
       id,
     });
     return response;
-  },}
+  },
+  async login({email ,password} : {email : string, password : string}) : Promise<unknown> {
+    const response = await apiRequest('/auth/patient/login', HTTP_METHOD.POST, {email, password})
+    return response
+  }
+}

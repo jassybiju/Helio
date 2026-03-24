@@ -6,7 +6,10 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class PatientValidator {
-  constructor(private readonly _patientRepo: IPatientRepository, private readonly _passwordService : IPasswordService) {}
+  constructor(
+    private readonly _patientRepo: IPatientRepository,
+    private readonly _passwordService: IPasswordService
+  ) {}
 
   async ensureEmailAvailable(email: string) {
     const patient = await this._patientRepo.findByEmail(new Email(email));
@@ -22,11 +25,11 @@ export class PatientValidator {
    * @param patient Patient Entity
    * @param password Password to validate with the hash
    */
-  async validatePatientPassword(patient : Patient , password : string){
-    if(!this._passwordService.compare(patient.passwordHashed, password)){
-      throw new AppError('Invalid Email or Password', HTTPStatus.BAD_REQUEST) 
+  async validatePatientPassword(patient: Patient, password: string) {
+    if (!this._passwordService.compare(patient.passwordHashed, password)) {
+      throw new AppError("Invalid Email or Password", HTTPStatus.BAD_REQUEST);
     }
-  } 
+  }
 
   // more validate classes
 }
