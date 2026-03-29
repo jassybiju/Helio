@@ -3,4 +3,4 @@ import { adminAuthController } from "../../di/admin/auth.di.ts";
 
 export const adminAuthRouter = Router();
 
-adminAuthRouter.post("login", adminAuthController.login);
+adminAuthRouter.post("/login", adminAuthController.login);

@@ -95,14 +95,14 @@ export class PatientAuthController {
       const response = await this._resendOTPUseCase.execute({
         ...parsed.data,
       });
-      return res
-        .status(HTTPStatus.OK)
-        .json(
-          successResponse<IResendOTPResponseDTO>(
-            response,
-            MESSAGE.RESEND_SUCCESSFUL
-          )
-        );
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse<IResendOTPResponseDTO>(
+          response,
+          MESSAGE.RESEND_SUCCESSFUL
+        )
+      );
     } catch (error) {
       next(error);
     }
@@ -125,16 +125,17 @@ export class PatientAuthController {
         Number(process.env.JWT_ACCESS_VALID_SECS) * 1000;
       const REFRESH_TOKEN_EXPIRY_MS =
         Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
-      res.cookie("refreshToken", response.refreshToken, {
-        maxAge: REFRESH_TOKEN_EXPIRY_MS,
-        sameSite: true,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      });
+      console.log(ACCESS_TOKEN_EXPIRY_MS, "access");
       res.cookie("accessToken", response.accessToken, {
         maxAge: ACCESS_TOKEN_EXPIRY_MS,
-        sameSite: true,
         httpOnly: true,
+        domain: "helixo.local",
+        secure: process.env.NODE_ENV === "production",
+      });
+      res.cookie("refreshToken", response.refreshToken, {
+        maxAge: REFRESH_TOKEN_EXPIRY_MS,
+        httpOnly: true,
+        domain: "helixo.local",
         secure: process.env.NODE_ENV === "production",
       });
       return apiResponse(

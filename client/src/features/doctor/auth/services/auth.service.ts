@@ -1,5 +1,6 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { DoctorRegisterFormData } from "../schema/auth.schema";
+import { HTTP_METHOD } from "@/src/types/API.types";
 
 interface RegisterPayload {
   first_name: string;
@@ -43,4 +44,11 @@ export const authService = {
     console.log(response)
     return response;
   },
+
+  async login({email , password} : {email : string, password : string}) {
+    const response = await apiRequest('/auth/doctor/login', HTTP_METHOD.POST, {
+      email, password
+    })
+    return response
+  }
 };

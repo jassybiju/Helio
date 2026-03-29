@@ -15,6 +15,7 @@ export class BcryptPasswordService implements IPasswordService {
 
   async compare(password: string, hash: string): Promise<boolean> {
     try {
+      console.log(password, hash, await bcrypt.compare(password, hash));
       return await bcrypt.compare(password, hash);
     } catch {
       throw new AppError("Error is comparing password", 500);

@@ -7,6 +7,7 @@ import ClayButton from '@/src/components/ui/ClayButton'
 
 const LoginForm = ({login} : {login : ({email, password} : {email : string, password : string}) => Promise<unknown>}) => {
   const {handleSubmit,register,errors, isSubmitting} = useLogin({login})
+  console.log(errors)
   return (
     <>
   {/* Form */}
@@ -21,11 +22,11 @@ const LoginForm = ({login} : {login : ({email, password} : {email : string, pass
         )}
 
         {/* Error Message */}
-        {/* {submitError && (
+        {errors.root && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-800 font-medium">{submitError}</p>
+            <p className="text-red-800 font-medium">{errors.root.message}</p>
           </div>
-        )} */} 
+        )} 
 
    
 
@@ -51,7 +52,7 @@ const LoginForm = ({login} : {login : ({email, password} : {email : string, pass
         {/* Phone Number */}
        
         {/* Password Fields */}
-        <div className="grid grid-cols-2 gap-4">
+        <div>
           <div>
             <label className="block text-sm font-semibold text-slate-900 mb-2">
               Password
@@ -82,7 +83,7 @@ const LoginForm = ({login} : {login : ({email, password} : {email : string, pass
             className="w-full"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Creating Account..." : "Create Account"}
+            {isSubmitting ? "Logging In..." : "Login"}
           </ClayButton>
         </div>
       </form>

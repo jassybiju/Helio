@@ -33,7 +33,7 @@ export class LoginPatientUseCase implements ILoginUseCase {
 
     // check if patient exists
     if (!patient) {
-      throw new AppError("Invalid Email or password", HTTPStatus.BAD_REQUEST);
+      throw new AppError("Invalid Email or passwords", HTTPStatus.BAD_REQUEST);
     }
 
     if (!patient.isVerified) {
@@ -41,7 +41,8 @@ export class LoginPatientUseCase implements ILoginUseCase {
     }
 
     // verify patient password
-    this._patientValidator.validatePatientPassword(patient, password);
+    console.log(patient, password);
+    await this._patientValidator.validatePatientPassword(patient, password);
 
     // create refresh and access token
     const accessToken = this._accessTokenService.generateAccessToken(

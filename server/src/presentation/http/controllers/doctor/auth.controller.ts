@@ -152,15 +152,17 @@ export class DoctorAuthController {
         Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
       res.cookie("refreshToken", response.refreshToken, {
         maxAge: REFRESH_TOKEN_EXPIRY_MS,
-        sameSite: true,
         httpOnly: true,
+        domain: ".helixo.local",
         secure: process.env.NODE_ENV === "production",
       });
       res.cookie("accessToken", response.accessToken, {
         maxAge: ACCESS_TOKEN_EXPIRY_MS,
-        sameSite: true,
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        domain: ".helixo.local",
+
+        secure: false,
       });
       return res
         .status(HTTPStatus.OK)

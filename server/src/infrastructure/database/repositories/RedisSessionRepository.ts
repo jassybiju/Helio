@@ -24,7 +24,7 @@ export class RedisSessionRepository
   ): Promise<void> {
     try {
       const ttlSeconds = Number(process.env.JWT_REFRESH_VALID_SECS);
-      console.log(ttlSeconds)
+      console.log(ttlSeconds);
       await super.set(this.getKey(userId, role), token, ttlSeconds);
     } catch (error) {
       this._logger.error("Error saving refresh token", error as Error);

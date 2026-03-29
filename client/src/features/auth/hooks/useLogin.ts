@@ -32,13 +32,16 @@ export const useLogin = ({
       reset();
       return res;
     } catch (error) {
-      console.log(error)
       if (axios.isAxiosError(error)) {
         setError(
           "root",
+          {message : 
           error.response?.data.message || "Something went wrong",
+
+           }
         );
       } else {
+        console.log(error)
         setError("root", { message: "An Error occured. Please try again" });
       }
     }

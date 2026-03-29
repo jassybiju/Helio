@@ -30,7 +30,7 @@ export class DoctorMapper {
     console.log(doctor.id);
     return {
       _id: doctor.id,
-      email: doctor.email.value,
+      email: doctor.email,
       fullName: doctor.fullName,
       passwordHash: doctor.passwordHash,
       gender: doctor.gender,

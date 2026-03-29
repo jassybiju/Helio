@@ -31,7 +31,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
   async execute(
     input: IRegisterDoctorRequestDTO
   ): Promise<IRegisterDoctorReponseDTO> {
-    this._logger.info("Doctor Registration Started");
+    this._logger.info("Doctor Registration Starteds");
 
     const {
       email,
@@ -42,7 +42,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       password,
       document,
     } = input;
-    console.log(input);
+    console.log(input, "hello");
     // checking if doctor already exists with isVerified true
     const existingDoctor =
       await this._doctorValidator.ensureEmailAvailable(email);
@@ -65,7 +65,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-
+    console.log(doctor);
     // saving doctor
     await this._doctorRepo.save(doctor);
     this._logger.debug("Doctor Saved");

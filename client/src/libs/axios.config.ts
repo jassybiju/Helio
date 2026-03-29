@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
+const isServer = typeof window === 'undefined'
+
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL: isServer ? process.env.SERVER_BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL,
   withCredentials : true
 });
 
@@ -23,7 +25,7 @@ apiClient.interceptors.response.use(
 
         return apiClient(originalRequest)
       }catch(refreshError){
-        console.error('Session expired. Please login again')
+        return Promise.reject(new Error('Session expired, please login'))
       }
     }
     return Promise.reject(error)

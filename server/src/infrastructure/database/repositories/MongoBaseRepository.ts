@@ -19,7 +19,6 @@ export abstract class MongoBaseRepository<TDomain, TModel> {
     map: (doc: TModel) => TDomain
   ): Promise<TDomain | null> {
     const doc = await this._model.findOne(query);
-
     if (!doc) return null;
 
     return map(doc);
@@ -37,6 +36,7 @@ export abstract class MongoBaseRepository<TDomain, TModel> {
     id: string,
     persistance: (entity: TDomain) => object
   ): Promise<void> {
+    console.log(entity, "baserepo");
     await this._model.findOneAndUpdate({ _id: id }, persistance(entity), {
       new: true,
       upsert: true,

@@ -42,6 +42,9 @@ export class Patient {
     return this._lastName;
   }
 
+  get fullName() {
+    return this._firstName + this.lastName;
+  }
   get gender() {
     return this._gender;
   }
