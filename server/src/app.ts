@@ -13,7 +13,6 @@ import { authRouter } from "./presentation/http/routes/auth.routes.ts";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import { adminAuthRouter } from "./presentation/http/routes/admin/auth.routes.ts";
-import { adminPatientController } from "./presentation/http/di/admin/patient.di.ts";
 import { adminPatientRouter } from "./presentation/http/routes/admin/patient.routes.ts";
 import { adminDoctorRouter } from "./presentation/http/routes/admin/doctor.routes.ts";
 
@@ -54,10 +53,6 @@ app.use(`${api}auth`, authRouter);
 
 app.use(`${api}admin/patient`, adminPatientRouter);
 app.use(`${api}admin/doctor`, adminDoctorRouter);
-
-app.use("/v1/api/refresh", (req, res, next) => {
-  res.json("error");
-});
 
 app.get("/health", (req, res) => {
   console.log("Api is health");

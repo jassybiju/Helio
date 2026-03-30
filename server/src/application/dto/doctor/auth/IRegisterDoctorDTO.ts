@@ -11,7 +11,7 @@ export type IRegisterDoctorRequestDTO = {
   document: {
     buffer: Buffer;
     mimetype: string;
-    filename: string;
+    originalname: string;
   };
 };
 

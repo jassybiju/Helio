@@ -1,6 +1,5 @@
 import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { redisClient } from "@config/redis.config.ts";
 import type { OTP } from "@domain/entities/OTP.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";

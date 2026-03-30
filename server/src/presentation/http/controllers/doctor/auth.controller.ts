@@ -1,7 +1,4 @@
-import type {
-  IRegisterDoctorReponseDTO,
-  IRegisterDoctorRequestDTO,
-} from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
+import type { IRegisterDoctorReponseDTO } from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
 import type { IRegisterDoctorUseCase } from "@application/ports/use-cases/doctor/auth/IRegisterDoctorUseCase.ts";
 import type { NextFunction, Request, Response } from "express";
 import {
@@ -22,10 +19,7 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IVerifyOTPUseCase } from "@application/ports/use-cases/auth/IVerifyOTPUseCase.ts";
-import type {
-  IResendOTPResponseDTO,
-  IVerifyOTPResponseDTO,
-} from "@application/dto/auth/IOTPDTO.ts";
+import type { IResendOTPResponseDTO } from "@application/dto/auth/IOTPDTO.ts";
 import type { IResendOTPUseCase } from "@application/ports/use-cases/auth/IResendOTPUseCase.ts";
 import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
 import type { ILoginResponseDTO } from "@application/dto/auth/ILoginDTO.ts";

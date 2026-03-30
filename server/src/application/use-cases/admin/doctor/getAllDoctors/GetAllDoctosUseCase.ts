@@ -2,7 +2,6 @@ import type {
   IDocotorFilters,
   IDoctorRepository,
 } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetAllDoctorsUseCase } from "@application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.ts";
 import type {

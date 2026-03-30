@@ -2,15 +2,15 @@ import { apiRequest } from "@/src/libs/axios.config";
 import { DoctorRegisterFormData } from "../schema/auth.schema";
 import { HTTP_METHOD } from "@/src/types/API.types";
 
-interface RegisterPayload {
-  first_name: string;
-  last_name: string;
-  gender: string;
-  dob: string;
-  email: string;
-  phone: string;
-  password: string;
-}
+// interface RegisterPayload {
+//   first_name: string;
+//   last_name: string;
+//   gender: string;
+//   dob: string;
+//   email: string;
+//   phone: string;
+//   password: string;
+// }
 
 export const authService = {
   async register(data: DoctorRegisterFormData): Promise<unknown> {

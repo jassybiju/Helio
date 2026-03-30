@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, {  ReactNode } from "react";
 
 export type ColumnType<T> = {
   key: keyof T | string;

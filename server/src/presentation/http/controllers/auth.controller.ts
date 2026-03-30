@@ -1,4 +1,3 @@
-import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetMeUseCase } from "@application/ports/use-cases/auth/IGetMeUseCase.ts";
 import type { ILogoutUseCase } from "@application/ports/use-cases/auth/ILogoutUseCase.ts";
 import type { IRefreshTokenUseCase } from "@application/ports/use-cases/auth/IRefreshTokenUseCase.ts";
@@ -59,7 +58,7 @@ export class AuthController {
       if (!refreshToken) {
         throw new AppError("Invalid Refresh Token", HTTPStatus.UNAUTHORIZED);
       }
-      const response = await this._logoutUseCase.execute({
+      await this._logoutUseCase.execute({
         userId: req.user?.id ?? "",
         refreshToken,
       });

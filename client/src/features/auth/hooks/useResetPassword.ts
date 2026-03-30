@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { ForgetPasswordData, forgetPasswordSchema, ResetPasswordData, resetPasswordSchema } from "../schema/auth.schema";
+import { ResetPasswordData, resetPasswordSchema } from "../schema/auth.schema";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 

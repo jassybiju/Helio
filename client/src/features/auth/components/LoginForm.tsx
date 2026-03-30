@@ -88,7 +88,7 @@ const LoginForm = ({login} : {login : ({email, password} : {email : string, pass
         </div>
       </form>
 
-<Link href={'/forget-password'}>Forget Password?</Link>
+<Link href={'/forget-password'} className='text-red-500 mt-10 m-2'>Forget Password?</Link>
       {/* Social Login Divider */}
       <div className="relative my-8">
         <div className="absolute inset-0 flex items-center">

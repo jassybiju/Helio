@@ -1,16 +1,15 @@
 import React from 'react'
-import {  FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { Path, UseFormRegister } from 'react-hook-form';
 import { DoctorRegisterFormData } from '../schema/auth.schema';
 
 type PropType = {
-  label : string,
   name : Path<DoctorRegisterFormData>,
   register : UseFormRegister<DoctorRegisterFormData>,
   error? :string
 }
 
 const DoctorFileUpload : React.FC<PropType> = ({
-  label, name , register, error 
+   name , register, error 
 }) => {
   return (
     <div className="flex flex-col gap-2 text-black">

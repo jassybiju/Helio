@@ -39,6 +39,12 @@ export class LoginPatientUseCase implements ILoginUseCase {
     if (!patient.isVerified) {
       throw new AppError("Patient Not Verified", HTTPStatus.BAD_REQUEST);
     }
+    if (patient.isBlocked) {
+      throw new AppError(
+        "Patient Blocked contact admin",
+        HTTPStatus.BAD_REQUEST
+      );
+    }
 
     // verify patient password
     console.log(patient, password);

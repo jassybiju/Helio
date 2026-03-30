@@ -1,14 +1,15 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { PatientQueryParams, usePatientQuery } from "./usePatientQuery";
 import { ColumnType } from "@/src/components/TableComponent";
 import { Patients } from "../../services/patient.service";
-import { Eye, Lock } from "lucide-react";
+import { Eye, Lock, Unlock } from "lucide-react";
+import { useToggleBlockPatient } from "./useToggleBlockPatient";
 
 export const useAdminPatient = () => {
   const limit = 10;
   const [filter, setFilter] = useState<PatientQueryParams>({page : 1, limit, isVerified : null});
   const { data } = usePatientQuery(filter);
-
+const {mutate} = useToggleBlockPatient()
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
   const patients = data?.data.patients ?? [];
@@ -75,7 +76,7 @@ export const useAdminPatient = () => {
           <div className="flex items-center gap-2">
             
             <span
-              className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border`}
+              className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border  ${row.status === 'active' ? "text-green-700" : 'text-red-600'}`}
             >
               {row.status === "active" ? "✓ Active" : "✗ Blocked"}
             </span>
@@ -110,9 +111,15 @@ export const useAdminPatient = () => {
               <Eye className="w-4 h-4" />
               View
             </button>
-            <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
+            <button onClick={()=>mutate(row.id)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
+              {row.status === 'active' ? <>
               <Lock className="w-4 h-4" />
               Block
+              </>
+              : <>
+              <Unlock className="w-4 h-4" />
+              Unblock
+              </>}
             </button>
           </div>
           

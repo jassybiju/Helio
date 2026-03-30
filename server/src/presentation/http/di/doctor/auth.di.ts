@@ -7,7 +7,6 @@ import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordSe
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { OTPService } from "@infrastructure/services/OTPService.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { S3FileUploadService } from "@infrastructure/services/S3FileUploadService.ts";
 import { DoctorAuthController } from "../../controllers/doctor/auth.controller.ts";
 import { VerifyOTPUseCase } from "@application/use-cases/auth/VerifyOTPUseCase.ts";
 import { ResendOTPUseCase } from "@application/use-cases/auth/ResendOTPUseCase.ts";
@@ -19,12 +18,13 @@ import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswor
 import { RedisResetTokenService } from "@infrastructure/services/RedisResetTokenService.ts";
 import { EmailService } from "@infrastructure/services/EmailService.ts";
 import { ResetPasswordUseCase } from "@application/use-cases/auth/ResetPasswordUseCase.ts";
+import { LocalFileUploadService } from "@infrastructure/services/LocalFileUploadService.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
 const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();
-const s3FileUploadService = new S3FileUploadService();
+const localUploadService = new LocalFileUploadService();
 const accessTokenService = new JWTAccessTokenService();
 const refreshTokenService = new CryptoRefreshTokenService();
 const resetTokenService = new RedisResetTokenService(loggerService);
@@ -42,7 +42,7 @@ const registerUsecase = new RegisterDoctorUseCase(
   doctorValidator,
   nanoidGenerator,
   bcryptPasswordService,
-  s3FileUploadService,
+  localUploadService,
   doctorRepo,
   otpRepo,
   otpService

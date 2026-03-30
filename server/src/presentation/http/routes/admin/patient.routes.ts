@@ -9,3 +9,4 @@ adminPatientRouter.use(authMiddleware);
 adminPatientRouter.use(authorizeMiddleware(USER_ROLES.ADMIN));
 
 adminPatientRouter.get("", adminPatientController.getAllPatients);
+adminPatientRouter.patch("/:userId/status", adminPatientController.toggleBlock);

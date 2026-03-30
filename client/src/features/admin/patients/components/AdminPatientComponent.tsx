@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAdminPatient } from "../hooks/useAdminPatient";
-import { ChevronLeft, ChevronRight, Eye, Lock, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import TableComponent from "@/src/components/TableComponent";
 import AdminFilterSelect from "../../components/AdminFilterSelect";
 

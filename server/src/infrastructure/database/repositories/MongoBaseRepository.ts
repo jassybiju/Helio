@@ -1,6 +1,3 @@
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import type { Model, QueryFilter } from "mongoose";
 
 /**

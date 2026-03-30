@@ -8,6 +8,7 @@ export const useMe = () => {
     queryKey : ['me'],
     queryFn : authService.getMe,
     retry : false,
-    staleTime : Infinity
+    staleTime : 1 * 60 * 1000,
+    refetchInterval: 1 * 60*1000
   })
 }

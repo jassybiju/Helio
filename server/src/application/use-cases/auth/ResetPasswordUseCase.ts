@@ -7,7 +7,6 @@ import type { IResetPasswordUseCase } from "@application/ports/use-cases/auth/IR
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { Patient } from "@domain/entities/Patient.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 

@@ -1,6 +1,5 @@
 import type { IGetMeResponseDTO } from "@application/dto/auth/IGetMeDTO.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { IGetMeHandler } from "@application/ports/use-cases/auth/IGetMeHandler.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";

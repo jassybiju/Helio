@@ -1,7 +1,6 @@
 import type { ILogoutUseCase } from "@application/ports/use-cases/auth/ILogoutUseCase.ts";
 import type { ILogoutRequestDTO } from "./ILogoutDto.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
 import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
 import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
 

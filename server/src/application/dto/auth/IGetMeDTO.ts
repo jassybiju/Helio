@@ -1,5 +1,4 @@
 import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { ILoginResponseDTO } from "./ILoginDTO.ts";
 import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
 
 export type IGetMeRequestDTO = {

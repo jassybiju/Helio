@@ -94,11 +94,10 @@ apiClient.interceptors.response.use(
 
 export const apiRequest = async <T>(
   url: string,
-  method: "GET" | "POST" | "PUT" | "DELETE",
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
   data?: unknown,
   params? : unknown
 ): Promise<T> => {
-  console.log(isRefreshing);
   const response: AxiosResponse<T> = await apiClient({ method, url, data , params});
   console.log(response,params)
   return response.data;

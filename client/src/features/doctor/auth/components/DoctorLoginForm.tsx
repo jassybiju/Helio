@@ -10,7 +10,7 @@ const DoctorLoginForm = () => {
   const router = useRouter()
   const handleLogin = async ({email, password} : {email : string, password : string}) => {
     await authService.login({email, password})
-    router.replace('/dashboard')
+    router.replace('/')
   }
   return (
     <LoginForm login={handleLogin}/>

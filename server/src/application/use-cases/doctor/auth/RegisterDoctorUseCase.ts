@@ -48,6 +48,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       await this._doctorValidator.ensureEmailAvailable(email);
 
     // saving documnets to bucket
+    console.log(document);
     const documentKey = await this._fileUpload.upload(document);
 
     // creating new doctor ( if unverified doctor exists keep the id and changes data )

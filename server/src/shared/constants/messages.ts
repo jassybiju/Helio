@@ -20,6 +20,7 @@ export enum MESSAGE {
 
   // admin patient
   PATIENT_FETCH_SUCCESS = "Patients Fetched Successfully",
+  PATIENT_TOGGLE_BLOCK_SUCCESS = "Patient Block status Toggled Successfully",
 
   //admin doctor
   DOCTOR_FETCH_SUCCESS = "Doctor Fetched Successfully",

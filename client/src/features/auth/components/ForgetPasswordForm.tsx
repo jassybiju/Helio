@@ -1,7 +1,6 @@
 import ClayButton from '@/src/components/ui/ClayButton'
 import Input from '@/src/components/ui/Input'
 import React from 'react'
-import { useLogin } from '../hooks/useLogin'
 import { useForgetPassword } from '../hooks/useForgetPassword'
 
 const ForgetPasswordForm = ({forgetPassword} : {forgetPassword : ({email,} : {email : string}) => Promise<unknown>}) => {

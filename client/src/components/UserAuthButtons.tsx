@@ -3,9 +3,6 @@
 import Link from "next/link";
 import React from "react";
 import ClayButton from "./ui/ClayButton";
-import { authService } from "../features/auth/service/auth.service";
-import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import { useLogout } from "../features/auth/hooks/useLogout";
 import { useAuth } from "../features/auth/hooks/useAuth";
 

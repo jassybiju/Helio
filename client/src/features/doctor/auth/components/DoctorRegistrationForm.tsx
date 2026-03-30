@@ -14,7 +14,6 @@ const DoctorRegistrationForm = () => {
     isSubmitting,
     submitError,
     submitSuccess,
-    setValue,
   } = useDoctorRegistration();
   return (
     <>

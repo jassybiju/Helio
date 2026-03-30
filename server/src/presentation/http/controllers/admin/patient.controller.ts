@@ -8,9 +8,13 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
+import type { IToggleBlockPatientUseCase } from "@application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.ts";
 
 export class AdminPatientController {
-  constructor(private readonly _getAllPatientUsecase: IGetAllPatientsUseCase) {}
+  constructor(
+    private readonly _getAllPatientUsecase: IGetAllPatientsUseCase,
+    private readonly _toggleBlockPatientUseCase: IToggleBlockPatientUseCase
+  ) {}
 
   getAllPatients = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -25,6 +29,27 @@ export class AdminPatientController {
       }
 
       const response = await this._getAllPatientUsecase.execute(parsed.data);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, MESSAGE.PATIENT_FETCH_SUCCESS)
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  toggleBlock = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.params;
+      if (!userId) {
+        throw new AppError("Invalid UserId", HTTPStatus.UNPROCESSBLE_ENTITY);
+      }
+
+      const response = await this._toggleBlockPatientUseCase.execute(
+        userId as string
+      );
 
       return apiResponse(
         res,

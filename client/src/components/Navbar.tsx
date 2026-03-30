@@ -1,7 +1,5 @@
 import React from "react";
-import ClayButton from "./ui/ClayButton";
 import Image from "next/image";
-import Link from "next/link";
 import UserAuthButtons from "./UserAuthButtons";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {

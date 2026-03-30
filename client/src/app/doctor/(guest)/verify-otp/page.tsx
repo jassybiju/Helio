@@ -1,4 +1,3 @@
-import VerifyOTPForm from "@/src/features/auth/components/VerifyOTPForm";
 import DoctorVerifyOTP from "@/src/features/doctor/auth/components/DoctorVerifyOTP";
 import { redirect,  } from "next/navigation";
 

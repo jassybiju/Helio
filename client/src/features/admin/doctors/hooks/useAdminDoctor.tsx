@@ -5,7 +5,7 @@ import { Doctor } from "../../services/doctor.service";
 import { Eye, Lock } from "lucide-react";
 
 export const useAdminDoctor = () => {
-  const limit = 10;
+  const limit = 5;
   const [filter, setFilter] = useState<DoctorQueryParams>({
     page: 1,
     limit,
@@ -69,7 +69,7 @@ export const useAdminDoctor = () => {
       render: (_value, row) => (
         <div className="flex items-center gap-2">
           <span
-            className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border`}
+            className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border  ${row.status === 'active' ? "text-green-700" : 'text-red-600'}`}
           >
             {row.status === "active" ? "✓ Active" : "✗ Blocked"}
           </span>
@@ -99,7 +99,7 @@ export const useAdminDoctor = () => {
     {
       key: "",
       title: "Actions",
-      render: (_value, row) => (
+      render: (_value, ) => (
         <div className="flex items-center gap-2">
           <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
             <Eye className="w-4 h-4" />

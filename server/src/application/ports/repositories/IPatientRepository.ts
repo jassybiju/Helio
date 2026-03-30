@@ -1,4 +1,3 @@
-import type { IGetAllPatientsRequestDTO } from "@application/use-cases/admin/patient/getAllPatients/IGetAllPatientsDTO.ts";
 import type { Patient } from "@domain/entities/Patient.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
 

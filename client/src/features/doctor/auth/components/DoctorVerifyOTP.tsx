@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { authService } from '../services/auth.service'
 import VerifyOTPForm from '@/src/features/auth/components/VerifyOTPForm'
-import axios from 'axios'
 
 const DoctorVerifyOTP = ({id , expires} : {id : string, expires : string}) => {
   const router = useRouter()

@@ -1,6 +1,5 @@
 import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
-import jwt, { type SignOptions } from "jsonwebtoken";
-import type { StringValue } from "ms";
+import jwt from "jsonwebtoken";
 
 export class JWTAccessTokenService implements IAccessTokenService {
   generateAccessToken(

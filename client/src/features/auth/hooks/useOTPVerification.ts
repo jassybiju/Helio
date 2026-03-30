@@ -3,7 +3,6 @@ import { OTPFormData, otpSchema } from "../schema/OTP.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 export const useOTPVerification = (otpId : string, otpInvalidAt : string, verifyOTP : ({id ,otp} : {id : string, otp : string})=> Promise<unknown>, resendOTP :({id} : {id : string})=> Promise<unknown>,) => {
   const [secondsRemaining, setSecondsRemaining] = useState(0);
@@ -12,9 +11,7 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
 
 
   const [resendLoading, setResendLoading] = useState(false);
-  const [resendError, setResendError] = useState<string | null>(null);
 
-  console.log(otpInvalidAt)
 
   const {
     watch,
@@ -28,7 +25,6 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
   });
 
   const otpValue = watch("otp");
-  const router = useRouter()
 
   useEffect(() => {
     if (!otpInvalidAt) return;
@@ -81,9 +77,7 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
     setResendLoading(true)
     setSubmitError(null)
     try {
-      const response =( await resendOTP({id : otpId}) )as {data : {otp_invalid_at : unknown}}
-
-      const newExpiry = response?.data?.otp_invalid_at 
+       await resendOTP({id : otpId})
 
       reset()
       

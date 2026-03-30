@@ -1,6 +1,5 @@
 import { Patient } from "@domain/entities/Patient.ts";
 import type { PatientDoc } from "@infrastructure/database/model/PatientModel.ts";
-import type { DefaultTimestampProps } from "mongoose";
 import { Email } from "@domain/value-objects/Email.ts";
 import type { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
 

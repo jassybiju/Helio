@@ -20,7 +20,7 @@ export class Patient {
     private readonly _phone: string,
 
     private _isVerified: boolean,
-    private readonly _isBlocked: boolean,
+    private _isBlocked: boolean,
 
     private readonly _createdAt: Date,
     private readonly _updatedAt: Date
@@ -39,6 +39,10 @@ export class Patient {
 
   updatePassword(passwordHash: string) {
     this._passwordHash = passwordHash;
+  }
+
+  toogleBlockStatus() {
+    this._isBlocked = !this._isBlocked;
   }
 
   get id() {

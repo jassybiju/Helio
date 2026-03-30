@@ -11,7 +11,6 @@ import { PatientMapper } from "../../../mappers/PatientMapper.ts";
 import { patientModel, type PatientDoc } from "../model/PatientModel.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { MongoBaseRepository } from "./MongoBaseRepository.ts";
-import { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
 
 export class MongoPatientRepository
   extends MongoBaseRepository<Patient, PatientDoc>

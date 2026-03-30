@@ -2,21 +2,13 @@ import ClayButton from '@/src/components/ui/ClayButton'
 import Input from '@/src/components/ui/Input'
 import React from 'react'
 import { useResetPassword } from '../hooks/useResetPassword'
-import { authService } from '../../doctor/auth/services/auth.service'
+
 const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} : {token : string,password : string}) => Promise<unknown>}) => {
   const {handleSubmit, errors, isSubmitting, register} = useResetPassword({resetPassword})
   return (
   <>
   {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Success Message */}
-        {/* {submitSuccess && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800 font-medium">
-              Registration successful! Redirecting...
-            </p>
-          </div>
-        )}
 
         {/* Error Message */}
         {errors.root && (

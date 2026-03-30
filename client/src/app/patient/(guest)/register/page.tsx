@@ -1,4 +1,3 @@
-import Input from '@/src/components/ui/Input'
 import PatientRegistrationForm from '@/src/features/patient/auth/components/PatientRegistrationForm'
 import React from 'react'
 

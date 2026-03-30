@@ -1,7 +1,4 @@
-import type {
-  IRegisterPatientRequestDTO,
-  IRegisterPatientResponseDTO,
-} from "@application/dto/patient/auth/IRegisterPatientDTO.ts";
+import type { IRegisterPatientResponseDTO } from "@application/dto/patient/auth/IRegisterPatientDTO.ts";
 import type { NextFunction, Request, Response } from "express";
 import {
   patientForgetPasswordSchema,

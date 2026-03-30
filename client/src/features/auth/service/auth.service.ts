@@ -1,7 +1,6 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
 import { USER_DATA } from "@/src/types/user.types";
-import { AxiosError } from "axios";
 
 export const authService = {
   async getMe() {

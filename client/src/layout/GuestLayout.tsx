@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { useMe } from "../features/auth/hooks/useMe";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { getSubdomain } from "../utils/getSubdomain";
 import { redirectToRoleDashboard } from "../utils/redirectToRoleDashboard";
 import { getExpectedSubdomain } from "../utils/getExpectedSubdomain";
@@ -30,7 +29,7 @@ const GuestLayout = ({ children }: PropType) => {
     } else {
       router.replace("/");
     }
-  }, [user, isLoading, isError]);
+  }, [user, isLoading, isError,router]);
 
   if (isLoading) {
     return "is Loading.....";
