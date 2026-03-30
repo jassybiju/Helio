@@ -1,12 +1,14 @@
+import { AppError } from "@shared/errors/AppError.ts";
 import type { BLOOD_GROUP } from "../common/enums/blood-group.enum.ts";
 import type { GENDER } from "../common/enums/gender.enum.ts";
 import type { Email } from "../value-objects/Email.ts";
+import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class Patient {
   constructor(
     private readonly _id: string,
     private readonly _email: Email,
-    private readonly _passwordHash: string,
+    private _passwordHash: string,
 
     private readonly _firstName: string,
     private readonly _lastName: string,
@@ -15,19 +17,36 @@ export class Patient {
     private readonly _dob: Date,
     private readonly _bloodGroup: BLOOD_GROUP | null,
 
+    private readonly _phone: string,
+
     private _isVerified: boolean,
     private readonly _isBlocked: boolean,
 
     private readonly _createdAt: Date,
     private readonly _updatedAt: Date
-  ) {}
+  ) {
+    if (this.phone.length < 9) {
+      throw new AppError(
+        "Invalid Phone NUmber",
+        HTTPStatus.UNPROCESSBLE_ENTITY
+      );
+    }
+  }
 
   verifyPatient() {
     this._isVerified = true;
   }
 
+  updatePassword(passwordHash: string) {
+    this._passwordHash = passwordHash;
+  }
+
   get id() {
     return this._id;
+  }
+
+  get phone() {
+    return this._phone;
   }
 
   get email() {

@@ -38,3 +38,14 @@ export const patientLoginSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string(),
 });
+
+//patient forgetPassowrd
+export const patientForgetPasswordSchema = z.object({
+  email: z.email("Invalid Email Address"),
+});
+
+//reset password
+export const patientResetPasswordSchema = z.object({
+  token: z.string(),
+  password: z.string().min(8, "Password must be atleast 8 characters"),
+});

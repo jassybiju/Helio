@@ -29,8 +29,18 @@ export const doctorResendOTPSchema = z.object({
 });
 
 //doctor login
-
 export const doctorLoginSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string(),
+});
+
+//doctor forgetPassowrd
+export const doctorForgetPasswordSchema = z.object({
+  email: z.email("Invalid Email Address"),
+});
+
+//reset password
+export const doctorResetPasswordSchema = z.object({
+  token: z.string(),
+  password: z.string().min(8, "Password must be atleast 8 characters"),
 });

@@ -3,18 +3,19 @@ import React from 'react'
 const DOBPicker = ({value , onChange} : {value : string, onChange: (date : string) => void}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dateValue = e.target.value
+    console.log(dateValue)
     if (dateValue) {
       const [year, month, day] = dateValue.split('-')
-      const formatted = `${month} / ${day} / ${year}`
+      const formatted = `${year} / ${month} / ${day}`
       onChange(formatted)
     }
   }
 
   // Convert display format to input format
   const inputValue = value
-    ? value.split(' / ').reverse().join('-')
+    ? value.split(' / ').join('-')
     : ''
-
+  console.log(inputValue)
   return (
     <input
       type="date"

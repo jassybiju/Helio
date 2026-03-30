@@ -12,7 +12,7 @@ import type { PatientValidator } from "@application/validators/PatientValidator.
 import { Email } from "@domain/value-objects/Email.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@shared/types/UserRoles.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 export class LoginPatientUseCase implements ILoginUseCase {
   constructor(
@@ -56,6 +56,7 @@ export class LoginPatientUseCase implements ILoginUseCase {
     await this._sessionRepo.storeRefreshToken(
       patient.id,
       USER_ROLES.PATIENT,
+      patient.email,
       this._refreshTokenService.hash(refreshToken)
     );
 

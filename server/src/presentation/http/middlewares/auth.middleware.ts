@@ -1,6 +1,6 @@
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { USER_ROLES } from "@shared/types/UserRoles.ts";
+import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
@@ -19,6 +19,7 @@ export const authMiddleware = (
     const payload = jwt.verify(accessToken, process.env.JWT_SECRET_KEY!) as {
       id: string;
       role: USER_ROLES;
+      email: string;
     };
     console.log(payload);
     req.user = payload;

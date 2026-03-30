@@ -5,16 +5,16 @@ import { AxiosError } from "axios";
 
 export const authService = {
   async getMe() {
-    try {
-      const res = (await apiRequest(
-        "/auth/get-me",
-        HTTP_METHOD.GET,
-      )) as APIResponse<USER_DATA>;
-      console.log(res);
-      return res;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+    const res = (await apiRequest(
+      "/auth/get-me",
+      HTTP_METHOD.GET,
+    )) as APIResponse<USER_DATA>;
+    console.log(res);
+    return res;
+  },
+
+  async logout() {
+    console.log("logged out")
+    await apiRequest("/auth/logout", HTTP_METHOD.POST);
   },
 };

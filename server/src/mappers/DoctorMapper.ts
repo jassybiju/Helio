@@ -5,6 +5,7 @@ import type { DoctorDoc } from "@infrastructure/database/model/DoctorModel.ts";
 
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {
+    console.log(raw);
     return new Doctor(
       raw._id,
       new Email(raw.email),

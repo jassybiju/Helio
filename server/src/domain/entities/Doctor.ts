@@ -8,7 +8,7 @@ export class Doctor {
   constructor(
     private readonly _id: string,
     private readonly _email: Email,
-    private readonly __passwordHash: string,
+    private _passwordHash: string,
 
     private readonly _fullName: string,
     private readonly _gender: GENDER,
@@ -47,6 +47,10 @@ export class Doctor {
 
   verifyDoctor() {
     this._isVerified = true;
+  }
+
+  updatePassword(passwordHash: string) {
+    this._passwordHash = passwordHash;
   }
 
   static create({
@@ -102,7 +106,7 @@ export class Doctor {
   }
 
   get passwordHash() {
-    return this.__passwordHash;
+    return this._passwordHash;
   }
 
   get fullName() {

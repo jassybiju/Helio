@@ -2,9 +2,9 @@
 
 import React, { useEffect } from "react";
 import { USER_ROLES } from "../types/user.types";
-import { useMe } from "../features/auth/hooks/useMe";
 import { useRouter } from "next/navigation";
 import { redirectToRoleDashboard } from "../utils/redirectToRoleDashboard";
+import { useAuth } from "../features/auth/hooks/useAuth";
 
 type PropType = {
   children: React.ReactNode;
@@ -13,30 +13,29 @@ type PropType = {
 
 const ProtectedLayout = ({ children, role }: PropType) => {
   console.log("PROTECTED LAYOUT")
-  const { data , isLoading, isError } = useMe();
+  const { user , isLoading, isError } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if(isLoading) return 
-    if(isError || !data){
+    if(isError || !user){
       console.log('REDIRECT TO LOGIN')
       router.replace('/login')
       return
     }
-    if(data?.data.role !== role ){
+    if(user.role !== role ){
       console.log("HITTTT")
-      redirectToRoleDashboard(data.data.role)
+      redirectToRoleDashboard(user.role)
       return
     }
     
-  }, [isError, router, role, isLoading,data]);
+  }, [isError, router, role, isLoading,user]);
 
   if (isLoading) {
     return "Loading...";
   }
-  console.log(data)
 
-  if (!data || data.data.role !== role) {
+  if (!user || user.role !== role) {
     console.log('x')
     return null;
   }

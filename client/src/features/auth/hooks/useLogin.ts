@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginFormData, loginSchema } from "../schema/auth.schema";
 import axios from "axios";
+import {  useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export const useLogin = ({
   login,
@@ -23,13 +25,15 @@ export const useLogin = ({
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
+  const queryClient = useQueryClient()
+  const router = useRouter()
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      console.log('Started', login)
       const res = await login(data);
-      console.log("Finished")
       reset();
+      queryClient.invalidateQueries({queryKey : ['me']})
+      router.replace('/')
       return res;
     } catch (error) {
       if (axios.isAxiosError(error)) {

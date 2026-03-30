@@ -21,5 +21,11 @@ i-cd:
 mongo:
 	docker compose exec mongo mongosh -u admin -p secret --authenticationDatabase admin
 	
+redis:
+	docker compose exec redis redis-cli
+
+redis-flush:
+	docker compose exec redis redis-cli FLUSHALL
+
 %:
 	@:

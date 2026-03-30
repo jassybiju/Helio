@@ -1,4 +1,3 @@
-import { useMe } from '@/src/features/auth/hooks/useMe'
 import DoctorRegistrationForm from '@/src/features/doctor/auth/components/DoctorRegistrationForm'
 import React from 'react'
 

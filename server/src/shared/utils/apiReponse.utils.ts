@@ -23,3 +23,45 @@ export function apiResponse<T>(
 ) {
   return res.status(status).json(json);
 }
+
+export function sendToken(
+  res: Response,
+  accessToken: string,
+  refreshToken: string
+) {
+  const ACCESS_TOKEN_EXPIRY_MS =
+    Number(process.env.JWT_ACCESS_VALID_SECS) * 1000;
+  const REFRESH_TOKEN_EXPIRY_MS =
+    Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
+  res.cookie("refreshToken", refreshToken, {
+    maxAge: REFRESH_TOKEN_EXPIRY_MS,
+    httpOnly: true,
+    domain: ".helixo.local",
+    secure: process.env.NODE_ENV === "production",
+  });
+  res.cookie("accessToken", accessToken, {
+    maxAge: ACCESS_TOKEN_EXPIRY_MS,
+    httpOnly: true,
+    sameSite: "lax",
+    domain: ".helixo.local",
+
+    secure: process.env.NODE_ENV === "production",
+  });
+}
+
+export function removeToken(res: Response) {
+  res.cookie("refreshToken", null, {
+    maxAge: 0,
+    httpOnly: true,
+    domain: ".helixo.local",
+    secure: process.env.NODE_ENV === "production",
+  });
+  res.cookie("accessToken", null, {
+    maxAge: 0,
+    httpOnly: true,
+    sameSite: "lax",
+    domain: ".helixo.local",
+
+    secure: process.env.NODE_ENV === "production",
+  });
+}

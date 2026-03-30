@@ -7,7 +7,7 @@ type PropType = {
 
 const layout = ({children} : PropType) => {
   return (
-    <GuestLayout>{children}</GuestLayout>
+    <GuestLayout>s{children}</GuestLayout>
   )
 }
 

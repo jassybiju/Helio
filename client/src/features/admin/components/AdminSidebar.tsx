@@ -4,6 +4,7 @@ import { DollarSign, LayoutGrid, LogOut, Settings, Stethoscope, Users } from 'lu
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import { useLogout } from '../../auth/hooks/useLogout'
 
 const menuItems = [
   { label: 'Dashboard', href: '/', icon: LayoutGrid },
@@ -15,7 +16,7 @@ const menuItems = [
 
 const AdminSidebar = () => {
     const pathname = usePathname()
-
+    const {logout} = useLogout()
   return (
    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col">
       {/* Logo */}
@@ -59,7 +60,7 @@ const AdminSidebar = () => {
       <div className="p-4 border-t border-slate-200 space-y-2">
         <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-slate-50 rounded-lg transition-colors text-sm">
           <LogOut className="w-5 h-5" />
-          <span>Logout</span>
+          <span onClick={logout}>Logout</span>
         </button>
         <div className="px-4 py-2 bg-slate-50 rounded-lg text-xs">
           <p className="text-slate-600 font-medium">Support Plan</p>

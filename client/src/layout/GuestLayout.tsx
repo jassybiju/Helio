@@ -1,44 +1,50 @@
-'use client'
-import React, { useEffect } from 'react'
-import { useMe } from '../features/auth/hooks/useMe';
-import { redirect, useRouter } from 'next/navigation';
-import { getSubdomain } from '../utils/getSubdomain';
-import { redirectToRoleDashboard } from '../utils/redirectToRoleDashboard';
-import { getExpectedSubdomain } from '../utils/getExpectedSubdomain';
+"use client";
+import React, { useEffect } from "react";
+import { useMe } from "../features/auth/hooks/useMe";
+import { redirect, useRouter } from "next/navigation";
+import { getSubdomain } from "../utils/getSubdomain";
+import { redirectToRoleDashboard } from "../utils/redirectToRoleDashboard";
+import { getExpectedSubdomain } from "../utils/getExpectedSubdomain";
+import { useAuth } from "../features/auth/hooks/useAuth";
 
 type PropType = {
   children: React.ReactNode;
 };
 
-const GuestLayout = ({children}: PropType) => {
-  console.log("REDIRECTED to GUEST")
-  const {data, isLoading} = useMe()
-  const router = useRouter()
-  useEffect(()=>{
-    if(isLoading) return
-
-    if(data){
-      const currentSubdomaian = getSubdomain()
-      const expectedSubdomain = getExpectedSubdomain(data.data.role)
-      if(currentSubdomaian !== expectedSubdomain){
-        redirectToRoleDashboard(data.data.role)
-      }else{
-        router.replace('/')
-      }
+const GuestLayout = ({ children }: PropType) => {
+  console.log("REDIRECTED to GUEST");
+  const { user, isLoading, isError } = useAuth();
+  console.log(user,isLoading, isError)
+  const router = useRouter();
+  useEffect(() => {
+    console.log("ISSUES")
+    if (isLoading) return;
+    if (isError || !user) {
+      return;
     }
-  },[data, isLoading])
 
-  if(isLoading){
-    return 'is Loading.....'
+    const currentSubdomaian = getSubdomain();
+    const expectedSubdomain = getExpectedSubdomain(user.role);
+    if (currentSubdomaian !== expectedSubdomain) {
+      redirectToRoleDashboard(user.role);
+    } else {
+      router.replace("/");
+    }
+  }, [user, isLoading, isError]);
+
+  if (isLoading) {
+    return "is Loading.....";
   }
 
-  if(data){
-    return null
+  // if(isError){
+  //   return 'hi'
+  // }
+
+  if (user) {
+    return null;
   }
 
-  return (
-    <>{children}</>
-  )
-}
+  return <>{children}</>;
+};
 
-export default GuestLayout
+export default GuestLayout;

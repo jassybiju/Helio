@@ -1,0 +1,128 @@
+import { useState } from "react";
+import { DoctorQueryParams, useDoctorQuery } from "./useDoctorQuery";
+import { ColumnType } from "@/src/components/TableComponent";
+import { Doctor } from "../../services/doctor.service";
+import { Eye, Lock } from "lucide-react";
+
+export const useAdminDoctor = () => {
+  const limit = 10;
+  const [filter, setFilter] = useState<DoctorQueryParams>({
+    page: 1,
+    limit,
+    isVerified: null,
+  });
+  const { data } = useDoctorQuery(filter);
+
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+
+  const doctors = data?.data.doctors ?? [];
+  const totalCount = data?.data.totalCount;
+  console.log(totalCount! / limit);
+  const totalPages = Math.ceil(totalCount! / limit);
+
+  const columns: ColumnType<Doctor> = [
+    {
+      key: "",
+      title: "Doctor",
+      render: (_value, row) => (
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+            {row.fullName[0]}
+          </div>
+          <div>
+            <p className="text-sm font-medium text-slate-900">{row.fullName}</p>
+            <p className="text-xs text-slate-500">{row.id}</p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: "",
+      title: "Contact",
+      render: (_value, row) => (
+        <div className="text-sm">
+          <p className="text-slate-900">{row.email}</p>
+        </div>
+      ),
+    },
+    {
+      key: "",
+      title: "Career Start Year",
+      render: (_value, row) => (
+        <div className="text-sm">
+          <p className="text-xs text-slate-500 uppercase">{row.career_start_year}</p>
+        </div>
+      ),
+    },
+    {
+      key: "",
+      title: "Specialization",
+      render: (_value, row) => (
+        <span className="inline-flex items-center justify-center p-2 bg-blue-50 text-blue-600 text-xs font-semibold rounded">
+          {row.specialization}
+        </span>
+      ),
+    },
+    {
+      key: "",
+      title: "Status",
+      render: (_value, row) => (
+        <div className="flex items-center gap-2">
+          <span
+            className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border`}
+          >
+            {row.status === "active" ? "✓ Active" : "✗ Blocked"}
+          </span>
+        </div>
+      ),
+    },
+    {
+      key: "",
+      title: "Verified",
+      render: (_value, row) => (
+        <><span
+          className={`px-3 py-1 text-nowrap rounded-full text-xs font-medium border ${row.verificationStatus
+              ? "bg-green-50 text-green-700 border-green-200"
+              : "bg-yellow-50 text-yellow-700 border-yellow-200"}`}
+        >
+          {row.verificationStatus ? "✓ Verified" : "⏳ Pending"}
+        </span><span
+          className={`px-3 py-1 text-nowrap rounded-full text-xs font-medium border ${row.verificationStatus
+              ? "bg-green-50 text-green-700 border-green-200"
+              : "bg-yellow-50 text-yellow-700 border-yellow-200"}`}
+        >
+            {row.isVerified ? "✓ OTP Verified" : "⏳OTP Verification Pending"}
+
+          </span></>
+      ),
+    },
+    {
+      key: "",
+      title: "Actions",
+      render: (_value, row) => (
+        <div className="flex items-center gap-2">
+          <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
+            <Eye className="w-4 h-4" />
+            View
+          </button>
+          <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
+            <Lock className="w-4 h-4" />
+            Block
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  return {
+    totalPages,
+    totalCount,
+    doctors,
+    limit,
+    showAdvancedSearch,
+    setShowAdvancedSearch,
+    filter,
+    setFilter,
+    columns,
+  };
+};

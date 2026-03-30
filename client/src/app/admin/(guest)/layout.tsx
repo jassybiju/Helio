@@ -8,7 +8,7 @@ type PropType = {
 
 const AdminGuestLayout = ({children }: PropType) => {
   return (
-    <GuestLayout>    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+  <GuestLayout>    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <Navbar>
         <nav className="hidden md:flex items-center gap-8">
             <a

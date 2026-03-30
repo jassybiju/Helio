@@ -50,5 +50,15 @@ export const authService = {
       email, password
     })
     return response
+  },
+
+  async forgetPassword({email} : {email : string}){
+    const response = await apiRequest('/auth/doctor/forget-password', HTTP_METHOD.POST, {email})
+    return response
+  },
+
+   async resetPassword({token, password} : {token : string, password : string}){
+    const response = await apiRequest('/auth/doctor/reset-password', HTTP_METHOD.POST, {token,password})
+    return response
   }
 };

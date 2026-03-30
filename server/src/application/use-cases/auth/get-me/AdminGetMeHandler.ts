@@ -2,7 +2,7 @@ import type { IGetMeResponseDTO } from "@application/dto/auth/IGetMeDTO.ts";
 import type { IGetMeHandler } from "@application/ports/use-cases/auth/IGetMeHandler.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@shared/types/UserRoles.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 export class AdminGetMeHandler implements IGetMeHandler {
   constructor() {}

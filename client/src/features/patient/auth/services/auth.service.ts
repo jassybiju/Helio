@@ -37,5 +37,15 @@ export const authService = {
   async login({email ,password} : {email : string, password : string}) : Promise<unknown> {
     const response = await apiRequest('/auth/patient/login', HTTP_METHOD.POST, {email, password})
     return response
+  },
+
+  async forgetPassword({email} : {email : string}){
+    const response = await apiRequest('/auth/patient/forget-password', HTTP_METHOD.POST, {email})
+    return response
+  },
+
+   async resetPassword({token, password} : {token : string, password : string}){
+    const response = await apiRequest('/auth/patient/reset-password', HTTP_METHOD.POST, {token,password})
+    return response
   }
 }

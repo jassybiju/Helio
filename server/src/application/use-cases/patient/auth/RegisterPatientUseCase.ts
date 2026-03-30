@@ -29,7 +29,8 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
   async execute(
     input: IRegisterPatientRequestDTO
   ): Promise<IRegisterPatientResponseDTO> {
-    const { first_name, last_name, dob, email, gender, password } = input;
+    const { first_name, last_name, dob, email, gender, password, phone } =
+      input;
 
     this._logger.info("Registering User");
 
@@ -47,6 +48,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       gender as GENDER,
       new Date(dob),
       null,
+      phone,
       false,
       false,
       new Date(),

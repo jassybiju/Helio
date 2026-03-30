@@ -15,6 +15,10 @@ import { LoginDoctorUseCase } from "@application/use-cases/doctor/auth/LoginDoct
 import { RedisSessionRepository } from "@infrastructure/database/repositories/RedisSessionRepository.ts";
 import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenService.ts";
 import { CryptoRefreshTokenService } from "@infrastructure/services/CryptoRefreshTokenService.ts";
+import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswordUseCase.ts";
+import { RedisResetTokenService } from "@infrastructure/services/RedisResetTokenService.ts";
+import { EmailService } from "@infrastructure/services/EmailService.ts";
+import { ResetPasswordUseCase } from "@application/use-cases/auth/ResetPasswordUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -23,6 +27,8 @@ const otpService = new OTPService();
 const s3FileUploadService = new S3FileUploadService();
 const accessTokenService = new JWTAccessTokenService();
 const refreshTokenService = new CryptoRefreshTokenService();
+const resetTokenService = new RedisResetTokenService(loggerService);
+const emailService = new EmailService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const patientRepo = new MongoPatientRepository(loggerService);
@@ -64,10 +70,28 @@ const loginDoctorUseCase = new LoginDoctorUseCase(
   refreshTokenRepo
 );
 
+const forgetPasswordUseCase = new ForgetPasswordUseCase(
+  loggerService,
+  patientRepo,
+  doctorRepo,
+  resetTokenService,
+  emailService
+);
+
+const resetPasswordUseCase = new ResetPasswordUseCase(
+  loggerService,
+  resetTokenService,
+  patientRepo,
+  doctorRepo,
+  bcryptPasswordService
+);
+
 export const doctorAuthController = new DoctorAuthController(
   registerUsecase,
   verifyDoctorUseCase,
   resendDoctorOTPUseCase,
   loginDoctorUseCase,
+  forgetPasswordUseCase,
+  resetPasswordUseCase,
   loggerService
 );

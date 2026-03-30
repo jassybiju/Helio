@@ -1,4 +1,4 @@
-import type { USER_ROLES } from "@shared/types/UserRoles.ts";
+import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 declare global {
   namespace Express {

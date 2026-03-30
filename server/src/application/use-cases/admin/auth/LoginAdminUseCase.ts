@@ -9,7 +9,7 @@ import type { IRefreshTokenService } from "@application/ports/services/IRefreshT
 import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@shared/types/UserRoles.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 export class LoginAdminUseCase implements ILoginUseCase {
   constructor(
@@ -45,6 +45,7 @@ export class LoginAdminUseCase implements ILoginUseCase {
     await this._sessionRepo.storeRefreshToken(
       ADMIN_ID,
       USER_ROLES.ADMIN,
+      ADMIN_EMAIL,
       this._refreshTokenService.hash(refreshToken)
     );
 

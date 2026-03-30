@@ -15,3 +15,6 @@ doctorAuthRouter.post("/verify-otp", doctorAuthController.verify_otp);
 doctorAuthRouter.post("/resend-otp", doctorAuthController.resend_otp);
 
 doctorAuthRouter.post("/login", doctorAuthController.login);
+
+doctorAuthRouter.post("/forget-password", doctorAuthController.forgetPasword);
+doctorAuthRouter.post("/reset-password", doctorAuthController.resetPassword);

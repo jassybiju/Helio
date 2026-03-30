@@ -1,11 +1,18 @@
-import type { USER_ROLES } from "@shared/types/UserRoles.ts";
+import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+
+export type SessionData = {
+  userId: string;
+  role: USER_ROLES;
+  email: string;
+};
 
 export interface ISessionRepository {
   storeRefreshToken(
     userId: string,
     role: USER_ROLES,
+    email: string,
     token: string
   ): Promise<void>;
-  getRefreshToken(userId: string, role: USER_ROLES): Promise<string | null>;
-  deleteRefreshToken(userId: string, role: USER_ROLES): Promise<void>;
+  getRefreshToken(hashedToken: string): Promise<SessionData | null>;
+  deleteRefreshToken(hashedToken: string): Promise<void>;
 }

@@ -5,6 +5,7 @@ import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
 import {
   apiResponse,
+  sendToken,
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
@@ -24,24 +25,9 @@ export class AdminAuthController {
       }
 
       const response = await this._loginUsecase.execute(parsed.data);
-      const ACCESS_TOKEN_EXPIRY_MS =
-        Number(process.env.JWT_ACCESS_VALID_SECS) * 1000;
-      const REFRESH_TOKEN_EXPIRY_MS =
-        Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
-      res.cookie("refreshToken", response.refreshToken, {
-        maxAge: REFRESH_TOKEN_EXPIRY_MS,
-        httpOnly: true,
-        domain: ".helixo.local",
-        secure: process.env.NODE_ENV === "production",
-      });
-      res.cookie("accessToken", response.accessToken, {
-        maxAge: ACCESS_TOKEN_EXPIRY_MS,
-        httpOnly: true,
-        sameSite: "lax",
-        domain: ".helixo.local",
 
-        secure: false,
-      });
+      sendToken(res, response.accessToken, response.refreshToken);
+
       return apiResponse(
         res,
         HTTPStatus.OK,

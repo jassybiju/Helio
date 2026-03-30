@@ -7,6 +7,7 @@ export const useMe = () => {
   return useQuery({
     queryKey : ['me'],
     queryFn : authService.getMe,
-    retry : false
+    retry : false,
+    staleTime : Infinity
   })
 }

@@ -8,8 +8,8 @@ const AdminHeader = () => {
   <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8">
       {/* Left Section */}
       <div>
-        <h2 className="text-sm text-slate-600">Welcome back,</h2>
-        <h1 className="text-lg font-semibold text-slate-900">Dr. Smith</h1>
+        <h2 className="text-sm text-slate-600"></h2>
+        <h1 className="text-lg font-semibold text-slate-900">Welcome back,</h1>
       </div>
 
       {/* Right Section */}
@@ -23,10 +23,10 @@ const AdminHeader = () => {
         {/* User Profile */}
         <button className="flex items-center gap-3 px-4 py-2 hover:bg-slate-50 rounded-lg transition-colors">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-            DS
+            A
           </div>
           <div className="text-left hidden sm:block">
-            <p className="text-sm font-medium text-slate-900">Dr. Smith</p>
+            <p className="text-sm font-medium text-slate-900">ADMIN</p>
             <p className="text-xs text-slate-500">Admin</p>
           </div>
           <ChevronDown className="w-4 h-4 text-slate-600" />

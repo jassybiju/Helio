@@ -1,4 +1,8 @@
 export enum MESSAGE {
+  // middleware errors
+  NOT_AUTHENTICATED = "User is not AUTHENTICATED",
+  NOT_AUTHORIZED = "User not AUTHORIZED",
+
   //auth
   OTP_SENT = "OTP sent successfully",
   REGISTRATION_SUCCESSFUL = "Registration Successful, OTP Sent",
@@ -13,4 +17,10 @@ export enum MESSAGE {
   FAILED_FETCH_DOCTOR_BY_ID = "Failed to fetch doctor by ID",
   FAILED_SAVE_DOCTOR = "Failed to save doctor",
   DOCTOR_NOT_FOUND = "Doctor Not Found",
+
+  // admin patient
+  PATIENT_FETCH_SUCCESS = "Patients Fetched Successfully",
+
+  //admin doctor
+  DOCTOR_FETCH_SUCCESS = "Doctor Fetched Successfully",
 }

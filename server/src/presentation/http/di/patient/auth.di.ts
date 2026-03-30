@@ -14,6 +14,10 @@ import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenSe
 import { CryptoRefreshTokenService } from "@infrastructure/services/CryptoRefreshTokenService.ts";
 import { RedisSessionRepository } from "@infrastructure/database/repositories/RedisSessionRepository.ts";
 import { PatientValidator } from "@application/validators/PatientValidator.ts";
+import { ResetPasswordUseCase } from "@application/use-cases/auth/ResetPasswordUseCase.ts";
+import { RedisResetTokenService } from "@infrastructure/services/RedisResetTokenService.ts";
+import { EmailService } from "@infrastructure/services/EmailService.ts";
+import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswordUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -21,6 +25,8 @@ const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();
 const accessTokenService = new JWTAccessTokenService();
 const refreshTokenService = new CryptoRefreshTokenService();
+const resetTokenService = new RedisResetTokenService(loggerService);
+const emailService = new EmailService();
 
 const sessionRepo = new RedisSessionRepository(loggerService);
 const patientRepo = new MongoPatientRepository(loggerService);
@@ -60,10 +66,26 @@ const loginPatientUseCase = new LoginPatientUseCase(
   refreshTokenService,
   sessionRepo
 );
+const resetPasswordUseCase = new ResetPasswordUseCase(
+  loggerService,
+  resetTokenService,
+  patientRepo,
+  doctorRepo,
+  bcryptPasswordService
+);
+const forgetPasswordUseCase = new ForgetPasswordUseCase(
+  loggerService,
+  patientRepo,
+  doctorRepo,
+  resetTokenService,
+  emailService
+);
 
 export const authController = new PatientAuthController(
   registerPatientUseCase,
   resendPatientOTPUseCase,
   verifyPatientUseCase,
-  loginPatientUseCase
+  loginPatientUseCase,
+  forgetPasswordUseCase,
+  resetPasswordUseCase
 );

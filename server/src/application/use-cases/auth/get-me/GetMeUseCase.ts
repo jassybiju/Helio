@@ -9,7 +9,7 @@ import type { IGetMeHandler } from "@application/ports/use-cases/auth/IGetMeHand
 import type { IGetMeUseCase } from "@application/ports/use-cases/auth/IGetMeUseCase.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@shared/types/UserRoles.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 /**
  * Get the details of the user from userId and role from middlewares

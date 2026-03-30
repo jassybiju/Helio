@@ -1,7 +1,7 @@
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { Model } from "mongoose";
+import type { Model, QueryFilter } from "mongoose";
 
 /**
  * Base Mongo DB Repository providing generic data access methods.
@@ -36,10 +36,28 @@ export abstract class MongoBaseRepository<TDomain, TModel> {
     id: string,
     persistance: (entity: TDomain) => object
   ): Promise<void> {
-    console.log(entity, "baserepo");
     await this._model.findOneAndUpdate({ _id: id }, persistance(entity), {
       new: true,
       upsert: true,
     });
+  }
+
+  protected async find(
+    filter: QueryFilter<TModel>,
+    options: { skip?: number; limit?: number; sort?: Record<string, 1 | -1> },
+    map: (doc: TModel) => TDomain
+  ): Promise<TDomain[]> {
+    const { skip = 0, limit = 10, sort = {} } = options;
+    const docs = await this._model
+      .find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit)
+      .lean();
+    return docs.map((x) => map(x));
+  }
+
+  protected async count(filter: QueryFilter<TModel>): Promise<number> {
+    return await this._model.countDocuments(filter);
   }
 }

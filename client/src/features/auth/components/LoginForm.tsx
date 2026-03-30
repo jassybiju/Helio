@@ -4,6 +4,7 @@ import React from 'react'
 import { useLogin } from '../hooks/useLogin'
 import Input from '@/src/components/ui/Input'
 import ClayButton from '@/src/components/ui/ClayButton'
+import Link from 'next/link'
 
 const LoginForm = ({login} : {login : ({email, password} : {email : string, password : string}) => Promise<unknown>}) => {
   const {handleSubmit,register,errors, isSubmitting} = useLogin({login})
@@ -49,7 +50,6 @@ const LoginForm = ({login} : {login : ({email, password} : {email : string, pass
           )}
         </div>
 
-        {/* Phone Number */}
        
         {/* Password Fields */}
         <div>
@@ -88,6 +88,7 @@ const LoginForm = ({login} : {login : ({email, password} : {email : string, pass
         </div>
       </form>
 
+<Link href={'/forget-password'}>Forget Password?</Link>
       {/* Social Login Divider */}
       <div className="relative my-8">
         <div className="absolute inset-0 flex items-center">

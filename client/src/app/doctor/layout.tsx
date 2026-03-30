@@ -1,5 +1,4 @@
 import Navbar from '@/src/components/Navbar'
-import { useMe } from '@/src/features/auth/hooks/useMe'
 import React from 'react'
 
 const DoctorLayout = ({children} : {children : React.ReactNode}) => {

@@ -2,6 +2,7 @@ import React from "react";
 import ClayButton from "./ui/ClayButton";
 import Image from "next/image";
 import Link from "next/link";
+import UserAuthButtons from "./UserAuthButtons";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -18,20 +19,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {/* Navigation */}
         {children}
 
-        {/* Auth Buttons */}
-        <div className="flex items-center gap-4">
-          <Link href={"/login"}>
-            <ClayButton variant="primary" size="md">
-              Login
-            </ClayButton>
-          </Link>
-          
-          <Link href={"/register"}>
-            <ClayButton variant="secondary" size="md">
-              Sign Up
-            </ClayButton>
-          </Link>
-        </div>
+        <UserAuthButtons/>
       </div>
     </header>
   );

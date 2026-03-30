@@ -24,7 +24,7 @@ export const doctorRegisterSchema = z.object({
 }) .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"], 
-  });;
+  });
 ;
 
 export type DoctorRegisterFormData = z.infer<typeof doctorRegisterSchema>;
