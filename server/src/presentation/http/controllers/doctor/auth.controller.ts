@@ -26,6 +26,7 @@ import type { ILoginResponseDTO } from "@application/dto/auth/ILoginDTO.ts";
 import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
 import type { IResetPasswordUseCase } from "@application/ports/use-cases/auth/IResetPasswordUseCase.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoogleLoginUseCase.ts";
 
 export class DoctorAuthController {
   constructor(
@@ -35,6 +36,7 @@ export class DoctorAuthController {
     private readonly _loginUseCase: ILoginUseCase,
     private readonly _forgetPasswordUseCase: IForgetPasswordUseCase,
     private readonly _resetPasswordUseCase: IResetPasswordUseCase,
+    private readonly _googleLoginUseCase: IGoogleLoginUseCase,
     private readonly _logger: ILogger
   ) {}
   /**
@@ -210,6 +212,31 @@ export class DoctorAuthController {
         res,
         HTTPStatus.OK,
         successResponse(response, "RESET LINK SENT TO EMAIL ")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  googleLogin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { credential } = req.body;
+
+      if (!credential) {
+        throw new AppError("Credentials is required", HTTPStatus.BAD_REQUEST);
+      }
+
+      const response = await this._googleLoginUseCase.execute({
+        credentials: credential,
+        role: USER_ROLES.DOCTOR,
+      });
+
+      sendToken(res, response.accessToken, response.refreshToken);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response.user, "USER GOOGLE LOGIN SUCCESFUL")
       );
     } catch (error) {
       next(error);

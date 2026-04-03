@@ -51,6 +51,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       phone,
       false,
       false,
+      null,
       new Date(),
       new Date()
     );

@@ -17,3 +17,5 @@ doctorAuthRouter.post("/login", doctorAuthController.login);
 
 doctorAuthRouter.post("/forget-password", doctorAuthController.forgetPasword);
 doctorAuthRouter.post("/reset-password", doctorAuthController.resetPassword);
+
+doctorAuthRouter.post("/google", doctorAuthController.googleLogin);

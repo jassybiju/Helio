@@ -22,6 +22,7 @@ export class AdminGetMeHandler implements IGetMeHandler {
       id: process.env.ADMIN_ID!,
       email: process.env.ADMIN_EMAIL!,
       role: USER_ROLES.ADMIN,
+      isProfileComplete: true,
     };
   }
 }

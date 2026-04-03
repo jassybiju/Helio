@@ -2,20 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginFormData, loginSchema } from "../schema/auth.schema";
 import axios from "axios";
-import {  useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { LoginFn } from "../types/auth.types";
 
-export const useLogin = ({
-  login,
-}: {
-  login: ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => Promise<unknown>;
-}) => {
+export const useLogin = ({ login }: { login: LoginFn }) => {
   const {
     register,
     reset,
@@ -25,27 +16,23 @@ export const useLogin = ({
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
-  const queryClient = useQueryClient()
-  const router = useRouter()
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const onSubmit = async (data: LoginFormData) => {
     try {
       const res = await login(data);
       reset();
-      queryClient.invalidateQueries({queryKey : ['me']})
-      router.replace('/')
+      await queryClient.invalidateQueries({ queryKey: ["me"] });
+      router.replace("/");
       return res;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(
-          "root",
-          {message : 
-          error.response?.data.message || "Something went wrong",
-
-           }
-        );
+        setError("root", {
+          message: error.response?.data.message || "Something went wrong",
+        });
       } else {
-        console.log(error)
+        console.log(error);
         setError("root", { message: "An Error occured. Please try again" });
       }
     }
@@ -55,6 +42,6 @@ export const useLogin = ({
     register,
     handleSubmit: handleSubmit(onSubmit),
     errors,
-  isSubmitting,
+    isSubmitting,
   };
 };

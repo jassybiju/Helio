@@ -18,20 +18,16 @@ const doctorSchema = new Schema(
     },
     passwordHash: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
-      required: true,
       enum: ["Male", "Female", "Other"],
     },
     specialization: {
       type: String,
-      required: true,
     },
     career_start_year: {
       type: Number,
-      required: true,
     },
     bio: {
       type: String,
@@ -39,9 +35,29 @@ const doctorSchema = new Schema(
     },
     verification_status: {
       type: String,
-      required: true,
+      default: "pending",
       enum: ["pending", "approved", "rejected", "resubmitted"],
     },
+    verfication_history: [
+      {
+        status: {
+          type: String,
+          enum: ["pending", "approved", "rejected", "resubmitted"],
+        },
+        reason : {
+          type : String,
+          default : null
+        },
+        document_key : {
+          type : String,
+          default : null
+        },
+        acted_at : {
+          type : Date, 
+          default : Date.now
+        }
+      },
+    ],
     online_fee: {
       type: Number,
       default: null,
@@ -60,11 +76,14 @@ const doctorSchema = new Schema(
     },
     is_verified: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     is_blocked: {
-      required: true,
+      default: false,
       type: Boolean,
+    },
+    googleId: {
+      type: String,
     },
   },
   {

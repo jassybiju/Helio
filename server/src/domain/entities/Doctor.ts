@@ -8,31 +8,35 @@ export class Doctor {
   constructor(
     private readonly _id: string,
     private readonly _email: Email,
-    private _passwordHash: string,
+    private _passwordHash: string | null,
 
     private readonly _fullName: string,
-    private readonly _gender: GENDER,
+    private _gender: GENDER | null,
 
-    private readonly _specialization: string,
-    private readonly _careerStartYear: number,
-    private readonly _bio: string | null,
+    private _specialization: string | null,
+    private _careerStartYear: number | null,
+    private _bio: string | null,
 
     private readonly _verificationStatus: DOCTOR_VERIFICATION_STATUS,
-    private readonly _documentKey: string | null,
+    private _documentKey: string | null,
     private readonly _rejectionReason: string | null,
 
     private readonly _onlineFee: number | null,
     private readonly _clinicFee: number | null,
 
+    private _googleId: string | null,
+
     private _isVerified: boolean,
     private readonly _isBlocked: boolean,
 
     private readonly _createdAt: Date,
-    private readonly _updatedAt: Date
+    private readonly _updatedAt: Date,
+    private _verificationHistory : 
   ) {
     if (
-      this._careerStartYear <= 1900 ||
-      this._careerStartYear > new Date().getFullYear()
+      this._careerStartYear &&
+      (this._careerStartYear <= 1900 ||
+        this._careerStartYear > new Date().getFullYear())
     ) {
       throw new AppError(
         "Invalid Career Start Year",
@@ -41,8 +45,27 @@ export class Doctor {
     }
   }
 
+  isProfileComplete(): boolean {
+    return !!(
+      this._fullName &&
+      this._gender &&
+      this._specialization &&
+      this._careerStartYear &&
+      this._documentKey &&
+      this._isVerified
+    );
+  }
+
+  get hasGoogleId() {
+    return !!this._googleId;
+  }
+
   get isVerified() {
     return this._isVerified;
+  }
+
+  linkGoogleId(googleId: string) {
+    this._googleId = googleId;
   }
 
   verifyDoctor() {
@@ -90,11 +113,66 @@ export class Doctor {
       null,
       null,
       null,
+      null,
       false,
       false,
       createdAt,
       updatedAt
     );
+  }
+
+  static googleCreate({
+    id,
+    email,
+    fullName,
+    googleId,
+    createdAt,
+    updatedAt,
+  }: {
+    id: string;
+    email: Email;
+    fullName: string;
+    googleId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }) {
+    return new Doctor(
+      id,
+      email,
+      null,
+      fullName,
+      null,
+      null,
+      null,
+      null,
+      DOCTOR_VERIFICATION_STATUS.PENDING,
+      null,
+      null,
+      null,
+      null,
+      googleId,
+      true,
+      false,
+      createdAt,
+      updatedAt
+    );
+  }
+
+  completeProfile({
+    gender,
+    specialization,
+    careerStartYear,
+    documentKey,
+  }: {
+    gender: GENDER;
+    specialization: string;
+    careerStartYear: number;
+    documentKey: string;
+  }) {
+    this._gender = gender;
+    this._specialization = specialization;
+    this._careerStartYear = careerStartYear;
+    this._documentKey = documentKey;
   }
 
   get id() {

@@ -8,24 +8,26 @@ export class Patient {
   constructor(
     private readonly _id: string,
     private readonly _email: Email,
-    private _passwordHash: string,
+    private _passwordHash: string | null,
 
     private readonly _firstName: string,
-    private readonly _lastName: string,
+    private readonly _lastName: string | null,
 
-    private readonly _gender: GENDER,
-    private readonly _dob: Date,
+    private readonly _gender: GENDER | null,
+    private readonly _dob: Date | null,
     private readonly _bloodGroup: BLOOD_GROUP | null,
 
-    private readonly _phone: string,
+    private readonly _phone: string | null,
 
     private _isVerified: boolean,
     private _isBlocked: boolean,
 
+    private _googleId: string | null,
+
     private readonly _createdAt: Date,
     private readonly _updatedAt: Date
   ) {
-    if (this.phone.length < 9) {
+    if (this._phone && this._phone.length < 9) {
       throw new AppError(
         "Invalid Phone NUmber",
         HTTPStatus.UNPROCESSBLE_ENTITY
@@ -43,6 +45,18 @@ export class Patient {
 
   toogleBlockStatus() {
     this._isBlocked = !this._isBlocked;
+  }
+
+  isProfileComplete(): boolean {
+    return !!(this._firstName && this._gender && this._dob && this._phone);
+  }
+
+  linkGoogleId(googleId: string) {
+    this._googleId = googleId;
+  }
+
+  get hasGoogleId() {
+    return !!this._googleId;
   }
 
   get id() {
@@ -98,5 +112,38 @@ export class Patient {
 
   get passwordHashed() {
     return this._passwordHash;
+  }
+
+  static googleCreate({
+    id,
+    firstName,
+    googleId,
+    createdAt,
+    updatedAt,
+    email,
+  }: {
+    id: string;
+    firstName: string;
+    googleId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    email: Email;
+  }) {
+    return new Patient(
+      id,
+      email,
+      null,
+      firstName,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      false,
+      googleId,
+      createdAt,
+      updatedAt
+    );
   }
 }

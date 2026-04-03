@@ -28,6 +28,7 @@ export class DoctorGetMeHandler implements IGetMeHandler {
       email: doctor.email,
       role: USER_ROLES.DOCTOR,
       status: doctor.verificationStatus,
+      isProfileComplete: doctor.isProfileComplete(),
     };
   }
 }

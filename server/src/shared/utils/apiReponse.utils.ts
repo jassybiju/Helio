@@ -36,14 +36,14 @@ export function sendToken(
   res.cookie("refreshToken", refreshToken, {
     maxAge: REFRESH_TOKEN_EXPIRY_MS,
     httpOnly: true,
-    domain: ".helixo.local",
+    domain: ".helixo.com",
     secure: process.env.NODE_ENV === "production",
   });
   res.cookie("accessToken", accessToken, {
     maxAge: ACCESS_TOKEN_EXPIRY_MS,
     httpOnly: true,
     sameSite: "lax",
-    domain: ".helixo.local",
+    domain: ".helixo.com",
 
     secure: process.env.NODE_ENV === "production",
   });
@@ -53,14 +53,14 @@ export function removeToken(res: Response) {
   res.cookie("refreshToken", null, {
     maxAge: 0,
     httpOnly: true,
-    domain: ".helixo.local",
+    domain: ".helixo.com",
     secure: process.env.NODE_ENV === "production",
   });
   res.cookie("accessToken", null, {
     maxAge: 0,
     httpOnly: true,
     sameSite: "lax",
-    domain: ".helixo.local",
+    domain: ".helixo.com",
 
     secure: process.env.NODE_ENV === "production",
   });

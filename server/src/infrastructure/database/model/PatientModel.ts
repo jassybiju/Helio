@@ -17,24 +17,19 @@ const patientSchema = new Schema(
     },
     last_name: {
       type: String,
-      required: true,
     },
     phone: {
       type: String,
-      required: true,
     },
     passwordHash: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
-      required: true,
       enum: ["Male", "Female", "Other"],
     },
     dob: {
       type: Date,
-      required: true,
     },
     blood_group: {
       type: String,
@@ -42,11 +37,14 @@ const patientSchema = new Schema(
     },
     is_verified: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     is_blocked: {
-      required: true,
+      default: false,
       type: Boolean,
+    },
+    googleId: {
+      type: String,
     },
   },
   {

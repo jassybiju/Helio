@@ -11,4 +11,5 @@ export type IGetMeResponseDTO = {
   email: string;
   role: USER_ROLES;
   status?: DOCTOR_VERIFICATION_STATUS;
+  isProfileComplete: boolean;
 };

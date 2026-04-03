@@ -2,6 +2,7 @@ import { Patient } from "@domain/entities/Patient.ts";
 import type { PatientDoc } from "@infrastructure/database/model/PatientModel.ts";
 import { Email } from "@domain/value-objects/Email.ts";
 import type { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
+import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 
 export class PatientMapper {
   static toPersistance(t: Patient): PatientDoc {
@@ -26,15 +27,16 @@ export class PatientMapper {
     return new Patient(
       raw._id,
       new Email(raw.email),
-      raw.passwordHash,
+      raw.passwordHash as string,
       raw.first_name,
-      raw.last_name,
-      raw.gender,
-      raw.dob,
+      raw.last_name as string,
+      raw.gender as GENDER,
+      raw.dob as Date,
       raw.blood_group as BLOOD_GROUP,
-      raw.phone,
+      raw.phone as string,
       raw.is_verified,
       raw.is_blocked,
+      raw.googleId as string,
       raw.createdAt,
       raw.updatedAt
     );

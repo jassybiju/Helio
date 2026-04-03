@@ -139,14 +139,12 @@ const DoctorRegistrationForm = () => {
             Upload License / Certificate
           </label>
           <DoctorFileUpload
-            name="document"
-            register={register}
-            label={"Upload Document"}
+            register={register('document')}
           />
 
           {errors.document && (
             <p className="text-red-600 text-sm mt-1">
-              {errors.document.message}
+              {errors.document.message as string}
             </p>
           )}
         </div>

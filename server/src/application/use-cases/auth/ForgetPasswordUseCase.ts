@@ -48,7 +48,7 @@ export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
     await this._emailService.sendEmail({
       to: user.email,
       subject: "Password Reset",
-      body: `Click here to reset password : http://${role === USER_ROLES.PATIENT ? "" : "doctor."}helixo.local:3000/reset-password?token=${token}`,
+      body: `Click here to reset password : http://${role === USER_ROLES.PATIENT ? "" : "doctor."}helixo.com:3000/reset-password?token=${token}`,
     });
   }
 }

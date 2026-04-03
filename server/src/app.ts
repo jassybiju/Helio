@@ -15,6 +15,7 @@ import morgan from "morgan";
 import { adminAuthRouter } from "./presentation/http/routes/admin/auth.routes.ts";
 import { adminPatientRouter } from "./presentation/http/routes/admin/patient.routes.ts";
 import { adminDoctorRouter } from "./presentation/http/routes/admin/doctor.routes.ts";
+import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.ts";
 
 export const app = express();
 
@@ -26,7 +27,7 @@ app.use(
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
 
-      const allowedDomains = ["localhost:3000", "helixo.local:3000"];
+      const allowedDomains = ["localhost:3000", "helixo.com:3000"];
 
       const isAllowed = allowedDomains.some((domain) => {
         return origin.endsWith(domain);
@@ -46,13 +47,14 @@ app.use(cookieParser());
 
 const api = "/v1/api/";
 
-app.use(`${api}auth/patient`, patientAuthRouter);
-app.use(`${api}auth/doctor`, doctorAuthRouter);
-app.use(`${api}auth/admin`, adminAuthRouter);
+app.use(`${api}patient/auth`, patientAuthRouter);
+app.use(`${api}admin/auth`, adminAuthRouter);
 app.use(`${api}auth`, authRouter);
 
 app.use(`${api}admin/patient`, adminPatientRouter);
 app.use(`${api}admin/doctor`, adminDoctorRouter);
+
+app.use(`${api}doctor`, doctorRouter);
 
 app.get("/health", (req, res) => {
   console.log("Api is health");

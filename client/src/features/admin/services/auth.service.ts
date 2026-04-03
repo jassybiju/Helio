@@ -7,7 +7,7 @@ export const authService = {
 
 
   async login({email , password} : {email : string, password : string}) {
-    const response = await apiRequest('/auth/admin/login', HTTP_METHOD.POST, {
+    const response = await apiRequest('/admin/auth/login', HTTP_METHOD.POST, {
       email, password
     })
     return response

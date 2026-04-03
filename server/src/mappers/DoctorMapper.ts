@@ -1,4 +1,5 @@
 import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
+import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { Email } from "@domain/value-objects/Email.ts";
 import type { DoctorDoc } from "@infrastructure/database/model/DoctorModel.ts";
@@ -9,17 +10,18 @@ export class DoctorMapper {
     return new Doctor(
       raw._id,
       new Email(raw.email),
-      raw.passwordHash,
+      raw.passwordHash as string,
       raw.fullName,
-      raw.gender,
-      raw.specialization,
-      raw.career_start_year,
+      raw.gender as GENDER,
+      raw.specialization as string,
+      raw.career_start_year as number,
       raw.bio as string,
       raw.verification_status as DOCTOR_VERIFICATION_STATUS,
       raw.document_key as string,
       raw.rejection_reason as string,
       raw.online_fee as number,
       raw.clinic_fee as number,
+      raw.googleId as string,
       raw.is_verified,
       raw.is_blocked,
       raw.createdAt,

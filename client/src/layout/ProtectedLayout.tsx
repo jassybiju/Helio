@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { USER_ROLES } from "../types/user.types";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { redirectToRoleDashboard } from "../utils/redirectToRoleDashboard";
 import { useAuth } from "../features/auth/hooks/useAuth";
 
@@ -12,31 +12,41 @@ type PropType = {
 };
 
 const ProtectedLayout = ({ children, role }: PropType) => {
-  console.log("PROTECTED LAYOUT")
-  const { user , isLoading, isError } = useAuth();
+  console.log("PROTECTED LAYOUT");
+  const { user, isLoading, isError } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
+  const isProfileCompletePage = pathname === "/profile-complete";
+  console.log(user)
   useEffect(() => {
-    if(isLoading) return 
-    if(isError || !user){
-      console.log('REDIRECT TO LOGIN')
-      router.replace('/login')
-      return
+    if (isLoading) return;
+    if (isError || !user) {
+      console.log("REDIRECT TO LOGIN");
+      router.replace("/login");
+      return;
     }
-    if(user.role !== role ){
-      console.log("HITTTT")
-      redirectToRoleDashboard(user.role)
-      return
+    if (!isProfileCompletePage && !user.isProfileComplete) {
+      router.replace("/profile-complete");
+      return;
     }
-    
-  }, [isError, router, role, isLoading,user]);
+    if (user.role !== role) {
+      console.log("HITTTT");
+      redirectToRoleDashboard(user.role);
+      return;
+    }
+  }, [isError, router, role, isLoading, user]);
 
   if (isLoading) {
-    return "Loading...";
+    return <p className="text-black">"Loading..."</p>;
+  }
+
+  if (!isProfileCompletePage && !user?.isProfileComplete) {
+    return null;
   }
 
   if (!user || user.role !== role) {
-    console.log('x')
+    console.log("x");
     return null;
   }
 
