@@ -16,8 +16,13 @@ import { adminAuthRouter } from "./presentation/http/routes/admin/auth.routes.ts
 import { adminPatientRouter } from "./presentation/http/routes/admin/patient.routes.ts";
 import { adminDoctorRouter } from "./presentation/http/routes/admin/doctor.routes.ts";
 import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.ts";
+import path from "path";
+import { fileURLToPath } from "url";
 
 export const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(morgan("dev"));
 
@@ -41,6 +46,7 @@ app.use(
   })
 );
 
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

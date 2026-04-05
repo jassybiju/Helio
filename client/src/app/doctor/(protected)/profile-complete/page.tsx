@@ -8,7 +8,8 @@ const DoctorProfileCompletePage = () => {
         {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-3">
-Complete Your Profile to Continue          </h1>
+            Complete Your Profile to Continue{" "}
+          </h1>
           <p className="text-slate-600 text-lg">
             {/* Join over 500,000 patients who trust Helio for their virtual care needs. Secure, fast and personalized */}
           </p>

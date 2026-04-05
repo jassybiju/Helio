@@ -10,7 +10,7 @@ export class LocalFileUploadService implements IFileUpload {
   constructor() {
     this._uploadDir = path.join(process.cwd(), "uploads");
 
-    this._baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    this._baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
     if (!fs.existsSync(this._uploadDir)) {
       fs.mkdirSync(this._uploadDir, { recursive: true });

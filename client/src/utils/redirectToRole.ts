@@ -1,4 +1,4 @@
-export const redirectToRoleDashboard = (role : string) => {
+export const redirectToRole = (role : string,path : string = '/') => {
   const protocol = window.location.protocol
   const hostParts = window.location.hostname.split(".")
   const port = window.location.port
@@ -12,9 +12,9 @@ export const redirectToRoleDashboard = (role : string) => {
   let url 
   if(role === 'patient'){
 
-    url = `${protocol}//${baseDomain}${portPart}/`
+    url = `${protocol}//${baseDomain}${portPart}${path}`
   }else{
-    url = `${protocol}//${role}.${baseDomain}${portPart}/`
+    url = `${protocol}//${role}.${baseDomain}${portPart}${path}`
 
   }
 

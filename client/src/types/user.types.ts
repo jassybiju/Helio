@@ -1,9 +1,20 @@
 export type USER_DATA = {
-    id: string;
+  id: string;
   email: string;
   role: USER_ROLES;
-  status?: string;
-  isProfileComplete : boolean
+  status?: DOCTOR_STATUS;
+  isProfileComplete: boolean;
+};
+
+export enum USER_ROLES {
+  DOCTOR = "doctor",
+  PATIENT = "patient",
+  ADMIN = "admin",
 }
 
-export type USER_ROLES = 'doctor' | 'patient' | 'admin'
+export enum DOCTOR_STATUS {
+  PENDING = "pending",
+  APPROVED = "approved",
+  REJECTED = "rejected",
+  REAPPLIED = "reapplied",
+}

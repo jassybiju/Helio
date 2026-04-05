@@ -20,6 +20,7 @@ export class Doctor {
     private readonly _verificationStatus: DOCTOR_VERIFICATION_STATUS,
     private _documentKey: string | null,
     private readonly _rejectionReason: string | null,
+    private _additionalInfo: string | null,
 
     private readonly _onlineFee: number | null,
     private readonly _clinicFee: number | null,
@@ -31,7 +32,12 @@ export class Doctor {
 
     private readonly _createdAt: Date,
     private readonly _updatedAt: Date,
-    private _verificationHistory : 
+    private _verificationHistory: {
+      status: DOCTOR_VERIFICATION_STATUS;
+      reason: string | null;
+      documentKey: string | null;
+      actedAt: Date;
+    }[] = []
   ) {
     if (
       this._careerStartYear &&
@@ -54,6 +60,10 @@ export class Doctor {
       this._documentKey &&
       this._isVerified
     );
+  }
+
+  get verificationHistory() {
+    return this._verificationHistory;
   }
 
   get hasGoogleId() {
@@ -114,10 +124,19 @@ export class Doctor {
       null,
       null,
       null,
+      null,
       false,
       false,
       createdAt,
-      updatedAt
+      updatedAt,
+      [
+        {
+          status: DOCTOR_VERIFICATION_STATUS.PENDING,
+          reason: "",
+          documentKey: documentKey,
+          actedAt: new Date(),
+        },
+      ]
     );
   }
 
@@ -150,6 +169,7 @@ export class Doctor {
       null,
       null,
       null,
+      null,
       googleId,
       true,
       false,
@@ -173,6 +193,14 @@ export class Doctor {
     this._specialization = specialization;
     this._careerStartYear = careerStartYear;
     this._documentKey = documentKey;
+    this._verificationHistory = [
+      {
+        status: DOCTOR_VERIFICATION_STATUS.PENDING,
+        reason: "",
+        documentKey: documentKey,
+        actedAt: new Date(),
+      },
+    ];
   }
 
   get id() {
@@ -186,7 +214,6 @@ export class Doctor {
   get passwordHash() {
     return this._passwordHash;
   }
-
   get fullName() {
     return this._fullName;
   }
@@ -217,6 +244,10 @@ export class Doctor {
 
   get rejectionReason() {
     return this._rejectionReason;
+  }
+
+  get additionalInfo() {
+    return this._additionalInfo;
   }
 
   get onlineFee() {

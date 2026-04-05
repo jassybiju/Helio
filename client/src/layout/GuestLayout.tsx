@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import {  useRouter } from "next/navigation";
 import { getSubdomain } from "../utils/getSubdomain";
-import { redirectToRoleDashboard } from "../utils/redirectToRoleDashboard";
+import { redirectToRole } from "../utils/redirectToRole";
 import { getExpectedSubdomain } from "../utils/getExpectedSubdomain";
 import { useAuth } from "../features/auth/hooks/useAuth";
 
@@ -25,7 +25,7 @@ const GuestLayout = ({ children }: PropType) => {
     const currentSubdomaian = getSubdomain();
     const expectedSubdomain = getExpectedSubdomain(user.role);
     if (currentSubdomaian !== expectedSubdomain) {
-      redirectToRoleDashboard(user.role);
+      redirectToRole(user.role,'/');
     } else {
       router.replace("/");
     }

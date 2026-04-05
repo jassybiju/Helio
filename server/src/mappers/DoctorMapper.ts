@@ -2,7 +2,10 @@ import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enu
 import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { Email } from "@domain/value-objects/Email.ts";
-import type { DoctorDoc } from "@infrastructure/database/model/DoctorModel.ts";
+import type {
+  DoctorDoc,
+  DoctorRawDoc,
+} from "@infrastructure/database/model/DoctorModel.ts";
 
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {
@@ -19,17 +22,24 @@ export class DoctorMapper {
       raw.verification_status as DOCTOR_VERIFICATION_STATUS,
       raw.document_key as string,
       raw.rejection_reason as string,
+      raw.additional_info as string,
       raw.online_fee as number,
       raw.clinic_fee as number,
       raw.googleId as string,
       raw.is_verified,
       raw.is_blocked,
       raw.createdAt,
-      raw.updatedAt
+      raw.updatedAt,
+      raw.verfication_history?.map((x) => ({
+        status: x.status as DOCTOR_VERIFICATION_STATUS,
+        reason: x.reason as string,
+        documentKey: x.document_key as string,
+        actedAt: x.acted_at as Date,
+      })) ?? []
     );
   }
 
-  static toPersistance(doctor: Doctor): DoctorDoc {
+  static toPersistance(doctor: Doctor): DoctorRawDoc {
     console.log(doctor.id);
     return {
       _id: doctor.id,
@@ -47,12 +57,19 @@ export class DoctorMapper {
         | "resubmitted",
       document_key: doctor.documentKey,
       rejection_reason: doctor.rejectionReason,
+      additional_info: doctor.additionalInfo,
       online_fee: doctor.onlineFee,
       clinic_fee: doctor.clinicFee,
       is_verified: doctor.isVerified,
       is_blocked: doctor.isBlocked,
       createdAt: doctor.createdAt,
       updatedAt: doctor.updatedAt,
+      verfication_history: doctor.verificationHistory.map((x) => ({
+        status: x.status,
+        reason: x.reason,
+        document_key: x.documentKey,
+        acted_at: x.actedAt,
+      })),
     };
   }
 }

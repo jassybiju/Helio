@@ -1,4 +1,9 @@
-import { model, Schema, type InferSchemaType } from "mongoose";
+import {
+  model,
+  Schema,
+  type InferRawDocType,
+  type InferSchemaType,
+} from "mongoose";
 
 const doctorSchema = new Schema(
   {
@@ -44,18 +49,18 @@ const doctorSchema = new Schema(
           type: String,
           enum: ["pending", "approved", "rejected", "resubmitted"],
         },
-        reason : {
-          type : String,
-          default : null
+        reason: {
+          type: String,
+          default: null,
         },
-        document_key : {
-          type : String,
-          default : null
+        document_key: {
+          type: String,
+          default: null,
         },
-        acted_at : {
-          type : Date, 
-          default : Date.now
-        }
+        acted_at: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
     online_fee: {
@@ -71,6 +76,10 @@ const doctorSchema = new Schema(
       default: null,
     },
     rejection_reason: {
+      type: String,
+      default: null,
+    },
+    additional_info: {
       type: String,
       default: null,
     },
@@ -94,3 +103,5 @@ const doctorSchema = new Schema(
 export const doctorModel = model("DoctorModel", doctorSchema);
 
 export type DoctorDoc = InferSchemaType<typeof doctorSchema>;
+
+export type DoctorRawDoc = InferRawDocType<typeof doctorSchema.obj>;
