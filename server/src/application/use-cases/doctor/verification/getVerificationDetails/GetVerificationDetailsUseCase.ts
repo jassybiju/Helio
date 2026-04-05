@@ -1,4 +1,4 @@
-import type { IGetVerificationDetailsResponseDTO } from "@application/dto/doctor/verification/IGetVerificationDetailsDTO.ts";
+import type { IGetVerificationDetailsResponseDTO } from "@application/use-cases/doctor/verification/getVerificationDetails/IGetVerificationDetailsDTO.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";

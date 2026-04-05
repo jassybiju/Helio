@@ -1,4 +1,4 @@
-import { GetVerificationDetailsUseCase } from "@application/use-cases/doctor/verification/GetVerificationDetailsUseCase.ts";
+import { GetVerificationDetailsUseCase } from "@application/use-cases/doctor/verification/getVerificationDetails/GetVerificationDetailsUseCase.ts";
 import { DoctorVerificationController } from "../../controllers/doctor/verification.controller.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";

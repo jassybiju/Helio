@@ -1,7 +1,7 @@
 import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
 
-export interface IDocotorFilters {
+export interface IDoctorFilters {
   search?: string | undefined;
   isVerified?: boolean | undefined;
   isBlocked?: boolean | undefined;
@@ -18,6 +18,6 @@ export interface IDoctorRepository {
   findById(id: string): Promise<Doctor | null>;
   save(doctor: Doctor): Promise<void>;
   findAllWithFilters(
-    params: IDocotorFilters
+    params: IDoctorFilters
   ): Promise<{ doctors: Doctor[]; totalCount: number }>;
 }

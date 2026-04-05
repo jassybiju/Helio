@@ -10,3 +10,4 @@ adminDoctorRouter.use(authMiddleware);
 adminDoctorRouter.use(authorizeMiddleware(USER_ROLES.ADMIN));
 
 adminDoctorRouter.get("/", adminDoctorController.getAllDoctors);
+adminDoctorRouter.patch("/:doctorId/approval-status", adminDoctorController.changeDoctorApprovalStatus);

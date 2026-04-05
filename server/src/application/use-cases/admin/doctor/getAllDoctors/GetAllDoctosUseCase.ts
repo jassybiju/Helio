@@ -1,5 +1,5 @@
 import type {
-  IDocotorFilters,
+  IDoctorFilters,
   IDoctorRepository,
 } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
@@ -33,7 +33,7 @@ export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
       order = "desc",
     } = input;
 
-    const filter: IDocotorFilters = {
+    const filter: IDoctorFilters = {
       search: search,
       createdFrom,
       createdTo,

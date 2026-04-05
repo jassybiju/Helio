@@ -1,5 +1,5 @@
 import type {
-  IDocotorFilters,
+  IDoctorFilters,
   IDoctorRepository,
 } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
@@ -58,7 +58,7 @@ export class MongoDoctorRepository
   }
 
   async findAllWithFilters(
-    params: IDocotorFilters
+    params: IDoctorFilters
   ): Promise<{ doctors: Doctor[]; totalCount: number }> {
     try {
       const {

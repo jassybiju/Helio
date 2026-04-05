@@ -17,9 +17,9 @@ export class Doctor {
     private _careerStartYear: number | null,
     private _bio: string | null,
 
-    private readonly _verificationStatus: DOCTOR_VERIFICATION_STATUS,
+    private  _verificationStatus: DOCTOR_VERIFICATION_STATUS,
     private _documentKey: string | null,
-    private readonly _rejectionReason: string | null,
+    private  _rejectionReason: string | null,
     private _additionalInfo: string | null,
 
     private readonly _onlineFee: number | null,
@@ -51,6 +51,28 @@ export class Doctor {
     }
   }
 
+  private static readonly _validTransistions : Record<DOCTOR_VERIFICATION_STATUS, DOCTOR_VERIFICATION_STATUS[]> = {
+    [DOCTOR_VERIFICATION_STATUS.PENDING] : [DOCTOR_VERIFICATION_STATUS.APPROVED, DOCTOR_VERIFICATION_STATUS.REJECTED],
+    [DOCTOR_VERIFICATION_STATUS.REJECTED] : [DOCTOR_VERIFICATION_STATUS.PENDING],
+    [DOCTOR_VERIFICATION_STATUS.APPROVED] : []
+  }
+
+  static isValidTransistion(current: DOCTOR_VERIFICATION_STATUS, next : DOCTOR_VERIFICATION_STATUS){
+    return this._validTransistions[current].includes(next)
+  }
+
+  approve(){
+    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.APPROVED
+    this._rejectionReason = null
+    this._verificationHistory.push({status : DOCTOR_VERIFICATION_STATUS.APPROVED, reason : null,documentKey : null, actedAt : new Date()})
+  }
+
+  reject(reason : string){
+    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.REJECTED
+    this._rejectionReason = reason
+    this._verificationHistory.push({status : DOCTOR_VERIFICATION_STATUS.REJECTED, reason ,documentKey : null, actedAt : new Date()})
+  }
+
   isProfileComplete(): boolean {
     return !!(
       this._fullName &&
@@ -61,19 +83,7 @@ export class Doctor {
       this._isVerified
     );
   }
-
-  get verificationHistory() {
-    return this._verificationHistory;
-  }
-
-  get hasGoogleId() {
-    return !!this._googleId;
-  }
-
-  get isVerified() {
-    return this._isVerified;
-  }
-
+  
   linkGoogleId(googleId: string) {
     this._googleId = googleId;
   }
@@ -139,7 +149,7 @@ export class Doctor {
       ]
     );
   }
-
+  
   static googleCreate({
     id,
     email,
@@ -177,7 +187,7 @@ export class Doctor {
       updatedAt
     );
   }
-
+  
   completeProfile({
     gender,
     specialization,
@@ -202,7 +212,19 @@ export class Doctor {
       },
     ];
   }
-
+  
+  
+    get verificationHistory() {
+      return this._verificationHistory;
+    }
+  
+    get hasGoogleId() {
+      return !!this._googleId;
+    }
+  
+    get isVerified() {
+      return this._isVerified;
+    }
   get id() {
     return this._id;
   }
