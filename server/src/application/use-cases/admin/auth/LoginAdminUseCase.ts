@@ -29,7 +29,7 @@ export class LoginAdminUseCase implements ILoginUseCase {
     const ADMIN_PASS = process.env.ADMIN_PASS!;
 
     console.log(ADMIN_EMAIL, email);
-    if (!(ADMIN_EMAIL === email || ADMIN_PASS === password)) {
+    if (!(ADMIN_EMAIL === email && ADMIN_PASS === password)) {
       throw new AppError("Invalid Email or password", HTTPStatus.BAD_REQUEST);
     }
 
