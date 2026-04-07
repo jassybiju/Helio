@@ -18,6 +18,7 @@ import { adminDoctorRouter } from "./presentation/http/routes/admin/doctor.route
 import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.ts";
 import path from "path";
 import { fileURLToPath } from "url";
+import { patientRouter } from "./presentation/http/routes/patient/index.routes.ts";
 
 export const app = express();
 
@@ -53,7 +54,6 @@ app.use(cookieParser());
 
 const api = "/v1/api/";
 
-app.use(`${api}patient/auth`, patientAuthRouter);
 app.use(`${api}admin/auth`, adminAuthRouter);
 app.use(`${api}auth`, authRouter);
 
@@ -61,6 +61,7 @@ app.use(`${api}admin/patient`, adminPatientRouter);
 app.use(`${api}admin/doctor`, adminDoctorRouter);
 
 app.use(`${api}doctor`, doctorRouter);
+app.use(`${api}patient`, patientRouter);
 
 app.get("/health", (req, res) => {
   console.log("Api is health");

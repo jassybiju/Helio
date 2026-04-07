@@ -17,9 +17,9 @@ export class Doctor {
     private _careerStartYear: number | null,
     private _bio: string | null,
 
-    private  _verificationStatus: DOCTOR_VERIFICATION_STATUS,
+    private _verificationStatus: DOCTOR_VERIFICATION_STATUS,
     private _documentKey: string | null,
-    private  _rejectionReason: string | null,
+    private _rejectionReason: string | null,
     private _additionalInfo: string | null,
 
     private readonly _onlineFee: number | null,
@@ -28,7 +28,7 @@ export class Doctor {
     private _googleId: string | null,
 
     private _isVerified: boolean,
-    private readonly _isBlocked: boolean,
+    private _isBlocked: boolean,
 
     private readonly _createdAt: Date,
     private readonly _updatedAt: Date,
@@ -51,26 +51,58 @@ export class Doctor {
     }
   }
 
-  private static readonly _validTransistions : Record<DOCTOR_VERIFICATION_STATUS, DOCTOR_VERIFICATION_STATUS[]> = {
-    [DOCTOR_VERIFICATION_STATUS.PENDING] : [DOCTOR_VERIFICATION_STATUS.APPROVED, DOCTOR_VERIFICATION_STATUS.REJECTED],
-    [DOCTOR_VERIFICATION_STATUS.REJECTED] : [DOCTOR_VERIFICATION_STATUS.PENDING],
-    [DOCTOR_VERIFICATION_STATUS.APPROVED] : []
+  private static readonly _validTransistions: Record<
+    DOCTOR_VERIFICATION_STATUS,
+    DOCTOR_VERIFICATION_STATUS[]
+  > = {
+    [DOCTOR_VERIFICATION_STATUS.PENDING]: [
+      DOCTOR_VERIFICATION_STATUS.APPROVED,
+      DOCTOR_VERIFICATION_STATUS.REJECTED,
+    ],
+    [DOCTOR_VERIFICATION_STATUS.REJECTED]: [DOCTOR_VERIFICATION_STATUS.PENDING],
+    [DOCTOR_VERIFICATION_STATUS.APPROVED]: [],
+  };
+
+  static isValidTransistion(
+    current: DOCTOR_VERIFICATION_STATUS,
+    next: DOCTOR_VERIFICATION_STATUS
+  ) {
+    return this._validTransistions[current].includes(next);
   }
 
-  static isValidTransistion(current: DOCTOR_VERIFICATION_STATUS, next : DOCTOR_VERIFICATION_STATUS){
-    return this._validTransistions[current].includes(next)
+  resubmit(documentKey: string, additionalInfo: string) {
+    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.PENDING;
+    this._rejectionReason = null;
+    this._documentKey = documentKey;
+    this._additionalInfo = additionalInfo;
+    this._verificationHistory.push({
+      status: DOCTOR_VERIFICATION_STATUS.PENDING,
+      reason: null,
+      documentKey: documentKey,
+      actedAt: new Date(),
+    });
   }
 
-  approve(){
-    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.APPROVED
-    this._rejectionReason = null
-    this._verificationHistory.push({status : DOCTOR_VERIFICATION_STATUS.APPROVED, reason : null,documentKey : null, actedAt : new Date()})
+  approve() {
+    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.APPROVED;
+    this._rejectionReason = null;
+    this._verificationHistory.push({
+      status: DOCTOR_VERIFICATION_STATUS.APPROVED,
+      reason: null,
+      documentKey: null,
+      actedAt: new Date(),
+    });
   }
 
-  reject(reason : string){
-    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.REJECTED
-    this._rejectionReason = reason
-    this._verificationHistory.push({status : DOCTOR_VERIFICATION_STATUS.REJECTED, reason ,documentKey : null, actedAt : new Date()})
+  reject(reason: string) {
+    this._verificationStatus = DOCTOR_VERIFICATION_STATUS.REJECTED;
+    this._rejectionReason = reason;
+    this._verificationHistory.push({
+      status: DOCTOR_VERIFICATION_STATUS.REJECTED,
+      reason,
+      documentKey: null,
+      actedAt: new Date(),
+    });
   }
 
   isProfileComplete(): boolean {
@@ -83,7 +115,11 @@ export class Doctor {
       this._isVerified
     );
   }
-  
+
+  toogleBlockStatus() {
+    this._isBlocked = !this._isBlocked;
+  }
+
   linkGoogleId(googleId: string) {
     this._googleId = googleId;
   }
@@ -149,7 +185,7 @@ export class Doctor {
       ]
     );
   }
-  
+
   static googleCreate({
     id,
     email,
@@ -187,7 +223,7 @@ export class Doctor {
       updatedAt
     );
   }
-  
+
   completeProfile({
     gender,
     specialization,
@@ -199,6 +235,16 @@ export class Doctor {
     careerStartYear: number;
     documentKey: string;
   }) {
+    if (
+      this._careerStartYear &&
+      (this._careerStartYear <= 1900 ||
+        this._careerStartYear > new Date().getFullYear())
+    ) {
+      throw new AppError(
+        "Invalid Career Start Year",
+        HTTPStatus.UNPROCESSBLE_ENTITY
+      );
+    }
     this._gender = gender;
     this._specialization = specialization;
     this._careerStartYear = careerStartYear;
@@ -212,19 +258,18 @@ export class Doctor {
       },
     ];
   }
-  
-  
-    get verificationHistory() {
-      return this._verificationHistory;
-    }
-  
-    get hasGoogleId() {
-      return !!this._googleId;
-    }
-  
-    get isVerified() {
-      return this._isVerified;
-    }
+
+  get verificationHistory() {
+    return this._verificationHistory;
+  }
+
+  get hasGoogleId() {
+    return !!this._googleId;
+  }
+
+  get isVerified() {
+    return this._isVerified;
+  }
   get id() {
     return this._id;
   }

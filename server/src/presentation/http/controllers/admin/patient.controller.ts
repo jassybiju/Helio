@@ -9,10 +9,13 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IToggleBlockPatientUseCase } from "@application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.ts";
+import type { IGetPatientUseCase } from "@application/ports/use-cases/admin/patient/IGetPatientUseCase.ts";
+import { GetPatientMapper } from "@application/use-cases/admin/patient/getPatient/GetPatientMapper.ts";
 
 export class AdminPatientController {
   constructor(
     private readonly _getAllPatientUsecase: IGetAllPatientsUseCase,
+    private readonly _getPatientUseCase: IGetPatientUseCase,
     private readonly _toggleBlockPatientUseCase: IToggleBlockPatientUseCase
   ) {}
 
@@ -30,6 +33,30 @@ export class AdminPatientController {
 
       const response = await this._getAllPatientUsecase.execute(parsed.data);
 
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, MESSAGE.PATIENT_FETCH_SUCCESS)
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getPatient = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.patientId as string;
+      console.log(id);
+      if (!id) {
+        throw new AppError(
+          "Doctor Id Required",
+          HTTPStatus.UNPROCESSBLE_ENTITY
+        );
+      }
+
+      const patient = await this._getPatientUseCase.execute(id);
+      console.log(patient);
+      const response = GetPatientMapper.toDto(patient);
       return apiResponse(
         res,
         HTTPStatus.OK,

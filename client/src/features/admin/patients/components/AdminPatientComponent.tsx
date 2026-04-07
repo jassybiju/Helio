@@ -17,7 +17,6 @@ const AdminPatientComponent = () => {
     patients,
     columns,
   } = useAdminPatient();
-  console.log(totalPages);
   return (
     <div className="space-y-6">
       {/* Header */}

@@ -30,7 +30,7 @@ export const useDoctorCompleteProfile = () => {
     } catch (error) {
        if (axios.isAxiosError(error)) {
         setError( 'root',
-          {message : error.response?.data?.message || "Registration failed"}
+          {message : error.response?.data?.message || "Complete Profile Failed"}
         );
       } else {
         setError('root', {message : "Unexpected error occurred"});

@@ -12,7 +12,7 @@ const DoctorVerifyOTP = ({id , expires} : {id : string, expires : string}) => {
     id , otp
   } : {id :string, otp: string}) => {
       await authService.verify_otp({id, otp})
-      router.push('/doctor/dashboard')    
+      router.push('/')    
   }
 
   const hadnleResendOTP = async({

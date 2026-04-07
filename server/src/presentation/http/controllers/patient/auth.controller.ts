@@ -12,6 +12,7 @@ import type { IRegisterPatientUseCase } from "@application/ports/use-cases/patie
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import {
   apiResponse,
+  sendToken,
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
@@ -26,6 +27,7 @@ import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseC
 import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
 import type { IResetPasswordUseCase } from "@application/ports/use-cases/auth/IResetPasswordUseCase.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoogleLoginUseCase.ts";
 
 export class PatientAuthController {
   constructor(
@@ -34,7 +36,8 @@ export class PatientAuthController {
     private readonly _verifyOTPUseCase: IVerifyOTPUseCase,
     private readonly _loginPatientUseCase: ILoginUseCase,
     private readonly _forgetPasswordUseCase: IForgetPasswordUseCase,
-    private readonly _resetPasswordUseCase: IResetPasswordUseCase
+    private readonly _resetPasswordUseCase: IResetPasswordUseCase,
+    private readonly _googleLoginUseCase: IGoogleLoginUseCase
   ) {}
 
   register = async (req: Request, res: Response, next: NextFunction) => {
@@ -130,18 +133,8 @@ export class PatientAuthController {
       const REFRESH_TOKEN_EXPIRY_MS =
         Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
       console.log(ACCESS_TOKEN_EXPIRY_MS, "access");
-      res.cookie("accessToken", response.accessToken, {
-        maxAge: ACCESS_TOKEN_EXPIRY_MS,
-        httpOnly: true,
-        domain: "helixo.local",
-        secure: process.env.NODE_ENV === "production",
-      });
-      res.cookie("refreshToken", response.refreshToken, {
-        maxAge: REFRESH_TOKEN_EXPIRY_MS,
-        httpOnly: true,
-        domain: "helixo.local",
-        secure: process.env.NODE_ENV === "production",
-      });
+
+      sendToken(res, response.accessToken, response.refreshToken);
       return apiResponse(
         res,
         HTTPStatus.OK,
@@ -198,6 +191,31 @@ export class PatientAuthController {
         res,
         HTTPStatus.OK,
         successResponse(response, "RESET LINK SENT TO EMAIL ")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  googleLogin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { credential } = req.body;
+
+      if (!credential) {
+        throw new AppError("Credentials is required", HTTPStatus.BAD_REQUEST);
+      }
+
+      const response = await this._googleLoginUseCase.execute({
+        credentials: credential,
+        role: USER_ROLES.PATIENT,
+      });
+
+      sendToken(res, response.accessToken, response.refreshToken);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response.user, "USER GOOGLE LOGIN SUCCESFUL")
       );
     } catch (error) {
       next(error);

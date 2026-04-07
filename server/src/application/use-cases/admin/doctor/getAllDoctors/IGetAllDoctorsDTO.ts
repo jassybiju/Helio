@@ -1,4 +1,5 @@
 import type { GENDER } from "@domain/common/enums/gender.enum.ts";
+import type { Doctor } from "@domain/entities/Doctor.ts";
 
 export type IGetAllDoctorsRequestDTO = {
   search?: string | undefined;
@@ -12,19 +13,8 @@ export type IGetAllDoctorsRequestDTO = {
   order?: "asc" | "desc" | undefined;
 };
 
-export type IGetAllDoctorssResponseDTO = {
-  doctors: {
-    id: string;
-    fullName: string;
-    email: string;
-    status: "active" | "blocked";
-    verificationStatus: boolean;
-    isVerified: boolean;
-    createdAt: string;
-    specialization: string;
-    career_start_year: string;
-    gender: GENDER;
-  }[];
+export type IGetAllDoctorsResponseDTO = {
+  doctors: Doctor[];
   totalCount: number;
   page: number;
   limit: number;

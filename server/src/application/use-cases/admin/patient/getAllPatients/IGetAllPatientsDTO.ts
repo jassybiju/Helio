@@ -21,10 +21,10 @@ export type IGetAllPatientsResponseDTO = {
     status: "active" | "blocked";
     verificationStatus: boolean;
     createdAt: string;
-    phone: string;
+    phone: string | null;
     blood_group: BLOOD_GROUP | null;
-    dob: string;
-    gender: GENDER;
+    dob: string | null;
+    gender: GENDER | null;
   }[];
   totalCount: number;
   page: number;

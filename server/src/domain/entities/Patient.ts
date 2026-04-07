@@ -13,11 +13,11 @@ export class Patient {
     private readonly _firstName: string,
     private readonly _lastName: string | null,
 
-    private readonly _gender: GENDER | null,
-    private readonly _dob: Date | null,
-    private readonly _bloodGroup: BLOOD_GROUP | null,
+    private _gender: GENDER | null,
+    private _dob: Date | null,
+    private _bloodGroup: BLOOD_GROUP | null,
 
-    private readonly _phone: string | null,
+    private _phone: string | null,
 
     private _isVerified: boolean,
     private _isBlocked: boolean,
@@ -41,6 +41,27 @@ export class Patient {
 
   updatePassword(passwordHash: string) {
     this._passwordHash = passwordHash;
+  }
+
+  completeProfile({
+    gender,
+    dob,
+    phone,
+  }: {
+    gender: GENDER;
+    dob: Date;
+    phone: string;
+  }) {
+    if (this._phone && this._phone.length < 9) {
+      throw new AppError(
+        "Invalid Phone NUmber",
+        HTTPStatus.UNPROCESSBLE_ENTITY
+      );
+    }
+
+    this._gender = gender;
+    this._phone = phone;
+    this._dob = dob;
   }
 
   toogleBlockStatus() {
@@ -80,7 +101,7 @@ export class Patient {
   }
 
   get fullName() {
-    return this._firstName + this.lastName;
+    return this._firstName + " " + this.lastName;
   }
   get gender() {
     return this._gender;

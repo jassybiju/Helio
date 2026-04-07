@@ -18,6 +18,8 @@ import { ResetPasswordUseCase } from "@application/use-cases/auth/ResetPasswordU
 import { RedisResetTokenService } from "@infrastructure/services/RedisResetTokenService.ts";
 import { EmailService } from "@infrastructure/services/EmailService.ts";
 import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswordUseCase.ts";
+import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts";
+import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -27,6 +29,7 @@ const accessTokenService = new JWTAccessTokenService();
 const refreshTokenService = new CryptoRefreshTokenService();
 const resetTokenService = new RedisResetTokenService(loggerService);
 const emailService = new EmailService();
+const googleAuthService = new GoogleAuthService();
 
 const sessionRepo = new RedisSessionRepository(loggerService);
 const patientRepo = new MongoPatientRepository(loggerService);
@@ -81,11 +84,23 @@ const forgetPasswordUseCase = new ForgetPasswordUseCase(
   emailService
 );
 
+const googleLoginUseCase = new GoogleLoginUseCase(
+  loggerService,
+  googleAuthService,
+  patientRepo,
+  doctorRepo,
+  nanoidGenerator,
+  accessTokenService,
+  refreshTokenService,
+  sessionRepo
+);
+
 export const authController = new PatientAuthController(
   registerPatientUseCase,
   resendPatientOTPUseCase,
   verifyPatientUseCase,
   loginPatientUseCase,
   forgetPasswordUseCase,
-  resetPasswordUseCase
+  resetPasswordUseCase,
+  googleLoginUseCase
 );

@@ -32,7 +32,7 @@ export class GetVerificationDetailsUseCase implements IGetVerificationDetailsUse
       verification_history: doctor.verificationHistory.map((doc) => ({
         verification_status: doc.status,
         rejection_reason: doc.reason ?? "",
-        actedAt: doc.actedAt.toLocaleDateString(),
+        actedAt: doc.actedAt.toLocaleString(),
         document_url: doc.documentKey
           ? this._fileUpload.getFileUrl(doc.documentKey)
           : "",

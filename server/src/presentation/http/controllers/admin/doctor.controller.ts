@@ -12,12 +12,47 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IChangeDoctorApprovalStatusUseCase } from "@application/ports/use-cases/admin/doctor/IChangeDoctorApprovalStatusUseCase.ts";
+import { GetAllDoctorMapper } from "@application/use-cases/admin/doctor/getAllDoctors/GetAllDoctorMapper.ts";
+import type { IGetDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IGetDoctorUseCase.ts";
+import { GetDoctorMapper } from "@application/use-cases/admin/doctor/getDoctor/GetDoctorMapper.ts";
+import type { IToggleBlockDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IToggleBlockDoctorUseCase.ts";
 
 export class AdminDoctorController {
   constructor(
     private readonly _getAllDoctorUseCase: IGetAllDoctorsUseCase,
-    private readonly _changeDoctorApprovalStatusUseCase: IChangeDoctorApprovalStatusUseCase
+    private readonly _getDoctorUseCase: IGetDoctorUseCase,
+    private readonly _changeDoctorApprovalStatusUseCase: IChangeDoctorApprovalStatusUseCase,
+    private readonly _toggleBlockDoctorUseCase: IToggleBlockDoctorUseCase
   ) {}
+
+  getDoctor = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.doctorId as string;
+      if (!id) {
+        throw new AppError(
+          "Doctor Id Required",
+          HTTPStatus.UNPROCESSBLE_ENTITY
+        );
+      }
+
+      const { doctor, verificationHistory, documentUrl } =
+        await this._getDoctorUseCase.execute(id);
+
+      const response = GetDoctorMapper.toDto(
+        doctor,
+        documentUrl,
+        verificationHistory
+      );
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, "Doctor Found")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 
   getAllDoctors = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -29,7 +64,15 @@ export class AdminDoctorController {
         );
       }
 
-      const response = await this._getAllDoctorUseCase.execute(parsed.data);
+      const { doctors, page, limit, totalCount } =
+        await this._getAllDoctorUseCase.execute(parsed.data);
+
+      const response = {
+        doctors: GetAllDoctorMapper.toDto(doctors),
+        limit,
+        page,
+        totalCount,
+      };
 
       return apiResponse(
         res,
@@ -47,14 +90,14 @@ export class AdminDoctorController {
   ) => {
     try {
       const doctorId = req.params.doctorId as string;
-      
+
       if (!doctorId) {
         throw new AppError(
           "Doctor Id is required",
           HTTPStatus.UNPROCESSBLE_ENTITY
         );
       }
-      
+
       const parsed = changeDoctorApprovalStatusSchema.safeParse(req.body);
       if (!parsed.success) {
         throw new AppError(
@@ -71,6 +114,27 @@ export class AdminDoctorController {
         res,
         HTTPStatus.OK,
         successResponse(response, "Doctor Approval status changed successfully")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  toggleBlock = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { doctorId } = req.params;
+      if (!doctorId) {
+        throw new AppError("Invalid UserId", HTTPStatus.UNPROCESSBLE_ENTITY);
+      }
+
+      const response = await this._toggleBlockDoctorUseCase.execute(
+        doctorId as string
+      );
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, MESSAGE.PATIENT_FETCH_SUCCESS)
       );
     } catch (error) {
       next(error);

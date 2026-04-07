@@ -10,3 +10,5 @@ patientAuthRouter.post("/login", authController.login);
 
 patientAuthRouter.post("/reset-password", authController.resetPassword);
 patientAuthRouter.post("/forget-password", authController.forgetPassword);
+
+patientAuthRouter.post("/google", authController.googleLogin);

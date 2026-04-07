@@ -23,6 +23,9 @@ export class DoctorValidator {
   }
 
   async validateDoctorPassword(doctor: Doctor, password: string) {
+    if (!doctor.passwordHash) {
+      throw new AppError("Invalid Email or Password", HTTPStatus.BAD_REQUEST);
+    }
     if (!(await this._passwordService.compare(password, doctor.passwordHash))) {
       throw new AppError("Invalid Email or Password", HTTPStatus.BAD_REQUEST);
     }

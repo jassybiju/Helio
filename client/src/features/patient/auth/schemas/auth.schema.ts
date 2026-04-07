@@ -19,6 +19,9 @@ export const patientRegisterSchema = z.object({
     .refine(
       (date) => !isNaN(Date.parse(date)),
       "Date of birth must be a valid date string"
+    )  .refine(
+      (date) => new Date(date) < new Date(),
+      "Date of birth must be before today"
     ),
 })  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",

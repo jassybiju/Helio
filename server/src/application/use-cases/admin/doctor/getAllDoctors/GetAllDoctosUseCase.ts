@@ -6,9 +6,8 @@ import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetAllDoctorsUseCase } from "@application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.ts";
 import type {
   IGetAllDoctorsRequestDTO,
-  IGetAllDoctorssResponseDTO,
+  IGetAllDoctorsResponseDTO,
 } from "./IGetAllDoctorsDTO.ts";
-import { GetAllDoctorMapper } from "./GetAllDoctorMapper.ts";
 
 export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
   constructor(
@@ -18,7 +17,7 @@ export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
 
   async execute(
     input: IGetAllDoctorsRequestDTO
-  ): Promise<IGetAllDoctorssResponseDTO> {
+  ): Promise<IGetAllDoctorsResponseDTO> {
     this._logger.info("Get All Doctor attempt", input);
 
     const {
@@ -48,6 +47,6 @@ export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
     const { doctors, totalCount } =
       await this._doctorRepo.findAllWithFilters(filter);
 
-    return GetAllDoctorMapper.toDto(doctors, page, limit, totalCount);
+    return { doctors, totalCount, page, limit };
   }
 }

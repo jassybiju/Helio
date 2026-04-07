@@ -3,6 +3,7 @@ import { DoctorVerificationController } from "../../controllers/doctor/verificat
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
 import { LocalFileUploadService } from "@infrastructure/services/LocalFileUploadService.ts";
+import { ResubmitVerificationUseCase } from "@application/use-cases/doctor/verification/resubmitVerification/ResubmitVerificationUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const doctorRepo = new MongoDoctorRepository(loggerService);
@@ -13,7 +14,12 @@ const getVerificationDetailsUseCase = new GetVerificationDetailsUseCase(
   doctorRepo,
   fileService
 );
-
+const resubmitVerificationUseCase = new ResubmitVerificationUseCase(
+  loggerService,
+  doctorRepo,
+  fileService
+);
 export const doctorVerificationController = new DoctorVerificationController(
-  getVerificationDetailsUseCase
+  getVerificationDetailsUseCase,
+  resubmitVerificationUseCase
 );

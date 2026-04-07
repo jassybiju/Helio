@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { ResetPasswordData, resetPasswordSchema } from "../schema/auth.schema";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const useResetPassword = ({resetPassword} : {resetPassword : ({token,password} : {token : string,password : string}) => Promise<unknown>}) => {
    const {
@@ -23,6 +24,7 @@ export const useResetPassword = ({resetPassword} : {resetPassword : ({token,pass
       const res = await resetPassword({token , password : data.password });
       reset();
       router.replace('/')
+      toast.success("Password Changed Succesfully")
       return res;
     } catch (error) {
       if (axios.isAxiosError(error)) {

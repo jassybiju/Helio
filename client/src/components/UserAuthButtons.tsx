@@ -10,6 +10,9 @@ const UserAuthButtons = () => {
   console.log("RENDERED")
   const data = useAuth();
  const {logout} = useLogout()
+  if(data.isLoading && !data.user){
+    return null
+  }
   return (
     <div className="flex items-center gap-4">
       {data?.user?.email ? (

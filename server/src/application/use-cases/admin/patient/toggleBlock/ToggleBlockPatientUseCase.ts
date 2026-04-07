@@ -10,10 +10,16 @@ export class ToggleBlockPatientUseCase implements IToggleBlockPatientUseCase {
     private readonly _patientRepo: IPatientRepository
   ) {}
   async execute(userId: string): Promise<void> {
+    this._logger.info("Toggle Block patient attempt", { userId });
+
     const patient = await this._patientRepo.findById(userId);
 
     if (!patient) {
       throw new AppError("User not found", HTTPStatus.NOT_FOUND);
+    }
+
+    if (!patient.isProfileComplete()) {
+      throw new AppError("Patient profile not completed", HTTPStatus.NOT_FOUND);
     }
 
     patient.toogleBlockStatus();

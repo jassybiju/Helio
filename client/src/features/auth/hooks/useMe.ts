@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from "@tanstack/react-query"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { authService, } from "../service/auth.service"
 
 export const useMe = () => {
@@ -9,6 +9,5 @@ export const useMe = () => {
     queryFn : authService.getMe,
     retry : false,
     staleTime : 1 * 60 * 1000,
-    refetchInterval: 1 * 60*1000
   })
 }

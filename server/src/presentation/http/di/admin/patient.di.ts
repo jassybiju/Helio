@@ -3,6 +3,7 @@ import { AdminPatientController } from "../../controllers/admin/patient.controll
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { ToggleBlockPatientUseCase } from "@application/use-cases/admin/patient/toggleBlock/ToggleBlockPatientUseCase.ts";
+import { GetPatientUseCase } from "@application/use-cases/admin/patient/getPatient/GetPatientUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const patientRepo = new MongoPatientRepository(loggerService);
@@ -16,8 +17,9 @@ const toggleBlockPatientUseCase = new ToggleBlockPatientUseCase(
   loggerService,
   patientRepo
 );
-
+const getPatientUsecase = new GetPatientUseCase(loggerService, patientRepo);
 export const adminPatientController = new AdminPatientController(
   getAllPatientsUseCase,
+  getPatientUsecase,
   toggleBlockPatientUseCase
 );

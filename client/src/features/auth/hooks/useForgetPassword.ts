@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { ForgetPasswordData, forgetPasswordSchema } from "../schema/auth.schema";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const useForgetPassword = ({forgetPassword} : {forgetPassword : ({email,} : {email : string}) => Promise<unknown>}) => {
    const {
@@ -21,7 +22,7 @@ export const useForgetPassword = ({forgetPassword} : {forgetPassword : ({email,}
     try {
       const res = await forgetPassword(data);
       reset();
-      router.replace('/')
+      toast.success("New Password Email send successfully")
       return res;
     } catch (error) {
       if (axios.isAxiosError(error)) {

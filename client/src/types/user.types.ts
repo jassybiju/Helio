@@ -16,5 +16,4 @@ export enum DOCTOR_STATUS {
   PENDING = "pending",
   APPROVED = "approved",
   REJECTED = "rejected",
-  REAPPLIED = "reapplied",
 }

@@ -3,8 +3,11 @@
 import React, { useState } from "react";
 import { useDoctorPendingApproval } from "../hooks/useDoctorPendingApproval";
 import ClayButton from "@/src/components/ui/ClayButton";
-import { ChevronDown, ChevronUp, Timer } from "lucide-react";
+import { ChevronDown, ChevronUp, Timer, X } from "lucide-react";
 import { useAuth } from "@/src/features/auth/hooks/useAuth";
+import { DOCTOR_STATUS } from "@/src/types/user.types";
+import DoctorFileUpload from "./DoctorFileUpload";
+import Input from "@/src/components/ui/Input";
 
 const DoctorPendingApprovals = () => {
   const { user } = useAuth();
@@ -13,26 +16,33 @@ const DoctorPendingApprovals = () => {
     verification_history,
     verification_status,
     document_url,
+    handleDocumentView,
+    register,
+    errors,
+    onSubmit,
+    isPending
   } = useDoctorPendingApproval();
   const [expanded, setExpanded] = useState<number | null>(null);
 
   const statusConfig = {
-
     pending: {
       icon: <Timer className="text-yellow-500" />,
       label: "Pending Approval",
+      title: "Your Profile is Under Review",
       color: "bg-yellow-100 text-yellow-800",
       bgColor: "bg-yellow-50",
     },
     approved: {
       icon: <Timer className="text-yellow-500" />,
       label: "Approved",
+      title: "Your Profile is Under Review",
       color: "bg-green-100 text-green-800",
       bgColor: "bg-green-50",
     },
     rejected: {
-      icon: <Timer className="text-yellow-500" />,
+      icon: <X className="text-red-500 w-full h-full" />,
       label: "Rejected",
+      title: "Action Required : Verification Incomplete",
       color: "bg-red-100 text-red-800",
       bgColor: "bg-red-50",
     },
@@ -63,25 +73,15 @@ const DoctorPendingApprovals = () => {
               {/* Shield Icon */}
               <div className="flex justify-center">
                 <div
-                  className={`w-20 h-20 rounded-full flex items-center justify-center ${currentStatus.bgColor}`}
+                  className={`w-20 h-20 rounded-full flex items-center p-2 justify-center ${currentStatus.bgColor}`}
                 >
-                  <svg
-                    className="w-10 h-10 text-blue-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  {currentStatus.icon}
                 </div>
               </div>
 
               {/* Title */}
               <h2 className="text-2xl font-bold text-center text-slate-900">
-                Your Profile Is Under Review
+                {currentStatus.title}
               </h2>
 
               {/* Info Grid */}
@@ -105,40 +105,42 @@ const DoctorPendingApprovals = () => {
                   </span>
                 </div>
               </div>
-
               {/* Documents Uploaded */}
-              <div className="pt-4 border-t border-slate-200">
-                <h3 className="font-semibold text-slate-900 mb-3">
-                  Documents Uploaded
-                </h3>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200">
-                    <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center flex-shrink-0">
-                      <svg
-                        className="w-5 h-5 text-blue-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
-                        <path
-                          fillRule="evenodd"
-                          d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+              {verification_status === DOCTOR_STATUS.PENDING &&
+                document_url && (
+                  <div className="pt-4 border-t border-slate-200">
+                    <h3 className="font-semibold text-slate-900 mb-3">
+                      Documents Uploaded
+                    </h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200">
+                        <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center flex-shrink-0">
+                          <svg
+                            className="w-5 h-5 text-blue-600"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-sm font-medium text-slate-900 flex-1">
+                          Dcoument
+                        </span>
+                        <button
+                          onClick={() => handleDocumentView(document_url)}
+                          className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                        >
+                          View
+                        </button>
+                      </div>
                     </div>
-                    <span className="text-sm font-medium text-slate-900 flex-1">
-                      Dcoument
-                    </span>
-                    <button
-                      // onClick={() => setViewingDocument(doc)}
-                      className="text-blue-600 hover:text-blue-700 text-xs font-medium"
-                    >
-                      View
-                    </button>
                   </div>
-                </div>
-              </div>
+                )}
 
               {/* Status Badge */}
               <div className="flex justify-center pt-4">
@@ -148,7 +150,35 @@ const DoctorPendingApprovals = () => {
                   ● {currentStatus.label}
                 </span>
               </div>
+                {verification_status === DOCTOR_STATUS.REJECTED && (
+              <form onSubmit={onSubmit}>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">
+                  Upload Document
+                </label>
+                <DoctorFileUpload error={errors.document?.message as string} register={register('document')} />
+                <div className="py-3">
+                  <label className="block text-sm font-semibold text-slate-900 mb-2">
+                    Additional Info{" "}
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Additional Info"
+                    {...register("additionalInfo")}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+                      errors.additionalInfo ? "border-red-500" : "border-slate-200"
+                    }`}
+                  />
+                  {errors.additionalInfo && (
+                    <p className="text-red-600 text-sm mt-1">
+                      {errors.additionalInfo.message}
+                    </p>
+                  )}
+                </div>
+                <ClayButton disabled={isPending} className="w-full mt-4" variant="primary">Resubmit</ClayButton>
+              </form>
+                )}
             </div>
+
 
             {/* Previous Responses Section */}
             {verification_history.length > 0 && (
@@ -164,7 +194,9 @@ const DoctorPendingApprovals = () => {
                         className="border border-slate-200 rounded-lg overflow-hidden"
                       >
                         <button
-                          onClick={() => setExpanded(expanded === idx ? null : idx)}
+                          onClick={() =>
+                            setExpanded(expanded === idx ? null : idx)
+                          }
                           className="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100 transition-colors"
                         >
                           <div className="flex items-center gap-3 flex-1 text-left">
@@ -187,10 +219,10 @@ const DoctorPendingApprovals = () => {
                             </div>
                           </div>
                           {expanded === idx ? (
-                          <ChevronUp className="w-5 h-5 text-slate-600 flex-shrink-0" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-slate-600 flex-shrink-0" />
-                        )}
+                            <ChevronUp className="w-5 h-5 text-slate-600 flex-shrink-0" />
+                          ) : (
+                            <ChevronDown className="w-5 h-5 text-slate-600 flex-shrink-0" />
+                          )}
                         </button>
 
                         {expanded === idx && (
@@ -216,42 +248,44 @@ const DoctorPendingApprovals = () => {
                             </div>
 
                             {/* Documents Uploaded */}
-                            <div>
-                              <h4 className="font-semibold text-slate-900 text-sm mb-2">
-                                Documents Uploaded
-                              </h4>
-                              <div className="space-y-2">
-                               
-                                    <div
-                                      className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200"
-                                    >
-                                      <div className="w-8 h-8 bg-slate-200 rounded flex items-center justify-center flex-shrink-0">
-                                        <svg
-                                          className="w-4 h-4 text-slate-600"
-                                          fill="currentColor"
-                                          viewBox="0 0 20 20"
-                                        >
-                                          <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
-                                          <path
-                                            fillRule="evenodd"
-                                            d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
-                                            clipRule="evenodd"
-                                          />
-                                        </svg>
-                                      </div>
-                                      <span className="text-sm font-medium text-slate-700 flex-1">
-                                        Documne
-                                      </span>
-                                      <button
-                                        // onClick={() => setViewingDocument(doc)}
-                                        className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                            {response.document_url && (
+                              <div>
+                                <h4 className="font-semibold text-slate-900 text-sm mb-2">
+                                  Documents Uploaded
+                                </h4>
+                                <div className="space-y-2">
+                                  <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200">
+                                    <div className="w-8 h-8 bg-slate-200 rounded flex items-center justify-center flex-shrink-0">
+                                      <svg
+                                        className="w-4 h-4 text-slate-600"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
                                       >
-                                        View
-                                      </button>
+                                        <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
                                     </div>
-                                  
+                                    <span className="text-sm font-medium text-slate-700 flex-1">
+                                      Documne
+                                    </span>
+                                    <button
+                                      onClick={() =>
+                                        handleDocumentView(
+                                          response.document_url,
+                                        )
+                                      }
+                                      className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                                    >
+                                      View
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                         )}
                       </div>
@@ -263,9 +297,7 @@ const DoctorPendingApprovals = () => {
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <ClayButton variant="primary" size="lg" className="flex-1">
-                Go to Login
-              </ClayButton>
+         
               <ClayButton variant="secondary" size="lg" className="flex-1">
                 Contact Support
               </ClayButton>

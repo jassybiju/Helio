@@ -5,9 +5,8 @@ export type IChangeDoctorApprovalStatusRequestDTO = {
   rejection_reason: string | null;
 };
 
-
 export type IChangeDoctorApprovalStatusResponseDTO = {
-  verification_status : DOCTOR_VERIFICATION_STATUS,
-  rejection_reason : string | null,
-  doctorId : string
-}
+  verification_status: DOCTOR_VERIFICATION_STATUS;
+  rejection_reason: string | null;
+  doctorId: string;
+};
