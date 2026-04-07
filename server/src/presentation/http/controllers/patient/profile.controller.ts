@@ -8,14 +8,13 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IGetPatientProfile } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.tsx";
-import { GetPatientProfile } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfile.tsx";
 import { GetPatientProfileMapper } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientMapper.tsx";
+import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.tsx";
 
 export class PatientProfileController {
   constructor(
     private readonly _completeProfile: ICompletePatientProfileUseCase,
-    private readonly _getPatientProfile: IGetPatientProfile
+    private readonly _getPatientProfile: IGetPatientProfileUseCase
   ) {}
 
   completeProfile = async (req: Request, res: Response, next: NextFunction) => {
