@@ -8,7 +8,10 @@ import { checkBlockMiddleware } from "../../di/middleware.di.ts";
 export const patientProfileRouter = Router();
 
 patientProfileRouter.use(authMiddleware);
-patientProfileRouter.use(authorizeMiddleware(USER_ROLES.PATIENT),checkBlockMiddleware.handle);
+patientProfileRouter.use(
+  authorizeMiddleware(USER_ROLES.PATIENT),
+  checkBlockMiddleware.handle
+);
 
 patientProfileRouter.patch(
   "/complete-profile",

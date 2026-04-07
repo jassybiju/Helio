@@ -11,11 +11,10 @@ import type { NextFunction, Request, Response } from "express";
 
 export class CheckBlockMiddleware {
   constructor(
-    private readonly _patientRepo : IPatientRepository,
-    private readonly _doctorRepo : IDoctorRepository,
-  ){}
+    private readonly _patientRepo: IPatientRepository,
+    private readonly _doctorRepo: IDoctorRepository
+  ) {}
   handle = async (req: Request, res: Response, next: NextFunction) => {
-    
     try {
       const { id, role } = req?.user ?? {};
       console.log(role);
@@ -29,21 +28,24 @@ export class CheckBlockMiddleware {
       if (role === USER_ROLES.DOCTOR) {
         user = await this._doctorRepo.findById(id!);
       }
-  
+
       if (!user) {
         removeToken(res);
         throw new AppError("User Nor FOund", HTTPStatus.NOT_FOUND);
       }
-  
+
       if (user.isBlocked) {
         removeToken(res);
-  
-        throw new AppError("User Blocked. Contact supper", HTTPStatus.FORBIDDEN);
+
+        throw new AppError(
+          "User Blocked. Contact supper",
+          HTTPStatus.FORBIDDEN
+        );
       }
-  
+
       next();
     } catch (error) {
-      next(error)
+      next(error);
     }
   };
 }

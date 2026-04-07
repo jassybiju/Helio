@@ -7,10 +7,15 @@ import {
   apiResponse,
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
+import { MESSAGE } from "@shared/constants/messages.ts";
+import type { IGetPatientProfile } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.tsx";
+import { GetPatientProfile } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfile.tsx";
+import { GetPatientProfileMapper } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientMapper.tsx";
 
 export class PatientProfileController {
   constructor(
-    private readonly _completeProfile: ICompletePatientProfileUseCase
+    private readonly _completeProfile: ICompletePatientProfileUseCase,
+    private readonly _getPatientProfile: IGetPatientProfile
   ) {}
 
   completeProfile = async (req: Request, res: Response, next: NextFunction) => {
@@ -32,6 +37,27 @@ export class PatientProfileController {
         res,
         HTTPStatus.OK,
         successResponse(response, "Patient Profile Completed")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+  getPatient = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user!.id;
+
+      if (!userId) {
+        throw new AppError(MESSAGE.INTERNAL_ERROR, HTTPStatus.INTERNAL_ERROR);
+      }
+
+      const patient = await this._getPatientProfile.execute(userId);
+
+      const response = GetPatientProfileMapper.toDto(patient);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, MESSAGE.PATIENT_PROFILE_SUCCESS)
       );
     } catch (error) {
       next(error);
