@@ -1,8 +1,7 @@
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
+import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { removeToken } from "@shared/utils/apiReponse.utils.ts";
@@ -37,10 +36,7 @@ export class CheckBlockMiddleware {
       if (user.isBlocked) {
         removeToken(res);
 
-        throw new AppError(
-          "User Blocked. Contact supper",
-          HTTPStatus.FORBIDDEN
-        );
+        throw new AppError(MESSAGE.USER_BLOCKED, HTTPStatus.FORBIDDEN);
       }
 
       next();

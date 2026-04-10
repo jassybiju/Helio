@@ -1,8 +1,9 @@
 export enum MESSAGE {
   //common
-  INVALID_REQUEST = 'Invalid Request',
-  INTERNAL_ERROR = 'Internal Error',
+  INVALID_REQUEST = "Invalid Request",
+  INTERNAL_ERROR = "Internal Error",
   EMAIL_ALREADY_EXISTS = "Email Already exists",
+  USER_BLOCKED = "User Blocked. Contact supper",
 
   // middleware errors
   NOT_AUTHENTICATED = "User is not AUTHENTICATED",
@@ -15,7 +16,6 @@ export enum MESSAGE {
   RESEND_SUCCESSFUL = "OTP Resend Successfully",
   LOGIN_SUCCESSFUL = "LOGIN Succesful",
 
-
   // doctor repo errors
   FAILED_FETCH_DOCTOR_BY_EMAIL = "Failed to fetch doctor by email",
   FAILED_FETCH_DOCTOR_BY_ID = "Failed to fetch doctor by ID",
@@ -23,8 +23,7 @@ export enum MESSAGE {
   DOCTOR_NOT_FOUND = "Doctor Not Found",
 
   // patient repo errors
-  PATIENT_NOT_FOUND = 'Patient Not Found',
-
+  PATIENT_NOT_FOUND = "Patient Not Found",
 
   // patient
   PATIENT_PROFILE_SUCCESS = "Patient Profile Got Succesffully",

@@ -1,4 +1,5 @@
 import ProtectedLayout from '@/src/layout/ProtectedLayout'
+import { USER_ROLES } from '@/src/types/user.types'
 import React from 'react'
 
 type PropType = {
@@ -7,7 +8,7 @@ type PropType = {
 
 const layout = ({children} : PropType) => {
   return (
-    <ProtectedLayout role='patient'>{children}</ProtectedLayout>
+    <ProtectedLayout role={USER_ROLES.PATIENT}>{children}</ProtectedLayout>
   )
 }
 

@@ -13,6 +13,9 @@ import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { Patient } from "@domain/entities/Patient.ts";
 import { Email } from "@domain/value-objects/Email.ts";
+import { MESSAGE } from "@shared/constants/messages.ts";
+import { AppError } from "@shared/errors/AppError.ts";
+import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class GoogleLoginUseCase implements IGoogleLoginUseCase {
   constructor(
@@ -62,6 +65,10 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
         console.log(existingDoctor);
       }
 
+      if (existingDoctor.isBlocked) {
+        throw new AppError(MESSAGE.USER_BLOCKED, HTTPStatus.FORBIDDEN);
+      }
+
       // if doctor is not linked with googleId link it
       if (!existingDoctor.hasGoogleId) {
         existingDoctor.linkGoogleId(googleUser.googleId);
@@ -87,6 +94,10 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
           createdAt: new Date(),
           updatedAt: new Date(),
         });
+      }
+
+      if (existingPatient.isBlocked) {
+        throw new AppError(MESSAGE.USER_BLOCKED, HTTPStatus.FORBIDDEN);
       }
 
       if (!existingPatient.hasGoogleId) {
