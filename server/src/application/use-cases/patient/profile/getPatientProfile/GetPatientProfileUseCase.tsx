@@ -6,7 +6,7 @@ import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
-export class GetPatientProfile implements IGetPatientProfileUseCase {
+export class GetPatientProfileUseCase implements IGetPatientProfileUseCase {
   constructor(
     private readonly _logger : ILogger,
     private readonly _patientRepo : IPatientRepository,

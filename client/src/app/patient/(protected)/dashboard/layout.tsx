@@ -1,3 +1,4 @@
+import PatientHeader from "@/src/features/patient/dashboard/components/PatientHeader";
 import PatientSidebar from "@/src/features/patient/dashboard/components/PatientSidebar";
 import React from "react";
 
@@ -13,9 +14,9 @@ const PatientDashboardLayout = ({children} : PatientDashboardLayoutProps) => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-
+        <PatientHeader></PatientHeader>
         {/* Content Area */}
-        <main className="flex-1 overflow-auto">{children}</main>
+        <main className="flex-1 overflow-auto px-5 py-5">{children}</main>
       </div>
     </div>
   );

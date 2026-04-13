@@ -13,6 +13,7 @@ patientProfileRouter.use(
   checkBlockMiddleware.handle
 );
 
+patientProfileRouter.get("/", patientProfileController.getPatient);
 patientProfileRouter.patch(
   "/complete-profile",
   patientProfileController.completeProfile

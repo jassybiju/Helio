@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { PatientCompleteProfileFormData, patientCompleteProfileSchema } from "../schemas/profile.schema";
-import { profileService } from "../services/profile.service";
+import { patientProfileService } from "../../services/profile.service";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,7 +22,7 @@ export const usePatientCompleteProfile = () => {
 
   const onSubmit = async (data: PatientCompleteProfileFormData) => {
     try {
-      const res = await profileService.completeProfile(data);
+      const res = await patientProfileService.completeProfile(data);
       reset();
       invalidateQuery("me");
       toast.success("Patient Profile Completed")

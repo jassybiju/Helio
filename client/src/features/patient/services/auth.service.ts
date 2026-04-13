@@ -1,5 +1,5 @@
 import { apiRequest } from '@/src/libs/axios.config'
-import { PatientRegistrationFormData } from '../schemas/auth.schema'
+import { PatientRegistrationFormData } from '../auth/schemas/auth.schema'
 import { HTTP_METHOD } from '@/src/types/API.types'
 import { LoginResponse } from '@/src/features/auth/types/auth.types'
 

@@ -6,7 +6,7 @@ import {
   PatientRegistrationFormData,
 } from "../schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authService } from "../services/auth.service";
+import { authService } from "../../services/auth.service";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";

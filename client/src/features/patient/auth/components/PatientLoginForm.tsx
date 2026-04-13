@@ -2,7 +2,7 @@
 
 import LoginForm from "@/src/features/auth/components/LoginForm";
 import React from "react";
-import { authService } from "../services/auth.service";
+import { authService } from "../../services/auth.service";
 import { useRouter } from "next/navigation";
 import { GoogleLoginFn } from "@/src/features/auth/types/auth.types";
 import { invalidateQuery } from "@/src/libs/queryClient";
