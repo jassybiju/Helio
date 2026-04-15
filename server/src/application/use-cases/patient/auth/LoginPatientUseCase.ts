@@ -37,7 +37,7 @@ export class LoginPatientUseCase implements ILoginUseCase {
     }
 
     if (!patient.isVerified) {
-      throw new AppError("Patient Not Verified", HTTPStatus.BAD_REQUEST);
+      throw new AppError("Invalid Email or password", HTTPStatus.BAD_REQUEST);
     }
     if (patient.isBlocked) {
       throw new AppError(

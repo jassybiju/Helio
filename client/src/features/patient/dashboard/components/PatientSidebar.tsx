@@ -9,9 +9,6 @@ import { useLogout } from '@/src/features/auth/hooks/useLogout'
 
 const menuItems = [
   { label: 'Dashboard', href: '/', icon: LayoutGrid },
-  { label: 'Patients', href: '/patients', icon: Users },
-  { label: 'Doctors', href: '/doctor', icon: Stethoscope },
-  { label: 'Revenue', href: '/revenue', icon: DollarSign },
   { label: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
@@ -21,14 +18,14 @@ const PatientSidebar = () => {
   return (
    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col">
       {/* Logo */}
-      <div className="p-6 border-b border-slate-200">
+      <div className="p-6 border-b border-slate-200"> 
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
             <Image alt={"logo"} src={"/HelioLogo.svg"} width={25} height={25} />
           </div>
           <div>
             <h1 className="text-lg font-bold text-slate-900">Helio</h1>
-            <p className="text-xs text-slate-500">Admin</p>
+            <p className="text-xs text-slate-500">Patient</p>
           </div>
         </div>
       </div>

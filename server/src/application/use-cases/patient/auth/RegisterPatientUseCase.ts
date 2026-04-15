@@ -4,6 +4,7 @@ import type {
 } from "@application/dto/patient/auth/IRegisterPatientDTO.ts";
 import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
+import type { IEmailService } from "@application/ports/services/IEmailService.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IOTPService } from "@application/ports/services/IOTPService.ts";
@@ -23,7 +24,8 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
     private readonly _idGenerator: IIDGenerator,
     private readonly _logger: ILogger,
     private readonly _otpService: IOTPService,
-    private readonly _otpRepo: IOTPRepository
+    private readonly _otpRepo: IOTPRepository,
+    private readonly _emailService: IEmailService
   ) {}
 
   async execute(
@@ -51,6 +53,8 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       phone,
       false,
       false,
+      [],
+      [],
       null,
       new Date(),
       new Date()
@@ -67,6 +71,12 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       context: "patient",
     });
     await this._otpRepo.save(otp);
+
+    await this._emailService.sendEmail({
+      to: email,
+      subject: "Your OTP For the helixo",
+      body: `Your OTP is ${otp.code}`,
+    });
 
     return {
       otp_invalid_at: String(otp.invalidAt.getTime()),

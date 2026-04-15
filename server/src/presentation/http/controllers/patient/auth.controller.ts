@@ -164,7 +164,7 @@ export class PatientAuthController {
       return apiResponse(
         res,
         HTTPStatus.OK,
-        successResponse(response, "RESET LINK SENT TO EMAIL ")
+        successResponse(response, MESSAGE.FORGET_PASSWORD_SEND)
       );
     } catch (error) {
       next(error);

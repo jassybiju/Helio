@@ -15,6 +15,8 @@ export enum MESSAGE {
   OTP_VERIFIED = "OTP Verified Successfully",
   RESEND_SUCCESSFUL = "OTP Resend Successfully",
   LOGIN_SUCCESSFUL = "LOGIN Succesful",
+  FORGET_PASSWORD_SEND = "If an account with this email exists, we’ve sent a password reset link.",
+  PASSWORD_CHANGED_SUCCESFULY ="Password CHanged succesffuly",
 
   // doctor repo errors
   FAILED_FETCH_DOCTOR_BY_EMAIL = "Failed to fetch doctor by email",
@@ -27,6 +29,10 @@ export enum MESSAGE {
 
   // patient
   PATIENT_PROFILE_SUCCESS = "Patient Profile Got Succesffully",
+  PATIENT_ADD_ALLERGEN_SUCCESS = "Patient Allergen Added Successfully",
+  PATIENT_REMOVE_ALLERGEN_SUCCESS = "Patient Allergen Removed Successfully",
+  PATIENT_ADD_CONDITION_SUCCESS = "Patient Condition Added Succesffuly",
+  PATIENT_REMOVE_CONDITION_SUCCESS = "Patient Condition Removed Succesffuly",
 
   // admin patient
   PATIENT_FETCH_SUCCESS = "Patients Fetched Successfully",

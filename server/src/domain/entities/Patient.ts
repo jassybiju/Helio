@@ -3,15 +3,17 @@ import type { BLOOD_GROUP } from "../common/enums/blood-group.enum.ts";
 import type { GENDER } from "../common/enums/gender.enum.ts";
 import type { Email } from "../value-objects/Email.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
+import type { IUpdatePatientInput } from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
 
 export class Patient {
   constructor(
     private readonly _id: string,
-    private readonly _email: Email,
+    private _email: Email,
     private _passwordHash: string | null,
 
-    private readonly _firstName: string,
-    private readonly _lastName: string | null,
+    private _firstName: string,
+    private _lastName: string | null,
 
     private _gender: GENDER | null,
     private _dob: Date | null,
@@ -21,6 +23,14 @@ export class Patient {
 
     private _isVerified: boolean,
     private _isBlocked: boolean,
+
+    private _allergens: Array<{
+      _id: string;
+      name: string;
+      severity: ALLERGEN_SEVERITY;
+      createdAt: Date;
+    }>,
+    private _conditions: Array<{ _id: string; name: string; createdAt: Date }>,
 
     private _googleId: string | null,
 
@@ -37,6 +47,63 @@ export class Patient {
 
   verifyPatient() {
     this._isVerified = true;
+  }
+
+  addAllergen({
+    allergen,
+    _id,
+    severity,
+  }: {
+    allergen: string;
+    _id: string;
+    severity: ALLERGEN_SEVERITY;
+  }) {
+    if (this._allergens.some((a) => a.name === allergen)) {
+      throw new AppError(
+        "Allergen Already exists",
+        HTTPStatus.UNPROCESSBLE_ENTITY
+      );
+    }
+    this._allergens.push({
+      name: allergen,
+      _id,
+      severity,
+      createdAt: new Date(),
+    });
+  }
+
+  updateProfile(data: Omit<IUpdatePatientInput, "patientId">) {
+    if (data.phone.length < 9) {
+      throw new AppError(
+        "Invalid Phone Number",
+        HTTPStatus.UNPROCESSBLE_ENTITY
+      );
+    }
+
+    this._firstName = data.firstName;
+    this._lastName = data.lastName;
+    this._gender = data.gender as GENDER;
+    this._dob = new Date(data.dob);
+    this._bloodGroup = data.bloodGroup as BLOOD_GROUP;
+    this._phone = data.phone;
+  }
+
+  removeAllergen(allergenId: string) {
+    this._allergens = this._allergens.filter((a) => a._id !== allergenId);
+  }
+
+  addCondition({ _id, condition }: { _id: string; condition: string }) {
+    if (this._conditions.some((a) => a.name === condition)) {
+      throw new AppError(
+        "Condition Already exists",
+        HTTPStatus.UNPROCESSBLE_ENTITY
+      );
+    }
+    this._conditions.push({ _id, name: condition, createdAt: new Date() });
+  }
+
+  removeCondition(conditionId: string) {
+    this._conditions = this._conditions.filter((c) => c._id !== conditionId);
   }
 
   updatePassword(passwordHash: string) {
@@ -135,6 +202,14 @@ export class Patient {
     return this._passwordHash;
   }
 
+  get allergens() {
+    return this._allergens;
+  }
+
+  get conditions() {
+    return this._conditions;
+  }
+
   static googleCreate({
     id,
     firstName,
@@ -162,6 +237,8 @@ export class Patient {
       null,
       false,
       false,
+      [],
+      [],
       googleId,
       createdAt,
       updatedAt

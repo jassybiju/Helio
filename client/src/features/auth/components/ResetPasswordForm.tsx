@@ -26,8 +26,8 @@ const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} 
             Password
           </label>
           <Input
-            type="email"
-            placeholder="doctor@stitch.com"
+            type="text"
+            placeholder="Password"
             {...register("password")}
             className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
               errors.password ? "border-red-500" : "border-slate-200"
@@ -43,8 +43,8 @@ const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} 
             Confirm Password
           </label>
           <Input
-            type="email"
-            placeholder="doctor@stitch.com"
+            type="text"
+            placeholder="Password"
             {...register("confirmPassword")}
             className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
               errors.confirmPassword ? "border-red-500" : "border-slate-200"

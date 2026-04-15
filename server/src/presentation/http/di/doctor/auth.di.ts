@@ -48,7 +48,8 @@ const registerUsecase = new RegisterDoctorUseCase(
   localUploadService,
   doctorRepo,
   otpRepo,
-  otpService
+  otpService,
+  emailService,
 );
 
 const verifyDoctorUseCase = new VerifyOTPUseCase(
@@ -61,7 +62,8 @@ const verifyDoctorUseCase = new VerifyOTPUseCase(
 const resendDoctorOTPUseCase = new ResendOTPUseCase(
   loggerService,
   otpRepo,
-  otpService
+  otpService,
+  emailService
 );
 
 const loginDoctorUseCase = new LoginDoctorUseCase(

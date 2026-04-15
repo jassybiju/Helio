@@ -11,7 +11,9 @@ export class GetPatientProfileMapper {
       gender : patient.gender,
       dob : patient.dob?.toLocaleDateString() ?? null,
       bloodGroup : patient.bloodGroup,
-      phone : patient.phone 
+      phone : patient.phone,
+      allergens : patient.allergens,
+      conditions : patient.conditions
     }
   }
 }

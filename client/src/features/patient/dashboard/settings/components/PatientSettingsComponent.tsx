@@ -3,21 +3,32 @@
 import { Eye, EyeOff, Heart, Lock, X } from "lucide-react";
 import React, { useState } from "react";
 import { useGetPatientQuery } from "../../hooks/useGetPatientQuery";
+import { PatientProfileType } from "../../../services/profile.service";
+import {
+  useAddAllergenMutation,
+  useRemoveAllergenMutation,
+} from "../../hooks/useAllergenMutations";
+import {
+  useAddConditionMutation,
+  useRemoveConditionMutation,
+} from "../../hooks/useConditionMutation";
+import { useChangePasswordMutation } from "../../hooks/useChangePasswordMutation";
+import { useModal } from "@/src/hooks/useModal";
+import UpdatePatientProfileModal from "../../components/UpdatePatientProfileModal";
 
 const PatientSettingsComponent = () => {
   const { data, isLoading } = useGetPatientQuery();
-
-  const PERSON = data?.data!;
+  const { mutate: addAllergen } = useAddAllergenMutation();
+  const { mutate: removeAllergen } = useRemoveAllergenMutation();
+  const { mutate: addCondition } = useAddConditionMutation();
+  const { mutate: removeCondition } = useRemoveConditionMutation();
+  const { mutate: changePassword } = useChangePasswordMutation();
+  const {open} = useModal()
+  const PERSON = data?.data ?? ({} as PatientProfileType);
   console.log(data);
 
-  const [allergies, setAllergies] = useState([
-    "Peanuts",
-    "Penicillin",
-    "Latex",
-  ]);
   const [allergyInput, setAllergyInput] = useState("");
 
-  const [conditions, setConditions] = useState(["Asthma", "Hypertension"]);
   const [conditionInput, setConditionInput] = useState("");
 
   const [passwordData, setPasswordData] = useState({
@@ -35,26 +46,31 @@ const PatientSettingsComponent = () => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   if (isLoading) return null;
+
+  const handleUpdateModel = ()=> {
+    open(UpdatePatientProfileModal,)
+  }
+
   const handleAddAllergy = () => {
-    if (allergyInput.trim() && !allergies.includes(allergyInput)) {
-      setAllergies([...allergies, allergyInput]);
+    if (allergyInput.trim()) {
+      addAllergen({ allergen: allergyInput, severity: "LOW" });
       setAllergyInput("");
     }
   };
 
-  const handleRemoveAllergy = (allergy: string) => {
-    setAllergies(allergies.filter((a) => a !== allergy));
+  const handleRemoveAllergy = (allergyId: string) => {
+    removeAllergen(allergyId);
   };
 
   const handleAddCondition = () => {
-    if (conditionInput.trim() && !conditions.includes(conditionInput)) {
-      setConditions([...conditions, conditionInput]);
+    if (conditionInput.trim()) {
+      addCondition(conditionInput);
       setConditionInput("");
     }
   };
 
-  const handleRemoveCondition = (condition: string) => {
-    setConditions(conditions.filter((c) => c !== condition));
+  const handleRemoveCondition = (conditionId: string) => {
+    removeCondition(conditionId);
   };
 
   const getPasswordStrength = (password: string) => {
@@ -62,6 +78,15 @@ const PatientSettingsComponent = () => {
     if (password.length < 10)
       return { label: "MEDIUM", color: "bg-yellow-500" };
     return { label: "STRONG", color: "bg-green-500" };
+  };
+
+  const handleChangePassword = () => {
+    if (passwordData.newPassword === passwordData.confirmPassword) {
+      changePassword({
+        newPassword: passwordData.newPassword,
+        oldPassword: passwordData.oldPassword,
+      });
+    }
   };
 
   return (
@@ -112,7 +137,7 @@ const PatientSettingsComponent = () => {
               <input
                 readOnly
                 type="text"
-                value={PERSON.lastName}
+                value={PERSON.lastName ?? ""}
                 className="mt-2 w-full px-4 py-2 border border-slate-200 rounded-lg"
               />
             </div>
@@ -188,8 +213,8 @@ const PatientSettingsComponent = () => {
           </div>
         </div>
 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full">
-          Save Changes
+        <button onClick={handleUpdateModel} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full">
+          Update Profile
         </button>
       </div>
 
@@ -208,13 +233,13 @@ const PatientSettingsComponent = () => {
             Known Allergies
           </label>
           <div className="mt-3 flex flex-wrap gap-2">
-            {allergies.map((allergy) => (
+            {PERSON.allergens.map((allergy) => (
               <button
-                key={allergy}
-                onClick={() => handleRemoveAllergy(allergy)}
+                key={allergy._id}
+                onClick={() => handleRemoveAllergy(allergy._id)}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200"
               >
-                {allergy}
+                {allergy.name}
                 <X className="w-4 h-4" />
               </button>
             ))}
@@ -243,13 +268,13 @@ const PatientSettingsComponent = () => {
             Chronic Conditions
           </label>
           <div className="mt-3 flex flex-wrap gap-2">
-            {conditions.map((condition) => (
+            {PERSON.conditions.map((condition) => (
               <button
-                key={condition}
-                onClick={() => handleRemoveCondition(condition)}
+                key={condition._id}
+                onClick={() => handleRemoveCondition(condition._id)}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200"
               >
-                {condition}
+                {condition.name}
                 <X className="w-4 h-4" />
               </button>
             ))}
@@ -271,10 +296,6 @@ const PatientSettingsComponent = () => {
             </button>
           </div>
         </div>
-
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full">
-          Update Medical Profile
-        </button>
       </div>
 
       {/* Change Password */}
@@ -419,7 +440,10 @@ const PatientSettingsComponent = () => {
           </div>
         </div>
 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full">
+        <button
+          onClick={handleChangePassword}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full"
+        >
           Update Password
         </button>
       </div>

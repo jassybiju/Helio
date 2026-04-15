@@ -18,3 +18,16 @@ patientProfileRouter.patch(
   "/complete-profile",
   patientProfileController.completeProfile
 );
+patientProfileRouter.post("/allergen", patientProfileController.addAllergen);
+patientProfileRouter.delete(
+  "/allergen/:allergenId",
+  patientProfileController.removeAllergen
+);
+patientProfileRouter.post("/condition", patientProfileController.addCondition);
+patientProfileRouter.delete(
+  "/condition/:conditionId",
+  patientProfileController.removeCondition
+);
+
+patientProfileRouter.patch('/change-password', patientProfileController.changePassword)
+patientProfileRouter.put('/', patientProfileController.updateProfile)

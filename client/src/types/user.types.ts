@@ -17,3 +17,10 @@ export enum DOCTOR_STATUS {
   APPROVED = "approved",
   REJECTED = "rejected",
 }
+
+export enum BLOOD_GROUP {
+  A_POS = "A+",
+  B_POS = "B+",
+  C_POS = "C+",
+  D_POS = "D+",
+}

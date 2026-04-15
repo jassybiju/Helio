@@ -1,5 +1,5 @@
 import { apiRequest } from "@/src/libs/axios.config";
-import { DoctorCompleteProfileFormData } from "../schema/profile.schema";
+import { DoctorCompleteProfileFormData } from "../auth/schema/profile.schema";
 
 export const profileService = {
   completeProfile:  (data: DoctorCompleteProfileFormData) => {

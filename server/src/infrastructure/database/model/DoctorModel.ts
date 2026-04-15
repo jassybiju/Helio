@@ -17,11 +17,11 @@ const doctorSchema = new Schema(
       unique: true,
       required: true,
     },
-    fullName: {
+    full_name: {
       type: String,
       required: true,
     },
-    passwordHash: {
+    password_hash: {
       type: String,
     },
     gender: {

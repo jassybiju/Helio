@@ -1,10 +1,11 @@
 import { apiRequest } from "@/src/libs/axios.config";
-import { DoctorRegisterFormData } from "../schema/auth.schema";
+import { DoctorRegisterFormData } from "../auth/schema/auth.schema";
 import { HTTP_METHOD } from "@/src/types/API.types";
 import {
   GoogleLoginFn,
   LoginResponse,
 } from "@/src/features/auth/types/auth.types";
+import { API_ENDPOINT } from "@/src/types/api-endpoints.constants";
 
 // interface RegisterPayload {
 //   first_name: string;
@@ -29,43 +30,43 @@ export const authService = {
       }
     });
 
-    return apiRequest("/doctor/auth/register", "POST", formData);
+    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.REGISTER, "POST", formData);
   },
 
   verify_otp({ id, otp }: { id: string; otp: string }) {
-    return apiRequest("/doctor/auth/verify-otp", "POST", {
+    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.VERIFY_OTP, "POST", {
       id,
       otp,
     });
   },
 
   resend_otp({ id }: { id: string }) {
-    return apiRequest("/doctor/auth/resend-otp", "POST", {
+    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.RESEND_OTP, "POST", {
       id,
     });
   },
 
   login({ email, password }: { email: string; password: string }) {
-    return apiRequest("/doctor/auth/login", HTTP_METHOD.POST, {
+    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.LOGIN, HTTP_METHOD.POST, {
       email,
       password,
     });
   },
 
   forgetPassword({ email }: { email: string }) {
-    return apiRequest("/doctor/auth/forget-password", HTTP_METHOD.POST, {
+    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.FORGET_PASSWORD, HTTP_METHOD.POST, {
       email,
     });
   },
 
   resetPassword({ token, password }: { token: string; password: string }) {
-    return apiRequest("/doctor/auth/reset-password", HTTP_METHOD.POST, {
+    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.RESET_PASSWORD, HTTP_METHOD.POST, {
       token,
       password,
     });
   },
-  googleLogin({ credential }: { credential: string }): Promise<LoginResponse> {
-    return apiRequest<LoginResponse>("/doctor/auth/google", HTTP_METHOD.POST, {
+  googleLogin({ credential }: { credential: string }) {
+    return apiRequest<LoginResponse>(API_ENDPOINT.DOCTOR.AUTH.GOOGLE_LOGIN, HTTP_METHOD.POST, {
       credential,
     });
   },

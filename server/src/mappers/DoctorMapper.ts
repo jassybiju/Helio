@@ -13,8 +13,8 @@ export class DoctorMapper {
     return new Doctor(
       raw._id,
       new Email(raw.email),
-      raw.passwordHash as string,
-      raw.fullName,
+      raw.password_hash as string,
+      raw.full_name,
       raw.gender as GENDER,
       raw.specialization as string,
       raw.career_start_year as number,

@@ -4,6 +4,7 @@ import type {
 } from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
+import type { IEmailService } from "@application/ports/services/IEmailService.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
@@ -25,7 +26,8 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     private readonly _fileUpload: IFileUpload,
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _otpRepo: IOTPRepository,
-    private readonly _otpService: IOTPService
+    private readonly _otpService: IOTPService,
+    private readonly _emailService: IEmailService
   ) {}
 
   async execute(
@@ -84,6 +86,11 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     this._logger.debug("OTP Saved");
 
     // sending otp
+    await this._emailService.sendEmail({
+      to: email,
+      subject: "Your OTP For the helixo",
+      body: `Your OTP is ${otp.code}`,
+    });
 
     return {
       status: "pending",

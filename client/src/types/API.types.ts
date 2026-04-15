@@ -1,7 +1,9 @@
 export enum HTTP_METHOD {
   POST = 'POST',
   GET = "GET",
-  PATCH = 'PATCH'
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
+  PUT = "PUT"
 }
 
 export type APIResponse<T> =  {

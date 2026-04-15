@@ -1,4 +1,31 @@
-import { model, Schema, type InferSchemaType } from "mongoose";
+import {
+  model,
+  Schema,
+  type InferRawDocType,
+  type InferSchemaType,
+} from "mongoose";
+
+const allergenSchema = new Schema({
+  _id: { type: String, required: true },
+  name: { type: String, required: true },
+
+  severity: {
+    type: String,
+    enum: ["LOW", "MEDIUM", "HIGH"],
+    default: null,
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const conditionSchema = new Schema({
+  _id: { type: String, required: true },
+  name: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
 
 const patientSchema = new Schema(
   {
@@ -21,7 +48,7 @@ const patientSchema = new Schema(
     phone: {
       type: String,
     },
-    passwordHash: {
+    password_hash: {
       type: String,
     },
     gender: {
@@ -34,6 +61,14 @@ const patientSchema = new Schema(
     blood_group: {
       type: String,
       default: null,
+    },
+    allergens: {
+      type: [allergenSchema],
+      default: [],
+    },
+    condition: {
+      type: [conditionSchema],
+      default: [],
     },
     is_verified: {
       type: Boolean,
@@ -55,3 +90,5 @@ const patientSchema = new Schema(
 export const patientModel = model("PatientModel", patientSchema);
 
 export type PatientDoc = InferSchemaType<typeof patientSchema>;
+
+export type PatientRawDoc = InferRawDocType<typeof patientSchema.obj>;

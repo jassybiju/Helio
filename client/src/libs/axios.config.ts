@@ -100,5 +100,5 @@ export const apiRequest = async <T>(
 ): Promise<{data : T, success : boolean, message : string}> => {
   const response: AxiosResponse<T> = await apiClient({ method, url, data , params});
   console.log(response,params)
-  return response.data as {data : any, success : boolean, message : string} ;
+  return response.data as {data : T, success : boolean, message : string} ;
 };

@@ -3,6 +3,7 @@ import type {
   IResendOTPResponseDTO,
 } from "@application/dto/auth/IOTPDTO.ts";
 import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
+import type { IEmailService } from "@application/ports/services/IEmailService.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IOTPService } from "@application/ports/services/IOTPService.ts";
 import type { IResendOTPUseCase } from "@application/ports/use-cases/auth/IResendOTPUseCase.ts";
@@ -14,7 +15,8 @@ export class ResendOTPUseCase implements IResendOTPUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _otpRepo: IOTPRepository,
-    private readonly _otpService: IOTPService
+    private readonly _otpService: IOTPService,
+    private readonly _emailService: IEmailService
   ) {}
   async execute(input: IResendOTPRequestDTO): Promise<IResendOTPResponseDTO> {
     const { id } = input;
@@ -59,9 +61,12 @@ export class ResendOTPUseCase implements IResendOTPUseCase {
     await this._otpRepo.save(newOTP);
 
     // sending otp
-    // TODO will do later
-
-    //response
+    await this._emailService.sendEmail({
+      to: otpData.email.value,
+      subject: "Your OTP For the helixo",
+      body: `Your OTP is ${newOTP.code}`,
+    });
+     //response
     return {
       otp_sent: true,
       invalidAt: String(newOTP.invalidAt.getTime()),

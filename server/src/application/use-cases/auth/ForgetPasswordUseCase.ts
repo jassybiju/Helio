@@ -35,7 +35,11 @@ export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
     }
 
     if (!user) {
-      throw new AppError("Invalid Request", HTTPStatus.BAD_REQUEST);
+      this._logger.info("Password reset requested for non-existing user", {
+        email,
+        role,
+      });
+      return;
     }
 
     const ttlSeconds = Number(process.env.RESET_TOKEN_EXPIRY_SECS);

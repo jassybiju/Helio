@@ -48,7 +48,8 @@ const registerPatientUseCase = new RegisterPatientUseCase(
   nanoidGenerator,
   loggerService,
   otpService,
-  otpRepo
+  otpRepo,
+  emailService
 );
 const verifyPatientUseCase = new VerifyOTPUseCase(
   loggerService,
@@ -59,7 +60,8 @@ const verifyPatientUseCase = new VerifyOTPUseCase(
 const resendPatientOTPUseCase = new ResendOTPUseCase(
   loggerService,
   otpRepo,
-  otpService
+  otpService,
+  emailService
 );
 const loginPatientUseCase = new LoginPatientUseCase(
   loggerService,

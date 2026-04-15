@@ -29,10 +29,10 @@ export class PatientValidator {
     console.log(
       password,
       patient.passwordHashed,
-      await this._passwordService.compare(patient.passwordHashed, password)
+      await this._passwordService.compare(patient.passwordHashed!, password)
     );
     if (
-      !(await this._passwordService.compare(password, patient.passwordHashed))
+      !(await this._passwordService.compare(password, patient.passwordHashed!))
     ) {
       throw new AppError("Invalid Email or Passwordss", HTTPStatus.BAD_REQUEST);
     }
