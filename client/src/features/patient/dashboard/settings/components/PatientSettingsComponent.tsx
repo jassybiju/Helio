@@ -15,6 +15,7 @@ import {
 import { useChangePasswordMutation } from "../../hooks/useChangePasswordMutation";
 import { useModal } from "@/src/hooks/useModal";
 import UpdatePatientProfileModal from "../../components/UpdatePatientProfileModal";
+import { ConfirmModal } from "@/src/components/ConfirmModal";
 
 const PatientSettingsComponent = () => {
   const { data, isLoading } = useGetPatientQuery();
@@ -25,7 +26,6 @@ const PatientSettingsComponent = () => {
   const { mutate: changePassword } = useChangePasswordMutation();
   const {open} = useModal()
   const PERSON = data?.data ?? ({} as PatientProfileType);
-  console.log(data);
 
   const [allergyInput, setAllergyInput] = useState("");
 
@@ -48,7 +48,8 @@ const PatientSettingsComponent = () => {
   if (isLoading) return null;
 
   const handleUpdateModel = ()=> {
-    open(UpdatePatientProfileModal,)
+ 
+    open(UpdatePatientProfileModal, {patientData : PERSON,a : 'hi'})
   }
 
   const handleAddAllergy = () => {

@@ -26,7 +26,7 @@ export class LoginPatientUseCase implements ILoginUseCase {
 
   async execute(input: ILoginRequestDTO): Promise<ILoginResponseDTO> {
     const { email, password } = input;
-    this._logger.info("Patient Login Attempt", { email });
+    this._logger.info("Patient Login Attempt", { email, password });
 
     // fetch patient from db
     const patient = await this._patientRepo.findByEmail(new Email(email));
@@ -37,7 +37,7 @@ export class LoginPatientUseCase implements ILoginUseCase {
     }
 
     if (!patient.isVerified) {
-      throw new AppError("Invalid Email or password", HTTPStatus.BAD_REQUEST);
+      throw new AppError("Invalid Emails or password", HTTPStatus.BAD_REQUEST);
     }
     if (patient.isBlocked) {
       throw new AppError(

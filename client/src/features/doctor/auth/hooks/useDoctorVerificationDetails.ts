@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { verificationService } from "../services/verification.service"
+import { verificationService } from "../../services/verification.service"
 
 export const useDoctorVerificationDetails =()=> {
   return useQuery({

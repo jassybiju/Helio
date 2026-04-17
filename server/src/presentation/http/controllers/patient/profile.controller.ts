@@ -1,4 +1,7 @@
-import { patientCompleteProfileSchema, updatePatientSchema } from "../../schemas/patient/profile.schema.ts";
+import {
+  patientCompleteProfileSchema,
+  updatePatientSchema,
+} from "../../schemas/patient/profile.schema.ts";
 import { type NextFunction, type Request, type Response } from "express";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
@@ -16,7 +19,10 @@ import type { IRemovePatientAllergenUseCase } from "@application/ports/use-cases
 import type { IAddPatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientConditionUseCase.ts";
 import type { IRemovePatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IRemovePatientConditionUseCase.ts";
 import type { IChangePatientPasswordUseCase } from "@application/ports/use-cases/patient/profile/IChangePatientPasswordUseCase.ts";
-import type { IUpdatePatientInput, IUpdatePatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
+import type {
+  IUpdatePatientInput,
+  IUpdatePatientProfileUseCase,
+} from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
 
 export class PatientProfileController {
   constructor(
@@ -27,7 +33,7 @@ export class PatientProfileController {
     private readonly _addPatientCondition: IAddPatientConditionUseCase,
     private readonly _removePatientCondition: IRemovePatientConditionUseCase,
     private readonly _changePassword: IChangePatientPasswordUseCase,
-    private readonly _updatePatientProfile : IUpdatePatientProfileUseCase,
+    private readonly _updatePatientProfile: IUpdatePatientProfileUseCase
   ) {}
 
   completeProfile = async (req: Request, res: Response, next: NextFunction) => {
@@ -188,9 +194,9 @@ export class PatientProfileController {
     }
   };
 
-  updateProfile = async(req : Request, res : Response ,next: NextFunction) => {
+  updateProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const parsed = updatePatientSchema.safeParse(req.body)
+      const parsed = updatePatientSchema.safeParse(req.body);
 
       const userId = req.user!.id;
       if (!parsed.success) {
@@ -199,8 +205,8 @@ export class PatientProfileController {
           HTTPStatus.UNPROCESSBLE_ENTITY
         );
       }
-      const response = await this._updatePatientProfile.execute( {
-        patientId : userId,
+      const response = await this._updatePatientProfile.execute({
+        patientId: userId,
         ...parsed.data,
       });
 
@@ -210,7 +216,7 @@ export class PatientProfileController {
         successResponse(response, "Patient Profile Updated Succesfully")
       );
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
+  };
 }

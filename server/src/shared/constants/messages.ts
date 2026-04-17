@@ -16,7 +16,7 @@ export enum MESSAGE {
   RESEND_SUCCESSFUL = "OTP Resend Successfully",
   LOGIN_SUCCESSFUL = "LOGIN Succesful",
   FORGET_PASSWORD_SEND = "If an account with this email exists, we’ve sent a password reset link.",
-  PASSWORD_CHANGED_SUCCESFULY ="Password CHanged succesffuly",
+  PASSWORD_CHANGED_SUCCESFULY = "Password CHanged succesffuly",
 
   // doctor repo errors
   FAILED_FETCH_DOCTOR_BY_EMAIL = "Failed to fetch doctor by email",

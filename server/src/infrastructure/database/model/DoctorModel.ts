@@ -1,3 +1,4 @@
+import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
 import {
   model,
   Schema,
@@ -43,7 +44,7 @@ const doctorSchema = new Schema(
       default: "pending",
       enum: ["pending", "approved", "rejected", "resubmitted"],
     },
-    verfication_history: [
+    verification_history: [
       {
         status: {
           type: String,
@@ -104,4 +105,14 @@ export const doctorModel = model("DoctorModel", doctorSchema);
 
 export type DoctorDoc = InferSchemaType<typeof doctorSchema>;
 
-export type DoctorRawDoc = InferRawDocType<typeof doctorSchema.obj>;
+export type DoctorRawDoc = Omit<
+  InferSchemaType<typeof doctorSchema>,
+  "verification_history"
+> & {
+  verification_history: {
+    status: DOCTOR_VERIFICATION_STATUS;
+    reason: string | null;
+    document_key: string | null;
+    acted_at: Date;
+  }[];
+};

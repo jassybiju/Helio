@@ -32,8 +32,8 @@ const reducerFn = (
 
 type ModalContextType = {
   open: <P extends Record<string, unknown>>(
-    component: ComponentType<ModalProps & P>,
-    props?: Omit<P, "close">,
+    component: ComponentType<P & ModalProps>, 
+    props?: Omit<P, 'close'>,
   ) => void;
   close: (id: string) => void;
 };

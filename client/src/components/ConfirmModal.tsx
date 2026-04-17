@@ -18,7 +18,7 @@ export function ConfirmModal({
 }: ConfirmModalProps) {
   console.log(123);
   const { open } = useModal();
-  console.log(onConfirm)
+  console.log(onConfirm);
   const handleConfirm = () => {
     onConfirm();
     close();
@@ -60,8 +60,6 @@ export function ConfirmModal({
           Confirm
         </button>
       </div>
-
-    
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { authService } from '../services/auth.service'
+import { authService } from '../../services/auth.service'
 import VerifyOTPForm from '@/src/features/auth/components/VerifyOTPForm'
 
 const DoctorVerifyOTP = ({id , expires} : {id : string, expires : string}) => {

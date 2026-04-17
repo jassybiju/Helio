@@ -12,5 +12,5 @@ export interface IUpdatePatientInput {
 }
 
 export interface IUpdatePatientProfileUseCase {
-  execute(input : IUpdatePatientInput): Promise<void>
+  execute(input: IUpdatePatientInput): Promise<void>;
 }

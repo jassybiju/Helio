@@ -29,5 +29,8 @@ patientProfileRouter.delete(
   patientProfileController.removeCondition
 );
 
-patientProfileRouter.patch('/change-password', patientProfileController.changePassword)
-patientProfileRouter.put('/', patientProfileController.updateProfile)
+patientProfileRouter.patch(
+  "/change-password",
+  patientProfileController.changePassword
+);
+patientProfileRouter.put("/", patientProfileController.updateProfile);

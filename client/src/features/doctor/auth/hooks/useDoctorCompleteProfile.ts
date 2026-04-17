@@ -3,10 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {  DoctorCompleteProfileFormData, doctorCompleteProfileSchema } from "../schema/profile.schema";
-import { profileService } from "../services/profile.service";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { invalidateQuery } from "@/src/libs/queryClient";
+import { profileService } from "../../services/profile.service";
 
 export const useDoctorCompleteProfile = () => {
   const {

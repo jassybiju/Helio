@@ -1,3 +1,7 @@
 export interface IChangePatientPasswordUseCase {
-  execute(userId : string, oldPassword : string, newPassword : string) : Promise<void>
+  execute(
+    userId: string,
+    oldPassword: string,
+    newPassword: string
+  ): Promise<void>;
 }

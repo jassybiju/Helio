@@ -30,7 +30,7 @@ export class DoctorMapper {
       raw.is_blocked,
       raw.createdAt,
       raw.updatedAt,
-      raw.verfication_history?.map((x) => ({
+      raw.verification_history?.map((x) => ({
         status: x.status as DOCTOR_VERIFICATION_STATUS,
         reason: x.reason as string,
         documentKey: x.document_key as string,
@@ -44,8 +44,8 @@ export class DoctorMapper {
     return {
       _id: doctor.id,
       email: doctor.email,
-      fullName: doctor.fullName,
-      passwordHash: doctor.passwordHash,
+      full_name: doctor.fullName,
+      password_hash: doctor.passwordHash,
       gender: doctor.gender,
       specialization: doctor.specialization,
       career_start_year: doctor.careerStartYear,
@@ -64,7 +64,7 @@ export class DoctorMapper {
       is_blocked: doctor.isBlocked,
       createdAt: doctor.createdAt,
       updatedAt: doctor.updatedAt,
-      verfication_history: doctor.verificationHistory.map((x) => ({
+      verification_history: doctor.verificationHistory.map((x) => ({
         status: x.status,
         reason: x.reason,
         document_key: x.documentKey,

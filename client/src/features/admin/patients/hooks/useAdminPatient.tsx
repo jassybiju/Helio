@@ -9,7 +9,7 @@ import { ConfirmModal } from "@/src/components/ConfirmModal";
 import Link from "next/link";
 
 export const useAdminPatient = () => {
-  const limit = 5;
+  const limit = 2;
   const [filter, setFilter] = useState<PatientQueryParams>({
     page: 1,
     limit,

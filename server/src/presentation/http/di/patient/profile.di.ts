@@ -17,8 +17,7 @@ import { UpdatePatientProfileUseCase } from "@application/use-cases/patient/prof
 const loggerService = new PinoLoggerService();
 const patientRepo = new MongoPatientRepository(loggerService);
 const idGenerator = new NanoidGenerator();
-const bcryptPasswordService = new BcryptPasswordService()
-
+const bcryptPasswordService = new BcryptPasswordService();
 
 const patientProfileCompleteUseCase = new CompletePatientProfileUseCase(
   loggerService,
@@ -46,8 +45,16 @@ const patientRemoveConditionUseCase = new RemovePatientConditionUseCase(
   logger,
   patientRepo
 );
-const patientChangePasswordUseCase = new ChangePasswordUseCase(logger, patientRepo, bcryptPasswordService, new PatientValidator(patientRepo, bcryptPasswordService))
-const patientUpdateProfileUseCase = new UpdatePatientProfileUseCase(logger, patientRepo)
+const patientChangePasswordUseCase = new ChangePasswordUseCase(
+  logger,
+  patientRepo,
+  bcryptPasswordService,
+  new PatientValidator(patientRepo, bcryptPasswordService)
+);
+const patientUpdateProfileUseCase = new UpdatePatientProfileUseCase(
+  logger,
+  patientRepo
+);
 export const patientProfileController = new PatientProfileController(
   patientProfileCompleteUseCase,
   patientGetProfileUseCase,

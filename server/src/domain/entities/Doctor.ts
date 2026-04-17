@@ -106,6 +106,14 @@ export class Doctor {
   }
 
   isProfileComplete(): boolean {
+    console.log(
+      this._fullName,
+      this._gender,
+      this._specialization,
+      this._careerStartYear,
+      this._documentKey,
+      this._isVerified
+    );
     return !!(
       this._fullName &&
       this._gender &&
@@ -155,6 +163,7 @@ export class Doctor {
     createdAt: Date;
     updatedAt: Date;
   }) {
+    console.log(passwordHash);
     return new Doctor(
       id,
       email,

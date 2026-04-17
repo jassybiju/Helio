@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { verificationService } from "../services/verification.service";
+import { verificationService } from "../../services/verification.service";
 import { DoctorVerificationFormData } from "../schema/verification.schema";
 import { invalidateQuery, queryClient } from "@/src/libs/queryClient";
 import { toast } from "react-toastify";

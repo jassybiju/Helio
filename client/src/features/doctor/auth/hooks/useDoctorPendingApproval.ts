@@ -7,9 +7,6 @@ import {
   DoctorVerificationFormData,
   doctorVerificationSchema,
 } from "../schema/verification.schema";
-import { verificationService } from "../services/verification.service";
-import { AxiosError, isAxiosError } from "axios";
-import { toast } from "react-toastify";
 import { useDoctorResubmitVerificationMutation } from "./useDoctorResubmitVerificationMutation";
 
 export const useDoctorPendingApproval = () => {

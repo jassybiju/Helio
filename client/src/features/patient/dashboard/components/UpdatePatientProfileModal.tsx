@@ -12,38 +12,48 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import DOBPicker from "@/src/components/ui/DOBPicker";
 import { useGetPatientQuery } from "../hooks/useGetPatientQuery";
+import { useUpdatePatientProfileMutation } from "../hooks/useUpdatePatientProfileMutation";
 
-interface UpdatePatientProfileModalType extends ModalProps {}
+interface UpdatePatientProfileModalType extends ModalProps {
+  a: string;
+  patient : string
+}
 
 const UpdatePatientProfileModal = ({
+  a = "1",
   close,
+  patient
 }: UpdatePatientProfileModalType) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const {data} = useGetPatientQuery()
-  if(!data){
-    return close()
-  }
+  const { data } = useGetPatientQuery();
+  const {mutate : updateProfile, isPending : isSubmitting} = useUpdatePatientProfileMutation(close)
   const router = useRouter();
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors,  },
     reset,
     control,
   } = useForm<UpdatePatientFormData>({
     resolver: zodResolver(updatePatientSchema),
     mode: "onBlur",
-    defaultValues : data.data as UpdatePatientFormData
+    defaultValues: data?.data as UpdatePatientFormData,
   });
 
   const dobValue = useWatch({
     control,
     name: "dob",
   });
+  if (!data) {
+    close();
+    return null
+  }
 
-  const onSubmit = () => {};
+  const onSubmit = (data: UpdatePatientFormData) => {
+      updateProfile(data);
+  };
   return (
     <div className="flex flex-col    bg-white rounded-2xl overflow-hidden">
       {/* Header */}
@@ -59,7 +69,7 @@ const UpdatePatientProfileModal = ({
         </button>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-6 px-6 py-4 border-b">
+      <form onSubmit={handleSubmit(onSubmit)}  className="space-y-6 px-6 py-4 border-b">
         {/* Success Message */}
         {submitSuccess && (
           <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -154,8 +164,8 @@ const UpdatePatientProfileModal = ({
         </div>
 
         {/* Email */}
-         <div>
-         <div>
+        <div>
+          <div>
             <label className="block text-sm font-semibold text-slate-900 mb-2">
               Blood Group
             </label>
@@ -176,7 +186,7 @@ const UpdatePatientProfileModal = ({
               </p>
             )}
           </div>
-        </div> 
+        </div>
 
         {/* Phone Number */}
         <div>
@@ -245,12 +255,10 @@ const UpdatePatientProfileModal = ({
             className="w-full"
             disabled={isSubmitting}
           >
-            {/* {isSubmitting ? "Creating Account..." : "Create Account"} */}
+            {isSubmitting ? "Updating Account..." : "Update Account"}
           </ClayButton>
         </div>
       </form>
-
-    
     </div>
   );
 };

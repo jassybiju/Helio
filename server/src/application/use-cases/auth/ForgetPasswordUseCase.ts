@@ -42,6 +42,14 @@ export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
       return;
     }
 
+    if (!user.isVerified) {
+      this._logger.info("Password reset requested for unverified user", {
+        email,
+        role,
+      });
+      return;
+    }
+
     const ttlSeconds = Number(process.env.RESET_TOKEN_EXPIRY_SECS);
     const token = await this._resetTokenService.generate(
       user.id,

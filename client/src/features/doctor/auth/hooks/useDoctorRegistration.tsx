@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authService } from "../services/auth.service";
+import { authService } from "../../services/auth.service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DoctorRegisterFormData, doctorRegisterSchema } from "../schema/auth.schema";

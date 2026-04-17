@@ -66,7 +66,7 @@ export class ResendOTPUseCase implements IResendOTPUseCase {
       subject: "Your OTP For the helixo",
       body: `Your OTP is ${newOTP.code}`,
     });
-     //response
+    //response
     return {
       otp_sent: true,
       invalidAt: String(newOTP.invalidAt.getTime()),

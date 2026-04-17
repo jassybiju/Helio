@@ -49,7 +49,7 @@ const registerUsecase = new RegisterDoctorUseCase(
   doctorRepo,
   otpRepo,
   otpService,
-  emailService,
+  emailService
 );
 
 const verifyDoctorUseCase = new VerifyOTPUseCase(
