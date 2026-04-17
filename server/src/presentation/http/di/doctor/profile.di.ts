@@ -4,6 +4,8 @@ import { LocalFileUploadService } from "@infrastructure/services/LocalFileUpload
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { DoctorProfileController } from "../../controllers/doctor/profile.controller.ts";
+import { GetDoctorProfileUseCase } from "@application/use-cases/doctor/profile/getDoctorProfile/GetDoctorProfileUseCase.ts";
+import { UpdateDoctorFeeUseCase } from "@application/use-cases/doctor/profile/updateDoctorFee/UpdateDoctorFeeUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const doctorRepo = new MongoDoctorRepository(loggerService);
@@ -14,7 +16,16 @@ const doctorProfileCompleteUseCase = new CompleteDoctorProfileUseCase(
   doctorRepo,
   localFileUpload
 );
-
+const doctorGetProfileUseCase = new GetDoctorProfileUseCase(
+  loggerService,
+  doctorRepo
+);
+const doctorUpdateFeeUseCase = new UpdateDoctorFeeUseCase(
+  loggerService,
+  doctorRepo
+);
 export const doctorProfileController = new DoctorProfileController(
-  doctorProfileCompleteUseCase
+  doctorProfileCompleteUseCase,
+  doctorGetProfileUseCase,
+  doctorUpdateFeeUseCase
 );

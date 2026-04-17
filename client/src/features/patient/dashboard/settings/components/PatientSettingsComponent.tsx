@@ -2,17 +2,17 @@
 
 import { Eye, EyeOff, Heart, Lock, X } from "lucide-react";
 import React, { useState } from "react";
-import { useGetPatientQuery } from "../../hooks/useGetPatientQuery";
+import { useGetPatientQuery } from "../hooks/useGetPatientQuery";
 import { PatientProfileType } from "../../../services/profile.service";
 import {
   useAddAllergenMutation,
   useRemoveAllergenMutation,
-} from "../../hooks/useAllergenMutations";
+} from "../hooks/useAllergenMutations";
 import {
   useAddConditionMutation,
   useRemoveConditionMutation,
-} from "../../hooks/useConditionMutation";
-import { useChangePasswordMutation } from "../../hooks/useChangePasswordMutation";
+} from "../hooks/useConditionMutation";
+import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
 import { useModal } from "@/src/hooks/useModal";
 import UpdatePatientProfileModal from "../../components/UpdatePatientProfileModal";
 import { ConfirmModal } from "@/src/components/ConfirmModal";

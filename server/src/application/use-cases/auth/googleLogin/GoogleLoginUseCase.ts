@@ -42,7 +42,7 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       await this._googleAuthService.verifyCredentials(credentials);
 
     // intializing user and isProfileCOmplete
-    let user!: Doctor | Patient;
+    let user: Doctor | Patient | null = null;
     let isProfileComplete: boolean = true;
 
     // if role === DOCTOR
@@ -51,6 +51,20 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       let existingDoctor = await this._doctorRepo.findByEmail(
         new Email(googleUser.email)
       );
+
+      console.log(googleUser, existingDoctor);
+
+      // if have unverified doctor
+      if (existingDoctor && !existingDoctor.isVerified) {
+        existingDoctor = Doctor.googleCreate({
+          id: existingDoctor.id,
+          email: new Email(googleUser.email),
+          fullName: googleUser.name,
+          googleId: googleUser.googleId,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      }
 
       // if no doctor create one
       if (!existingDoctor) {
@@ -85,6 +99,17 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       let existingPatient = await this._patientRepo.findByEmail(
         new Email(googleUser.email)
       );
+      //if has unverified patient
+      if (existingPatient && !existingPatient.isVerified) {
+        existingPatient = Patient.googleCreate({
+          id: existingPatient.id,
+          email: new Email(googleUser.email),
+          firstName: googleUser.name,
+          googleId: googleUser.googleId,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      }
       if (!existingPatient) {
         existingPatient = Patient.googleCreate({
           id: this._idGenerator.generate(process.env.PATIENT_PREFIX!),
@@ -109,6 +134,9 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       user = existingPatient;
     }
 
+    if (!user) {
+      throw new AppError("User not initialized", HTTPStatus.INTERNAL_ERROR);
+    }
     const accessToken = this._accessTokenService.generateAccessToken(
       user.id!,
       user.email!,
@@ -122,7 +150,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       user.email!,
       this._refreshTokenService.hash(refreshToken)
     );
-    console.log(isProfileComplete);
     return {
       accessToken,
       refreshToken,

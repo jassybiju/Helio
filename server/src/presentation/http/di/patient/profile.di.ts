@@ -2,7 +2,7 @@ import { CompletePatientProfileUseCase } from "@application/use-cases/patient/pr
 import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { PatientProfileController } from "../../controllers/patient/profile.controller.ts";
-import { GetPatientProfileUseCase } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileUseCase.tsx";
+import { GetPatientProfileUseCase } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileUseCase.ts";
 import { AddPatientAllergenUseCase } from "@application/use-cases/patient/profile/addPatientAllergen/AddPatientAllergenUseCase.ts";
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { RemovePatientAllergenUseCase } from "@application/use-cases/patient/profile/removePatientAllergen/RemovePatientAllergenUseCase.ts";

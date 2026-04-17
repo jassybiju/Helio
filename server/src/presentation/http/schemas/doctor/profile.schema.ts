@@ -11,3 +11,12 @@ export const doctorCompleteProfileSchema = z.object({
       issue.input === undefined ? "gender is required" : "Gender must be valid",
   }),
 });
+
+export const doctorUpdateFeeSchema = z.object({
+  onlineFee: z
+    .number("Fee Should be a numebr")
+    .min(10, "Should be greater than 10"),
+  clinicFee: z
+    .number("Fee Should be a numebr")
+    .min(10, "Should be greater than 10"),
+});

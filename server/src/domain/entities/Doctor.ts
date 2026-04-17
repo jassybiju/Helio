@@ -22,8 +22,8 @@ export class Doctor {
     private _rejectionReason: string | null,
     private _additionalInfo: string | null,
 
-    private readonly _onlineFee: number | null,
-    private readonly _clinicFee: number | null,
+    private _onlineFee: number | null,
+    private _clinicFee: number | null,
 
     private _googleId: string | null,
 
@@ -104,6 +104,20 @@ export class Doctor {
       actedAt: new Date(),
     });
   }
+  updateFee({
+    clinicFee,
+    onlineFee,
+  }: {
+    clinicFee?: number;
+    onlineFee?: number;
+  }) {
+    if (clinicFee) {
+      this._clinicFee = clinicFee;
+    }
+    if (onlineFee) {
+      this._onlineFee = onlineFee;
+    }
+  }
 
   isProfileComplete(): boolean {
     console.log(
@@ -112,7 +126,8 @@ export class Doctor {
       this._specialization,
       this._careerStartYear,
       this._documentKey,
-      this._isVerified
+      this._isVerified,
+      "abc"
     );
     return !!(
       this._fullName &&
@@ -266,6 +281,12 @@ export class Doctor {
         actedAt: new Date(),
       },
     ];
+  }
+
+  get yearsOfExperience() {
+    if (this._careerStartYear) {
+      return new Date().getFullYear() - this._careerStartYear;
+    }
   }
 
   get verificationHistory() {

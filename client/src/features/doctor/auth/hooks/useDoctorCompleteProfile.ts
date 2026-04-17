@@ -6,7 +6,7 @@ import {  DoctorCompleteProfileFormData, doctorCompleteProfileSchema } from "../
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { invalidateQuery } from "@/src/libs/queryClient";
-import { profileService } from "../../services/profile.service";
+import { doctorProfileService } from "../../services/profile.service";
 
 export const useDoctorCompleteProfile = () => {
   const {
@@ -23,7 +23,7 @@ export const useDoctorCompleteProfile = () => {
   console.log(errors)
   const onSubmit =async (data : DoctorCompleteProfileFormData) => {
     try {
-      const res = await profileService.completeProfile(data)
+      const res = await doctorProfileService.completeProfile(data)
       reset()
       invalidateQuery('me')
       router.replace('/')

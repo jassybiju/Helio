@@ -17,3 +17,6 @@ doctorProfileRouter.patch(
   documentUpload.single("document"),
   doctorProfileController.completeProfile
 );
+
+doctorProfileRouter.get("/", doctorProfileController.getDoctor);
+doctorProfileRouter.patch("/fee", doctorProfileController.updateDoctorFee);

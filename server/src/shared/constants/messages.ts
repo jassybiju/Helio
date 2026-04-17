@@ -34,6 +34,10 @@ export enum MESSAGE {
   PATIENT_ADD_CONDITION_SUCCESS = "Patient Condition Added Succesffuly",
   PATIENT_REMOVE_CONDITION_SUCCESS = "Patient Condition Removed Succesffuly",
 
+  //doctor
+  DOCTOR_PROFILE_SUCCESS = "Doctor Profile Got Succesffully",
+  DOCTOR_FEE_UPDATED = "Doctor Fee Updated Successfully",
+
   // admin patient
   PATIENT_FETCH_SUCCESS = "Patients Fetched Successfully",
   PATIENT_TOGGLE_BLOCK_SUCCESS = "Patient Block status Toggled Successfully",

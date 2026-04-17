@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { patientProfileService } from "../../services/profile.service";
+import { patientProfileService } from "../../../services/profile.service";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import { toast } from "react-toastify";
 import { isAxiosError } from "axios";

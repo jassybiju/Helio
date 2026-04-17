@@ -11,18 +11,15 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { GetPatientProfileMapper } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileMapper.tsx";
-import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.tsx";
+import { GetPatientProfileMapper } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileMapper.ts";
+import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.ts";
 import type { IAddPatientAllergenUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientAllergenUseCase.ts";
 import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
 import type { IRemovePatientAllergenUseCase } from "@application/ports/use-cases/patient/profile/IRemovePatientAllergenUseCase.ts";
 import type { IAddPatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientConditionUseCase.ts";
 import type { IRemovePatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IRemovePatientConditionUseCase.ts";
 import type { IChangePatientPasswordUseCase } from "@application/ports/use-cases/patient/profile/IChangePatientPasswordUseCase.ts";
-import type {
-  IUpdatePatientInput,
-  IUpdatePatientProfileUseCase,
-} from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
+import type { IUpdatePatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
 
 export class PatientProfileController {
   constructor(
