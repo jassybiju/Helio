@@ -16,7 +16,8 @@ export interface IDoctorFilters {
 export interface IDoctorRepository {
   findByEmail(email: Email): Promise<Doctor | null>;
   findById(id: string): Promise<Doctor | null>;
-  save(doctor: Doctor): Promise<void>;
+  create(doctor: Doctor): Promise<void>;
+  update(doctor: Doctor): Promise<void>;
   findAllWithFilters(
     params: IDoctorFilters
   ): Promise<{ doctors: Doctor[]; totalCount: number }>;

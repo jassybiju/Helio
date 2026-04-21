@@ -24,6 +24,6 @@ export class RemovePatientConditionUseCase implements IRemovePatientConditionUse
 
     patient.removeCondition(conditionId);
 
-    this._patientRepo.save(patient);
+    this._patientRepo.update(patient);
   }
 }

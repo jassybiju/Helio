@@ -10,6 +10,8 @@ const doctorSlotSchema = new Schema({
   consultation_type: { enum: ["ONLINE", "OFFLINE"], required: true },
   status: { enum: ["AVAILABLE", "BOOKED", "CANCELLED"], required: true },
   created_at: { type: Date, required: true },
+    is_deleted : {type : Boolean, default : false}
+
 });
 
 export const doctorSlotModel = model("DoctorSlotModel", doctorSlotSchema);

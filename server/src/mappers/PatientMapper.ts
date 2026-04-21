@@ -33,6 +33,8 @@ export class PatientMapper {
       condition: t.conditions,
       createdAt: t.createdAt,
       updatedAt: t.updatedAt,
+      google_id : t.googleId,
+      is_deleted : t.isDeleted
     };
   }
 
@@ -61,9 +63,10 @@ export class PatientMapper {
         name: c.name,
         createdAt: c.createdAt as Date,
       })),
-      raw.googleId as string,
+      raw.google_id as string,
       raw.createdAt,
-      raw.updatedAt
+      raw.updatedAt,
+      raw.is_deleted
     );
   }
 }

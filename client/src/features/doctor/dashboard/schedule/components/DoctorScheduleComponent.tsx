@@ -12,11 +12,15 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetScheduleQuery } from "../hooks/useGetScheduleQuery";
 import { IGetDoctorScheduleDTO } from "../../../services/schedule.service";
+import { useDeleteScheduleMutation } from "../hooks/useDeleteScheduleMutation";
+import { useModal } from "@/src/hooks/useModal";
+import { ConfirmModal } from "@/src/components/ConfirmModal";
 
 const DoctorScheduleComponent = () => {
   const { mutate: setSchedule } = useSetScheduleMutation();
   const { data: schedulesData } = useGetScheduleQuery();
-
+  const {mutate : deleteSchedule} = useDeleteScheduleMutation()
+  const {open} = useModal()
   const {
     register,
     handleSubmit,
@@ -52,7 +56,9 @@ const DoctorScheduleComponent = () => {
     });
   };
 
-  const handleDeleteSlot = (id: string) => {console.log(id)};
+  const handleDeleteSlot = (id: string) => {
+    open(ConfirmModal, {title : "Confirm Delete Schedule",message :"Are you sure you want to delete", onConfirm: ()=>deleteSchedule(id)})
+  };
 
   const column: ColumnType<IGetDoctorScheduleDTO> = [
     {

@@ -1,3 +1,4 @@
+import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
 import {
   model,
   Schema,
@@ -78,9 +79,10 @@ const patientSchema = new Schema(
       default: false,
       type: Boolean,
     },
-    googleId: {
+    google_id: {
       type: String,
     },
+    is_deleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
@@ -91,4 +93,15 @@ export const patientModel = model("PatientModel", patientSchema);
 
 export type PatientDoc = InferSchemaType<typeof patientSchema>;
 
-export type PatientRawDoc = InferRawDocType<typeof patientSchema.obj>;
+export type PatientRawDoc = Omit<
+  InferSchemaType<typeof patientSchema>,
+  "allergens" | "condition"
+> & {
+  allergens: Array<{
+    _id: string;
+    name: string;
+    severity: string;
+    createdAt: Date;
+  }>;
+  condition: Array<{ _id: string; name: string; createdAt: Date }>;
+};

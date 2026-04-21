@@ -33,4 +33,10 @@ export const doctorScheduleService = {
       HTTP_METHOD.GET,
     );
   },
+  deleteSchedule : (id : string) => {
+    return apiRequest<IGetDoctorScheduleDTO[]>(
+      API_ENDPOINT.DOCTOR.SCHEDULE.ID(id),
+      HTTP_METHOD.DELETE,
+    );
+  }
 };

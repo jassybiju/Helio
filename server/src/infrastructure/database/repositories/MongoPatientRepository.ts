@@ -43,10 +43,10 @@ export class PatientRepository
    * @param patient Patient entity
    *
    */
-  async save(patient: Patient): Promise<void> {
+  async create(patient: Patient): Promise<void> {
     try {
       this._loggerService.info("Saving Patient : " + patient.email, patient);
-      await super.save(patient, patient.id, PatientMapper.toPersistance);
+      await super.create(patient, PatientMapper.toPersistance);
       this._loggerService.info("Patient Saved Successfully id : " + patient.id);
     } catch (error) {
       this._loggerService.error("Failed to save patient of email ", error);
@@ -54,6 +54,16 @@ export class PatientRepository
     }
   }
 
+  async update(patient: Patient): Promise<void> {
+    try {
+      this._loggerService.info("Saving Patient : " + patient.email, patient);
+      await super.update(patient, patient.id, PatientMapper.toPersistance);
+      this._loggerService.info("Patient Saved Successfully id : " + patient.id);
+    } catch (error) {
+      this._loggerService.error("Failed to save patient of email ", error);
+      throw new AppError("Failed to save patient", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
   /**
    * Fetches patient by id
    *

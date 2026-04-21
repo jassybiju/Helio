@@ -19,10 +19,22 @@ export interface IDoctorShiftRepository {
   ): Promise<DoctorShift[]>;
 
   /**
-   * Saves DoctorShift
+   * creates DoctorShift
    * @param shift Doctor Shift
    */
-  save(shift: DoctorShift): Promise<void>;
+  create(shift: DoctorShift): Promise<void>;
+
+  /**
+   * updates DoctorShift
+   * @param shift Doctor Shift
+   */
+  update(shift: DoctorShift): Promise<void>;
 
   findByDoctor(doctorId: string): Promise<DoctorShift[]>;
+
+  /**
+   * Deletes the shift having the shiftId
+   * @param shiftId Shift Id string
+   */
+  delete(shiftId: string): Promise<void>;
 }

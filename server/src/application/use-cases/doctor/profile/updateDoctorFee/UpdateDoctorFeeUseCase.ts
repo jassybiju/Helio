@@ -29,6 +29,6 @@ export class UpdateDoctorFeeUseCase implements IUpdateDoctorFeeUseCase {
 
     doctor.updateFee({ onlineFee, clinicFee });
 
-    await this._doctorRepo.save(doctor);
+    await this._doctorRepo.update(doctor);
   }
 }

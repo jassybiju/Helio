@@ -38,7 +38,9 @@ export class Doctor {
       reason: string | null;
       documentKey: string | null;
       actedAt: Date;
-    }[] = []
+    }[] = [],
+    private readonly _isDeleted : boolean = false
+
   ) {
     if (
       this._careerStartYear &&

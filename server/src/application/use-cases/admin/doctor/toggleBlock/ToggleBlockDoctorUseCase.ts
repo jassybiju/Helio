@@ -27,6 +27,6 @@ export class ToggleBlockDoctorUseCase implements IToggleBlockDoctorUseCase {
 
     doctor.toogleBlockStatus();
 
-    await this._doctorRepo.save(doctor);
+    await this._doctorRepo.update(doctor);
   }
 }

@@ -20,8 +20,8 @@ export class DoctorShift {
 
     private readonly _slotIntervalInMinutes: number,
     private readonly _capacityPerSlot: number,
-
-    private readonly _createdAt: Date
+    private readonly _createdAt: Date,
+    private readonly _isDeleted: boolean = false
   ) {
     if (!this._startTime.isBefore(this._endTime)) {
       throw new AppError(

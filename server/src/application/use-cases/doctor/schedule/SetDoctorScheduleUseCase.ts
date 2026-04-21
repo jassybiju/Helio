@@ -99,6 +99,6 @@ export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
     }
 
     // saves doctorShift
-    await this._doctorShiftRepo.save(newShift);
+    await this._doctorShiftRepo.create(newShift);
   }
 }

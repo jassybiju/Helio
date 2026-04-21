@@ -87,9 +87,13 @@ const doctorSchema = new Schema(
       default: false,
       type: Boolean,
     },
-    googleId: {
+    google_id: {
       type: String,
     },
+    is_deleted : {
+      default : false,
+      type : Boolean
+    }
   },
   {
     timestamps: true,

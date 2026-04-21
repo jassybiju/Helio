@@ -7,6 +7,7 @@ import {
 } from "@react-oauth/google";
 import React from "react";
 import { GoogleLoginFn } from "../features/auth/types/auth.types";
+import { toast } from "react-toastify";
 
 const LoginByGoogleComponent = ({
   googleLogin,
@@ -20,6 +21,7 @@ const LoginByGoogleComponent = ({
       console.log("Token:", credientialResponse);
       await googleLogin(credientialResponse.credential!);
     } catch (error) {
+      toast.error("Google Login Error")
       console.log(error);
     }
   };

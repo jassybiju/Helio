@@ -34,10 +34,21 @@ export class MongoDoctorRepository
     }
   }
 
-  async save(doctor: Doctor): Promise<void> {
+  async create(doctor: Doctor): Promise<void> {
     try {
       this._loggerService.info("Saving Doctor", doctor.email);
-      await super.save(doctor, doctor.id, DoctorMapper.toPersistance);
+      await super.create(doctor, DoctorMapper.toPersistance);
+      this._loggerService.info("Doctor Saved Successfully id : " + doctor.id);
+    } catch (error) {
+      this._loggerService.error("Failed to save doctor of email " + error);
+      throw new AppError(MESSAGE.FAILED_SAVE_DOCTOR, HTTPStatus.INTERNAL_ERROR);
+    }
+  }
+
+  async update(doctor: Doctor): Promise<void> {
+    try {
+      this._loggerService.info("Saving Doctor", doctor.email);
+      await super.update(doctor, doctor.id, DoctorMapper.toPersistance);
       this._loggerService.info("Doctor Saved Successfully id : " + doctor.id);
     } catch (error) {
       this._loggerService.error("Failed to save doctor of email " + error);

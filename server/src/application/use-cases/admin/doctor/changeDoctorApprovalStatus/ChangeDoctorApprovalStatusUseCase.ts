@@ -54,7 +54,7 @@ export class ChangeDoctorApprovalStatusUseCase implements IChangeDoctorApprovalS
       doctor.reject(input.rejection_reason);
     }
 
-    await this._doctorRepo.save(doctor);
+    await this._doctorRepo.update(doctor);
 
     return {
       doctorId,

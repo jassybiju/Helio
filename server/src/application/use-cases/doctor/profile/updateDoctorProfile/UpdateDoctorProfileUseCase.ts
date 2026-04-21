@@ -28,6 +28,6 @@ export class UpdateDoctorProfileUseCase implements IUpdateDoctorProfileUseCase {
       bio: input.bio,
     });
 
-    await this._doctorRepo.save(doctor);
+    await this._doctorRepo.update(doctor);
   }
 }

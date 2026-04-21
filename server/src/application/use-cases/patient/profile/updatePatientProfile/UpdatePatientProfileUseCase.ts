@@ -31,6 +31,6 @@ export class UpdatePatientProfileUseCase implements IUpdatePatientProfileUseCase
       dob: input.dob,
     });
 
-    await this._patientRepo.save(patient);
+    await this._patientRepo.update(patient);
   }
 }

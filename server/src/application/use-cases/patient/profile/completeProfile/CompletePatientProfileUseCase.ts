@@ -39,7 +39,7 @@ export class CompletePatientProfileUseCase implements ICompletePatientProfileUse
       phone,
     });
 
-    await this._patientRepo.save(patient);
+    await this._patientRepo.update(patient);
 
     return {
       isProfileComplete: patient.isProfileComplete(),

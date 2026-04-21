@@ -43,7 +43,7 @@ export class CompleteDoctorProfileUseCase implements ICompleteDoctorProfileUseCa
       documentKey,
     });
 
-    await this._doctorRepo.save(doctor);
+    await this._doctorRepo.update(doctor);
 
     this._logger.info("Doctor profile completed", { userId });
 

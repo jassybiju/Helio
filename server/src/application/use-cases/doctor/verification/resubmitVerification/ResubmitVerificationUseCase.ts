@@ -44,6 +44,6 @@ export class ResubmitVerificationUseCase implements IResubmitVerificationUseCase
       doctor.resubmit(documentKey, additionalInfo);
     }
 
-    await this._doctorRepo.save(doctor);
+    await this._doctorRepo.update(doctor);
   }
 }

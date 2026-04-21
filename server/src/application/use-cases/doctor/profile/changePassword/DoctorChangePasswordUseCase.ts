@@ -34,6 +34,6 @@ export class ChangeDoctorPasswordUseCase implements IChangeDoctorPasswordUseCase
 
     doctor.updatePassword(await this._passwordService.hash(newPassword));
 
-    this._doctorRepo.save(doctor);
+    this._doctorRepo.update(doctor);
   }
 }

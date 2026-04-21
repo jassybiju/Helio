@@ -58,7 +58,7 @@ export class VerifyOTPUseCase implements IVerifyOTPUseCase {
         throw new AppError("User Already Verified", HTTPStatus.BAD_REQUEST);
       }
       user.verifyPatient();
-      await this._patientRepo.save(user);
+      await this._patientRepo.update(user);
     } else if (context === "doctor") {
       user = await this._doctorRepo.findByEmail(otpData.email);
       if (!user) {
@@ -68,7 +68,7 @@ export class VerifyOTPUseCase implements IVerifyOTPUseCase {
         throw new AppError("User Already Verified", HTTPStatus.BAD_REQUEST);
       }
       user.verifyDoctor();
-      await this._doctorRepo.save(user);
+      await this._doctorRepo.update(user);
     }
 
     await this._otpRepo.delete(id);

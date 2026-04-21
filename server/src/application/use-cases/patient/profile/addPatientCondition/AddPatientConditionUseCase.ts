@@ -27,7 +27,7 @@ export class AddPatientConditionUseCase implements IAddPatientConditionUseCase {
     });
 
     console.log(patient, 123);
-    await this._patientRepo.save(patient);
+    await this._patientRepo.update(patient);
 
     console.log(await this._patientRepo.findById(patientId));
   }

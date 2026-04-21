@@ -50,10 +50,10 @@ export class ResetPasswordUseCase implements IResetPasswordUseCase {
     user.updatePassword(await this._passwordService.hash(newPassword));
 
     if (role === USER_ROLES.PATIENT) {
-      await this._patientRepo.save(user as Patient);
+      await this._patientRepo.update(user as Patient);
     }
     if (role === USER_ROLES.DOCTOR) {
-      await this._doctorRepo.save(user as Doctor);
+      await this._doctorRepo.update(user as Doctor);
     }
 
     await this._resetTokenService.invalidate(token);

@@ -76,11 +76,11 @@ export class DoctorShiftRepository
     }
   }
 
-  async save(shift: DoctorShift): Promise<void> {
+  async create(shift: DoctorShift): Promise<void> {
     try {
-      this._loggerService.error("Saving Doctor Shift ", shift.shiftId);
+      this._loggerService.info("Saving Doctor Shift ", shift.shiftId);
 
-      await super.save(shift, shift.shiftId, DoctorShiftMapper.toPersistance);
+      await super.create(shift, DoctorShiftMapper.toPersistance);
 
       this._loggerService.error("SavedDoctor Shift ", shift.shiftId);
     } catch (error) {
@@ -88,6 +88,37 @@ export class DoctorShiftRepository
 
       throw new AppError(
         "Failed to save Doctor Shifts",
+        HTTPStatus.INTERNAL_ERROR
+      );
+    }
+  }
+
+  async update(shift: DoctorShift): Promise<void> {
+    try {
+      this._loggerService.info("Saving Doctor Shift ", shift.shiftId);
+
+      await super.update(shift, shift.shiftId, DoctorShiftMapper.toPersistance);
+
+      this._loggerService.error("SavedDoctor Shift ", shift.shiftId);
+    } catch (error) {
+      this._loggerService.error("Failed to Save ", error as Error);
+
+      throw new AppError(
+        "Failed to save Doctor Shifts",
+        HTTPStatus.INTERNAL_ERROR
+      );
+    }
+  }
+
+  async delete(shiftId: string): Promise<void> {
+    try {
+      this._loggerService.info("Deleting Doctor Shift", { shiftId });
+
+      await super.delete(shiftId);
+    } catch (error) {
+      this._loggerService.error("Failed to delete", error as Error);
+      throw new AppError(
+        "Failed to Delete Doctor Shift",
         HTTPStatus.INTERNAL_ERROR
       );
     }

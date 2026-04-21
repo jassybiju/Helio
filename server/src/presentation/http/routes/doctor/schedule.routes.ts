@@ -11,3 +11,4 @@ doctorScheduleRouter.use(authorizeMiddleware(USER_ROLES.DOCTOR));
 
 doctorScheduleRouter.post("/", doctorScheduleController.setSchedule);
 doctorScheduleRouter.get("/", doctorScheduleController.getSchedule);
+doctorScheduleRouter.delete("/:shiftId", doctorScheduleController.delete);

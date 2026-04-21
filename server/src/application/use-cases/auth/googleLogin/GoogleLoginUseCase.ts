@@ -35,7 +35,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
     role: USER_ROLES;
   }): Promise<IGoogleLoginResponseDTO> {
     this._logger.info("Google Auth Attempt");
-
     // verifiying google Credeintails and getting data
     const googleUser =
       await this._googleAuthService.verifyCredentials(credentials);
@@ -46,6 +45,7 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
 
     // if role === DOCTOR
     if (role === USER_ROLES.DOCTOR) {
+      let isNew = false;
       // checks it doctor already exists
       let existingDoctor = await this._doctorRepo.findByEmail(
         new Email(googleUser.email)
@@ -76,6 +76,7 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
           updatedAt: new Date(),
         });
         console.log(existingDoctor);
+        isNew = true;
       }
 
       if (existingDoctor.isBlocked) {
@@ -86,15 +87,21 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       if (!existingDoctor.hasGoogleId) {
         existingDoctor.linkGoogleId(googleUser.googleId);
       }
-
+      console.log(isNew)
       // saving the doctor
-      await this._doctorRepo.save(existingDoctor);
+      if (isNew) {
+        await this._doctorRepo.create(existingDoctor);
+      } else {
+        await this._doctorRepo.update(existingDoctor);
+      }
 
       isProfileComplete = existingDoctor.isProfileComplete();
       console.log(isProfileComplete);
       user = existingDoctor;
     }
     if (role === USER_ROLES.PATIENT) {
+      let isNew = false;
+
       let existingPatient = await this._patientRepo.findByEmail(
         new Email(googleUser.email)
       );
@@ -118,6 +125,7 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
           createdAt: new Date(),
           updatedAt: new Date(),
         });
+        isNew = true;
       }
 
       if (existingPatient.isBlocked) {
@@ -127,7 +135,12 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       if (!existingPatient.hasGoogleId) {
         existingPatient.linkGoogleId(googleUser.googleId);
       }
-      await this._patientRepo.save(existingPatient);
+
+      if (isNew) {
+        await this._patientRepo.create(existingPatient);
+      } else {
+        await this._patientRepo.update(existingPatient);
+      }
 
       isProfileComplete = existingPatient.isProfileComplete();
       user = existingPatient;

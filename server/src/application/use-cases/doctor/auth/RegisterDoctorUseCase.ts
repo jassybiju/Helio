@@ -51,6 +51,8 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     const existingDoctor =
       await this._doctorValidator.ensureEmailAvailable(email);
 
+    const isNew = !existingDoctor;
+
     // saving documnets to bucket
     console.log(document);
     const documentKey = await this._fileUpload.upload(document);
@@ -72,8 +74,14 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     });
 
     // saving doctor
-    await this._doctorRepo.save(doctor);
-    this._logger.debug("Doctor Saved");
+    if (isNew) {
+      await this._doctorRepo.create(doctor);
+      this._logger.debug("Doctor Created");
+    } else {
+      await this._doctorRepo.update(doctor);
+      this._logger.debug("Doctor Updated");
+    }
+
     // generating otp
     let otp = OTP.create({
       id: this._idGenerator.generate(process.env.OTP_PREFIX || "OTP"),

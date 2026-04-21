@@ -39,6 +39,11 @@ export enum MESSAGE {
   DOCTOR_FEE_UPDATED = "Doctor Fee Updated Successfully",
   DOCTOR_SCHEDULE_CREATED = "Doctor Scheduled created successfully",
   DOCTOR_SCHEDULE_SUCCESS = "Doctor Scheduled Got successfully",
+  DOCTOR_SCHEDULE_DELETED = "Doctor Schedule deleted  Succesffuly",
+
+  //schedule
+  DOC_SCHEDULE_NOT_FOUND = "Doctor Schedule Not found",
+  DOC_SCHEDULE_MIS_MATCH = "Schedule doesnt belong to this Doctor",
 
   //doctorSchedule
   DOCTOR_SHEDULE_OVERLAP_ERROR = "Doctor Schedule Overlaps existing schedules",

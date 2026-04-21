@@ -19,6 +19,7 @@ const doctorShiftSchema = new Schema({
   slot_interval_in_minutes: { type: Number, required: true },
   capacity_per_slot: { type: Number, required: true },
   created_at: { type: Date, required: true },
+  is_deleted : {type : Boolean, default : false}
 });
 
 export const doctorShiftModel = model("DoctorShiftModel", doctorShiftSchema);

@@ -34,6 +34,6 @@ export class ChangePasswordUseCase implements IChangePatientPasswordUseCase {
 
     patient.updatePassword(await this._passwordService.hash(newPassword));
 
-    this._patientRepo.save(patient);
+    this._patientRepo.update(patient);
   }
 }

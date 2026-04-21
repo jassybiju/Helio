@@ -31,6 +31,7 @@ export const API_ENDPOINT = {
     },
     SCHEDULE: {
       BASE: "/doctor/schedule",
+      ID : (id : string)=>'/doctor/schedule/'+id
     },
   },
   PATIENT: {

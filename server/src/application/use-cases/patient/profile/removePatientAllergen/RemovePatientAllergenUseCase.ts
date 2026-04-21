@@ -21,6 +21,6 @@ export class RemovePatientAllergenUseCase implements IRemovePatientAllergenUseCa
 
     patient.removeAllergen(allergenId);
 
-    await this._patientRepo.save(patient);
+    await this._patientRepo.update(patient);
   }
 }
