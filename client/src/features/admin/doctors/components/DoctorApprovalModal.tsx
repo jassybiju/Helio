@@ -1,35 +1,40 @@
-import Input from '@/src/components/ui/Input'
-import { ModalProps } from '@/src/layout/ModalProvider'
-import { DOCTOR_STATUS } from '@/src/types/user.types'
-import { Info } from 'lucide-react'
-import React, { useState } from 'react'
+import Input from "@/src/components/ui/Input";
+import { ModalProps } from "@/src/layout/ModalProvider";
+import { DOCTOR_STATUS } from "@/src/types/user.types";
+import { Info } from "lucide-react";
+import React, { useState } from "react";
 
 interface DoctorApprovalModalProps extends ModalProps {
-  title : string,
-  status : DOCTOR_STATUS,
-  onConfirm : (reason? : string) => void
+  title: string;
+  status: DOCTOR_STATUS;
+  onConfirm: (reason?: string) => void;
 }
 
-const DoctorApprovalModal = ({title,status, onConfirm,close} : DoctorApprovalModalProps) => {
-  const [rejectionReason , setRejectionReason] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const handleConfirm= ()=>{
-    if(rejectionReason.length < 3 && status === DOCTOR_STATUS.REJECTED){
-      setError('Rejection Reason is not valid')
-      return
+const DoctorApprovalModal = ({
+  title,
+  status,
+  onConfirm,
+  close,
+}: DoctorApprovalModalProps) => {
+  const [rejectionReason, setRejectionReason] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const handleConfirm = () => {
+    if (rejectionReason.length < 3 && status === DOCTOR_STATUS.REJECTED) {
+      setError("Rejection Reason is not valid");
+      return;
     }
-    setError(null)
-    onConfirm(rejectionReason)
-    close()
-  }
-  console.log(status)
-return (
+    setError(null);
+    onConfirm(rejectionReason);
+    close();
+  };
+  console.log(status);
+  return (
     <div className="p-6 w-full max-w-sm">
       {/* Icon */}
       <div
         className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto text-yellow-600 mb-4 ${"bg-yellow-100"}`}
       >
-       <Info/>
+        <Info />
       </div>
 
       {/* Title */}
@@ -38,14 +43,21 @@ return (
       </h2>
 
       {/* Message */}
-      <p className="text-sm text-slate-500 text-center mb-6">Are you sure you want to {status} doctor ? </p>
+      <p className="text-sm text-slate-500 text-center mb-6">
+        Are you sure you want to {status} doctor ?{" "}
+      </p>
       {status === DOCTOR_STATUS.REJECTED && (
         <>
-        <label className="block text-sm font-semibold text-slate-900 mb-2">
-              Rejection Reason
-            </label>
-        <Input value={rejectionReason} onChange={(e) => setRejectionReason(e.target.value)} type="text" placeholder='Rejected Because...'   />
-        {error &&<p className='text-red-500 text-sm'>{error}</p>}
+          <label className="block text-sm font-semibold text-slate-900 mb-2">
+            Rejection Reason
+          </label>
+          <Input
+            value={rejectionReason}
+            onChange={(e) => setRejectionReason(e.target.value)}
+            type="text"
+            placeholder="Rejected Because..."
+          />
+          {error && <p className="text-red-500 text-sm">{error}</p>}
         </>
       )}
       {/* Actions */}
@@ -63,10 +75,8 @@ return (
           Confirm
         </button>
       </div>
-
-    
     </div>
-  )
-}
+  );
+};
 
-export default DoctorApprovalModal
+export default DoctorApprovalModal;

@@ -73,7 +73,7 @@ const DoctorRegistrationForm = () => {
         </div>
 
         {/* Gender */}
-       
+
         <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Gender
@@ -138,9 +138,7 @@ const DoctorRegistrationForm = () => {
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Upload License / Certificate
           </label>
-          <DoctorFileUpload
-            register={register('document')}
-          />
+          <DoctorFileUpload register={register("document")} />
 
           {errors.document && (
             <p className="text-red-600 text-sm mt-1">
@@ -169,7 +167,7 @@ const DoctorRegistrationForm = () => {
           )}
         </div>
 
-    <div>
+        <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Confirm Password
           </label>

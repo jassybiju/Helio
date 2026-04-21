@@ -1,24 +1,24 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { useLogin } from '../hooks/useLogin'
-import Input from '@/src/components/ui/Input'
-import ClayButton from '@/src/components/ui/ClayButton'
-import Link from 'next/link'
-import LoginByGoogleComponent from '@/src/layout/LoginByGoogleComponent'
-import { GoogleLoginFn, LoginFn } from '../types/auth.types'
+import React from "react";
+import { useLogin } from "../hooks/useLogin";
+import Input from "@/src/components/ui/Input";
+import ClayButton from "@/src/components/ui/ClayButton";
+import Link from "next/link";
+import LoginByGoogleComponent from "@/src/layout/LoginByGoogleComponent";
+import { GoogleLoginFn, LoginFn } from "../types/auth.types";
 
 type PropType = {
-login :LoginFn
-googleLogin : GoogleLoginFn
-}
+  login: LoginFn;
+  googleLogin: GoogleLoginFn;
+};
 
-const LoginForm = ({login, googleLogin} : PropType) => {
-  const {handleSubmit,register,errors, isSubmitting} = useLogin({login})
-  console.log(errors)
+const LoginForm = ({ login, googleLogin }: PropType) => {
+  const { handleSubmit, register, errors, isSubmitting } = useLogin({ login });
+  console.log(errors);
   return (
     <>
-  {/* Form */}
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Success Message */}
         {/* {submitSuccess && (
@@ -34,11 +34,8 @@ const LoginForm = ({login, googleLogin} : PropType) => {
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-red-800 font-medium">{errors.root.message}</p>
           </div>
-        )} 
+        )}
 
-   
-
-  
         {/* Email */}
         <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
@@ -57,7 +54,6 @@ const LoginForm = ({login, googleLogin} : PropType) => {
           )}
         </div>
 
-       
         {/* Password Fields */}
         <div>
           <div>
@@ -78,7 +74,6 @@ const LoginForm = ({login, googleLogin} : PropType) => {
               </p>
             )}
           </div>
-        
         </div>
 
         {/* Create Account Button */}
@@ -95,7 +90,9 @@ const LoginForm = ({login, googleLogin} : PropType) => {
         </div>
       </form>
 
-<Link href={'/forget-password'} className='text-red-500 mt-10 m-2'>Forget Password?</Link>
+      <Link href={"/forget-password"} className="text-red-500 mt-10 m-2">
+        Forget Password?
+      </Link>
       {/* Social Login Divider */}
       <div className="relative my-8">
         <div className="absolute inset-0 flex items-center">
@@ -104,20 +101,21 @@ const LoginForm = ({login, googleLogin} : PropType) => {
         <div className="relative flex justify-center text-sm">
           <span className="px-2 bg-white text-slate-500">Or join with</span>
         </div>
-        <LoginByGoogleComponent googleLogin={googleLogin}></LoginByGoogleComponent>
+        <LoginByGoogleComponent
+          googleLogin={googleLogin}
+        ></LoginByGoogleComponent>
       </div>
 
       {/* Social Login Icons */}
       <div className="flex justify-center gap-4 mb-8">
-       
         <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-all shadow-md shadow-slate-200/50 hover:shadow-lg hover:shadow-slate-300/60 hover:scale-110 active:scale-95">
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
           </svg>
         </button>
       </div>
-      </>
-  )
-}
+    </>
+  );
+};
 
-export default LoginForm
+export default LoginForm;

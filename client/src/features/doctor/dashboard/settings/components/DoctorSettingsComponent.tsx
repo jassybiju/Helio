@@ -1,14 +1,31 @@
 "use client";
 
 import { CreditCard, Eye, EyeOff, Lock, User } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGetDoctorQuery } from "../hooks/useGetDoctorQuery";
 import { useUpdateDoctorFeeMutation } from "../hooks/useUpdateDoctorFeeMutation";
 import ClayButton from "@/src/components/ui/ClayButton";
+import { useModal } from "@/src/hooks/useModal";
+import UpdateDoctorProfileModal from "./UpdateDoctorProfileModal";
+import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
+import { useForm } from "react-hook-form";
+
+type FeeFormData = {
+  clinicFee: string;
+  onlineFee: string;
+};
 
 const DoctorSettingsComponent = () => {
   const { data } = useGetDoctorQuery();
   const { mutate: updateFee } = useUpdateDoctorFeeMutation();
+  const { mutate: changePassword } = useChangePasswordMutation();
+  const { register, handleSubmit } = useForm<FeeFormData>({
+    values: {
+      clinicFee: data?.data.clinicFee?.toString() || "",
+      onlineFee: data?.data.onlineFee?.toString() || "",
+    },
+  });
+  const { open } = useModal();
   const DOCTOR = data?.data;
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -21,27 +38,35 @@ const DoctorSettingsComponent = () => {
     new: false,
     confirm: false,
   });
-  const [fee, setFee] = useState({
-    clinicFee: data?.data.clinicFee || 0,
-    onlineFee: data?.data.onlineFee || 0,
-  });
 
-  useEffect(() => {
-    if (data?.data) {
-      setFee({
-        clinicFee: data.data.clinicFee || 0,
-        onlineFee: data.data.onlineFee || 0,
-      });
-    }
-  }, [data]);
+  // const feeData = fee ?? {
+  //   clinicFee: data?.data?.clinicFee || 0,
+  //   onlineFee: data?.data?.onlineFee || 0,
+  // };
+
+  const handleOpenUpdateModal = () => {
+    open(UpdateDoctorProfileModal);
+  };
 
   if (!data) {
     return null;
   }
 
   console.log(data.data.onlineFee);
-  const handleUpdateFee = () => {
-    updateFee(fee);
+  const handleUpdateFee = (formData: FeeFormData) => {
+    updateFee({
+      clinicFee: Number(formData.clinicFee),
+      onlineFee: Number(formData.onlineFee),
+    });
+  };
+
+  const handleChangePassword = () => {
+    if (passwordData.newPassword === passwordData.confirmPassword) {
+      changePassword({
+        newPassword: passwordData.newPassword,
+        oldPassword: passwordData.currentPassword,
+      });
+    }
   };
 
   return (
@@ -168,6 +193,9 @@ const DoctorSettingsComponent = () => {
                   </span>
                 </div>
               </div>
+              <ClayButton onClick={handleOpenUpdateModal}>
+                Update Profile
+              </ClayButton>
             </div>
           </div>
 
@@ -185,37 +213,19 @@ const DoctorSettingsComponent = () => {
                 <label className="text-xs font-semibold text-slate-600 uppercase">
                   Online Fee ($)
                 </label>
-                <input
-                  type="number"
-                  value={fee.onlineFee || ""}
-                  onChange={(e) =>
-                    setFee((prev) => ({
-                      ...prev,
-                      onlineFee: Number(e.target.value),
-                    }))
-                  }
-                  className="mt-2 w-full px-4 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-600 cursor-not-allowed"
-                />
+                <input type="number" {...register("onlineFee")} />
               </div>
               <div>
                 <label className="text-xs font-semibold text-slate-600 uppercase">
                   Clinic Fee ($)
                 </label>
-                <input
-                  type="number"
-                  value={fee.clinicFee || ""}
-                  onChange={(e) =>
-                    setFee((prev) => ({
-                      ...prev,
-                      clinicFee: Number(e.target.value),
-                    }))
-                  }
-                  className="mt-2 w-full px-4 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-600 cursor-not-allowed"
-                />
+                <input type="number" {...register("clinicFee")} />
               </div>
             </div>
 
-            <ClayButton onClick={handleUpdateFee}>Update Fee</ClayButton>
+            <ClayButton onClick={handleSubmit(handleUpdateFee)}>
+              Update Fee
+            </ClayButton>
           </div>
         </div>
 
@@ -240,8 +250,9 @@ const DoctorSettingsComponent = () => {
                     currentPassword: e.target.value,
                   })
                 }
-                className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-slate-200 rounded-lg"
               />
+
               <button
                 onClick={() =>
                   setShowPasswords({
@@ -328,7 +339,10 @@ const DoctorSettingsComponent = () => {
             </div>
           </div>
 
-          <button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+          <button
+            onClick={handleChangePassword}
+            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
             <Lock className="w-4 h-4" />
             Update Password
           </button>

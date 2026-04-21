@@ -98,9 +98,7 @@ const AdminPatientViewComponent = () => {
                 </div>
                 <div>
                   <p className="text-sm text-slate-600 mb-1">DOB</p>
-                  <p className="font-semibold text-slate-900">
-                    {patient.dob}
-                  </p>
+                  <p className="font-semibold text-slate-900">{patient.dob}</p>
                 </div>
                 <div>
                   {/* <p className="text-sm text-slate-600 mb-1">

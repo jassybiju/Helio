@@ -63,68 +63,69 @@ const AdminPatientComponent = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* IsVerified Filter */}
-          
-              <AdminFilterSelect
-                value={
-                  filter.isVerified === null
-                    ? "all"
-                    : filter.isVerified
-                      ? "verified"
-                      : "unverified"
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setFilter((prev) => ({
-                    ...prev,
-                    isVerified: val === "all" ? null : val === "verified",
-                    page: 1,
-                  }));
-                }}
-                title='Verification Status'
-              >
-                <option value="all">All</option>
-                <option value="verified">Verified</option>
-                <option value="unverified">Unverified</option>
-              </AdminFilterSelect>
 
-            {/* IsBlocked Filter */}   
-            <AdminFilterSelect   value={
-                  filter.isBlocked === null
-                    ? "all"
-                    : filter.isBlocked
+            <AdminFilterSelect
+              value={
+                filter.isVerified === null
+                  ? "all"
+                  : filter.isVerified
+                    ? "verified"
+                    : "unverified"
+              }
+              onChange={(e) => {
+                const val = e.target.value;
+                setFilter((prev) => ({
+                  ...prev,
+                  isVerified: val === "all" ? null : val === "verified",
+                  page: 1,
+                }));
+              }}
+              title="Verification Status"
+            >
+              <option value="all">All</option>
+              <option value="verified">Verified</option>
+              <option value="unverified">Unverified</option>
+            </AdminFilterSelect>
+
+            {/* IsBlocked Filter */}
+            <AdminFilterSelect
+              value={
+                filter.isBlocked === null
+                  ? "all"
+                  : filter.isBlocked
                     ? "blocked"
-                      : "active"
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setFilter((prev) => ({
-                    ...prev,
-                    isBlocked: val === "all" ? null : val === "blocked",
-                    page: 1,
-                  }));
-                }}
-                
-                title='Block Status'>
-
-                <option value="all">All</option>
-                <option value="active">Active</option>
-                <option value="blocked">Blocked</option>
+                    : "active"
+              }
+              onChange={(e) => {
+                const val = e.target.value;
+                setFilter((prev) => ({
+                  ...prev,
+                  isBlocked: val === "all" ? null : val === "blocked",
+                  page: 1,
+                }));
+              }}
+              title="Block Status"
+            >
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="blocked">Blocked</option>
             </AdminFilterSelect>
 
             {/* Sort By */}
-   
 
-            <AdminFilterSelect title={'sortBy'}  value={filter.sortBy!}
-                onChange={(e) => {
-                  setFilter((prev) => ({
-                    ...prev,
-                    sortBy: e.target.value as "firstName" | "createdAt",
-                    page: 1,
-                  }));
-                }}>
-
-                  <option value="firstName">Name</option>
-                  <option value="createdAt">Created Date</option>
+            <AdminFilterSelect
+              title={"sortBy"}
+              value={filter.sortBy!}
+              onChange={(e) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  sortBy: e.target.value as "firstName" | "createdAt",
+                  page: 1,
+                }));
+              }}
+            >
+              <option value="firstName">Name</option>
+              <option value="createdAt">Created Date</option>
             </AdminFilterSelect>
 
             {/* Order */}

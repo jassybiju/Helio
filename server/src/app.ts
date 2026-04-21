@@ -3,11 +3,9 @@ import express, {
   type Request,
   type Response,
 } from "express";
-import { patientAuthRouter } from "./presentation/http/routes/patient/auth.routes.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import type { AppError } from "@shared/errors/AppError.ts";
 import { errorResponse } from "@shared/utils/apiReponse.utils.ts";
-import { doctorAuthRouter } from "./presentation/http/routes/doctor/auth.routes.ts";
 import cors from "cors";
 import { authRouter } from "./presentation/http/routes/auth.routes.ts";
 import cookieParser from "cookie-parser";

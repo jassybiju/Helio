@@ -12,7 +12,7 @@ const PatientVerifyOTP = ({ id, expires }: { id: string; expires: string }) => {
   // patient implementation for verifying otp
   const handleVerifyOTP = async ({ id, otp }: { id: string; otp: string }) => {
     await authService.verify_otp({ id, otp });
-    toast.success("OTP Verified Successfully")
+    toast.success("OTP Verified Successfully");
     router.push("/login");
   };
 
@@ -21,11 +21,9 @@ const PatientVerifyOTP = ({ id, expires }: { id: string; expires: string }) => {
       data: { invalidAt: string };
     };
     console.log(res);
-        toast.success("OTP Resent Successfully")
+    toast.success("OTP Resent Successfully");
 
-    router.replace(
-      `/verify-otp?otpId=${id}&expires=${res.data.invalidAt}`,
-    );
+    router.replace(`/verify-otp?otpId=${id}&expires=${res.data.invalidAt}`);
   };
   return (
     <VerifyOTPForm

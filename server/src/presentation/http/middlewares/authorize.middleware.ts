@@ -6,6 +6,7 @@ import type { NextFunction, Request, Response } from "express";
 
 export const authorizeMiddleware = (role: USER_ROLES) => {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.user);
     if (!req.user) {
       throw new AppError(MESSAGE.NOT_AUTHENTICATED, HTTPStatus.UNAUTHORIZED);
     }

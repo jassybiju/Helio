@@ -6,8 +6,6 @@ import type { IResetTokenService } from "@application/ports/services/IResetToken
 import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
   constructor(

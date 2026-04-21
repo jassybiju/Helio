@@ -20,4 +20,5 @@ export interface IDoctorRepository {
   findAllWithFilters(
     params: IDoctorFilters
   ): Promise<{ doctors: Doctor[]; totalCount: number }>;
+  countDoctors(speciailziation: string): Promise<number>;
 }

@@ -10,10 +10,10 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { PatientMapper } from "../../../mappers/PatientMapper.ts";
 import { patientModel, type PatientDoc } from "../model/PatientModel.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { MongoBaseRepository } from "./MongoBaseRepository.ts";
+import { BaseRepository } from "./BaseRepository.ts";
 
-export class MongoPatientRepository
-  extends MongoBaseRepository<Patient, PatientDoc>
+export class PatientRepository
+  extends BaseRepository<Patient, PatientDoc>
   implements IPatientRepository
 {
   constructor(private readonly _loggerService: ILogger) {

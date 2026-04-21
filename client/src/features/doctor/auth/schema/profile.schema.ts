@@ -1,7 +1,9 @@
 import z from "zod";
 
 export const doctorCompleteProfileSchema = z.object({
-  specialization: z.string("Specialization should be a string").min(2, "SHould be valid"),
+  specialization: z
+    .string("Specialization should be a string")
+    .min(2, "SHould be valid"),
   career_start_year: z.coerce
     .number("Career Start year required")
     .min(1900, "Year should be greater than 1900")

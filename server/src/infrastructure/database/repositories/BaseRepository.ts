@@ -8,7 +8,7 @@ import type { Model, QueryFilter } from "mongoose";
  * @template TDomain - The Domain Entity type
  * @template TModel - The databse document type
  */
-export abstract class MongoBaseRepository<TDomain, TModel> {
+export abstract class BaseRepository<TDomain, TModel> {
   constructor(private readonly _model: Model<TModel>) {}
 
   protected async findOne(

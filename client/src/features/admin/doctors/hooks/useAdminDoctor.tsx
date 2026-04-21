@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DoctorQueryParams, useDoctorsQuery } from "./useDoctorsQuery";
 import { ColumnType } from "@/src/components/TableComponent";
 import { Doctor } from "../../services/doctor.service";
-import { Eye, Lock,Unlock } from "lucide-react";
+import { Eye, Lock, Unlock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import { useModal } from "@/src/hooks/useModal";
@@ -15,10 +15,10 @@ export const useAdminDoctor = () => {
     limit,
     isVerified: null,
   });
-  const {open} = useModal()
+  const { open } = useModal();
   const { data } = useDoctorsQuery(filter);
-  const {mutate} = useToggleBlockDoctor()
-  const router = useRouter()
+  const { mutate } = useToggleBlockDoctor();
+  const router = useRouter();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
   const doctors = data?.data.doctors ?? [];
@@ -26,18 +26,16 @@ export const useAdminDoctor = () => {
   console.log(totalCount! / limit);
   const totalPages = Math.ceil(totalCount! / limit);
 
-
-
-    const handleToggleBlock = (row : Doctor) => {
-      console.log('hi')
-      open(ConfirmModal, {
-        patientName : row.fullName,
-        currentStatus : row.status as 'active' | 'blocked',
-        onConfirm: ()=>mutate(row.id),
-        message : `Are you sure you want to ${row.status === 'active' ? 'block' : 'unblock'} doctor`,
-        title : `${row.status === "active" ? "Block" : "Unblock"} Doctor`
-      })
-    }
+  const handleToggleBlock = (row: Doctor) => {
+    console.log("hi");
+    open(ConfirmModal, {
+      patientName: row.fullName,
+      currentStatus: row.status as "active" | "blocked",
+      onConfirm: () => mutate(row.id),
+      message: `Are you sure you want to ${row.status === "active" ? "block" : "unblock"} doctor`,
+      title: `${row.status === "active" ? "Block" : "Unblock"} Doctor`,
+    });
+  };
 
   const columns: ColumnType<Doctor> = [
     {
@@ -69,7 +67,9 @@ export const useAdminDoctor = () => {
       title: "Career Start Year",
       render: (_value, row) => (
         <div className="text-sm">
-          <p className="text-xs text-slate-500 uppercase">{row.career_start_year}</p>
+          <p className="text-xs text-slate-500 uppercase">
+            {row.career_start_year}
+          </p>
         </div>
       ),
     },
@@ -88,7 +88,7 @@ export const useAdminDoctor = () => {
       render: (_value, row) => (
         <div className="flex items-center gap-2">
           <span
-            className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border  ${row.status === 'active' ? "text-green-700" : 'text-red-600'}`}
+            className={`px-3 py-1 flex text-nowrap rounded-full text-xs font-medium border  ${row.status === "active" ? "text-green-700" : "text-red-600"}`}
           >
             {row.status === "active" ? "✓ Active" : "✗ Blocked"}
           </span>
@@ -99,32 +99,44 @@ export const useAdminDoctor = () => {
       key: "",
       title: "Verified",
       render: (_value, row) => (
-        <><span
-          className={`px-3 py-1 text-nowrap rounded-full text-xs font-medium border ${row.verificationStatus
-              ? "bg-green-50 text-green-700 border-green-200"
-              : "bg-yellow-50 text-yellow-700 border-yellow-200"}`}
-        >
-          {row.verificationStatus ? "✓ Verified" : "⏳ Pending"}
-        </span><span
-          className={`px-3 py-1 text-nowrap rounded-full text-xs font-medium border ${row.verificationStatus
-              ? "bg-green-50 text-green-700 border-green-200"
-              : "bg-yellow-50 text-yellow-700 border-yellow-200"}`}
-        >
+        <>
+          <span
+            className={`px-3 py-1 text-nowrap rounded-full text-xs font-medium border ${
+              row.verificationStatus
+                ? "bg-green-50 text-green-700 border-green-200"
+                : "bg-yellow-50 text-yellow-700 border-yellow-200"
+            }`}
+          >
+            {row.verificationStatus ? "✓ Verified" : "⏳ Pending"}
+          </span>
+          <span
+            className={`px-3 py-1 text-nowrap rounded-full text-xs font-medium border ${
+              row.verificationStatus
+                ? "bg-green-50 text-green-700 border-green-200"
+                : "bg-yellow-50 text-yellow-700 border-yellow-200"
+            }`}
+          >
             {row.isVerified ? "✓ OTP Verified" : "⏳OTP Verification Pending"}
-
-          </span></>
+          </span>
+        </>
       ),
     },
     {
       key: "",
       title: "Actions",
-      render: (_value,row ) => (
+      render: (_value, row) => (
         <div className="flex items-center gap-2">
-          <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium" onClick={()=>router.push(`/doctor/${row.id}`)}>
+          <button
+            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium"
+            onClick={() => router.push(`/doctor/${row.id}`)}
+          >
             <Eye className="w-4 h-4" />
             View
           </button>
-          <button onClick={()=>handleToggleBlock(row)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
+          <button
+            onClick={() => handleToggleBlock(row)}
+            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium"
+          >
             {row.status === "active" ? (
               <>
                 <Lock className="w-4 h-4" />

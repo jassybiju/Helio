@@ -13,7 +13,7 @@ export const authService = {
   },
 
   async logout() {
-    console.log("logged out")
+    console.log("logged out");
     await apiRequest("/auth/logout", HTTP_METHOD.POST);
   },
 };

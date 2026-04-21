@@ -128,12 +128,6 @@ export class PatientAuthController {
 
       const response = await this._loginPatientUseCase.execute(parsed.data);
 
-      const ACCESS_TOKEN_EXPIRY_MS =
-        Number(process.env.JWT_ACCESS_VALID_SECS) * 1000;
-      const REFRESH_TOKEN_EXPIRY_MS =
-        Number(process.env.JWT_REFRESH_VALID_SECS) * 1000;
-      console.log(ACCESS_TOKEN_EXPIRY_MS, "access");
-
       sendToken(res, response.accessToken, response.refreshToken);
       return apiResponse(
         res,

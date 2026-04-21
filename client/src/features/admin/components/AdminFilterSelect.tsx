@@ -1,13 +1,13 @@
 import React from "react";
 
 type PropType = {
-  value : string,
-  onChange : React.ChangeEventHandler<HTMLSelectElement>,
-  title : string,
-  children : React.ReactNode
-}
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  title: string;
+  children: React.ReactNode;
+};
 
-const AdminFilterSelect = ({value, onChange,title, children} : PropType) => {
+const AdminFilterSelect = ({ value, onChange, title, children }: PropType) => {
   return (
     <div>
       <label className="block text-sm font-medium text-slate-900 mb-2">

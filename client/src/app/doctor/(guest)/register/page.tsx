@@ -1,10 +1,9 @@
-import DoctorRegistrationForm from '@/src/features/doctor/auth/components/DoctorRegistrationForm'
-import React from 'react'
+import DoctorRegistrationForm from "@/src/features/doctor/auth/components/DoctorRegistrationForm";
+import React from "react";
 
 const DoctorRegister = () => {
-  
   return (
-  <div className="w-full max-w-2xl">
+    <div className="w-full max-w-2xl">
       <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
         {/* Header */}
         <div className="text-center mb-10">
@@ -12,10 +11,11 @@ const DoctorRegister = () => {
             Join as a <span className="text-blue-600">Doctor</span>
           </h1>
           <p className="text-slate-600 text-lg">
-            Join over 500,000 patients who trust Helio for their virtual care needs. Secure, fast and personalized
+            Join over 500,000 patients who trust Helio for their virtual care
+            needs. Secure, fast and personalized
           </p>
         </div>
-        <DoctorRegistrationForm/>
+        <DoctorRegistrationForm />
         {/* Terms */}
         <p className="text-center text-sm text-slate-600">
           By signing up, you agree to Stitch's
@@ -29,8 +29,7 @@ const DoctorRegister = () => {
         </p>
       </div>
     </div>
-    )
-}
+  );
+};
 
-
-export default DoctorRegister
+export default DoctorRegister;

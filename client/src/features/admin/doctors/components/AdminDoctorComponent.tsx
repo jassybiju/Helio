@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { useAdminDoctor } from '../hooks/useAdminDoctor';
-import AdminFilterSelect from '../../components/AdminFilterSelect';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import TableComponent from '@/src/components/TableComponent';
+import React from "react";
+import { useAdminDoctor } from "../hooks/useAdminDoctor";
+import AdminFilterSelect from "../../components/AdminFilterSelect";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import TableComponent from "@/src/components/TableComponent";
 
 const AdminDoctorComponent = () => {
-  const { totalPages,
+  const {
+    totalPages,
     totalCount,
     showAdvancedSearch,
     setShowAdvancedSearch,
     filter,
     setFilter,
     doctors,
-    columns,}= useAdminDoctor()
+    columns,
+  } = useAdminDoctor();
   return (
- <div className="space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-2xl font-bold text-slate-900">
-          Doctor Management
-        </h2>
+        <h2 className="text-2xl font-bold text-slate-900">Doctor Management</h2>
         <p className="text-slate-600 mt-1">
           Total {totalCount} registered doctors
         </p>
@@ -61,68 +61,69 @@ const AdminDoctorComponent = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* IsVerified Filter */}
-          
-              <AdminFilterSelect
-                value={
-                  filter.isVerified === null
-                    ? "all"
-                    : filter.isVerified
-                      ? "verified"
-                      : "unverified"
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setFilter((prev) => ({
-                    ...prev,
-                    isVerified: val === "all" ? null : val === "verified",
-                    page: 1,
-                  }));
-                }}
-                title='Verification Status'
-              >
-                <option value="all">All</option>
-                <option value="verified">Verified</option>
-                <option value="unverified">Unverified</option>
-              </AdminFilterSelect>
 
-            {/* IsBlocked Filter */}   
-            <AdminFilterSelect   value={
-                  filter.isBlocked === null
-                    ? "all"
-                    : filter.isBlocked
+            <AdminFilterSelect
+              value={
+                filter.isVerified === null
+                  ? "all"
+                  : filter.isVerified
+                    ? "verified"
+                    : "unverified"
+              }
+              onChange={(e) => {
+                const val = e.target.value;
+                setFilter((prev) => ({
+                  ...prev,
+                  isVerified: val === "all" ? null : val === "verified",
+                  page: 1,
+                }));
+              }}
+              title="Verification Status"
+            >
+              <option value="all">All</option>
+              <option value="verified">Verified</option>
+              <option value="unverified">Unverified</option>
+            </AdminFilterSelect>
+
+            {/* IsBlocked Filter */}
+            <AdminFilterSelect
+              value={
+                filter.isBlocked === null
+                  ? "all"
+                  : filter.isBlocked
                     ? "blocked"
-                      : "active"
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setFilter((prev) => ({
-                    ...prev,
-                    isBlocked: val === "all" ? null : val === "blocked",
-                    page: 1,
-                  }));
-                }}
-                
-                title='Block Status'>
-
-                <option value="all">All</option>
-                <option value="active">Active</option>
-                <option value="blocked">Blocked</option>
+                    : "active"
+              }
+              onChange={(e) => {
+                const val = e.target.value;
+                setFilter((prev) => ({
+                  ...prev,
+                  isBlocked: val === "all" ? null : val === "blocked",
+                  page: 1,
+                }));
+              }}
+              title="Block Status"
+            >
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="blocked">Blocked</option>
             </AdminFilterSelect>
 
             {/* Sort By */}
-   
 
-            <AdminFilterSelect title={'sortBy'}  value={filter.sortBy!}
-                onChange={(e) => {
-                  setFilter((prev) => ({
-                    ...prev,
-                    sortBy: e.target.value as "firstName" | "createdAt",
-                    page: 1,
-                  }));
-                }}>
-
-                  <option value="firstName">Name</option>
-                  <option value="createdAt">Created Date</option>
+            <AdminFilterSelect
+              title={"sortBy"}
+              value={filter.sortBy!}
+              onChange={(e) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  sortBy: e.target.value as "firstName" | "createdAt",
+                  page: 1,
+                }));
+              }}
+            >
+              <option value="firstName">Name</option>
+              <option value="createdAt">Created Date</option>
             </AdminFilterSelect>
 
             {/* Order */}
@@ -254,7 +255,7 @@ const AdminDoctorComponent = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AdminDoctorComponent
+export default AdminDoctorComponent;

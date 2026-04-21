@@ -1,4 +1,3 @@
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
 
 export type IGetAllDoctorsRequestDTO = {

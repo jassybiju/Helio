@@ -6,10 +6,9 @@ export type LoginResponse = {
     id: string;
     isProfileComplete: boolean;
     role: USER_ROLES;
-  },
-  message : string,
-  success : boolean
-
+  };
+  message: string;
+  success: boolean;
 };
 
 export type GoogleLoginFn = (credential: string) => Promise<void>;

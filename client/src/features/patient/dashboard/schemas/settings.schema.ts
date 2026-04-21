@@ -11,15 +11,15 @@ export const updatePatientSchema = z.object({
     .string()
     .refine(
       (date) => !isNaN(Date.parse(date)),
-      "Date of birth must be a valid date string"
+      "Date of birth must be a valid date string",
     )
     .refine(
       (date) => new Date(date) < new Date(),
-      "Date of birth must be before today"
+      "Date of birth must be before today",
     ),
   bloodGroup: z.enum(BLOOD_GROUP),
 
   phone: z.string().min(9),
 });
 
-export type UpdatePatientFormData = z.infer<typeof updatePatientSchema>
+export type UpdatePatientFormData = z.infer<typeof updatePatientSchema>;

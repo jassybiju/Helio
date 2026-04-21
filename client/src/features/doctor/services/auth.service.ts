@@ -1,10 +1,7 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { DoctorRegisterFormData } from "../auth/schema/auth.schema";
 import { HTTP_METHOD } from "@/src/types/API.types";
-import {
-  GoogleLoginFn,
-  LoginResponse,
-} from "@/src/features/auth/types/auth.types";
+import { LoginResponse } from "@/src/features/auth/types/auth.types";
 import { API_ENDPOINT } from "@/src/types/api-endpoints.constants";
 
 // interface RegisterPayload {
@@ -54,20 +51,32 @@ export const authService = {
   },
 
   forgetPassword({ email }: { email: string }) {
-    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.FORGET_PASSWORD, HTTP_METHOD.POST, {
-      email,
-    });
+    return apiRequest(
+      API_ENDPOINT.DOCTOR.AUTH.FORGET_PASSWORD,
+      HTTP_METHOD.POST,
+      {
+        email,
+      },
+    );
   },
 
   resetPassword({ token, password }: { token: string; password: string }) {
-    return apiRequest(API_ENDPOINT.DOCTOR.AUTH.RESET_PASSWORD, HTTP_METHOD.POST, {
-      token,
-      password,
-    });
+    return apiRequest(
+      API_ENDPOINT.DOCTOR.AUTH.RESET_PASSWORD,
+      HTTP_METHOD.POST,
+      {
+        token,
+        password,
+      },
+    );
   },
   googleLogin({ credential }: { credential: string }) {
-    return apiRequest<LoginResponse>(API_ENDPOINT.DOCTOR.AUTH.GOOGLE_LOGIN, HTTP_METHOD.POST, {
-      credential,
-    });
+    return apiRequest<LoginResponse>(
+      API_ENDPOINT.DOCTOR.AUTH.GOOGLE_LOGIN,
+      HTTP_METHOD.POST,
+      {
+        credential,
+      },
+    );
   },
 };

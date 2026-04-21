@@ -1,12 +1,12 @@
 import { GetAllPatientsUseCase } from "@application/use-cases/admin/patient/getAllPatients/GetAllPatientsUseCase.ts";
 import { AdminPatientController } from "../../controllers/admin/patient.controller.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
+import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { ToggleBlockPatientUseCase } from "@application/use-cases/admin/patient/toggleBlock/ToggleBlockPatientUseCase.ts";
 import { GetPatientUseCase } from "@application/use-cases/admin/patient/getPatient/GetPatientUseCase.ts";
 
 const loggerService = new PinoLoggerService();
-const patientRepo = new MongoPatientRepository(loggerService);
+const patientRepo = new PatientRepository(loggerService);
 
 const getAllPatientsUseCase = new GetAllPatientsUseCase(
   loggerService,

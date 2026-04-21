@@ -8,7 +8,7 @@ type ClayWrapperProps = {
   variant?: Variant;
   size?: Size;
   className?: string;
-  noPadding?:boolean;
+  noPadding?: boolean;
 };
 
 const ClayWrapper = ({
@@ -16,7 +16,7 @@ const ClayWrapper = ({
   variant = "primary",
   size = "md",
   className = "",
-  noPadding
+  noPadding,
 }: ClayWrapperProps) => {
   const baseStyles =
     "rounded-2xl transition-all duration-300 active:scale-[0.98]";

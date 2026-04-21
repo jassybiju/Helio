@@ -1,9 +1,9 @@
-import AdminLoginForm from '@/src/features/admin/components/AdminLoginForm'
-import React from 'react'
+import AdminLoginForm from "@/src/features/admin/components/AdminLoginForm";
+import React from "react";
 
 const AdminLogin = () => {
   return (
-<div className="w-full max-w-2xl">
+    <div className="w-full max-w-2xl">
       <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
         {/* Header */}
         <div className="text-center mb-10">
@@ -14,7 +14,7 @@ const AdminLogin = () => {
             {/* Join over 500,000 patients who trust Helio for their virtual care needs. Secure, fast and personalized */}
           </p>
         </div>
-        <AdminLoginForm/>
+        <AdminLoginForm />
         {/* Terms */}
         <p className="text-center text-sm text-slate-600">
           By signing up, you agree to Stitch's
@@ -27,7 +27,8 @@ const AdminLogin = () => {
           </a>
         </p>
       </div>
-    </div>  )
-}
+    </div>
+  );
+};
 
-export default AdminLogin
+export default AdminLogin;

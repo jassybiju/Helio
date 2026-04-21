@@ -1,8 +1,11 @@
-'use client'
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {  DoctorCompleteProfileFormData, doctorCompleteProfileSchema } from "../schema/profile.schema";
+import {
+  DoctorCompleteProfileFormData,
+  doctorCompleteProfileSchema,
+} from "../schema/profile.schema";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { invalidateQuery } from "@/src/libs/queryClient";
@@ -14,35 +17,34 @@ export const useDoctorCompleteProfile = () => {
     formState: { errors, isSubmitting },
     setError,
     handleSubmit,
-    reset
+    reset,
   } = useForm({
     resolver: zodResolver(doctorCompleteProfileSchema),
   });
 
-  const router = useRouter()
-  console.log(errors)
-  const onSubmit =async (data : DoctorCompleteProfileFormData) => {
+  const router = useRouter();
+  console.log(errors);
+  const onSubmit = async (data: DoctorCompleteProfileFormData) => {
     try {
-      const res = await doctorProfileService.completeProfile(data)
-      reset()
-      invalidateQuery('me')
-      router.replace('/')
+      await doctorProfileService.completeProfile(data);
+      reset();
+      invalidateQuery("me");
+      router.replace("/");
     } catch (error) {
-       if (axios.isAxiosError(error)) {
-        setError( 'root',
-          {message : error.response?.data?.message || "Complete Profile Failed"}
-        );
+      if (axios.isAxiosError(error)) {
+        setError("root", {
+          message: error.response?.data?.message || "Complete Profile Failed",
+        });
       } else {
-        setError('root', {message : "Unexpected error occurred"});
+        setError("root", { message: "Unexpected error occurred" });
       }
     }
-  }
-
+  };
 
   return {
     register,
     errors,
-    onSubmit : handleSubmit(onSubmit),
-    isSubmitting
-  }
+    onSubmit: handleSubmit(onSubmit),
+    isSubmitting,
+  };
 };

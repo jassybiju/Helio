@@ -1,6 +1,6 @@
 import { RegisterPatientUseCase } from "@application/use-cases/patient/auth/RegisterPatientUseCase.ts";
 import { PatientAuthController } from "../../controllers/patient/auth.controller.ts";
-import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
+import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
@@ -32,7 +32,7 @@ const emailService = new EmailService();
 const googleAuthService = new GoogleAuthService();
 
 const sessionRepo = new RedisSessionRepository(loggerService);
-const patientRepo = new MongoPatientRepository(loggerService);
+const patientRepo = new PatientRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
 

@@ -16,6 +16,8 @@ import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { OTP } from "@domain/entities/OTP.ts";
 import { Email } from "@domain/value-objects/Email.ts";
+import { AppError } from "@shared/errors/AppError.ts";
+import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
   constructor(
@@ -68,7 +70,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    console.log(doctor);
+
     // saving doctor
     await this._doctorRepo.save(doctor);
     this._logger.debug("Doctor Saved");

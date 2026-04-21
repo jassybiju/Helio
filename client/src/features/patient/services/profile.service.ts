@@ -1,7 +1,6 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { PatientCompleteProfileFormData } from "../auth/schemas/profile.schema";
 import { HTTP_METHOD } from "@/src/types/API.types";
-import { PatientView } from "../../admin/services/patient.service";
 import { UpdatePatientFormData } from "../dashboard/schemas/settings.schema";
 import { API_ENDPOINT } from "@/src/types/api-endpoints.constants";
 
@@ -48,16 +47,27 @@ export const patientProfileService = {
   removeAllergen: (id: string) => {
     return apiRequest("/patient/profile/allergen/" + id, HTTP_METHOD.DELETE);
   },
-  addCondition : ( condition: string) => {
-    return apiRequest("/patient/profile/condition", HTTP_METHOD.POST, {condition});
+  addCondition: (condition: string) => {
+    return apiRequest("/patient/profile/condition", HTTP_METHOD.POST, {
+      condition,
+    });
   },
   removeCondition: (id: string) => {
     return apiRequest("/patient/profile/condition/" + id, HTTP_METHOD.DELETE);
   },
-  changePassword: ( {newPassword, oldPassword} : {newPassword: string, oldPassword : string}) => {
-    return apiRequest("/patient/profile/change-password/", HTTP_METHOD.PATCH, {newPassword, oldPassword});
+  changePassword: ({
+    newPassword,
+    oldPassword,
+  }: {
+    newPassword: string;
+    oldPassword: string;
+  }) => {
+    return apiRequest("/patient/profile/change-password/", HTTP_METHOD.PATCH, {
+      newPassword,
+      oldPassword,
+    });
   },
-  updatePatient : (data : UpdatePatientFormData) => {
-    return apiRequest(API_ENDPOINT.PATIENT.PROFILE.I,HTTP_METHOD.PUT, data)
-  }
+  updatePatient: (data: UpdatePatientFormData) => {
+    return apiRequest(API_ENDPOINT.PATIENT.PROFILE.I, HTTP_METHOD.PUT, data);
+  },
 };

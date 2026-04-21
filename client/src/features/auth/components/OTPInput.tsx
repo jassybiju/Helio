@@ -1,64 +1,66 @@
 import React, { useEffect, useRef } from "react";
 
 type Props = {
-  value : string,
-  onChange : (value : string) => void,
-  length? : number
-}
+  value: string;
+  onChange: (value: string) => void;
+  length?: number;
+};
 
-const OTPInput = ({value, onChange, length = 6} : Props) => {
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+const OTPInput = ({ value, onChange, length = 6 }: Props) => {
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  useEffect(()=>{
-    if(inputRefs.current[0]){
-      inputRefs.current[0].focus()
+  useEffect(() => {
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
     }
-  },[])
+  }, []);
 
-
-  const handleChange = (index : number, val : string)=>{
+  const handleChange = (index: number, val: string) => {
     // replace strings
-    const digit = val.replace(/\D/g,'')
+    const digit = val.replace(/\D/g, "");
 
-    const otpArray = value.split('')
-    otpArray[index] = digit
+    const otpArray = value.split("");
+    otpArray[index] = digit;
 
-    const newOTP = otpArray.join('')
-    onChange(newOTP)
+    const newOTP = otpArray.join("");
+    onChange(newOTP);
 
-    if(digit && index < length -1){
-      console.log(digit,)
-      inputRefs.current[index+1]?.focus()
+    if (digit && index < length - 1) {
+      console.log(digit);
+      inputRefs.current[index + 1]?.focus();
     }
-  }
+  };
 
-  const handleKeyDown = (index : number, e : React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Backspace'){
-      const otpArray = value.split('')
-      otpArray[index] = ''
+  const handleKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (e.key === "Backspace") {
+      const otpArray = value.split("");
+      otpArray[index] = "";
 
-      if(index > 0 && !value[index]){
-        inputRefs.current[index - 1]?.focus()
+      if (index > 0 && !value[index]) {
+        inputRefs.current[index - 1]?.focus();
       }
-    }else if(e.key === 'ArrowLeft' && index > 0){
-      inputRefs.current[index-1]?.focus()
-    }else if(e.key === 'ArrowRight' && index < length - 1){
-      inputRefs.current[index + 1]?.focus()
+    } else if (e.key === "ArrowLeft" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    } else if (e.key === "ArrowRight" && index < length - 1) {
+      inputRefs.current[index + 1]?.focus();
     }
-  }
+  };
 
-  const handlePaste = (e : React.ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const paste = e.clipboardData.getData('text')
-    const digits = paste.replace(/\D/g, "").slice(0,length)
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const paste = e.clipboardData.getData("text");
+    const digits = paste.replace(/\D/g, "").slice(0, length);
 
-    if(digits){
-      onChange(digits)
+    if (digits) {
+      onChange(digits);
 
-      const nextIndex = Math.min(digits.length, length -1)
-      inputRefs.current[nextIndex]?.focus()
+      const nextIndex = Math.min(digits.length, length - 1);
+      inputRefs.current[nextIndex]?.focus();
     }
-  }
+  };
 
   return (
     <div className="flex gap-3 justify-center">

@@ -2,8 +2,7 @@ import ClayButton from "@/src/components/ui/ClayButton";
 import Input from "@/src/components/ui/Input";
 import { ModalProps } from "@/src/layout/ModalProvider";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import {
   UpdatePatientFormData,
@@ -14,32 +13,29 @@ import DOBPicker from "@/src/components/ui/DOBPicker";
 import { useGetPatientQuery } from "../settings/hooks/useGetPatientQuery";
 import { useUpdatePatientProfileMutation } from "../settings/hooks/useUpdatePatientProfileMutation";
 
-interface UpdatePatientProfileModalType extends ModalProps {
-  a: string;
-  patient : string
-}
-
-const UpdatePatientProfileModal = ({
-  a = "1",
-  close,
-  patient
-}: UpdatePatientProfileModalType) => {
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+const UpdatePatientProfileModal = ({ close }: ModalProps) => {
   const { data } = useGetPatientQuery();
-  const {mutate : updateProfile, isPending : isSubmitting} = useUpdatePatientProfileMutation(close)
-  const router = useRouter();
+  const { mutate: updateProfile, isPending: isSubmitting } =
+    useUpdatePatientProfileMutation(close);
+  const toISO = (date: string) => {
+    const [d, m, y] = date.split("/");
+    return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  };
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors,  },
-    reset,
+    formState: { errors },
     control,
   } = useForm<UpdatePatientFormData>({
     resolver: zodResolver(updatePatientSchema),
     mode: "onBlur",
-    defaultValues: data?.data as UpdatePatientFormData,
+    defaultValues: {
+      ...data?.data,
+      dob: data?.data.dob?.includes("/")
+        ? toISO(data.data.dob)
+        : data?.data.dob,
+    } as UpdatePatientFormData,
   });
 
   const dobValue = useWatch({
@@ -48,11 +44,11 @@ const UpdatePatientProfileModal = ({
   });
   if (!data) {
     close();
-    return null
+    return null;
   }
 
   const onSubmit = (data: UpdatePatientFormData) => {
-      updateProfile(data);
+    updateProfile(data);
   };
   return (
     <div className="flex flex-col    bg-white rounded-2xl overflow-hidden">
@@ -69,23 +65,10 @@ const UpdatePatientProfileModal = ({
         </button>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}  className="space-y-6 px-6 py-4 border-b">
-        {/* Success Message */}
-        {submitSuccess && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800 font-medium">
-              Registration successful! Redirecting...
-            </p>
-          </div>
-        )}
-
-        {/* Error Message */}
-        {submitError && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-800 font-medium">{submitError}</p>
-          </div>
-        )}
-
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6 px-6 py-4 border-b"
+      >
         {/* First Name & Last name */}
         <div className="grid grid-cols-2 gap-4">
           <div>

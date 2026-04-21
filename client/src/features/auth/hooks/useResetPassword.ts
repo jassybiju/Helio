@@ -5,8 +5,18 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const useResetPassword = ({resetPassword} : {resetPassword : ({token,password} : {token : string,password : string}) => Promise<unknown>}) => {
-   const {
+export const useResetPassword = ({
+  resetPassword,
+}: {
+  resetPassword: ({
+    token,
+    password,
+  }: {
+    token: string;
+    password: string;
+  }) => Promise<unknown>;
+}) => {
+  const {
     register,
     reset,
     handleSubmit,
@@ -15,28 +25,23 @@ export const useResetPassword = ({resetPassword} : {resetPassword : ({token,pass
   } = useForm({
     resolver: zodResolver(resetPasswordSchema),
   });
-  const router = useRouter()
-  const params = useSearchParams()
-  const token = params.get('token') as string
+  const router = useRouter();
+  const params = useSearchParams();
+  const token = params.get("token") as string;
   const onSubmit = async (data: ResetPasswordData) => {
-
     try {
-      const res = await resetPassword({token , password : data.password });
+      const res = await resetPassword({ token, password: data.password });
       reset();
-      router.replace('/')
-      toast.success("Password Changed Succesfully")
+      router.replace("/");
+      toast.success("Password Changed Succesfully");
       return res;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(
-          "root",
-          {message : 
-          error.response?.data.message || "Something went wrong",
-
-           }
-        );
+        setError("root", {
+          message: error.response?.data.message || "Something went wrong",
+        });
       } else {
-        console.log(error)
+        console.log(error);
         setError("root", { message: "An Error occured. Please try again" });
       }
     }
@@ -46,7 +51,6 @@ export const useResetPassword = ({resetPassword} : {resetPassword : ({token,pass
     register,
     handleSubmit: handleSubmit(onSubmit),
     errors,
-  isSubmitting,
+    isSubmitting,
   };
-
-}
+};

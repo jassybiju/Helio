@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   ComponentType,
@@ -6,7 +6,6 @@ import {
   useCallback,
   useEffect,
   useReducer,
-  useState,
 } from "react";
 import { createPortal } from "react-dom";
 
@@ -32,8 +31,8 @@ const reducerFn = (
 
 type ModalContextType = {
   open: <P extends Record<string, unknown>>(
-    component: ComponentType<P & ModalProps>, 
-    props?: Omit<P, 'close'>,
+    component: ComponentType<P & ModalProps>,
+    props?: Omit<P, "close">,
   ) => void;
   close: (id: string) => void;
 };
@@ -79,7 +78,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ModalContext.Provider value={{ open, close }}>
-      <ModalStack stack={stack} close={close}/>
+      <ModalStack stack={stack} close={close} />
 
       {children}
     </ModalContext.Provider>
@@ -93,15 +92,16 @@ export const ModalStack = ({
   stack: ModalEntry[];
   close: (id: string) => void;
 }) => {
-
-
-  if ( !stack.length) return null;
+  if (!stack.length) return null;
 
   return createPortal(
-    <div onClick={() => close(stack[stack.length - 1].id)} className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div
+      onClick={() => close(stack[stack.length - 1].id)}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+    >
       {stack.map((entry, i) => {
         const Comp = entry.component;
-        const depth = stack.length -1 -i
+        const depth = stack.length - 1 - i;
         const isTop = i === stack.length - 1;
 
         return (
@@ -118,12 +118,11 @@ export const ModalStack = ({
                 : "none",
             }}
           >
-            <Comp {...entry.props} close={()=>close(entry.id)} />
-
+            <Comp {...entry.props} close={() => close(entry.id)} />
           </div>
         );
       })}
-        <style>{`
+      <style>{`
         @keyframes modalIn {
           from { opacity: 0; transform: scale(0.9) translateY(16px); }
           to   { opacity: 1; transform: scale(1) translateY(0); }

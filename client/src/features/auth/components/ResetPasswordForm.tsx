@@ -1,25 +1,33 @@
-import ClayButton from '@/src/components/ui/ClayButton'
-import Input from '@/src/components/ui/Input'
-import React from 'react'
-import { useResetPassword } from '../hooks/useResetPassword'
+import ClayButton from "@/src/components/ui/ClayButton";
+import Input from "@/src/components/ui/Input";
+import React from "react";
+import { useResetPassword } from "../hooks/useResetPassword";
 
-const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} : {token : string,password : string}) => Promise<unknown>}) => {
-  const {handleSubmit, errors, isSubmitting, register} = useResetPassword({resetPassword})
+const ResetPasswordForm = ({
+  resetPassword,
+}: {
+  resetPassword: ({
+    token,
+    password,
+  }: {
+    token: string;
+    password: string;
+  }) => Promise<unknown>;
+}) => {
+  const { handleSubmit, errors, isSubmitting, register } = useResetPassword({
+    resetPassword,
+  });
   return (
-  <>
-  {/* Form */}
+    <>
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-
         {/* Error Message */}
         {errors.root && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-red-800 font-medium">{errors.root.message}</p>
           </div>
-        )} 
+        )}
 
-   
-
-  
         {/* Email */}
         <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
@@ -34,11 +42,13 @@ const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} 
             }`}
           />
           {errors.password && (
-            <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>
+            <p className="text-red-600 text-sm mt-1">
+              {errors.password.message}
+            </p>
           )}
         </div>
 
-          <div>
+        <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Confirm Password
           </label>
@@ -51,11 +61,11 @@ const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} 
             }`}
           />
           {errors.confirmPassword && (
-            <p className="text-red-600 text-sm mt-1">{errors.confirmPassword.message}</p>
+            <p className="text-red-600 text-sm mt-1">
+              {errors.confirmPassword.message}
+            </p>
           )}
         </div>
-
-       
 
         {/* Create Account Button */}
         <div className="mt-8">
@@ -70,10 +80,8 @@ const ResetPasswordForm = ({resetPassword} : {resetPassword : ({token,password} 
           </ClayButton>
         </div>
       </form>
+    </>
+  );
+};
 
-  
-      </>
-  )
-}
-
-export default ResetPasswordForm
+export default ResetPasswordForm;

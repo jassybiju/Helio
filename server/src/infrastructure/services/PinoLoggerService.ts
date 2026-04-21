@@ -1,16 +1,38 @@
 import type { ILogger } from "@application/ports/services/ILogger.ts";
+import path from "path";
 import pino from "pino";
 
 export class PinoLoggerService implements ILogger {
   private readonly _logger;
   constructor() {
-    this._logger = pino({
-      level: process.env.LOG_LEVEL || "debug",
-      transport: {
-        target: "pino-pretty",
-        options: { colorize: true },
+    const filePath = path.join(process.cwd(), "logs");
+
+    this._logger = pino(
+      {
+        level: process.env.LOG_LEVEL || "debug",
+        // transport: {
+        //   target: "pino-pretty",
+        //   options: { colorize: true },
+        // },
       },
-    });
+      pino.multistream([
+        {
+          stream: pino.transport({
+            target: "pino-pretty",
+            options: { colorize: true },
+            level: process.env.LOG_LEVEL || "debug",
+          }),
+        },
+        // {
+        //   stream: pino.destination({
+        //     dest: filePath,
+        //     sync: false,
+        //     mkdir: true,
+        //   }),
+        //   level: "info",
+        // },
+      ])
+    );
   }
 
   info(

@@ -1,15 +1,14 @@
-import React from 'react'
-import { ModalProps } from '../layout/ModalProvider'
-import { X } from 'lucide-react'
+import React from "react";
+import { ModalProps } from "../layout/ModalProvider";
+import { X } from "lucide-react";
 
 interface ViewPDFModalProps extends ModalProps {
-  file : string,
-  title : string,
-  
+  file: string;
+  title: string;
 }
 
-const ViewPDFModal = ({file,title,close} : ViewPDFModalProps) => {
-  console.log(file)
+const ViewPDFModal = ({ file, title, close }: ViewPDFModalProps) => {
+  console.log(file);
   return (
     <div className="flex flex-col w-[90vw] max-w-4xl h-[85vh] bg-white rounded-2xl overflow-hidden">
       {/* Header */}
@@ -24,13 +23,9 @@ const ViewPDFModal = ({file,title,close} : ViewPDFModalProps) => {
       </div>
 
       {/* PDF Viewer */}
-      <iframe
-        src={file}
-        className="flex-1 w-full"
-        title={title}
-      />
+      <iframe src={file} className="flex-1 w-full" title={title} />
     </div>
-    )
-}
+  );
+};
 
-export default ViewPDFModal
+export default ViewPDFModal;

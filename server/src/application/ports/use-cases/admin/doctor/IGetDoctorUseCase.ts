@@ -1,4 +1,3 @@
-import type { IGetDoctorResponseDTO } from "@application/use-cases/admin/doctor/getDoctor/IGetDoctorDTO.ts";
 import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
 

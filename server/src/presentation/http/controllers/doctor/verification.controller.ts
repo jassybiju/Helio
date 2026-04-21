@@ -54,7 +54,7 @@ export class DoctorVerificationController {
           HTTPStatus.UNPROCESSBLE_ENTITY
         );
       }
-      const response = await this._resubmitVerificationUseCase.execute(userId, {
+      await this._resubmitVerificationUseCase.execute(userId, {
         document: req.file!,
         additionalInfo,
       });

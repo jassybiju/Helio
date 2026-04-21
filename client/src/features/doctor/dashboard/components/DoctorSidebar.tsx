@@ -1,24 +1,29 @@
-'use client'
+"use client";
 
-import { DollarSign, LayoutGrid, LogOut, Settings, Stethoscope, Users } from 'lucide-react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React from 'react'
-import Image from 'next/image'
-import { useLogout } from '@/src/features/auth/hooks/useLogout'
+import {
+  LayoutGrid,
+  LogOut,
+  Settings,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
+import Image from "next/image";
+import { useLogout } from "@/src/features/auth/hooks/useLogout";
 
 const menuItems = [
-  { label: 'Dashboard', href: '/', icon: LayoutGrid },
-  { label: 'Settings', href: '/settings', icon: Settings },
-]
+  { label: "Dashboard", href: "/", icon: LayoutGrid },
+  { label: "Schedule", href: "/schedule", icon: LayoutGrid },
+  { label: "Settings", href: "/settings", icon: Settings },
+];
 
 const DoctorSidebar = () => {
-    const pathname = usePathname()
-    const {logout} = useLogout()
+  const pathname = usePathname();
+  const { logout } = useLogout();
   return (
-   <aside className="w-64 bg-white border-r border-slate-200 flex flex-col">
+    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col">
       {/* Logo */}
-      <div className="p-6 border-b border-slate-200"> 
+      <div className="p-6 border-b border-slate-200">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
             <Image alt={"logo"} src={"/HelioLogo.svg"} width={25} height={25} />
@@ -33,22 +38,22 @@ const DoctorSidebar = () => {
       {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-2">
         {menuItems.map((item) => {
-          const isActive = pathname === item.href
-          const Icon = item.icon
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 isActive
-                  ? 'bg-blue-50 text-blue-600 font-medium'
-                  : 'text-slate-700 hover:bg-slate-50'
+                  ? "bg-blue-50 text-blue-600 font-medium"
+                  : "text-slate-700 hover:bg-slate-50"
               }`}
             >
               <Icon className="w-5 h-5" />
               <span>{item.label}</span>
             </Link>
-          )
+          );
         })}
       </nav>
 
@@ -64,7 +69,7 @@ const DoctorSidebar = () => {
         </div>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default DoctorSidebar
+export default DoctorSidebar;

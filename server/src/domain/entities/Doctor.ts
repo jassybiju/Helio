@@ -1,3 +1,4 @@
+import type { IUpdateDoctorInput } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.ts";
 import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
 import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
@@ -10,7 +11,7 @@ export class Doctor {
     private readonly _email: Email,
     private _passwordHash: string | null,
 
-    private readonly _fullName: string,
+    private _fullName: string,
     private _gender: GENDER | null,
 
     private _specialization: string | null,
@@ -117,6 +118,20 @@ export class Doctor {
     if (onlineFee) {
       this._onlineFee = onlineFee;
     }
+  }
+
+  updateProfile(data: Omit<IUpdateDoctorInput, "doctorId">) {
+    this._fullName = data.fullName;
+    this._specialization = data.specialization;
+    this._bio = data.bio;
+  }
+
+  canAccessPlatform() {
+    return (
+      this._isVerified &&
+      !this._isBlocked &&
+      this._verificationStatus === DOCTOR_VERIFICATION_STATUS.APPROVED
+    );
   }
 
   isProfileComplete(): boolean {

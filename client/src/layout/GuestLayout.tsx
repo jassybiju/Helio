@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getSubdomain } from "../utils/getSubdomain";
 import { redirectToRole } from "../utils/redirectToRole";
 import { getExpectedSubdomain } from "../utils/getExpectedSubdomain";
@@ -13,10 +13,10 @@ type PropType = {
 const GuestLayout = ({ children }: PropType) => {
   console.log("REDIRECTED to GUEST");
   const { user, isLoading, isError } = useAuth();
-  console.log(user,isLoading, isError)
+  console.log(user, isLoading, isError);
   const router = useRouter();
   useEffect(() => {
-    console.log("ISSUES")
+    console.log("ISSUES");
     if (isLoading) return;
     if (isError || !user) {
       return;
@@ -25,11 +25,11 @@ const GuestLayout = ({ children }: PropType) => {
     const currentSubdomaian = getSubdomain();
     const expectedSubdomain = getExpectedSubdomain(user.role);
     if (currentSubdomaian !== expectedSubdomain) {
-      redirectToRole(user.role,'/');
+      redirectToRole(user.role, "/");
     } else {
       router.replace("/");
     }
-  }, [user, isLoading, isError,router]);
+  }, [user, isLoading, isError, router]);
 
   if (isLoading) {
     return "is Loading.....";

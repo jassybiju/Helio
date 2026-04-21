@@ -5,8 +5,6 @@ import type {
   GetDoctorUseCaseResult,
   IGetDoctorUseCase,
 } from "@application/ports/use-cases/admin/doctor/IGetDoctorUseCase.ts";
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 

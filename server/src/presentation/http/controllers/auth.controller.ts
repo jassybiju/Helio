@@ -1,5 +1,4 @@
 import type { IGetMeUseCase } from "@application/ports/use-cases/auth/IGetMeUseCase.ts";
-import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoogleLoginUseCase.ts";
 import type { ILogoutUseCase } from "@application/ports/use-cases/auth/ILogoutUseCase.ts";
 import type { IRefreshTokenUseCase } from "@application/ports/use-cases/auth/IRefreshTokenUseCase.ts";
 import { AppError } from "@shared/errors/AppError.ts";

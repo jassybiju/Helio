@@ -1,8 +1,6 @@
 "use client";
 
-import { useModal } from "@/src/hooks/useModal";
-import { ModalProps } from "@/src/layout/ModalProvider";
-import { Lock, Unlock } from "lucide-react";
+  import { ModalProps } from "@/src/layout/ModalProvider";
 
 interface ConfirmModalProps extends ModalProps {
   title: string;
@@ -16,8 +14,6 @@ export function ConfirmModal({
   message,
   onConfirm,
 }: ConfirmModalProps) {
-  console.log(123);
-  const { open } = useModal();
   console.log(onConfirm);
   const handleConfirm = () => {
     onConfirm();

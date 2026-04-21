@@ -37,6 +37,11 @@ export enum MESSAGE {
   //doctor
   DOCTOR_PROFILE_SUCCESS = "Doctor Profile Got Succesffully",
   DOCTOR_FEE_UPDATED = "Doctor Fee Updated Successfully",
+  DOCTOR_SCHEDULE_CREATED = "Doctor Scheduled created successfully",
+  DOCTOR_SCHEDULE_SUCCESS = "Doctor Scheduled Got successfully",
+
+  //doctorSchedule
+  DOCTOR_SHEDULE_OVERLAP_ERROR = "Doctor Schedule Overlaps existing schedules",
 
   // admin patient
   PATIENT_FETCH_SUCCESS = "Patients Fetched Successfully",

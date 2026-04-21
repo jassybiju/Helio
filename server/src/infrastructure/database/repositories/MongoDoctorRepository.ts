@@ -10,11 +10,11 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { doctorModel, type DoctorDoc } from "../model/DoctorModel.ts";
 import { DoctorMapper } from "../../../mappers/DoctorMapper.ts";
-import { MongoBaseRepository } from "./MongoBaseRepository.ts";
+import { BaseRepository } from "./BaseRepository.ts";
 import type { QueryFilter } from "mongoose";
 
 export class MongoDoctorRepository
-  extends MongoBaseRepository<Doctor, DoctorDoc>
+  extends BaseRepository<Doctor, DoctorDoc>
   implements IDoctorRepository
 {
   constructor(private readonly _loggerService: ILogger) {
@@ -120,6 +120,14 @@ export class MongoDoctorRepository
     } catch (error) {
       this._loggerService.error("Failed to fetch Doctor", error);
       throw new AppError("Failed to Fetch Doctor", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
+  async countDoctors(specialization: string) {
+    try {
+      return await doctorModel.find({ specialization }).countDocuments();
+    } catch (error) {
+      this._loggerService.error("failed to fetch");
+      throw new AppError("Failed to Fetch", HTTPStatus.INTERNAL_ERROR);
     }
   }
 }

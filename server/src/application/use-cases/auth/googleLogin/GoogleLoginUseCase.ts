@@ -1,5 +1,4 @@
 import type { IGoogleLoginResponseDTO } from "@application/dto/auth/IGoogleLoginDTO.ts";
-import type { ILoginResponseDTO } from "@application/dto/auth/ILoginDTO.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";

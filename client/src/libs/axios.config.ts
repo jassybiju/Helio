@@ -96,9 +96,14 @@ export const apiRequest = async <T>(
   url: string,
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
   data?: unknown,
-  params? : unknown
-): Promise<{data : T, success : boolean, message : string}> => {
-  const response: AxiosResponse<T> = await apiClient({ method, url, data , params});
-  console.log(response,params)
-  return response.data as {data : T, success : boolean, message : string} ;
+  params?: unknown,
+): Promise<{ data: T; success: boolean; message: string }> => {
+  const response: AxiosResponse<T> = await apiClient({
+    method,
+    url,
+    data,
+    params,
+  });
+  console.log(response, params);
+  return response.data as { data: T; success: boolean; message: string };
 };

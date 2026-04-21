@@ -3,9 +3,9 @@ import PatientSidebar from "@/src/features/patient/dashboard/components/PatientS
 import React from "react";
 
 type PatientDashboardLayoutProps = {
-  children : React.ReactNode
-}
-const PatientDashboardLayout = ({children} : PatientDashboardLayoutProps) => {
+  children: React.ReactNode;
+};
+const PatientDashboardLayout = ({ children }: PatientDashboardLayoutProps) => {
   return (
     <div className="flex min-h-screen w-screen bg-slate-50">
       {/* Sidebar */}

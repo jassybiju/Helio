@@ -1,8 +1,8 @@
 export const getSubdomain = () => {
-  if(typeof window === 'undefined') return null
+  if (typeof window === "undefined") return null;
 
-  const host = window.location.hostname
+  const host = window.location.hostname;
 
-  const parts = host.split('.')
-  return parts.length > 2 ? parts[0] : null
-}
+  const parts = host.split(".");
+  return parts.length > 2 ? parts[0] : null;
+};

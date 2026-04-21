@@ -31,15 +31,15 @@ export const useAdminDoctorView = (id: string) => {
     });
   };
 
-  const handleDoctorApproval = (status: DOCTOR_STATUS,) => {
+  const handleDoctorApproval = (status: DOCTOR_STATUS) => {
     open(DoctorApprovalModal, {
-      onConfirm: (reason? : string) =>
+      onConfirm: (reason?: string) =>
         updateDoctorApproval({
           verification_status: status,
           rejection_reason: reason,
         }),
-        status : status,
-        title : `${status === DOCTOR_STATUS.APPROVED ? "Approve" : "Reject"} doctor`
+      status: status,
+      title: `${status === DOCTOR_STATUS.APPROVED ? "Approve" : "Reject"} doctor`,
     });
   };
 
@@ -53,6 +53,6 @@ export const useAdminDoctorView = (id: string) => {
     expandedHistory,
     setExpandedHistory,
     handleToggleBlock,
-    handleDoctorApproval
+    handleDoctorApproval,
   };
 };

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useForm, useWatch } from "react-hook-form";
 import {
@@ -11,26 +11,25 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-  type IRegisterResponse = {
-    message : string,
-    data : {
-      id : string
-      otp_invalid_at : string
-    }
-  }
-
+type IRegisterResponse = {
+  message: string;
+  data: {
+    id: string;
+    otp_invalid_at: string;
+  };
+};
 
 export const usePatientRegistration = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
     reset,
-    control
+    control,
   } = useForm<PatientRegistrationFormData>({
     resolver: zodResolver(patientRegisterSchema),
     mode: "onBlur",
@@ -38,7 +37,7 @@ export const usePatientRegistration = () => {
 
   const dobValue = useWatch({
     control,
-    name : "dob"
+    name: "dob",
   });
 
   const onSubmit = async (data: PatientRegistrationFormData) => {
@@ -46,11 +45,12 @@ export const usePatientRegistration = () => {
     setSubmitSuccess(false);
 
     try {
-      const res =  await authService.register(data) as IRegisterResponse;
+      const res = (await authService.register(data)) as IRegisterResponse;
       setSubmitSuccess(true);
       reset();
-            router.push(`/verify-otp?otpId=${res.data.id}&expires=${res.data.otp_invalid_at                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }`)
-
+      router.push(
+        `/verify-otp?otpId=${res.data.id}&expires=${res.data.otp_invalid_at}`,
+      );
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setSubmitError(error.response?.data.message || "Something Went wrong");

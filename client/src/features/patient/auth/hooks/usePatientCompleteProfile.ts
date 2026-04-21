@@ -1,6 +1,9 @@
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
-import { PatientCompleteProfileFormData, patientCompleteProfileSchema } from "../schemas/profile.schema";
+import {
+  PatientCompleteProfileFormData,
+  patientCompleteProfileSchema,
+} from "../schemas/profile.schema";
 import { patientProfileService } from "../../services/profile.service";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import axios from "axios";
@@ -16,19 +19,19 @@ export const usePatientCompleteProfile = () => {
     setValue,
     setError,
     reset,
-  } = useForm({resolver : zodResolver(patientCompleteProfileSchema)});
+  } = useForm({ resolver: zodResolver(patientCompleteProfileSchema) });
 
   const router = useRouter();
 
   const onSubmit = async (data: PatientCompleteProfileFormData) => {
     try {
-      const res = await patientProfileService.completeProfile(data);
+      await patientProfileService.completeProfile(data);
       reset();
       invalidateQuery("me");
-      toast.success("Patient Profile Completed")
+      toast.success("Patient Profile Completed");
       router.replace("/dashboard");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (axios.isAxiosError(error)) {
         setError("root", {
           message: error.response?.data?.message || "Complete Profile Failed",
@@ -39,7 +42,7 @@ export const usePatientCompleteProfile = () => {
     }
   };
 
-  const dobValue = useWatch({name : "dob", control})
+  const dobValue = useWatch({ name: "dob", control });
 
   return {
     register,
@@ -47,6 +50,6 @@ export const usePatientCompleteProfile = () => {
     onSubmit: handleSubmit(onSubmit),
     isSubmitting,
     setValue,
-    dobValue
+    dobValue,
   };
 };

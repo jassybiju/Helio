@@ -3,7 +3,7 @@ import { AuthController } from "../controllers/auth.controller.ts";
 import { PatientGetMeHandler } from "@application/use-cases/auth/get-me/PatientGetMeHandler.ts";
 import { DoctorGetMeHandler } from "@application/use-cases/auth/get-me/DoctorGetMeHandler.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
+import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { AdminGetMeHandler } from "@application/use-cases/auth/get-me/AdminGetMeHandler.ts";
 import { RefreshTokenUseCase } from "@application/use-cases/auth/refreshToken/RefreshTokenUseCase.ts";
@@ -14,7 +14,7 @@ import { LogoutUseCase } from "@application/use-cases/auth/logout/LogoutUseCase.
 
 const loggerService = new PinoLoggerService();
 
-const patientRepo = new MongoPatientRepository(loggerService);
+const patientRepo = new PatientRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const sessionRepo = new RedisSessionRepository(loggerService);
 

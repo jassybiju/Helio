@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { Bell, ChevronDown } from 'lucide-react'
-import React from 'react'
+import { Bell, ChevronDown } from "lucide-react";
+import React from "react";
 
 const AdminHeader = () => {
   return (
-  <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8">
+    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8">
       {/* Left Section */}
       <div>
         <h2 className="text-sm text-slate-600"></h2>
@@ -32,7 +32,8 @@ const AdminHeader = () => {
           <ChevronDown className="w-4 h-4 text-slate-600" />
         </button>
       </div>
-    </header>  )
-}
+    </header>
+  );
+};
 
-export default AdminHeader
+export default AdminHeader;

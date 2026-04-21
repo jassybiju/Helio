@@ -17,16 +17,20 @@ export const verificationService = {
       APIResponse<VerificationDetails>
     >;
   },
-  resubmit(data :DoctorVerificationFormData){
-    const formData = new FormData()
+  resubmit(data: DoctorVerificationFormData) {
+    const formData = new FormData();
 
-    Object.entries(data).forEach(([key, value])=>{
-      if(value instanceof FileList) {
-        formData.append(key, value[0])
-      }else{
-        formData.append(key, String(value))
+    Object.entries(data).forEach(([key, value]) => {
+      if (value instanceof FileList) {
+        formData.append(key, value[0]);
+      } else {
+        formData.append(key, String(value));
       }
-    })
-    return apiRequest('/doctor/verification/resubmit',HTTP_METHOD.PATCH,formData)
-  }
+    });
+    return apiRequest(
+      "/doctor/verification/resubmit",
+      HTTP_METHOD.PATCH,
+      formData,
+    );
+  },
 };

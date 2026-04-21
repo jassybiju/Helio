@@ -1,10 +1,8 @@
-import DoctorSettingsComponent from '@/src/features/doctor/dashboard/settings/components/DoctorSettingsComponent'
-import React from 'react'
+import DoctorSettingsComponent from "@/src/features/doctor/dashboard/settings/components/DoctorSettingsComponent";
+import React from "react";
 
 const DoctorSettingsPage = () => {
-  return (
-    <DoctorSettingsComponent/>
-  )
-}
+  return <DoctorSettingsComponent />;
+};
 
-export default DoctorSettingsPage
+export default DoctorSettingsPage;

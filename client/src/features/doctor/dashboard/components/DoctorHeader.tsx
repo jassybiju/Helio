@@ -1,12 +1,11 @@
-'use client'
+"use client";
 
-import UserAuthButtons from '@/src/components/UserAuthButtons'
-import { Bell, ChevronDown } from 'lucide-react'
-import React from 'react'
+import UserAuthButtons from "@/src/components/UserAuthButtons";
+import React from "react";
 
 const DoctorHeader = () => {
   return (
-  <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8">
+    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8">
       {/* Left Section */}
       <div>
         <h2 className="text-sm text-slate-600"></h2>
@@ -14,9 +13,9 @@ const DoctorHeader = () => {
       </div>
 
       {/* Right Section */}
-           <UserAuthButtons/>
+      <UserAuthButtons />
+    </header>
+  );
+};
 
-    </header>  )
-}
-
-export default DoctorHeader
+export default DoctorHeader;

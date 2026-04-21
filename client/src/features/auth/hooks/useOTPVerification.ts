@@ -4,14 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export const useOTPVerification = (otpId : string, otpInvalidAt : string, verifyOTP : ({id ,otp} : {id : string, otp : string})=> Promise<unknown>, resendOTP :({id} : {id : string})=> Promise<unknown>,) => {
+export const useOTPVerification = (
+  otpId: string,
+  otpInvalidAt: string,
+  verifyOTP: ({ id, otp }: { id: string; otp: string }) => Promise<unknown>,
+  resendOTP: ({ id }: { id: string }) => Promise<unknown>,
+) => {
   const [secondsRemaining, setSecondsRemaining] = useState(0);
-  const [submitError, setSubmitError] = useState<string| null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-
   const [resendLoading, setResendLoading] = useState(false);
-
 
   const {
     watch,
@@ -32,7 +35,7 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
       const now = new Date().getTime();
       const expiryTime = new Date(Number(otpInvalidAt)).getTime();
       const remaining = Math.max(0, Math.floor((expiryTime - now) / 1000));
-      console.log(otpInvalidAt)
+      console.log(otpInvalidAt);
       setSecondsRemaining(remaining);
       return remaining;
     };
@@ -44,8 +47,7 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
       if (remaining == 0) {
         clearInterval(interval);
       }
-
-    },1000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [otpInvalidAt]);
 
@@ -63,7 +65,7 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
       reset();
       return response;
     } catch (error) {
-      console.log(error, axios.isAxiosError(error))
+      console.log(error, axios.isAxiosError(error));
 
       if (axios.isAxiosError(error)) {
         setSubmitError(error.response?.data?.message || "Registration failed");
@@ -73,45 +75,43 @@ export const useOTPVerification = (otpId : string, otpInvalidAt : string, verify
     }
   };
 
-  const handleResendOTP = async ()=> {
-    setResendLoading(true)
-    setSubmitError(null)
+  const handleResendOTP = async () => {
+    setResendLoading(true);
+    setSubmitError(null);
     try {
-       await resendOTP({id : otpId})
+      await resendOTP({ id: otpId });
 
-      reset()
-      
-
+      reset();
     } catch (error) {
-      if(axios.isAxiosError(error)){
-        setSubmitError(error.response?.data.message || "Resend Failed")
+      if (axios.isAxiosError(error)) {
+        setSubmitError(error.response?.data.message || "Resend Failed");
       }
-    }finally{
-      setResendLoading(false)
+    } finally {
+      setResendLoading(false);
     }
-  }
+  };
 
-  const formatTimeRemaining = (seconds : number) : string => {
-    const mins = Math.floor(seconds/60)
-    const secs =seconds % 60
-    return `${mins} : ${secs.toString().padStart(2,'0')}`
-  }
+  const formatTimeRemaining = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins} : ${secs.toString().padStart(2, "0")}`;
+  };
 
-  const isExpired = secondsRemaining === 0
+  const isExpired = secondsRemaining === 0;
 
   return {
     otpValue,
     setValue,
-    otpFormSubmit : handleSubmit(onSubmit),
-    otpVerifySubmitting : isSubmitting,
+    otpFormSubmit: handleSubmit(onSubmit),
+    otpVerifySubmitting: isSubmitting,
     onSubmit,
     errors,
     submitError,
     submitSuccess,
     secondsRemaining,
     handleResendOTP,
-    isResending : resendLoading == true,
+    isResending: resendLoading == true,
     formatTimeRemaining,
-    isExpired
-  }
+    isExpired,
+  };
 };

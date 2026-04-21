@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const DoctorViewSkelton = () => {
   return (
@@ -16,7 +16,10 @@ const DoctorViewSkelton = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
+              <div
+                key={i}
+                className="bg-white rounded-lg border border-slate-200 p-6 space-y-4"
+              >
                 <div className="w-40 h-5 bg-slate-200 rounded animate-pulse" />
                 <div className="grid grid-cols-2 gap-6">
                   {[...Array(4)].map((_, j) => (
@@ -39,7 +42,7 @@ const DoctorViewSkelton = () => {
         </div>
       </div>
     </div>
-    )
-}
+  );
+};
 
-export default DoctorViewSkelton
+export default DoctorViewSkelton;

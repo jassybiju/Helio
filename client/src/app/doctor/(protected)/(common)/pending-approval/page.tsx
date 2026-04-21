@@ -1,10 +1,8 @@
-import DoctorPendingApprovals from '@/src/features/doctor/auth/components/DoctorPendingApprovals'
-import React from 'react'
+import DoctorPendingApprovals from "@/src/features/doctor/auth/components/DoctorPendingApprovals";
+import React from "react";
 
 const PendingApprovalsPage = () => {
-  return (
-    <DoctorPendingApprovals/>
-  )
-}
+  return <DoctorPendingApprovals />;
+};
 
-export default PendingApprovalsPage
+export default PendingApprovalsPage;

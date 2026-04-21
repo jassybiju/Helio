@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { useDoctorCompleteProfile } from "../hooks/useDoctorCompleteProfile";
@@ -7,7 +7,8 @@ import DoctorFileUpload from "./DoctorFileUpload";
 import ClayButton from "@/src/components/ui/ClayButton";
 
 const DoctorProfileComplete = () => {
-  const {register, onSubmit, errors, isSubmitting}= useDoctorCompleteProfile()
+  const { register, onSubmit, errors, isSubmitting } =
+    useDoctorCompleteProfile();
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       {/* Success */}
@@ -22,7 +23,7 @@ const DoctorProfileComplete = () => {
       {/* Speciality */}
       <div>
         <label className="block text-sm font-semibold text-slate-900 mb-2">
-        Speciality
+          Speciality
         </label>
         <Input
           type="text"
@@ -53,7 +54,9 @@ const DoctorProfileComplete = () => {
           }`}
         />
         {errors.career_start_year && (
-          <p className="text-red-600 text-sm mt-1">{errors.career_start_year.message}</p>
+          <p className="text-red-600 text-sm mt-1">
+            {errors.career_start_year.message}
+          </p>
         )}
       </div>
 
@@ -79,22 +82,21 @@ const DoctorProfileComplete = () => {
         )}
       </div>
       {/* Specialization */}
-      
+
       {/* Document Upload */}
       <div>
         <label className="block text-sm font-semibold text-slate-900 mb-2">
           Upload License / Certificate
         </label>
-        <DoctorFileUpload
-          register={register('document')}
-        />
+        <DoctorFileUpload register={register("document")} />
 
         {errors.document && (
-          <p className="text-red-600 text-sm mt-1">{errors.document.message as string}</p>
+          <p className="text-red-600 text-sm mt-1">
+            {errors.document.message as string}
+          </p>
         )}
       </div>
 
-    
       {/* Submit */}
       <ClayButton type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? "Creating Account..." : "Create Doctor Account"}

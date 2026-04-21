@@ -1,10 +1,12 @@
-import AdminPatientViewComponent from '@/src/features/admin/patients/components/AdminPatientViewComponent'
-import React from 'react'
+import AdminPatientViewComponent from "@/src/features/admin/patients/components/AdminPatientViewComponent";
+import React from "react";
 
 const AdminPatientPage = () => {
   return (
-    <div><AdminPatientViewComponent/></div>
-  )
-}
+    <div>
+      <AdminPatientViewComponent />
+    </div>
+  );
+};
 
-export default AdminPatientPage
+export default AdminPatientPage;

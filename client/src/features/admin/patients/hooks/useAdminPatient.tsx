@@ -15,7 +15,7 @@ export const useAdminPatient = () => {
     limit,
     isVerified: null,
   });
-  const {open} = useModal()
+  const { open } = useModal();
   const { data } = usePatientsQuery(filter);
   const { mutate } = useToggleBlockPatient();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -25,16 +25,16 @@ export const useAdminPatient = () => {
   console.log(totalCount! / limit);
   const totalPages = Math.ceil(totalCount! / limit);
 
-  const handleToggleBlock = (row : Patients) => {
-    console.log('hi')
+  const handleToggleBlock = (row: Patients) => {
+    console.log("hi");
     open(ConfirmModal, {
-      patientName : row.fullName,
-      currentStatus : row.status as 'active' | 'blocked',
-      onConfirm: ()=>mutate(row.id),
-      message : `Are you sure you want to ${row.status === 'active' ? 'block' : 'unblock'} patient`,
-      title : `${row.status === "active" ? "Block" : "Unblock"} Patient`
-    })
-  }
+      patientName: row.fullName,
+      currentStatus: row.status as "active" | "blocked",
+      onConfirm: () => mutate(row.id),
+      message: `Are you sure you want to ${row.status === "active" ? "block" : "unblock"} patient`,
+      title: `${row.status === "active" ? "Block" : "Unblock"} Patient`,
+    });
+  };
 
   const columns: ColumnType<Patients> = [
     {
@@ -114,7 +114,10 @@ export const useAdminPatient = () => {
       title: "Actions",
       render: (_value, row) => (
         <div className="flex items-center gap-2">
-          <Link href={`/patients/${row.id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium">
+          <Link
+            href={`/patients/${row.id}`}
+            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 text-sm font-medium"
+          >
             <Eye className="w-4 h-4" />
             View
           </Link>

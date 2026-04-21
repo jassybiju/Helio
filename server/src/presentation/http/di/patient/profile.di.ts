@@ -1,5 +1,5 @@
 import { CompletePatientProfileUseCase } from "@application/use-cases/patient/profile/completeProfile/CompletePatientProfileUseCase.ts";
-import { MongoPatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
+import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { PatientProfileController } from "../../controllers/patient/profile.controller.ts";
 import { GetPatientProfileUseCase } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileUseCase.ts";
@@ -15,7 +15,7 @@ import { PatientValidator } from "@application/validators/PatientValidator.ts";
 import { UpdatePatientProfileUseCase } from "@application/use-cases/patient/profile/updatePatientProfile/UpdatePatientProfileUseCase.ts";
 
 const loggerService = new PinoLoggerService();
-const patientRepo = new MongoPatientRepository(loggerService);
+const patientRepo = new PatientRepository(loggerService);
 const idGenerator = new NanoidGenerator();
 const bcryptPasswordService = new BcryptPasswordService();
 

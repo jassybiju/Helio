@@ -1,14 +1,11 @@
-import Navbar from '@/src/components/Navbar'
-import React from 'react'
+import React from "react";
 
-const DoctorLayout = ({children} : {children : React.ReactNode}) => {
+const DoctorLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-        
       {children}
-    
-    </div> 
-    )
-}
+    </div>
+  );
+};
 
-export default DoctorLayout
+export default DoctorLayout;

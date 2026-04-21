@@ -17,7 +17,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {/* Navigation */}
         {children}
 
-        <UserAuthButtons/>
+        <UserAuthButtons />
       </div>
     </header>
   );

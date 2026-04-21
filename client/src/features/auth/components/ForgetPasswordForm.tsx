@@ -1,13 +1,19 @@
-import ClayButton from '@/src/components/ui/ClayButton'
-import Input from '@/src/components/ui/Input'
-import React from 'react'
-import { useForgetPassword } from '../hooks/useForgetPassword'
+import ClayButton from "@/src/components/ui/ClayButton";
+import Input from "@/src/components/ui/Input";
+import React from "react";
+import { useForgetPassword } from "../hooks/useForgetPassword";
 
-const ForgetPasswordForm = ({forgetPassword} : {forgetPassword : ({email,} : {email : string}) => Promise<unknown>}) => {
-  const {handleSubmit, errors, register, isSubmitting} = useForgetPassword({forgetPassword})
+const ForgetPasswordForm = ({
+  forgetPassword,
+}: {
+  forgetPassword: ({ email }: { email: string }) => Promise<unknown>;
+}) => {
+  const { handleSubmit, errors, register, isSubmitting } = useForgetPassword({
+    forgetPassword,
+  });
   return (
-  <>
-  {/* Form */}
+    <>
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Success Message */}
         {/* {submitSuccess && (
@@ -23,11 +29,8 @@ const ForgetPasswordForm = ({forgetPassword} : {forgetPassword : ({email,} : {em
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-red-800 font-medium">{errors.root.message}</p>
           </div>
-        )} 
+        )}
 
-   
-
-  
         {/* Email */}
         <div>
           <label className="block text-sm font-semibold text-slate-900 mb-2">
@@ -46,8 +49,6 @@ const ForgetPasswordForm = ({forgetPassword} : {forgetPassword : ({email,} : {em
           )}
         </div>
 
-       
-
         {/* Create Account Button */}
         <div className="mt-8">
           <ClayButton
@@ -61,10 +62,8 @@ const ForgetPasswordForm = ({forgetPassword} : {forgetPassword : ({email,} : {em
           </ClayButton>
         </div>
       </form>
+    </>
+  );
+};
 
-  
-      </>
-    )
-}
-
-export default ForgetPasswordForm
+export default ForgetPasswordForm;

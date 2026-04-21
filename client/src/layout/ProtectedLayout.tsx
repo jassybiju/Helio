@@ -29,16 +29,16 @@ const ProtectedLayout = ({ children, role }: PropType) => {
       return;
     }
 
-    const currentSubdomain = getSubdomain()
-    const expectedSubdomain = getExpectedSubdomain(user.role)
+    const currentSubdomain = getSubdomain();
+    const expectedSubdomain = getExpectedSubdomain(user.role);
 
-    if(currentSubdomain !== expectedSubdomain){
-      redirectToRole(user.role, pathname)
-      return
+    if (currentSubdomain !== expectedSubdomain) {
+      redirectToRole(user.role, pathname);
+      return;
     }
 
     if (!isProfileCompletePage && !user.isProfileComplete) {
-      redirectToRole(user.role,"/profile-complete");
+      redirectToRole(user.role, "/profile-complete");
       return;
     }
 
@@ -48,16 +48,25 @@ const ProtectedLayout = ({ children, role }: PropType) => {
       user.status !== DOCTOR_STATUS.APPROVED &&
       !isPendingApprovalsPage
     ) {
-      console.log("REDIREECEREFJALDKFDSLFK")
-      redirectToRole(user.role, '/pending-approval')
+      console.log("REDIREECEREFJALDKFDSLFK");
+      redirectToRole(user.role, "/pending-approval");
       return;
     }
     if (user.role !== role) {
       console.log("HITTTT");
-      redirectToRole(user.role,'/');
+      redirectToRole(user.role, "/");
       return;
     }
-  }, [isError, router, role, isLoading, user, pathname]);
+  }, [
+    isError,
+    router,
+    role,
+    isLoading,
+    user,
+    pathname,
+    isPendingApprovalsPage,
+    isProfileCompletePage,
+  ]);
 
   if (isLoading) {
     return <p className="text-black">"Loading..."</p>;

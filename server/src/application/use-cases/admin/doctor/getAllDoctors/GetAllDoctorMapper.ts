@@ -1,5 +1,4 @@
 import type { Doctor } from "@domain/entities/Doctor.ts";
-import type { IGetAllDoctorsResponseDTO } from "./IGetAllDoctorsDTO.ts";
 
 export class GetAllDoctorMapper {
   static toDto(doctors: Doctor[]) {

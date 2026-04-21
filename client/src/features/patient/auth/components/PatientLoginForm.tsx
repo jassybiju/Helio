@@ -36,12 +36,11 @@ const PatientLoginForm = () => {
         router.replace("/");
       }
     } catch (error) {
-      if(isAxiosError(error)){
-
-        toast.error(error.response?.data.message)
-        return
+      if (isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+        return;
       }
-      toast.error("Error when logging in")
+      toast.error("Error when logging in");
     }
   };
   return <LoginForm login={handleLogin} googleLogin={handleGoogleLogin} />;

@@ -19,4 +19,10 @@ doctorProfileRouter.patch(
 );
 
 doctorProfileRouter.get("/", doctorProfileController.getDoctor);
+doctorProfileRouter.put("/", doctorProfileController.updateDoctorProfile);
 doctorProfileRouter.patch("/fee", doctorProfileController.updateDoctorFee);
+
+doctorProfileRouter.patch(
+  "/change-password",
+  doctorProfileController.changePassword
+);

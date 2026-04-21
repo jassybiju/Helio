@@ -12,7 +12,6 @@ import Input from "@/src/components/ui/Input";
 const DoctorPendingApprovals = () => {
   const { user } = useAuth();
   const {
-    rejection_reason,
     verification_history,
     verification_status,
     document_url,
@@ -20,7 +19,7 @@ const DoctorPendingApprovals = () => {
     register,
     errors,
     onSubmit,
-    isPending
+    isPending,
   } = useDoctorPendingApproval();
   const [expanded, setExpanded] = useState<number | null>(null);
 
@@ -47,7 +46,6 @@ const DoctorPendingApprovals = () => {
       bgColor: "bg-red-50",
     },
   };
-  const expandedRejection = true;
   const currentStatus =
     statusConfig[verification_status as keyof typeof statusConfig] ||
     statusConfig.pending;
@@ -150,35 +148,45 @@ const DoctorPendingApprovals = () => {
                   ● {currentStatus.label}
                 </span>
               </div>
-                {verification_status === DOCTOR_STATUS.REJECTED && (
-              <form onSubmit={onSubmit}>
-                <label className="block text-sm font-semibold text-slate-900 mb-2">
-                  Upload Document
-                </label>
-                <DoctorFileUpload error={errors.document?.message as string} register={register('document')} />
-                <div className="py-3">
+              {verification_status === DOCTOR_STATUS.REJECTED && (
+                <form onSubmit={onSubmit}>
                   <label className="block text-sm font-semibold text-slate-900 mb-2">
-                    Additional Info{" "}
+                    Upload Document
                   </label>
-                  <Input
-                    type="text"
-                    placeholder="Additional Info"
-                    {...register("additionalInfo")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
-                      errors.additionalInfo ? "border-red-500" : "border-slate-200"
-                    }`}
+                  <DoctorFileUpload
+                    error={errors.document?.message as string}
+                    register={register("document")}
                   />
-                  {errors.additionalInfo && (
-                    <p className="text-red-600 text-sm mt-1">
-                      {errors.additionalInfo.message}
-                    </p>
-                  )}
-                </div>
-                <ClayButton disabled={isPending} className="w-full mt-4" variant="primary">Resubmit</ClayButton>
-              </form>
-                )}
+                  <div className="py-3">
+                    <label className="block text-sm font-semibold text-slate-900 mb-2">
+                      Additional Info{" "}
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Additional Info"
+                      {...register("additionalInfo")}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+                        errors.additionalInfo
+                          ? "border-red-500"
+                          : "border-slate-200"
+                      }`}
+                    />
+                    {errors.additionalInfo && (
+                      <p className="text-red-600 text-sm mt-1">
+                        {errors.additionalInfo.message}
+                      </p>
+                    )}
+                  </div>
+                  <ClayButton
+                    disabled={isPending}
+                    className="w-full mt-4"
+                    variant="primary"
+                  >
+                    Resubmit
+                  </ClayButton>
+                </form>
+              )}
             </div>
-
 
             {/* Previous Responses Section */}
             {verification_history.length > 0 && (
@@ -297,7 +305,6 @@ const DoctorPendingApprovals = () => {
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-         
               <ClayButton variant="secondary" size="lg" className="flex-1">
                 Contact Support
               </ClayButton>

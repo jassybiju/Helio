@@ -4,7 +4,7 @@ import "./globals.css";
 import QueryProvider from "../layout/QueryProvider";
 import AuthProvider from "../layout/AuthProvider";
 import { Bounce, ToastContainer } from "react-toastify";
-import { ModalProvider, ModalStack } from "../layout/ModalProvider";
+import { ModalProvider, } from "../layout/ModalProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,20 +34,20 @@ export default function RootLayout({
         <QueryProvider>
           <AuthProvider>
             <ModalProvider>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick={false}
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-              transition={Bounce}
-            />
-            {children}
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+              />
+              {children}
             </ModalProvider>
           </AuthProvider>
         </QueryProvider>

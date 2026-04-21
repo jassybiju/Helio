@@ -1,30 +1,30 @@
 "use client";
- 
+
 import { useModal } from "@/src/hooks/useModal";
 import { ModalProps } from "@/src/layout/ModalProvider";
 import { Lock, Unlock } from "lucide-react";
- 
+
 interface BlockConfirmModalProps extends ModalProps {
   patientName: string;
   currentStatus: "active" | "blocked";
   onConfirm: () => void;
 }
- 
+
 export function BlockConfirmModal({
   close,
   patientName,
   currentStatus,
   onConfirm,
 }: BlockConfirmModalProps) {
-  console.log(123)
+  console.log(123);
   const { open } = useModal();
   const isBlocking = currentStatus === "active";
- 
+
   const handleConfirm = () => {
-  onConfirm();
+    onConfirm();
     close();
   };
- 
+
   return (
     <div className="p-6 w-full max-w-sm">
       {/* Icon */}
@@ -39,12 +39,12 @@ export function BlockConfirmModal({
           <Unlock className="w-6 h-6 text-green-600" />
         )}
       </div>
- 
+
       {/* Title */}
       <h2 className="text-lg font-semibold text-slate-900 text-center mb-1">
         {isBlocking ? "Block Patient" : "Unblock Patient"}
       </h2>
- 
+
       {/* Message */}
       <p className="text-sm text-slate-500 text-center mb-6">
         Are you sure you want to {isBlocking ? "block" : "unblock"}{" "}
@@ -53,7 +53,7 @@ export function BlockConfirmModal({
           ? "They will lose access to the platform."
           : "They will regain access to the platform."}
       </p>
- 
+
       {/* Actions */}
       <div className="flex gap-3">
         <button
@@ -73,7 +73,7 @@ export function BlockConfirmModal({
           {isBlocking ? "Yes, Block" : "Yes, Unblock"}
         </button>
       </div>
- 
+
       {/* Test button — open same modal nested */}
       <button
         onClick={() =>
@@ -90,4 +90,3 @@ export function BlockConfirmModal({
     </div>
   );
 }
- 

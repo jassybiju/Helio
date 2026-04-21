@@ -20,8 +20,15 @@ import { DOCTOR_STATUS } from "@/src/types/user.types";
 
 const AdminDoctorViewComponent = () => {
   const params = useParams<{ id: string }>();
-  const { doctor, isLoading, expandedHistory, setExpandedHistory,showDocumentModal,handleToggleBlock ,handleDoctorApproval} =
-    useAdminDoctorView(params.id);
+  const {
+    doctor,
+    isLoading,
+    expandedHistory,
+    setExpandedHistory,
+    showDocumentModal,
+    handleToggleBlock,
+    handleDoctorApproval,
+  } = useAdminDoctorView(params.id);
 
   if (isLoading) {
     return <DoctorViewSkelton />;
@@ -139,39 +146,44 @@ const AdminDoctorViewComponent = () => {
             </div>
 
             {/* Documents Section */}
-                      {!!doctor.documentUrl && (
-            <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-              <h2 className="text-lg font-bold text-slate-900">
-                Uploaded Documents
-              </h2>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-blue-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
-                        <path
-                          fillRule="evenodd"
-                          d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+            {!!doctor.documentUrl && (
+              <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
+                <h2 className="text-lg font-bold text-slate-900">
+                  Uploaded Documents
+                </h2>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-blue-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
+                          <path
+                            fillRule="evenodd"
+                            d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-medium text-slate-900">
+                        document
+                      </span>
                     </div>
-                    <span className="text-sm font-medium text-slate-900">
-                      document
-                    </span>
+                    <button
+                      onClick={() =>
+                        showDocumentModal(doctor.documentUrl as string)
+                      }
+                      className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    >
+                      View
+                    </button>
                   </div>
-                  <button onClick={()=>showDocumentModal(doctor.documentUrl as string)} className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                    View
-                  </button>
                 </div>
               </div>
-            </div>
-                      )}
+            )}
 
             {/* Account Information */}
             <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
@@ -318,7 +330,6 @@ const AdminDoctorViewComponent = () => {
 
                           {/* Approved By */}
                           {/* {history.approvedBy && ( */}
-                        
 
                           {/* Documents Uploaded */}
                           <div>
@@ -345,7 +356,14 @@ const AdminDoctorViewComponent = () => {
                                   <span className="text-sm font-medium text-slate-700 flex-1">
                                     Document
                                   </span>
-                                  <button onClick={()=>showDocumentModal(history.documentUrl as string)} className="text-blue-600 hover:text-blue-700 text-xs font-medium">
+                                  <button
+                                    onClick={() =>
+                                      showDocumentModal(
+                                        history.documentUrl as string,
+                                      )
+                                    }
+                                    className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                                  >
                                     View
                                   </button>
                                 </div>
@@ -360,119 +378,122 @@ const AdminDoctorViewComponent = () => {
               </div>
             )}
           </div>
-        {/* Sidebar Actions */}
-        <div className="space-y-4">
-          {/* Approval Actions */}
-          {doctor.verificationStatus === "pending" && (
-            <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-              <h3 className="font-bold text-slate-900">Verification Actions</h3>
-              <p className="text-sm text-slate-600">
-                Review the doctor's credentials and approve or reject their
-                application.
-              </p>
-              {doctor.additionalInfo && (
-                <p className="text-slate-500">
-                Additional Info : <span className="text-black">{doctor.additionalInfo}</span>
+          {/* Sidebar Actions */}
+          <div className="space-y-4">
+            {/* Approval Actions */}
+            {doctor.verificationStatus === "pending" && (
+              <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
+                <h3 className="font-bold text-slate-900">
+                  Verification Actions
+                </h3>
+                <p className="text-sm text-slate-600">
+                  Review the doctor's credentials and approve or reject their
+                  application.
                 </p>
-              )}
-              <div className="space-y-3">
-                <ClayButton
-                  variant="primary"
-                  size="sm"
-                  onClick={() => handleDoctorApproval(DOCTOR_STATUS.APPROVED)}
-                  // disabled={isLoading}
-                  className="w-full "
+                {doctor.additionalInfo && (
+                  <p className="text-slate-500">
+                    Additional Info :{" "}
+                    <span className="text-black">{doctor.additionalInfo}</span>
+                  </p>
+                )}
+                <div className="space-y-3">
+                  <ClayButton
+                    variant="primary"
+                    size="sm"
+                    onClick={() => handleDoctorApproval(DOCTOR_STATUS.APPROVED)}
+                    // disabled={isLoading}
+                    className="w-full "
                   >
-                  ✓ Approve Doctor
-                </ClayButton>
-                <ClayButton
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDoctorApproval(DOCTOR_STATUS.REJECTED)}
-                  // disabled={isLoading}
-                  className="w-full"
+                    ✓ Approve Doctor
+                  </ClayButton>
+                  <ClayButton
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleDoctorApproval(DOCTOR_STATUS.REJECTED)}
+                    // disabled={isLoading}
+                    className="w-full"
                   >
-                  ✗ Reject Doctor
-                </ClayButton>
+                    ✗ Reject Doctor
+                  </ClayButton>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Block/Unblock Actions */}
-          <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-            <h3 className="font-bold text-slate-900 flex items-center gap-2">
-              <Lock className="w-4 h-4" />
-              Account Controls
-            </h3>
-            <button
-              onClick={handleToggleBlock}
-              // disabled={isLoading}
-              className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-colors disabled:opacity-50 ${
-                !doctor.isBlocked
-                ? "bg-red-50 text-red-700 border border-red-200 hover:bg-red-100"
-                : "bg-green-50 text-green-700 border border-green-200 hover:bg-green-100"
-              }`}
-              >
-              {!doctor.isBlocked ? (
-                <>
-                  <Lock className="w-4 h-4" />
-                  Block Doctor
-                </>
-              ) : (
-                <>
-                  <Unlock className="w-4 h-4" />
-                  Unblock Doctor
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Status Card */}
-          <div
-            className={`rounded-lg border p-6 space-y-3 ${
-              doctor.verificationStatus === "pending"
-              ? "bg-yellow-50 border-yellow-200"
-              : doctor.verificationStatus === "approved"
-              ? "bg-green-50 border-green-200"
-              : "bg-red-50 border-red-200"
-            }`}
-            >
-            <div className="flex items-center gap-2">
-              {doctor.verificationStatus === "approved" && (
-                <CheckCircle className="w-5 h-5 text-green-600" />
-              )}
-              {doctor.verificationStatus === "pending" && (
-                <AlertCircle className="w-5 h-5 text-yellow-600" />
-              )}
-              {doctor.verificationStatus === "rejected" && (
-                <AlertCircle className="w-5 h-5 text-red-600" />
-              )}
-              <h3 className="font-bold text-slate-900">
-                {doctor.verificationStatus === "approved"
-                  ? "Verification Approved"
-                  : doctor.verificationStatus === "pending"
-                  ? "Pending Verification"
-                    : "Verification Rejected"}
+            {/* Block/Unblock Actions */}
+            <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
+              <h3 className="font-bold text-slate-900 flex items-center gap-2">
+                <Lock className="w-4 h-4" />
+                Account Controls
               </h3>
-            </div>
-            <p
-              className={`text-sm ${
-                doctor.verificationStatus === "pending"
-                ? "text-yellow-700"
-                : doctor.verificationStatus === "approved"
-                ? "text-green-700"
-                : "text-red-700"
-              }`}
+              <button
+                onClick={handleToggleBlock}
+                // disabled={isLoading}
+                className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-colors disabled:opacity-50 ${
+                  !doctor.isBlocked
+                    ? "bg-red-50 text-red-700 border border-red-200 hover:bg-red-100"
+                    : "bg-green-50 text-green-700 border border-green-200 hover:bg-green-100"
+                }`}
               >
-              {doctor.verificationStatus === "approved"
-                ? "This doctor has been verified and approved."
-                : doctor.verificationStatus === "pending"
-                ? "Waiting for admin verification."
-                  : "This doctor application has been rejected."}
-            </p>
+                {!doctor.isBlocked ? (
+                  <>
+                    <Lock className="w-4 h-4" />
+                    Block Doctor
+                  </>
+                ) : (
+                  <>
+                    <Unlock className="w-4 h-4" />
+                    Unblock Doctor
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Status Card */}
+            <div
+              className={`rounded-lg border p-6 space-y-3 ${
+                doctor.verificationStatus === "pending"
+                  ? "bg-yellow-50 border-yellow-200"
+                  : doctor.verificationStatus === "approved"
+                    ? "bg-green-50 border-green-200"
+                    : "bg-red-50 border-red-200"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {doctor.verificationStatus === "approved" && (
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                )}
+                {doctor.verificationStatus === "pending" && (
+                  <AlertCircle className="w-5 h-5 text-yellow-600" />
+                )}
+                {doctor.verificationStatus === "rejected" && (
+                  <AlertCircle className="w-5 h-5 text-red-600" />
+                )}
+                <h3 className="font-bold text-slate-900">
+                  {doctor.verificationStatus === "approved"
+                    ? "Verification Approved"
+                    : doctor.verificationStatus === "pending"
+                      ? "Pending Verification"
+                      : "Verification Rejected"}
+                </h3>
+              </div>
+              <p
+                className={`text-sm ${
+                  doctor.verificationStatus === "pending"
+                    ? "text-yellow-700"
+                    : doctor.verificationStatus === "approved"
+                      ? "text-green-700"
+                      : "text-red-700"
+                }`}
+              >
+                {doctor.verificationStatus === "approved"
+                  ? "This doctor has been verified and approved."
+                  : doctor.verificationStatus === "pending"
+                    ? "Waiting for admin verification."
+                    : "This doctor application has been rejected."}
+              </p>
+            </div>
           </div>
         </div>
-                </div>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export const useDoctorPendingApproval = () => {
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: zodResolver(doctorVerificationSchema) });
-  const {mutate, isPending,} = useDoctorResubmitVerificationMutation()
+  const { mutate, isPending } = useDoctorResubmitVerificationMutation();
   const {
     verification_history = [],
     verification_status,
@@ -29,9 +29,9 @@ export const useDoctorPendingApproval = () => {
     open(ViewPDFModal, { title: "View Document", file: url });
   };
 
-  const onSubmit  = (data : DoctorVerificationFormData) => {
-    mutate(data)
-  }
+  const onSubmit = (data: DoctorVerificationFormData) => {
+    mutate(data);
+  };
 
   return {
     register,

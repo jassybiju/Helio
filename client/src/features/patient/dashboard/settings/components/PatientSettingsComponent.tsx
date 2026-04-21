@@ -15,7 +15,6 @@ import {
 import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
 import { useModal } from "@/src/hooks/useModal";
 import UpdatePatientProfileModal from "../../components/UpdatePatientProfileModal";
-import { ConfirmModal } from "@/src/components/ConfirmModal";
 
 const PatientSettingsComponent = () => {
   const { data, isLoading } = useGetPatientQuery();
@@ -24,7 +23,7 @@ const PatientSettingsComponent = () => {
   const { mutate: addCondition } = useAddConditionMutation();
   const { mutate: removeCondition } = useRemoveConditionMutation();
   const { mutate: changePassword } = useChangePasswordMutation();
-  const {open} = useModal()
+  const { open } = useModal();
   const PERSON = data?.data ?? ({} as PatientProfileType);
 
   const [allergyInput, setAllergyInput] = useState("");
@@ -43,14 +42,11 @@ const PatientSettingsComponent = () => {
     confirm: false,
   });
 
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
   if (isLoading) return null;
 
-  const handleUpdateModel = ()=> {
- 
-    open(UpdatePatientProfileModal, {patientData : PERSON,a : 'hi'})
-  }
+  const handleUpdateModel = () => {
+    open(UpdatePatientProfileModal, { patientData: PERSON, a: "hi" });
+  };
 
   const handleAddAllergy = () => {
     if (allergyInput.trim()) {
@@ -214,7 +210,10 @@ const PatientSettingsComponent = () => {
           </div>
         </div>
 
-        <button onClick={handleUpdateModel} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full">
+        <button
+          onClick={handleUpdateModel}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full"
+        >
           Update Profile
         </button>
       </div>
