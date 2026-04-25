@@ -12,7 +12,9 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./mongo-keyfile:/etc/mongo-keyfile
+      - type: bind
+        source: ./mongo-keyfile
+        target: /etc/mongo-keyfile      
       - mongo_data:/data/db
 
   redis:

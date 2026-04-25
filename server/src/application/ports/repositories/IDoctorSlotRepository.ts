@@ -42,5 +42,5 @@ export interface IDoctorSlotRepository {
    * @param doctorId string
    * @param date Date
    */
-  findAllByDoctorAndDay(doctorId : string, date : Date) : Promise<DoctorSlot[]>
+  findAllByDoctorAndDay(doctorId: string, date: Date): Promise<DoctorSlot[]>;
 }

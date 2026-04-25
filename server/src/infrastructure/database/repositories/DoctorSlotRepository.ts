@@ -121,16 +121,25 @@ export class DoctorSlotRepository
     }
   }
 
-  async findAllByDoctorAndDay(doctorId: string, date: Date): Promise<DoctorSlot[]> {
-    try{
-      this._logger.info("Fetching Doctor Sltos", {doctorId, date})
-      let startTime = new Date(date).setHours(0,0,0,0)
-      let endTime = new Date(date).setHours(24, 60,60,1000)
-      return await super.find({doctorId, start_time : {$gte : startTime, $lte : endTime}},{},DoctorSlotMapper.toDomain)
-    }catch(error){
-      this._logger.error("Error fetching",{error, doctorId, date})
-      throw new AppError("Error Fetching DoctorSlots", HTTPStatus.INTERNAL_ERROR);
-
+  async findAllByDoctorAndDay(
+    doctorId: string,
+    date: Date
+  ): Promise<DoctorSlot[]> {
+    try {
+      this._logger.info("Fetching Doctor Sltos", { doctorId, date });
+      let startTime = new Date(date).setHours(0, 0, 0, 0);
+      let endTime = new Date(date).setHours(24, 60, 60, 1000);
+      return await super.find(
+        { doctorId, start_time: { $gte: startTime, $lte: endTime } },
+        {},
+        DoctorSlotMapper.toDomain
+      );
+    } catch (error) {
+      this._logger.error("Error fetching", { error, doctorId, date });
+      throw new AppError(
+        "Error Fetching DoctorSlots",
+        HTTPStatus.INTERNAL_ERROR
+      );
     }
   }
 }

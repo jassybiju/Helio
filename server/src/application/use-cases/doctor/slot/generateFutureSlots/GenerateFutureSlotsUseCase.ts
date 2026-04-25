@@ -31,8 +31,8 @@ export class GenerateFutureSlotsUseCase implements IGenerateFutureSlotsUseCase {
     targetDate.setDate(today.getDate() + 7);
 
     const dayName = jsToEnumDay[targetDate.getDay()]!;
-    const dayStart = new Date(targetDate)
-    dayStart.setHours(0,0,0,0)
+    const dayStart = new Date(targetDate);
+    dayStart.setHours(0, 0, 0, 0);
     for (const doctor of doctors) {
       try {
         // Find that weekday's schedule
@@ -45,27 +45,33 @@ export class GenerateFutureSlotsUseCase implements IGenerateFutureSlotsUseCase {
           continue;
         }
 
-        const existingSlots = await this._slotRepo.findAllByDoctorAndDay(doctor.id, dayStart)
+        const existingSlots = await this._slotRepo.findAllByDoctorAndDay(
+          doctor.id,
+          dayStart
+        );
 
-        const existingSets = new Set(existingSlots.map(s => `${s.doctorId}_${s.shiftId}_${s.startTime.toISOString()}`))
+        const existingSets = new Set(
+          existingSlots.map(
+            (s) => `${s.doctorId}_${s.shiftId}_${s.startTime.toISOString()}`
+          )
+        );
 
-        let allSlots = []
+        let allSlots = [];
 
         for (let shift of shifts) {
           const slots = this._slotGen.generateSlots(shift, targetDate);
 
           if (!slots || slots.length == 0) continue;
 
-          const filteredSlots = slots.filter(slot =>{
-            const key = `${slot.doctorId}_${slot.shiftId}_${slot.startTime.toISOString()}`
-            return !existingSets.has(key)
-          })
+          const filteredSlots = slots.filter((slot) => {
+            const key = `${slot.doctorId}_${slot.shiftId}_${slot.startTime.toISOString()}`;
+            return !existingSets.has(key);
+          });
 
-          allSlots.push(...filteredSlots)
+          allSlots.push(...filteredSlots);
         }
-        if(allSlots.length > 0){
+        if (allSlots.length > 0) {
           await this._slotRepo.bulkInsert(allSlots);
-
         }
       } catch (error) {
         console.log(error);
