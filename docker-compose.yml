@@ -4,13 +4,15 @@ services:
   mongo:
     image: mongo:6
     container_name: mongo_db
-    command: ["mongod", "--quiet"]
+    command: mongod --replSet rs0 --bind_ip_all --keyFile /etc/mongo-keyfile
+
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret
     ports:
-     - "27017:27017"
+      - "27017:27017"
     volumes:
+      - ./mongo-keyfile:/etc/mongo-keyfile
       - mongo_data:/data/db
 
   redis:
@@ -26,7 +28,7 @@ services:
       target: base
     volumes:
       - ./server:/home/node/app
-      - /home/node/app/node_modules
+      - backend_node_modules:/home/node/app/node_modules
     container_name: backend
     env_file:
       - ./server/.env
@@ -40,20 +42,25 @@ services:
       - mongo
 
   frontend:
-    build: 
+    build:
       context: ./client
       dockerfile: Dockerfile
       target: base
     volumes:
       - ./client:/home/next/
-      - /home/next/node_modules
-    container_name: frontend
+      - frontend_node_modules:/home/next/node_modules
     ports:
       - '3000:3000'
     command: sh -c "npm run eslint-fix && npm run dev"
     depends_on:
       - backend
 
-
 volumes:
   mongo_data:
+    name: my_mongo_data
+
+  backend_node_modules:
+    name: backend_node_modules
+
+  frontend_node_modules:
+    name: frontend_node_modules

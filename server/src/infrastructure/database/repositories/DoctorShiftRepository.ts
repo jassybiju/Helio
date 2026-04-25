@@ -10,13 +10,20 @@ import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import { DoctorShiftMapper } from "../../../mappers/DoctorShiftMapper.ts";
+import type { ClientSession } from "mongoose";
 
 export class DoctorShiftRepository
   extends BaseRepository<DoctorShift, DoctorShiftDoc>
   implements IDoctorShiftRepository
 {
-  constructor(private readonly _loggerService: ILogger) {
-    super(doctorShiftModel);
+  constructor(
+    private readonly _loggerService: ILogger,
+    session: ClientSession | null = null
+  ) {
+    super(doctorShiftModel, session);
+  }
+  withSession(session: ClientSession) {
+    return new DoctorShiftRepository(this._loggerService, session);
   }
 
   async findById(id: string): Promise<DoctorShift | null> {
@@ -51,7 +58,7 @@ export class DoctorShiftRepository
       );
     }
   }
-  async findByDoctorAndDay(
+  async findAllByDoctorAndDay(
     doctorId: string,
     day: DAY_OF_WEEK
   ): Promise<DoctorShift[]> {

@@ -5,7 +5,7 @@ const doctorShiftSchema = new Schema({
   doctor_id: { type: String, required: true },
   day_of_week: {
     type: String,
-    enum: ["MON", "TUE", "WED", "THUR", "FRI", "SAT", "SUN"],
+    enum: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
     required: true,
   },
   start_time: { type: String, required: true },
@@ -19,7 +19,7 @@ const doctorShiftSchema = new Schema({
   slot_interval_in_minutes: { type: Number, required: true },
   capacity_per_slot: { type: Number, required: true },
   created_at: { type: Date, required: true },
-  is_deleted : {type : Boolean, default : false}
+  is_deleted: { type: Boolean, default: false },
 });
 
 export const doctorShiftModel = model("DoctorShiftModel", doctorShiftSchema);

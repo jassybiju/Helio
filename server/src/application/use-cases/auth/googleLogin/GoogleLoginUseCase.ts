@@ -87,7 +87,7 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       if (!existingDoctor.hasGoogleId) {
         existingDoctor.linkGoogleId(googleUser.googleId);
       }
-      console.log(isNew)
+      console.log(isNew);
       // saving the doctor
       if (isNew) {
         await this._doctorRepo.create(existingDoctor);

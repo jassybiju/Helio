@@ -14,6 +14,7 @@ import { useLogout } from "@/src/features/auth/hooks/useLogout";
 const menuItems = [
   { label: "Dashboard", href: "/", icon: LayoutGrid },
   { label: "Schedule", href: "/schedule", icon: LayoutGrid },
+  { label: "Slot", href: "/slot", icon: LayoutGrid },
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 

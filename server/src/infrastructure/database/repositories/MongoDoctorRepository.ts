@@ -11,14 +11,21 @@ import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { doctorModel, type DoctorDoc } from "../model/DoctorModel.ts";
 import { DoctorMapper } from "../../../mappers/DoctorMapper.ts";
 import { BaseRepository } from "./BaseRepository.ts";
-import type { QueryFilter } from "mongoose";
+import type { ClientSession, QueryFilter } from "mongoose";
 
 export class MongoDoctorRepository
   extends BaseRepository<Doctor, DoctorDoc>
   implements IDoctorRepository
 {
-  constructor(private readonly _loggerService: ILogger) {
-    super(doctorModel);
+  constructor(
+    private readonly _loggerService: ILogger,
+    session: ClientSession | null = null
+  ) {
+    super(doctorModel, session);
+  }
+
+  withSession(session: ClientSession) {
+    return new MongoDoctorRepository(this._loggerService, session);
   }
 
   async findByEmail(email: Email): Promise<Doctor | null> {
@@ -133,9 +140,27 @@ export class MongoDoctorRepository
       throw new AppError("Failed to Fetch Doctor", HTTPStatus.INTERNAL_ERROR);
     }
   }
+
   async countDoctors(specialization: string) {
     try {
       return await doctorModel.find({ specialization }).countDocuments();
+    } catch (error) {
+      this._loggerService.error("failed to fetch");
+      throw new AppError("Failed to Fetch", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
+
+  async findAllActive(): Promise<Doctor[]> {
+    try {
+      return await super.find(
+        {
+          is_blocked: false,
+          verification_status: "approved",
+          is_deleted: false,
+        },
+        {},
+        DoctorMapper.toDomain
+      );
     } catch (error) {
       this._loggerService.error("failed to fetch");
       throw new AppError("Failed to Fetch", HTTPStatus.INTERNAL_ERROR);

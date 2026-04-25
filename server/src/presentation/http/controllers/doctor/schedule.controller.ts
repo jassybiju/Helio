@@ -12,7 +12,7 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import type { IGetDoctorScheduleUseCase } from "@application/ports/use-cases/doctor/schedule/IGetDoctorScheduleUseCase.ts";
-import { GetDoctorScheduleMapper } from "@application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleMapper.tsx";
+import { GetDoctorScheduleMapper } from "@application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleMapper.ts";
 import type { IDeleteDoctorScheduleUseCase } from "@application/ports/use-cases/doctor/schedule/IDeleteDoctorScheduleUseCase.ts";
 
 export class DoctorScheduleController {

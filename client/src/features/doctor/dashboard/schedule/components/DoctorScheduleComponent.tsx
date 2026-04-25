@@ -242,9 +242,8 @@ const DoctorScheduleComponent = () => {
               </div>
               <div className="mt-2 flex items-center gap-2">
                 <input
-                  type="number"
+                  
                   min={5}
-                  max={120}
                   placeholder="Custom"
                   value={
                     [15, 30, 45, 60].includes(watchDuration)

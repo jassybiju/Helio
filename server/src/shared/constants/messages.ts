@@ -44,9 +44,8 @@ export enum MESSAGE {
   //schedule
   DOC_SCHEDULE_NOT_FOUND = "Doctor Schedule Not found",
   DOC_SCHEDULE_MIS_MATCH = "Schedule doesnt belong to this Doctor",
-
-  //doctorSchedule
   DOCTOR_SHEDULE_OVERLAP_ERROR = "Doctor Schedule Overlaps existing schedules",
+  DOC_SLOT_GET = "Doctor Slots Get Success",
 
   // admin patient
   PATIENT_FETCH_SUCCESS = "Patients Fetched Successfully",

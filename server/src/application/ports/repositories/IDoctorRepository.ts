@@ -1,5 +1,6 @@
 import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
+import type { ClientSession } from "mongoose";
 
 export interface IDoctorFilters {
   search?: string | undefined;
@@ -21,5 +22,12 @@ export interface IDoctorRepository {
   findAllWithFilters(
     params: IDoctorFilters
   ): Promise<{ doctors: Doctor[]; totalCount: number }>;
+
+  /**
+   * Finds all active doctors
+   */
+  findAllActive(): Promise<Doctor[]>;
   countDoctors(speciailziation: string): Promise<number>;
+
+  withSession(session: ClientSession): IDoctorRepository;
 }

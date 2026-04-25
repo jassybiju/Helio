@@ -90,10 +90,10 @@ const doctorSchema = new Schema(
     google_id: {
       type: String,
     },
-    is_deleted : {
-      default : false,
-      type : Boolean
-    }
+    is_deleted: {
+      default: false,
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
@@ -104,12 +104,16 @@ export const doctorModel = model("DoctorModel", doctorSchema);
 
 export type DoctorDoc = InferSchemaType<typeof doctorSchema>;
 
+type VerificationStatus = InferSchemaType<
+  typeof doctorSchema
+>["verification_status"];
+
 export type DoctorRawDoc = Omit<
   InferSchemaType<typeof doctorSchema>,
   "verification_history"
 > & {
   verification_history: {
-    status: DOCTOR_VERIFICATION_STATUS;
+    status: VerificationStatus;
     reason: string | null;
     document_key: string | null;
     acted_at: Date;

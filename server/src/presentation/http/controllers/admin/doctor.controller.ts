@@ -16,6 +16,7 @@ import { GetAllDoctorMapper } from "@application/use-cases/admin/doctor/getAllDo
 import type { IGetDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IGetDoctorUseCase.ts";
 import { GetDoctorMapper } from "@application/use-cases/admin/doctor/getDoctor/GetDoctorMapper.ts";
 import type { IToggleBlockDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IToggleBlockDoctorUseCase.ts";
+import type { IChangeDoctorApprovalStatusRequestDTO } from "@application/use-cases/admin/doctor/changeDoctorApprovalStatus/IChangeDoctorApprovalStatusDTO.ts";
 
 export class AdminDoctorController {
   constructor(
@@ -106,7 +107,7 @@ export class AdminDoctorController {
         );
       }
       const response = await this._changeDoctorApprovalStatusUseCase.execute(
-        parsed.data,
+        parsed.data as IChangeDoctorApprovalStatusRequestDTO,
         doctorId
       );
 

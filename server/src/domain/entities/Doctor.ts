@@ -39,8 +39,7 @@ export class Doctor {
       documentKey: string | null;
       actedAt: Date;
     }[] = [],
-    private readonly _isDeleted : boolean = false
-
+    private readonly _isDeleted: boolean = false
   ) {
     if (
       this._careerStartYear &&
@@ -382,5 +381,9 @@ export class Doctor {
 
   get updatedAt() {
     return this._updatedAt;
+  }
+
+  get isDeleted() {
+    return this._isDeleted;
   }
 }

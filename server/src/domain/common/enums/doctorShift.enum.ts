@@ -2,7 +2,7 @@ export enum DAY_OF_WEEK {
   "MON" = "MON",
   "TUE" = "TUE",
   WED = "WED",
-  THUR = "THUR",
+  THU = "THU",
   FRI = "FRI",
   SAT = "SAT",
   SUN = "SUN",

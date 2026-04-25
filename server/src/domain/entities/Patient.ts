@@ -36,7 +36,7 @@ export class Patient {
 
     private readonly _createdAt: Date,
     private readonly _updatedAt: Date,
-    private readonly _isDeleted : boolean = false
+    private readonly _isDeleted: boolean = false
   ) {
     if (this._phone && this._phone.length < 9) {
       throw new AppError(
@@ -148,8 +148,8 @@ export class Patient {
     return !!this._googleId;
   }
 
-  get googleId(){
-    return this._googleId
+  get googleId() {
+    return this._googleId;
   }
 
   get id() {
@@ -179,8 +179,8 @@ export class Patient {
     return this._gender;
   }
 
-  get isDeleted(){
-    return this._isDeleted
+  get isDeleted() {
+    return this._isDeleted;
   }
 
   get bloodGroup() {

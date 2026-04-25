@@ -1,5 +1,6 @@
 import type { DAY_OF_WEEK } from "@domain/common/enums/doctorShift.enum.ts";
 import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
+import type { ClientSession } from "mongoose";
 
 export interface IDoctorShiftRepository {
   /**
@@ -13,7 +14,7 @@ export interface IDoctorShiftRepository {
    * @param doctorId Doctor Id
    * @param day Day of a week instance of DAY_OF_WEEk
    */
-  findByDoctorAndDay(
+  findAllByDoctorAndDay(
     doctorId: string,
     day: DAY_OF_WEEK
   ): Promise<DoctorShift[]>;
@@ -37,4 +38,6 @@ export interface IDoctorShiftRepository {
    * @param shiftId Shift Id string
    */
   delete(shiftId: string): Promise<void>;
+
+  withSession(session: ClientSession): IDoctorShiftRepository;
 }

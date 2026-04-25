@@ -104,4 +104,7 @@ export class DoctorShift {
   get createdAt() {
     return this._createdAt;
   }
+  get isDeleted() {
+    return this._isDeleted;
+  }
 }

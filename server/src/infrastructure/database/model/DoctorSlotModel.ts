@@ -5,14 +5,26 @@ const doctorSlotSchema = new Schema({
   shift_id: { type: String, required: true },
   doctor_id: { type: String, required: true },
   appointment_id: { type: String, default: null },
-  startTime: { type: String, required: true },
-  endTime: { type: String, required: true },
-  consultation_type: { enum: ["ONLINE", "OFFLINE"], required: true },
-  status: { enum: ["AVAILABLE", "BOOKED", "CANCELLED"], required: true },
+  start_time: { type: Date, required: true },
+  end_time: { type: Date, required: true },
+  consultation_type: {
+    type: String,
+    enum: ["ONLINE", "OFFLINE"],
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ["AVAILABLE", "BOOKED", "CANCELLED"],
+    required: true,
+  },
   created_at: { type: Date, required: true },
-    is_deleted : {type : Boolean, default : false}
-
+  is_deleted: { type: Boolean, default: false },
 });
+
+// doctorSlotSchema.index(
+//   { doctor_id: 1, start_time: 1, shift_id: 1 },
+//   { unique: true, partialFilterExpression: { is_deleted: false } }
+// );
 
 export const doctorSlotModel = model("DoctorSlotModel", doctorSlotSchema);
 

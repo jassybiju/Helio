@@ -25,7 +25,7 @@ export class DoctorMapper {
       raw.additional_info as string,
       raw.online_fee as number,
       raw.clinic_fee as number,
-      raw.googleId as string,
+      raw.google_id as string,
       raw.is_verified,
       raw.is_blocked,
       raw.createdAt,
@@ -39,7 +39,7 @@ export class DoctorMapper {
     );
   }
 
-  static toPersistance(doctor: Doctor): DoctorRawDoc {
+  static toPersistance(doctor: Doctor): Partial<DoctorDoc> {
     console.log(doctor.id);
     return {
       _id: doctor.id,
@@ -70,6 +70,7 @@ export class DoctorMapper {
         document_key: x.documentKey,
         acted_at: x.actedAt,
       })),
+      is_deleted: doctor.isDeleted,
     };
   }
 }

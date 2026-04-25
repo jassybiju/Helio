@@ -33,8 +33,8 @@ export class PatientMapper {
       condition: t.conditions,
       createdAt: t.createdAt,
       updatedAt: t.updatedAt,
-      google_id : t.googleId,
-      is_deleted : t.isDeleted
+      google_id: t.googleId,
+      is_deleted: t.isDeleted,
     };
   }
 

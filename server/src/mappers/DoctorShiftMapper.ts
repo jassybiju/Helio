@@ -9,7 +9,7 @@ export class DoctorShiftMapper {
   static toDomain(raw: {
     _id: string;
     doctor_id: string;
-    day_of_week: "MON" | "TUE" | "WED" | "THUR" | "FRI" | "SAT" | "SUN";
+    day_of_week: "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
     start_time: string;
     end_time: string;
     consultation_type: "ONLINE" | "CLINIC";
@@ -17,6 +17,7 @@ export class DoctorShiftMapper {
     capacity_per_slot: number;
     created_at: Date;
     location?: string | null;
+    is_deleted: boolean;
   }): DoctorShift {
     return new DoctorShift(
       raw._id,
@@ -28,14 +29,15 @@ export class DoctorShiftMapper {
       raw.location ?? null,
       raw.slot_interval_in_minutes,
       raw.capacity_per_slot,
-      raw.created_at
+      raw.created_at,
+      raw.is_deleted
     );
   }
 
   static toPersistance(t: DoctorShift): {
     _id: string;
     doctor_id: string;
-    day_of_week: "MON" | "TUE" | "WED" | "THUR" | "FRI" | "SAT" | "SUN";
+    day_of_week: "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
     start_time: string;
     end_time: string;
     consultation_type: "ONLINE" | "CLINIC";
@@ -43,6 +45,7 @@ export class DoctorShiftMapper {
     capacity_per_slot: number;
     created_at: NativeDate;
     location?: string | null;
+    is_deleted: boolean;
   } {
     return {
       _id: t.shiftId,
@@ -55,6 +58,7 @@ export class DoctorShiftMapper {
       capacity_per_slot: t.capacityPerSlot,
       location: t.location,
       created_at: t.createdAt,
+      is_deleted: t.isDeleted,
     };
   }
 }

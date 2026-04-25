@@ -58,6 +58,10 @@ export class Time {
     return this._mins;
   }
 
+  /**
+   *
+   * @returns String representation to the time eg : HH:MM
+   */
   toString() {
     return `${this._hours.toString().padStart(2, "0")}:${this._mins.toString().padStart(2, "0")}`;
   }
