@@ -1,0 +1,10 @@
+export enum WALLET_TYPE {
+  CREDIT = "CREDIT",
+  DEBIT = "DEBIT",
+}
+
+export enum TRANSACTION_STATUS {
+  PENDING = "PENDING",
+  COMPLETED = "COMPLETED",
+  FAILED = "FAILED",
+}

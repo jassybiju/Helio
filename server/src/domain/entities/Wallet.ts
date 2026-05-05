@@ -17,6 +17,13 @@ export class Wallet {
 
   debit(amount : number){
     this._balance -= amount
-
   }
+
+  get id() {return this._id}
+  get userId() {return this._userId}
+  get userRole() {return this._userRole}
+  get balance() {return this._balance}
+  get createdAt() {return this._createdAt}
+  get updatedAt() {return this._updatedAt}
+
 }
