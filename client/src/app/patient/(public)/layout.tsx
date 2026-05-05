@@ -11,7 +11,7 @@ const PatientPublicLayout = ({ children }: PatientPublicLayoutProps) => {
       <Navbar>
         <nav className="hidden md:flex items-center gap-8">
           <a
-            href="#"
+            href="/search"
             className="text-slate-700 hover:text-slate-900 font-medium text-sm"
           >
             Find a Doctor

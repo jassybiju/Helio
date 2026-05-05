@@ -6,6 +6,7 @@ import ClayButton from "./ui/ClayButton";
 import { useLogout } from "../features/auth/hooks/useLogout";
 import { useAuth } from "../features/auth/hooks/useAuth";
 import { Bell, ChevronDown } from "lucide-react";
+import { USER_ROLES } from "../types/user.types";
 
 const UserAuthButtons = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -50,7 +51,7 @@ const UserAuthButtons = () => {
                     Home
                   </Link>
                   <Link
-                    href="/dashboard"
+                    href={data.user.role === USER_ROLES.PATIENT ? '/dashboard' : "/"}
                     className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
                   >
                     Dashboard

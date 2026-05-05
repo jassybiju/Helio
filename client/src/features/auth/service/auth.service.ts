@@ -8,12 +8,10 @@ export const authService = {
       "/auth/get-me",
       HTTP_METHOD.GET,
     )) as APIResponse<USER_DATA>;
-    console.log(res);
     return res;
   },
 
   async logout() {
-    console.log("logged out");
     await apiRequest("/auth/logout", HTTP_METHOD.POST);
   },
 };

@@ -29,8 +29,9 @@ export function proxy(req: NextRequest) {
     );
     url.pathname = `/${subdomain}${url.pathname}`;
   }
-
+  console.log(url)
   if (url.pathname.startsWith("/")) return NextResponse.rewrite(url);
+  console.log(123)
 }
 
 export const config = {

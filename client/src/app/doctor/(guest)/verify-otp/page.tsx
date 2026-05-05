@@ -13,7 +13,6 @@ const DoctorVerifyOTPPage = async ({ searchParams }: Props) => {
   if (!id) {
     redirect("/doctor/register");
   }
-  console.log(expires);
   return <DoctorVerifyOTP id={id} expires={expires as string} />;
 };
 

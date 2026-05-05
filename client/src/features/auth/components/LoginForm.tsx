@@ -15,7 +15,6 @@ type PropType = {
 
 const LoginForm = ({ login, googleLogin }: PropType) => {
   const { handleSubmit, register, errors, isSubmitting } = useLogin({ login });
-  console.log(errors);
   return (
     <>
       {/* Form */}

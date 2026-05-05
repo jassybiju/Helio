@@ -19,8 +19,8 @@ import { ConfirmModal } from "@/src/components/ConfirmModal";
 const DoctorScheduleComponent = () => {
   const { mutate: setSchedule } = useSetScheduleMutation();
   const { data: schedulesData } = useGetScheduleQuery();
-  const {mutate : deleteSchedule} = useDeleteScheduleMutation()
-  const {open} = useModal()
+  const { mutate: deleteSchedule } = useDeleteScheduleMutation();
+  const { open } = useModal();
   const {
     register,
     handleSubmit,
@@ -31,7 +31,7 @@ const DoctorScheduleComponent = () => {
   } = useForm<SetDoctorScheduleFormData>({
     resolver: zodResolver(setDoctorScheduleSchema),
     defaultValues: {
-      dayOfWeek: DAY_OF_WEEK.MON,
+      dayOfWeek: [],
       startTime: "",
       endTime: "",
       consultationType: "ONLINE",
@@ -44,20 +44,43 @@ const DoctorScheduleComponent = () => {
   const watchType = useWatch({ control, name: "consultationType" });
   const watchDuration = useWatch({ control, name: "slotIntervalInMinutes" });
 
+  const selectedDays = useWatch({control, name : "dayOfWeek"});
+
+  const toggleDay = (day: DAY_OF_WEEK) => {
+    if (selectedDays.includes(day)) {
+      setValue(
+        "dayOfWeek",
+        selectedDays.filter((d) => d !== day),
+      );
+    } else {
+      setValue("dayOfWeek", [...selectedDays, day]);
+    }
+  };
+
   const onSubmit = (formData: SetDoctorScheduleFormData) => {
     setSchedule(formData, {
       onSuccess: () => {
         // setSlots((prev) => [...prev, data]);
         reset();
       },
-      onError: () => {
-        alert("Failed to create slot. Please try again.");
-      },
     });
   };
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   const handleDeleteSlot = (id: string) => {
-    open(ConfirmModal, {title : "Confirm Delete Schedule",message :"Are you sure you want to delete", onConfirm: ()=>deleteSchedule(id)})
+    open(ConfirmModal, {
+      title: "Confirm Delete Schedule",
+      message: "Are you sure you want to delete",
+      onConfirm: () => deleteSchedule(id),
+    });
   };
 
   const column: ColumnType<IGetDoctorScheduleDTO> = [
@@ -142,7 +165,7 @@ const DoctorScheduleComponent = () => {
               <label className="text-sm font-semibold text-slate-900 mb-2 block">
                 Day of Week
               </label>
-              <select
+              {/* <select
                 {...register("dayOfWeek")}
                 className="w-full px-4 py-3 border text-black border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -151,7 +174,29 @@ const DoctorScheduleComponent = () => {
                     {day}
                   </option>
                 ))}
-              </select>
+              </select> */}
+
+              {Object.values(DAY_OF_WEEK).map((day) => {
+                const isSelected = selectedDays.includes(day);
+
+                return (
+                  <button
+                    type="button"
+                    key={day}
+                    onClick={() => toggleDay(day)}
+                    style={{
+                      padding: "8px 12px",
+                      borderRadius: "8px",
+                      border: "1px solid",
+                      cursor: "pointer",
+                      backgroundColor: isSelected ? "#4f46e5" : "#fff",
+                      color: isSelected ? "#fff" : "#000",
+                    }}
+                  >
+                    {day.slice(0, 3)}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Start and End Time */}
@@ -242,7 +287,6 @@ const DoctorScheduleComponent = () => {
               </div>
               <div className="mt-2 flex items-center gap-2">
                 <input
-                  
                   min={5}
                   placeholder="Custom"
                   value={

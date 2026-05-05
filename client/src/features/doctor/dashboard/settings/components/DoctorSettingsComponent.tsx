@@ -52,7 +52,6 @@ const DoctorSettingsComponent = () => {
     return null;
   }
 
-  console.log(data.data.onlineFee);
   const handleUpdateFee = (formData: FeeFormData) => {
     updateFee({
       clinicFee: Number(formData.clinicFee),

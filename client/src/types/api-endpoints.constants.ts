@@ -33,10 +33,18 @@ export const API_ENDPOINT = {
       BASE: "/doctor/schedule",
       ID : (id : string)=>'/doctor/schedule/'+id
     },
+    SLOT : {
+      BASE : '/doctor/slot',
+      BLOCK : '/doctor/slot/block'
+    }
   },
   PATIENT: {
     PROFILE: {
       I: "/patient/profile/",
     },
+    DOCTOR : {
+      BASE : "/patient/doctors/",
+      ID : (id : string) => `/patient/doctors/${id}`
+    }
   },
 } as const;

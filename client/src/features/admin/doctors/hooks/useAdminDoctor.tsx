@@ -23,11 +23,9 @@ export const useAdminDoctor = () => {
 
   const doctors = data?.data.doctors ?? [];
   const totalCount = data?.data.totalCount;
-  console.log(totalCount! / limit);
   const totalPages = Math.ceil(totalCount! / limit);
 
   const handleToggleBlock = (row: Doctor) => {
-    console.log("hi");
     open(ConfirmModal, {
       patientName: row.fullName,
       currentStatus: row.status as "active" | "blocked",

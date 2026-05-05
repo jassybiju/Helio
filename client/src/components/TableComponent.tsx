@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 export type ColumnType<T> = {
   key: keyof T | string;
   title: string | React.ReactNode;
-  render?: (value: T[keyof T], row: T, data: T[]) => ReactNode;
+  render?: (value: T[keyof T], row: T, data: T[], index : number) => ReactNode;
 }[];
 
 type Props<T> = {
@@ -37,7 +37,7 @@ const TableComponent = <T,>({ data = [], columns }: Props<T>) => {
                 >
                   {columns.map((col, i2) => {
                     const value = col.render ? (
-                      col.render(row[col.key as keyof T], row, data)
+                      col.render(row[col.key as keyof T], row, data,i)
                     ) : (
                       <p>(row[col.key as keyof T])</p>
                     );

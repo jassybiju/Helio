@@ -16,7 +16,6 @@ export function BlockConfirmModal({
   currentStatus,
   onConfirm,
 }: BlockConfirmModalProps) {
-  console.log(123);
   const { open } = useModal();
   const isBlocking = currentStatus === "active";
 

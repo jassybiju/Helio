@@ -14,7 +14,6 @@ export function ConfirmModal({
   message,
   onConfirm,
 }: ConfirmModalProps) {
-  console.log(onConfirm);
   const handleConfirm = () => {
     onConfirm();
     close();

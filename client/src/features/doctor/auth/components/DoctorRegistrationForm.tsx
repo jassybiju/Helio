@@ -14,6 +14,7 @@ const DoctorRegistrationForm = () => {
     isSubmitting,
     submitError,
     submitSuccess,
+    specialization,
   } = useDoctorRegistration();
   return (
     <>
@@ -98,14 +99,17 @@ const DoctorRegistrationForm = () => {
           <label className="block text-sm font-semibold text-slate-900 mb-2">
             Specialization
           </label>
-          <Input
-            type="text"
-            placeholder="Cardiologist"
+          <select
             {...register("specialization")}
-            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+            className={`w-full px-4 py-3 border text-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
               errors.specialization ? "border-red-500" : "border-slate-200"
             }`}
-          />
+          >
+            <option value="">Select Specialization</option>
+            {specialization?.data?.map(x => (<option key={x.value} value={x.value}>
+              {x.label}
+            </option>))}
+          </select>
           {errors.specialization && (
             <p className="text-red-600 text-sm mt-1">
               {errors.specialization.message}

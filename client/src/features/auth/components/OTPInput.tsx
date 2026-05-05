@@ -26,7 +26,6 @@ const OTPInput = ({ value, onChange, length = 6 }: Props) => {
     onChange(newOTP);
 
     if (digit && index < length - 1) {
-      console.log(digit);
       inputRefs.current[index + 1]?.focus();
     }
   };

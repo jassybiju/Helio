@@ -14,7 +14,6 @@ type PropType = {
 };
 
 const ProtectedLayout = ({ children, role }: PropType) => {
-  console.log("PROTECTED LAYOUT");
   const { user, isLoading, isError } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -28,7 +27,7 @@ const ProtectedLayout = ({ children, role }: PropType) => {
       router.replace("/login");
       return;
     }
-
+    
     const currentSubdomain = getSubdomain();
     const expectedSubdomain = getExpectedSubdomain(user.role);
 
@@ -36,8 +35,12 @@ const ProtectedLayout = ({ children, role }: PropType) => {
       redirectToRole(user.role, pathname);
       return;
     }
-
-    if (!isProfileCompletePage && !user.isProfileComplete) {
+    if (user.role !== role) {
+      redirectToRole(user.role, "/");
+      return;
+    }
+    
+   if (!isProfileCompletePage && !user.isProfileComplete) {
       redirectToRole(user.role, "/profile-complete");
       return;
     }
@@ -48,15 +51,10 @@ const ProtectedLayout = ({ children, role }: PropType) => {
       user.status !== DOCTOR_STATUS.APPROVED &&
       !isPendingApprovalsPage
     ) {
-      console.log("REDIREECEREFJALDKFDSLFK");
       redirectToRole(user.role, "/pending-approval");
       return;
     }
-    if (user.role !== role) {
-      console.log("HITTTT");
-      redirectToRole(user.role, "/");
-      return;
-    }
+
   }, [
     isError,
     router,
@@ -90,7 +88,6 @@ const ProtectedLayout = ({ children, role }: PropType) => {
   }
 
   if (!user || user.role !== role) {
-    console.log("x");
     return null;
   }
 

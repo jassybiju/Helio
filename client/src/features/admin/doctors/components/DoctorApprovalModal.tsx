@@ -27,7 +27,6 @@ const DoctorApprovalModal = ({
     onConfirm(rejectionReason);
     close();
   };
-  console.log(status);
   return (
     <div className="p-6 w-full max-w-sm">
       {/* Icon */}

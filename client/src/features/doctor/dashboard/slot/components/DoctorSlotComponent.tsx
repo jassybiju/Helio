@@ -1,9 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { Trash2, Calendar, Clock, MapPin } from 'lucide-react'
-import { apiRequest } from '@/src/libs/axios.config'
-import { HTTP_METHOD } from '@/src/types/API.types'
+import {  Calendar, Clock } from 'lucide-react'
+import { useDoctorSlotQuery } from '../hooks/useDoctorSlotQuery'
 
 interface SlotItem {
   id: string
@@ -18,27 +16,11 @@ interface GroupedSlot {
   slots: SlotItem[]
 }
 
-type ApiResponse = Record<string, GroupedSlot[]>
 
 const DoctorSlotComponent = () => {
-  const [slotsByDay, setSlotsByDay] = useState<ApiResponse>({})
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchSlots = async () => {
-      try {
-        const json = await apiRequest('/doctor/slot', HTTP_METHOD.GET)
-        console.log(json)
-        setSlotsByDay(json?.data ?? {})
-      } catch (err) {
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchSlots()
-  }, [])
+  const {data , isLoading : loading} = useDoctorSlotQuery()
+  const slots = data?.data.slots
 
   const daysOrder = [
     'Monday',
@@ -82,17 +64,16 @@ const DoctorSlotComponent = () => {
       {/* Days */}
       <div className="space-y-10">
         {daysOrder.map((day) => {
-          const daySlots = slotsByDay[day]
-
-          if (!daySlots || daySlots.length === 0) return null
+          const daySlots = slots[day]!
+          if (!daySlots || daySlots?.length === 0) return null
 
           return (
             <div key={day}>
               {/* Day Header */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex text-black items-center gap-2 mb-4">
                 <Calendar className="w-5 h-5 text-slate-600" />
-                <h2 className="text-xl font-bold text-slate-900">
-                  {day} {new Date(daySlots[0]?.startTime).toLocaleDateString()}
+                <h2>
+                  {day} {new Date(daySlots?.startTime).toLocaleDateString()}
                 </h2>
               </div>
 
@@ -108,7 +89,7 @@ const DoctorSlotComponent = () => {
                       <div className="flex items-center gap-2 mb-1">
                         <Clock className="w-4 h-4 text-blue-600" />
                         <span className="text-sm text-slate-600">
-                          Time Slot
+                          Time Slot {group.startTime}
                         </span>
                       </div>
 
@@ -134,26 +115,24 @@ const DoctorSlotComponent = () => {
                     </div>
 
                     {/* Shift ID */}
-                    <p className="text-xs text-slate-500 mb-3">
-                      Shift: {group.shiftId}
-                    </p>
+                  
 
                     {/* Slot count */}
                     <div className="mb-3">
-                      <span className="px-2 py-1 text-xs bg-slate-100 rounded">
-                        {group.slots.length} slots
+                      <span className="px-2 py-1 text-xs bg-slate-100 text-black rounded">
+                        {group?.slots?.length} slots
                       </span>
                     </div>
 
                     {/* Slots */}
                     <div className="space-y-1">
-                      {group.slots.map((slot) => (
+                      {group.slots?.map((slot, i) => (
                         <div
-                          key={slot.id}
+                          key={i}
                           className="flex justify-between text-sm border-b pb-1"
                         >
                           <span className="text-slate-700">
-                            {slot.id}
+                            {i + 1}
                           </span>
 
                           <span
@@ -175,7 +154,7 @@ const DoctorSlotComponent = () => {
       </div>
 
       {/* Empty state */}
-      {Object.keys(slotsByDay).length === 0 && (
+      {Object.keys(slots).length === 0 && (
         <div className="text-center py-10 text-slate-500">
           No slots available
         </div>

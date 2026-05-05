@@ -11,12 +11,9 @@ type PropType = {
 };
 
 const GuestLayout = ({ children }: PropType) => {
-  console.log("REDIRECTED to GUEST");
   const { user, isLoading, isError } = useAuth();
-  console.log(user, isLoading, isError);
   const router = useRouter();
   useEffect(() => {
-    console.log("ISSUES");
     if (isLoading) return;
     if (isError || !user) {
       return;

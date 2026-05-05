@@ -12,8 +12,8 @@ export const patientRegisterSchema = z
     password: z.string().min(8, "Password must be atleast 8 characters"),
     confirmPassword: z.string(),
     gender: z.enum(
-      ["male", "female", "other"],
-      "Gender must be male , female or other",
+      ["Male", "Female", "Other"],
+      "Gender must be Male , Female or Other",
     ),
     dob: z
       .string()

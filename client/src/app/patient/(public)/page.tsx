@@ -6,7 +6,6 @@ import Link from "next/link";
 import React from "react";
 
 const page = () => {
-  console.log(1);
 
   return (
     <div className="min-h-screen w-full bg-white">

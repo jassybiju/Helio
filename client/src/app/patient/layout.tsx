@@ -1,7 +1,6 @@
 import React from "react";
 
 const PatientLayout = ({ children }: { children: React.ReactNode }) => {
-  console.log(1);
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {children}

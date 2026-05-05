@@ -33,7 +33,6 @@ export type PatientView = {
 };
 export const adminPatientService = {
   async getPatients(params?: PatientQueryParams) {
-    console.log(params);
     return (await apiRequest(
       "/admin/patient",
       HTTP_METHOD.GET,
@@ -42,7 +41,6 @@ export const adminPatientService = {
     )) as APIResponse<{ patients: Patients[]; totalCount: number }>;
   },
   async togglePatient(userId: string) {
-    console.log("toggled");
     return await apiRequest(
       `/admin/patient/${userId}/status`,
       HTTP_METHOD.PATCH,

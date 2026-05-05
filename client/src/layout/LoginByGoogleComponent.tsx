@@ -18,11 +18,10 @@ const LoginByGoogleComponent = ({
     credientialResponse: CredentialResponse,
   ) => {
     try {
-      console.log("Token:", credientialResponse);
       await googleLogin(credientialResponse.credential!);
+      toast.success('Google Login Success')
     } catch (error) {
       toast.error("Google Login Error")
-      console.log(error);
     }
   };
   console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);

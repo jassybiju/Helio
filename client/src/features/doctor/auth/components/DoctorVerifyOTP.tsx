@@ -17,14 +17,12 @@ const DoctorVerifyOTP = ({ id, expires }: { id: string; expires: string }) => {
     const res = (await authService.resend_otp({ id })) as {
       data: { invalidAt: string };
     };
-    console.log(res);
     router.replace(
       `/doctor/verify-otp?otpId=${id}&expires=${res.data.invalidAt}`,
     );
   };
   return (
     <VerifyOTPForm
-      email=""
       id={id}
       otp_invalid_at={expires}
       verifyOTP={handleVerifyOTP}
