@@ -14,7 +14,6 @@ export class DoctorGetMeHandler implements IGetMeHandler {
 
   async execute(id: string): Promise<IGetMeResponseDTO> {
     const doctor = await this._doctorRepo.findById(id);
-    console.log(doctor);
     if (!doctor) {
       throw new AppError("No Valid Credientals", HTTPStatus.UNAUTHORIZED);
     }

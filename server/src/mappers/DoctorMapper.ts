@@ -9,7 +9,6 @@ import type {
 
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {
-    console.log(raw);
     return new Doctor(
       raw._id,
       new Email(raw.email),
@@ -40,7 +39,6 @@ export class DoctorMapper {
   }
 
   static toPersistance(doctor: Doctor): Partial<DoctorDoc> {
-    console.log(doctor.id);
     return {
       _id: doctor.id,
       email: doctor.email,

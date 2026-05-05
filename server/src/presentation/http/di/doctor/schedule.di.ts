@@ -7,7 +7,6 @@ import { MongoDoctorRepository } from "@infrastructure/database/repositories/Mon
 import { SlotGenerator } from "@application/service/SlotGenerator.ts";
 import { GetDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleUseCase.ts";
 import { DeleteDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/deleteDoctorSchedule/DeleteDoctorScheduleUseCase.ts";
-import { DoctorSlotRepository } from "@infrastructure/database/repositories/DoctorSlotRepository.ts";
 import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
 
 const loggerService = new PinoLoggerService();
@@ -16,16 +15,13 @@ const uow = new MongoUnitOfWork();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const doctorShiftRepo = new DoctorShiftRepository(loggerService);
-const doctorSlotRepo = new DoctorSlotRepository(loggerService);
 
 const setScheduleUseCase = new SetDoctorScheduleUseCase(
   loggerService,
   uow,
   doctorShiftRepo,
   idGenerator,
-  doctorRepo,
-  new SlotGenerator(idGenerator),
-  doctorSlotRepo
+  doctorRepo
 );
 const getDoctorScheduleUseCase = new GetDoctorScheduleUseCase(
   loggerService,

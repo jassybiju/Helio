@@ -46,7 +46,6 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       password,
       document,
     } = input;
-    console.log(input, "hello");
     // checking if doctor already exists with isVerified true
     const existingDoctor =
       await this._doctorValidator.ensureEmailAvailable(email);
@@ -54,7 +53,6 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     const isNew = !existingDoctor;
 
     // saving documnets to bucket
-    console.log(document);
     const documentKey = await this._fileUpload.upload(document);
 
     // creating new doctor ( if unverified doctor exists keep the id and changes data )

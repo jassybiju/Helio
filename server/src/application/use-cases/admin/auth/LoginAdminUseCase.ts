@@ -10,12 +10,17 @@ import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseC
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { IAdminRepository } from "@application/ports/repositories/IAdminRepository.ts";
+import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
+import { Email } from "@domain/value-objects/Email.ts";
 
 export class LoginAdminUseCase implements ILoginUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _accessTokenService: IAccessTokenService,
     private readonly _refreshTokenService: IRefreshTokenService,
+    private readonly _adminRepo: IAdminRepository,
+    private readonly _passwordService: IPasswordService,
     private readonly _sessionRepo: ISessionRepository
   ) {}
 
@@ -24,28 +29,33 @@ export class LoginAdminUseCase implements ILoginUseCase {
 
     this._logger.info("Admin Login attempt", { email });
 
-    const ADMIN_ID = process.env.ADMIN_ID!;
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL!;
-    const ADMIN_PASS = process.env.ADMIN_PASS!;
+    const admin = await this._adminRepo.findByEmail(new Email(email));
 
-    console.log(ADMIN_EMAIL, email);
-    if (!(ADMIN_EMAIL === email && ADMIN_PASS === password)) {
+    if (!admin) {
+      throw new AppError("Admin NOt Foudn", HTTPStatus.NOT_FOUND);
+    }
+
+    const isPasswordValid = await this._passwordService.compare(
+      password,
+      admin.passwordHash
+    );
+    if (!isPasswordValid) {
       throw new AppError("Invalid Email or password", HTTPStatus.BAD_REQUEST);
     }
 
     // create access and refresh token
     const accessToken = this._accessTokenService.generateAccessToken(
-      ADMIN_ID,
-      ADMIN_EMAIL,
+      admin.id,
+      admin.email.value,
       USER_ROLES.ADMIN
     );
     const refreshToken = this._refreshTokenService.generateRefreshToken();
 
     //saving refresh token
     await this._sessionRepo.storeRefreshToken(
-      ADMIN_ID,
+      admin.id,
       USER_ROLES.ADMIN,
-      ADMIN_EMAIL,
+      admin.email.value,
       this._refreshTokenService.hash(refreshToken)
     );
 
@@ -53,8 +63,8 @@ export class LoginAdminUseCase implements ILoginUseCase {
       accessToken,
       refreshToken,
       user: {
-        id: ADMIN_ID,
-        email: ADMIN_EMAIL,
+        id: admin.id,
+        email: admin.email.value,
         role: USER_ROLES.ADMIN,
       },
     };

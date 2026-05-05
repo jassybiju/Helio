@@ -4,7 +4,7 @@ import type {
 } from "@domain/common/enums/doctorShift.enum.ts";
 
 export type IDoctorScheduleInput = {
-  dayOfWeek: DAY_OF_WEEK;
+  dayOfWeek: DAY_OF_WEEK[];
   startTime: string;
   endTime: string;
   consultationType: CONSULTATION_TYPE;

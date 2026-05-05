@@ -1,0 +1,68 @@
+import type {
+  APPOINTMENT_STATUS,
+  PAYMENT_STATUS,
+} from "@domain/common/enums/appointment.enum.ts";
+import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { Appointment } from "@domain/entities/Appointment.ts";
+import type { AppointmentRaw } from "@infrastructure/database/model/AppointmentModel.ts";
+
+export class AppointmentMapper {
+  static toDomain(raw: AppointmentRaw): Appointment {
+    return new Appointment(
+      raw._id,
+      raw.doctor_id,
+      raw.patient_id,
+      raw.start_time,
+      new Date(raw.end_time),
+      raw.consultation_type as CONSULTATION_TYPE,
+      raw.consultation_fee,
+      raw.amount_paid ?? null,
+      raw.status as APPOINTMENT_STATUS,
+      raw.cancellation_reason ?? null,
+      raw.payment_status as PAYMENT_STATUS,
+      raw.payment_id ?? null,
+      raw.rescheduled_from_appointment_id ?? null,
+      raw.reschedule_reason ?? null,
+      raw.rescheduled_by ?? null,
+      raw.rescheduled_at ?? null,
+      raw.reschedule_count ?? null,
+      raw.expires_at ? new Date(raw.expires_at) : new Date(),
+      raw.created_at ? new Date(raw.created_at) : new Date(),
+      raw.updated_at ? new Date(raw.updated_at) : new Date()
+    );
+  }
+
+  static toPersistence(domain: Appointment): AppointmentRaw {
+    return {
+      _id: domain.id,
+      doctor_id: domain.doctorId,
+      patient_id: domain.patientId,
+
+      start_time: domain.startTime,
+      end_time: domain.endTime ?? null,
+
+      consultation_type: domain.consultationType,
+      consultation_fee: domain.consultationFee,
+      amount_paid: domain.amountPaid,
+
+      status: domain.status,
+      cancellation_reason: domain.cancellationReason ?? null,
+
+      payment_status: domain.paymentStatus,
+      payment_id: domain.paymentId ?? null,
+
+      rescheduled_from_appointment_id:
+        domain.rescheduledFromAppointmentId ?? null,
+      reschedule_reason: domain.rescheduleReason ?? null,
+      rescheduled_by: domain.rescheduledBy as "DOCTOR" | "PATIENT" | null,
+      rescheduled_at: domain.rescheduledAt ?? null,
+      reschedule_count: domain.rescheduleCount ?? 0,
+
+      expires_at: domain.expiresAt,
+
+      created_at: domain.createdAt,
+      updated_at: domain.updatedAt,
+    };
+  }
+}

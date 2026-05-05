@@ -13,7 +13,6 @@ export class CryptoRefreshTokenService implements IRefreshTokenService {
   }
   hash(token: string): string {
     const SECRET = process.env.REFRESH_TOKEN_SECRET!;
-    console.log(SECRET);
 
     return crypto.createHmac("sha256", SECRET).update(token).digest("hex");
   }

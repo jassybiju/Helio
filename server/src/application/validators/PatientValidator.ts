@@ -26,11 +26,6 @@ export class PatientValidator {
    * @param password Password to validate with the hash
    */
   async validatePatientPassword(patient: Patient, password: string) {
-    console.log(
-      password,
-      patient.passwordHashed,
-      await this._passwordService.compare(patient.passwordHashed!, password)
-    );
     if (
       !(await this._passwordService.compare(password, patient.passwordHashed!))
     ) {

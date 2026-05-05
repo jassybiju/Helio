@@ -45,7 +45,6 @@ export class DoctorVerificationController {
   ) => {
     try {
       const userId = req.user!.id;
-      console.log(req);
       const { additionalInfo } = req.body;
 
       if (!additionalInfo) {

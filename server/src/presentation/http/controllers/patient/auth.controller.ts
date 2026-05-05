@@ -44,7 +44,6 @@ export class PatientAuthController {
     try {
       const parsed = patientRegisterSchema.safeParse(req.body);
       if (!parsed.success) {
-        console.log(parsed.error.issues[0]?.message, 123);
         throw new AppError(
           parsed.error.issues[0]?.message || "Validation Error",
           HTTPStatus.UNPROCESSBLE_ENTITY

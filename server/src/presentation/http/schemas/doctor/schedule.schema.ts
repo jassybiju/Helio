@@ -9,7 +9,7 @@ const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 export const setDoctorScheduleSchema = z
   .object({
-    dayOfWeek: z.enum(DAY_OF_WEEK),
+    dayOfWeek: z.array(z.enum(DAY_OF_WEEK)),
 
     startTime: z.string().regex(timeRegex, "Invalid time format (HH:mm)"),
     endTime: z.string().regex(timeRegex, "Invalid time format (HH:mm)"),

@@ -35,7 +35,6 @@ export class AuthController {
   refresh = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const refreshToken = req.cookies.refreshToken;
-      console.log(req.cookies);
       if (!refreshToken) {
         throw new AppError("Invalid Refresh Token", HTTPStatus.UNAUTHORIZED);
       }

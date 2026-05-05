@@ -46,8 +46,6 @@ export class OTP {
       throw new AppError("OTP was expired", HTTPStatus.BAD_REQUEST);
     }
 
-    console.log(limit < this._failedAttempts);
-
     // if otp is incorrect throw error
     if (!this.isOTPValid(inputOTP)) {
       this.incrementAttempts();
@@ -58,7 +56,6 @@ export class OTP {
           HTTPStatus.BAD_REQUEST
         );
       }
-      console.log("otpsd");
       throw new AppError("OTP is incorrect", HTTPStatus.BAD_REQUEST);
     }
   }

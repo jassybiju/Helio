@@ -20,3 +20,19 @@ export const getAllDoctorSlotsSchema = z.object({
   sort: z.enum(["day", "time"]).optional(),
   order: z.enum(["asc", "desc"]).optional(),
 });
+
+export const blockDoctorSlotSchema = z
+  .object({
+    startTime: z.coerce.date(),
+    endTime: z.coerce.date(),
+    reason: z.string(),
+  })
+  .refine(
+    (data) => {
+      return data.endTime > data.startTime;
+    },
+    {
+      message: "endTime must be greater than startTime",
+      path: ["endTime"],
+    }
+  );

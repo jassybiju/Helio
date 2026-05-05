@@ -35,7 +35,6 @@ export class RefreshTokenUseCase implements IRefreshTokenUseCase {
     const newRefreshToken = this._refreshTokenService.generateRefreshToken();
 
     const hashedToken = this._refreshTokenService.hash(newRefreshToken);
-    console.log(hashedToken);
     await this._sessionRepo.deleteRefreshToken(tokenHash);
 
     await this._sessionRepo.storeRefreshToken(userId, role, email, hashedToken);

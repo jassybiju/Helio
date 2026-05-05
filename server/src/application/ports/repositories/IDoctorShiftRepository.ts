@@ -20,6 +20,12 @@ export interface IDoctorShiftRepository {
   ): Promise<DoctorShift[]>;
 
   /**
+   * Find all shift of doctor by id
+   * @param id Doctor Id
+   */
+  findAllByDoctorId(id: string): Promise<DoctorShift[]>;
+
+  /**
    * creates DoctorShift
    * @param shift Doctor Shift
    */
@@ -40,4 +46,8 @@ export interface IDoctorShiftRepository {
   delete(shiftId: string): Promise<void>;
 
   withSession(session: ClientSession): IDoctorShiftRepository;
+
+  findByDoctorIds(doctorIds: string[]): Promise<DoctorShift[]>;
+
+  bulkInsert(shifts: DoctorShift[]): Promise<void>;
 }

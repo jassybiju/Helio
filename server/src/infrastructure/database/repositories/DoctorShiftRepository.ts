@@ -10,7 +10,7 @@ import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import { DoctorShiftMapper } from "../../../mappers/DoctorShiftMapper.ts";
-import type { ClientSession } from "mongoose";
+import type { ClientSession, QueryFilter } from "mongoose";
 
 export class DoctorShiftRepository
   extends BaseRepository<DoctorShift, DoctorShiftDoc>
@@ -58,6 +58,23 @@ export class DoctorShiftRepository
       );
     }
   }
+
+  async findAllByDoctorId(id: string): Promise<DoctorShift[]> {
+    try {
+      return await super.find(
+        { doctor_id: id },
+        {},
+        DoctorShiftMapper.toDomain
+      );
+    } catch (error) {
+      this._loggerService.error("Falied To Fetch", error);
+      throw new AppError(
+        "failed to fetch doctor shifts",
+        HTTPStatus.INTERNAL_ERROR
+      );
+    }
+  }
+
   async findAllByDoctorAndDay(
     doctorId: string,
     day: DAY_OF_WEEK
@@ -126,6 +143,41 @@ export class DoctorShiftRepository
       this._loggerService.error("Failed to delete", error as Error);
       throw new AppError(
         "Failed to Delete Doctor Shift",
+        HTTPStatus.INTERNAL_ERROR
+      );
+    }
+  }
+
+  async findByDoctorIds(doctorIds: string[]): Promise<DoctorShift[]> {
+    try {
+      this._loggerService.info("Fetching Shift by DoctorIds", {
+        doctorIds,
+      });
+
+      const query: QueryFilter<DoctorShiftDoc> = {
+        doctor_id: { $in: doctorIds },
+      };
+
+      return await super.find(query, {}, DoctorShiftMapper.toDomain);
+    } catch (error) {
+      this._loggerService.error("Failed to fetch ", error as Error);
+
+      throw new AppError(
+        "Failed to Fetch Doctor Shifts",
+        HTTPStatus.INTERNAL_ERROR
+      );
+    }
+  }
+
+  async bulkInsert(shifts: DoctorShift[]): Promise<void> {
+    try {
+      this._loggerService.info("Saving doctorShifts", { shifts });
+      await super.insertMany(shifts, DoctorShiftMapper.toPersistance);
+    } catch (error) {
+      this._loggerService.error("Failer to saves shifts", { shifts });
+
+      throw new AppError(
+        "Failed to Save Doctor Shifts",
         HTTPStatus.INTERNAL_ERROR
       );
     }

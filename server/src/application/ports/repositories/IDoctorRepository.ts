@@ -14,6 +14,17 @@ export interface IDoctorFilters {
   order: "asc" | "desc";
 }
 
+export interface IDoctorSearchQuery {
+  name?: string | undefined;
+  specialization?: string | undefined;
+  minFee?: number | undefined;
+  maxFee?: number | undefined;
+  minExperienceYears?: number | undefined;
+
+  page?: number | undefined;
+  limit?: number | undefined;
+}
+
 export interface IDoctorRepository {
   findByEmail(email: Email): Promise<Doctor | null>;
   findById(id: string): Promise<Doctor | null>;
@@ -30,4 +41,12 @@ export interface IDoctorRepository {
   countDoctors(speciailziation: string): Promise<number>;
 
   withSession(session: ClientSession): IDoctorRepository;
+
+  /**
+   * Search the doctor using params
+   * @param params IDoctorSearchQuery
+   */
+  search(
+    params: IDoctorSearchQuery
+  ): Promise<{ doctors: Doctor[]; totalCount: number }>;
 }

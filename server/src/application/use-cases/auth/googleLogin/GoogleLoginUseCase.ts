@@ -51,8 +51,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
         new Email(googleUser.email)
       );
 
-      console.log(googleUser, existingDoctor);
-
       // if have unverified doctor
       if (existingDoctor && !existingDoctor.isVerified) {
         existingDoctor = Doctor.googleCreate({
@@ -75,7 +73,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
           createdAt: new Date(),
           updatedAt: new Date(),
         });
-        console.log(existingDoctor);
         isNew = true;
       }
 
@@ -87,7 +84,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       if (!existingDoctor.hasGoogleId) {
         existingDoctor.linkGoogleId(googleUser.googleId);
       }
-      console.log(isNew);
       // saving the doctor
       if (isNew) {
         await this._doctorRepo.create(existingDoctor);
@@ -96,7 +92,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       }
 
       isProfileComplete = existingDoctor.isProfileComplete();
-      console.log(isProfileComplete);
       user = existingDoctor;
     }
     if (role === USER_ROLES.PATIENT) {

@@ -10,7 +10,6 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   const accessToken = req.cookies?.accessToken;
-  console.log(req.cookies);
   if (!accessToken) {
     throw new AppError("Unauthorized", HTTPStatus.UNAUTHORIZED);
   }
@@ -21,7 +20,6 @@ export const authMiddleware = (
       role: USER_ROLES;
       email: string;
     };
-    console.log(payload);
     req.user = payload;
     next();
   } catch {

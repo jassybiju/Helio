@@ -65,4 +65,12 @@ export class Time {
   toString() {
     return `${this._hours.toString().padStart(2, "0")}:${this._mins.toString().padStart(2, "0")}`;
   }
+
+  clone() {
+    return new Time(this.toString());
+  }
+
+  toDate(date: Date) {
+    return new Date(new Date(date).setHours(this._hours, this.minutes, 0, 0));
+  }
 }

@@ -1,4 +1,9 @@
-import type { ClientSession, Model, QueryFilter } from "mongoose";
+import type {
+  ClientSession,
+  Model,
+  PipelineStage,
+  QueryFilter,
+} from "mongoose";
 
 /**
  * Base Mongo DB Repository providing generic data access methods.
@@ -18,7 +23,7 @@ export abstract class BaseRepository<
   ) {}
 
   protected async findOne(
-    query: object,
+    query: QueryFilter<TModel>,
     map: (doc: TModel) => TDomain
   ): Promise<TDomain | null> {
     const doc = await this._model
@@ -38,7 +43,7 @@ export abstract class BaseRepository<
 
   protected async create(
     entity: TDomain,
-    persistance: (entity: TDomain) => Partial<TModel>
+    persistance: (entity: TDomain) => Record<string, unknown>
   ): Promise<void> {
     const doc = new this._model(persistance(entity));
     await doc.save({ session: this._session });
@@ -47,7 +52,7 @@ export abstract class BaseRepository<
   protected async update(
     entity: TDomain,
     id: string,
-    persistence: (entity: TDomain) => Partial<TModel>
+    persistence: (entity: TDomain) => Record<string, unknown>
   ): Promise<void> {
     const result = await this._model
       .updateOne({ _id: id, is_deleted: false }, persistence(entity))
@@ -78,12 +83,16 @@ export abstract class BaseRepository<
 
   protected async insertMany(
     entities: TDomain[],
-    persistance: (entity: TDomain) => TModel
+    persistance: (entity: TDomain) => Record<string, unknown>
   ): Promise<void> {
     await this._model.insertMany(
       entities.map((entity) => persistance(entity)),
       { session: this._session }
     );
+  }
+
+  protected async aggregate<T>(pipeline: PipelineStage[]): Promise<T[]> {
+    return await this._model.aggregate(pipeline).session(this._session);
   }
 
   protected async count(filter: QueryFilter<TModel>): Promise<number> {

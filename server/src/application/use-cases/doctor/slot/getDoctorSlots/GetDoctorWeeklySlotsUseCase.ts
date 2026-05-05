@@ -1,28 +1,40 @@
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type {
-  IDoctorSlotFilters,
-  IDoctorSlotRepository,
-} from "@application/ports/repositories/IDoctorSlotRepository.ts";
+import type { IDoctorSlotFilters } from "@application/ports/repositories/IDoctorSlotRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetDoctorWeeklySlotsUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorWeeklySlotsUseCase.ts";
-import type { DoctorSlot } from "@domain/entities/DoctorSlot.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import type { IGroupedSlots } from "./IGetDoctorWeeklySlotsDTO.ts";
+import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
+import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
+import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
+import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
+import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
+import { utcToIst } from "@shared/utils/date.utils.ts";
+import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
+import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import { SLOT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
+import type { Appointment } from "@domain/entities/Appointment.ts";
+
+type SlotWithUnits = DoctorSlot;
 
 export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _doctorRepo: IDoctorRepository,
-    private readonly _doctorSlotRepo: IDoctorSlotRepository
+    private readonly _doctorShiftRepo: IDoctorShiftRepository,
+    private readonly _slotService: ISlotGenerator,
+    private readonly _blockSlotRepo: IDoctorBlockShiftRepository,
+    private readonly _appointmentRepo: IAppointmentRepository
   ) {}
   async execute(
     doctorId: string,
     params: IDoctorSlotFilters
-  ): Promise<Record<string, IGroupedSlots[]>> {
+  ): Promise<Record<string, SlotWithUnits[]>> {
     this._logger.info("Get Doctor Slots Attempt", { doctorId });
     const { page, limit } = params;
+
     const doctor = await this._doctorRepo.findById(doctorId);
 
     if (!doctor) {
@@ -33,67 +45,89 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
       throw new AppError(MESSAGE.INVALID_REQUEST, HTTPStatus.FORBIDDEN);
     }
 
-    const today = new Date();
-    const { slots, totalCount } = await this._doctorSlotRepo.findAllWithFilters(
+    const istNow = new Date();
+    const endDate = new Date(istNow);
+    endDate.setDate(endDate.getDate() + 7);
+
+    // get weekly schedule
+    const shifts = await this._doctorShiftRepo.findAllByDoctorId(doctor.id);
+
+    const blockedShifts = await this._blockSlotRepo.findByDoctorFromRange(
       doctorId,
-      {
-        page,
-        sort: "day",
-        order: "asc",
-        dateFrom: new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate(),
-          0,
-          0,
-          0,
-          0
-        ),
-      }
+      istNow,
+      endDate
     );
-    console.log(slots.map((x) => x.startTime));
-    const groupSlots = this.groupSlots(slots);
 
-    return groupSlots.reduce((acc: Record<string, IGroupedSlots[]>, cur) => {
-      const day = cur.startTime.toLocaleDateString("en-US", {
-        weekday: "long",
-      });
-      if (acc[day]) {
-        acc[day].push(cur);
-      } else {
-        acc[day] = [cur];
+    const appointments = await this._appointmentRepo.findActiveInRange(
+      doctorId,
+      istNow,
+      endDate
+    );
+    // generate slots for a week
+    const slots = this._slotService.generateSlotsFromRange(
+      shifts,
+      istNow,
+      endDate
+    );
+
+    console.log(appointments, 1234);
+    const slotMap = new Map<string, Appointment[]>();
+
+    for (const appt of appointments) {
+      const key = appt.startTime.toISOString();
+      if (!slotMap.has(key)) {
+        slotMap.set(key, []);
       }
-      return acc;
-    }, {});
-  }
-
-  private groupSlots = (slots: DoctorSlot[]) => {
-    const map = new Map<string, IGroupedSlots>();
+      slotMap.get(key)!.push(appt);
+    }
+    console.log(slotMap, 223);
+    let result: Record<string, SlotWithUnits[]> = {};
 
     for (const slot of slots) {
-      const key = `${slot.shiftId}_${slot.startTime.toISOString()}`;
-
-      if (!map.has(key)) {
-        map.set(key, {
-          shiftId: slot.shiftId,
-          startTime: slot.startTime,
-          endTime: slot.endTime,
-          slots: [
-            {
-              appointmentId: slot.appointmentId,
-              status: slot.status,
-              id: slot.slotId,
-            },
-          ],
-        });
-      } else {
-        map.get(key)!.slots.push({
-          appointmentId: slot.appointmentId,
-          status: slot.status,
-          id: slot.slotId,
-        });
+      if (this.isSlotBlocked(slot, blockedShifts)) {
+        continue;
       }
+      const slotKey = slot.startTime.toISOString();
+      const key = utcToIst(slot.startTime).toLocaleDateString("en-US", {
+        weekday: "long",
+      });
+      const appts = slotMap.get(slotKey) || [];
+      console.log(appts, key, 2234);
+      const shift = shifts.find((s) => slot.shiftId === s.shiftId);
+      const capacity = shift?.capacityPerSlot ?? 1;
+
+      let units = [];
+
+      for (let i = 0; i < capacity; i++) {
+        const appt = appts[i];
+        console.log(appt, i, 11234);
+        if (!appt) {
+          units.push({ status: SLOT_STATUS.AVAILABLE });
+          continue;
+        }
+
+        if (
+          appt.status === APPOINTMENT_STATUS.CANCELLED ||
+          appt.status === APPOINTMENT_STATUS.EXPIRED
+        ) {
+          units.push({ status: SLOT_STATUS.AVAILABLE });
+        } else {
+          units.push({ status: SLOT_STATUS.BOOKED });
+        }
+      }
+
+      if (!result[key]) {
+        result[key] = [];
+      }
+      slot.setUnits(units);
+      result[key].push(slot);
     }
-    return Array.from(map.values());
-  };
+    return result;
+  }
+
+  private isSlotBlocked(slot: DoctorSlot, blockedShifts: DoctorBlockShift[]) {
+    return blockedShifts.some((block) =>
+      slot.overlaps(block.startTime, block.endTime)
+    );
+  }
 }

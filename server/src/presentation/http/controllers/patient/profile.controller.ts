@@ -43,7 +43,6 @@ export class PatientProfileController {
           HTTPStatus.UNPROCESSBLE_ENTITY
         );
       }
-      console.log(req.file);
       const response = await this._completeProfile.execute(userId, {
         ...parsed.data,
       });

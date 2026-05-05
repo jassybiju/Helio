@@ -244,7 +244,7 @@ export class Patient {
       null,
       null,
       null,
-      false,
+      true,
       false,
       [],
       [],

@@ -10,8 +10,6 @@ import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.t
 
 export class PatientMapper {
   static toPersistance(t: Patient): PatientRawDoc {
-    console.log(t, 12345);
-
     return {
       _id: t.id,
       email: t.email,
@@ -39,7 +37,6 @@ export class PatientMapper {
   }
 
   static toDomain(raw: PatientDoc): Patient {
-    console.log(raw, 1234);
     return new Patient(
       raw._id,
       new Email(raw.email),

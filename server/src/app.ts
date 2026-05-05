@@ -17,6 +17,10 @@ import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.ts"
 import path from "path";
 import { fileURLToPath } from "url";
 import { patientRouter } from "./presentation/http/routes/patient/index.routes.ts";
+import { SpecialtyController } from "./presentation/http/controllers/speciality.controller.ts";
+import { specialityController } from "./presentation/http/di/specialty.di.ts";
+import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import { adminSpecialtyRouter } from "./presentation/http/routes/admin/specialty.routes.ts";
 
 export const app = express();
 
@@ -56,10 +60,12 @@ app.use(`${api}admin/auth`, adminAuthRouter);
 app.use(`${api}auth`, authRouter);
 
 app.use(`${api}admin/patient`, adminPatientRouter);
+app.use(`${api}admin/specialty`, adminSpecialtyRouter);
 app.use(`${api}admin/doctor`, adminDoctorRouter);
 
 app.use(`${api}doctor`, doctorRouter);
 app.use(`${api}patient`, patientRouter);
+app.get(`${api}specialty`, specialityController.getAll);
 
 app.get("/health", (req, res) => {
   console.log("Api is health");
@@ -68,7 +74,18 @@ app.get("/health", (req, res) => {
 
 app.use((err: AppError, req: Request, res: Response, _next: NextFunction) => {
   const logger = new PinoLoggerService();
-  logger.error(err.message, err);
 
-  res.status(err.statusCode || 500).json(errorResponse(err.message));
+  if (err instanceof Error) {
+    logger.error(err.message, err);
+  } else {
+    logger.error("unknown error", err);
+  }
+
+  if (err instanceof Object && "statusCode" in err) {
+    return res.status(err.statusCode || 500).json(errorResponse(err.message));
+  }
+
+  return res
+    .status(HTTPStatus.INTERNAL_ERROR)
+    .json(errorResponse("Unkown error"));
 });

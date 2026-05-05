@@ -22,9 +22,7 @@ export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
     private readonly _uow: IUnitOfWork,
     private readonly _doctorShiftRepo: IDoctorShiftRepository,
     private readonly _idGenerator: IIDGenerator,
-    private readonly _doctorRepo: IDoctorRepository,
-    private readonly _slotGen: ISlotGenerator,
-    private readonly _slotRepo: IDoctorSlotRepository
+    private readonly _doctorRepo: IDoctorRepository
   ) {}
   async execute(doctorId: string, input: IDoctorScheduleInput): Promise<void> {
     this._logger.info("Set Doctor ScheduleUseCase", {
@@ -34,7 +32,6 @@ export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
     return this._uow.execute(async (session) => {
       const doctorSlot = this._doctorRepo.withSession(session);
       const shiftRepo = this._doctorShiftRepo.withSession(session);
-      const slotRepo = this._slotRepo.withSession(session);
 
       // validation if doctor exists
       const doctor = await doctorSlot.findById(doctorId);
@@ -45,6 +42,13 @@ export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
 
       if (!doctor.canAccessPlatform()) {
         throw new AppError(MESSAGE.INVALID_REQUEST, HTTPStatus.FORBIDDEN);
+      }
+
+      if (!doctor.onlineFee || !doctor.clinicFee) {
+        throw new AppError(
+          "Set Fee to create scheudle",
+          HTTPStatus.UNPROCESSBLE_ENTITY
+        );
       }
 
       const {
@@ -59,56 +63,44 @@ export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
 
       // creating new Shift instance
       const SHIFT_PREFIX = process.env.SHIFT_PREFIX!;
-      const newShift = new DoctorShift(
-        this._idGenerator.generate(SHIFT_PREFIX),
-        doctorId,
-        dayOfWeek,
-        new Time(startTime),
-        new Time(endTime),
-        consultationType,
-        location ?? null,
-        slotIntervalInMinutes,
-        capacityPerSlot,
-        new Date()
-      );
+      const newShifts = [];
 
-      // getting existing shift of the doctor on the day
-      const existingShift = await shiftRepo.findAllByDoctorAndDay(
-        doctorId,
-        dayOfWeek
-      );
-      console.log(newShift, existingShift);
-      // checking if overlap exists
-      const isNotOverLapping = newShift.isNotOverLapping(existingShift);
-      if (!isNotOverLapping) {
-        throw new AppError(
-          MESSAGE.DOCTOR_SHEDULE_OVERLAP_ERROR,
-          HTTPStatus.UNPROCESSBLE_ENTITY
+      for (const day of dayOfWeek) {
+        if (!day) continue;
+
+        const newShift = new DoctorShift(
+          this._idGenerator.generate(SHIFT_PREFIX),
+          doctorId,
+          day,
+          new Time(startTime),
+          new Time(endTime),
+          consultationType,
+          location ?? null,
+          slotIntervalInMinutes,
+          capacityPerSlot,
+          new Date()
         );
-      }
 
-      // creates slots for 1 week
-      const date = getNextDateForDay(dayOfWeek);
-
-      let hasAtleastOneSlot = false;
-
-      const slots = this._slotGen.generateSlots(newShift, date);
-      if (slots.length >= 1) {
-        hasAtleastOneSlot = true;
-      }
-
-      if (!hasAtleastOneSlot) {
-        throw new AppError(
-          "Doesnt Have atleast one slot based on values",
-          HTTPStatus.UNPROCESSBLE_ENTITY
+        // getting existing shift of the doctor on the day
+        const existingShift = await shiftRepo.findAllByDoctorAndDay(
+          doctorId,
+          day
         );
-      }
 
-      // savingn doctorslots
-      await slotRepo.bulkInsert(slots);
+        // checking if overlap exists
+        const isNotOverLapping = newShift.isNotOverLapping(existingShift);
+        if (!isNotOverLapping) {
+          throw new AppError(
+            MESSAGE.DOCTOR_SHEDULE_OVERLAP_ERROR,
+            HTTPStatus.UNPROCESSBLE_ENTITY
+          );
+        }
+
+        newShifts.push(newShift);
+      }
 
       // saves doctorShift
-      await this._doctorShiftRepo.create(newShift);
+      await this._doctorShiftRepo.bulkInsert(newShifts);
     });
   }
 }
