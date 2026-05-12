@@ -11,6 +11,7 @@ type Props<T> = {
   data?: T[];
 };
 
+
 const TableComponent = <T,>({ data = [], columns }: Props<T>) => {
   return (
     <div className="bg-white rounded-lg border text-black border-slate-200 overflow-hidden">
