@@ -60,10 +60,11 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
       },
       {
         onSuccess: (res) => {
-          const appointmentId = res.appointementId;
+          const appointmentId = res.appointmentId;
+          console.log(res)
           toast.success("Appointment Created")
           // ✅ Redirect to payment page
-          // router.push(`/patient/payment/${appointmentId}`);
+          router.push(`/appointments/${appointmentId}/checkout`);
         },
         onError: (err) => {
           if(isAxiosError(err)) toast.error(err?.response?.data?.message || "Booking failed");

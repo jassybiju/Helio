@@ -17,7 +17,8 @@ export class AppointmentMapper {
       new Date(raw.end_time),
       raw.consultation_type as CONSULTATION_TYPE,
       raw.consultation_fee,
-      raw.amount_paid ?? null,
+      raw.total_amount,
+      raw.platform_fee,
       raw.status as APPOINTMENT_STATUS,
       raw.cancellation_reason ?? null,
       raw.payment_status as PAYMENT_STATUS,
@@ -44,8 +45,8 @@ export class AppointmentMapper {
 
       consultation_type: domain.consultationType,
       consultation_fee: domain.consultationFee,
-      amount_paid: domain.amountPaid,
-
+      total_amount: domain.totalAmount,
+      platform_fee: domain.platformFee,
       status: domain.status,
       cancellation_reason: domain.cancellationReason ?? null,
 
@@ -63,6 +64,7 @@ export class AppointmentMapper {
 
       created_at: domain.createdAt,
       updated_at: domain.updatedAt,
+      is_deleted: false,
     };
   }
 }

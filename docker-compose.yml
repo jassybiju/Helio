@@ -4,8 +4,11 @@ services:
   mongo:
     image: mongo:6
     container_name: mongo_db
-    command: mongod --replSet rs0 --bind_ip_all --keyFile /etc/mongo-keyfile
-
+    command: >
+      bash -c "
+        chmod 600 /etc/mongo-keyfile &&
+        mongod --replSet rs0 --bind_ip_all --keyFile /etc/mongo-keyfile
+      "
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret

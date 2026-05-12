@@ -70,7 +70,6 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
       endDate
     );
 
-    console.log(appointments, 1234);
     const slotMap = new Map<string, Appointment[]>();
 
     for (const appt of appointments) {
@@ -100,7 +99,6 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
 
       for (let i = 0; i < capacity; i++) {
         const appt = appts[i];
-        console.log(appt, i, 11234);
         if (!appt) {
           units.push({ status: SLOT_STATUS.AVAILABLE });
           continue;

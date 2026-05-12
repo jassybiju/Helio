@@ -12,3 +12,12 @@ export const createPatientAppointmentSchema = z.object({
     error: () => ({ message: "Invalid consultation type" }),
   }),
 });
+
+export const checkoutSchema = z.object({
+  params: z.object({
+    appointmentId: z.string().min(1),
+  }),
+  body: z.object({
+    type: z.enum(["WALLET", "RAZORPAY"]),
+  }),
+});

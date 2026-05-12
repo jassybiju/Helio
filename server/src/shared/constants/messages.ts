@@ -53,4 +53,11 @@ export enum MESSAGE {
 
   //admin doctor
   DOCTOR_FETCH_SUCCESS = "Doctor Fetched Successfully",
+
+  //<===============  ERROR ==============>
+
+  // appointemnt
+  APPOINTMENT_NOT_FOUND = "Appointment Not Found",
+  APPOINTMENT_NOT_ACCESS = "Unauthrized Appointment Access",
+  APPOINTMENT_ALREADY_PAID = "Appointment ALready paid",
 }

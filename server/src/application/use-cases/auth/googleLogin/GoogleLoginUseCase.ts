@@ -2,6 +2,7 @@ import type { IGoogleLoginResponseDTO } from "@application/dto/auth/IGoogleLogin
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
+import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
 import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
 import type { IGoogleAuthService } from "@application/ports/services/IGoogleAuthService.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
@@ -11,6 +12,7 @@ import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoo
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { Patient } from "@domain/entities/Patient.ts";
+import { Wallet } from "@domain/entities/Wallet.ts";
 import { Email } from "@domain/value-objects/Email.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
@@ -25,7 +27,8 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
     private readonly _idGenerator: IIDGenerator,
     private readonly _accessTokenService: IAccessTokenService,
     private readonly _refreshTokenService: IRefreshTokenService,
-    private readonly _sessionRepo: ISessionRepository
+    private readonly _sessionRepo: ISessionRepository,
+    private readonly _walletRepo: IWalletRepository
   ) {}
   async execute({
     credentials,
@@ -43,6 +46,10 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
     let user: Doctor | Patient | null = null;
     let isProfileComplete: boolean = true;
 
+    let wallet: Wallet | null = null;
+    const WALLET_PREFIX = process.env.WALLET_PREFIX!;
+    let walletId = this._idGenerator.generate(WALLET_PREFIX);
+    console.log(walletId, 123, WALLET_PREFIX);
     // if role === DOCTOR
     if (role === USER_ROLES.DOCTOR) {
       let isNew = false;
@@ -74,6 +81,11 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
           updatedAt: new Date(),
         });
         isNew = true;
+        wallet = Wallet.create({
+          id: walletId,
+          userId: existingDoctor.id,
+          userRole: USER_ROLES.DOCTOR,
+        });
       }
 
       if (existingDoctor.isBlocked) {
@@ -94,6 +106,9 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       isProfileComplete = existingDoctor.isProfileComplete();
       user = existingDoctor;
     }
+
+    // if role === PATIENT
+
     if (role === USER_ROLES.PATIENT) {
       let isNew = false;
 
@@ -121,6 +136,12 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
           updatedAt: new Date(),
         });
         isNew = true;
+
+        wallet = Wallet.create({
+          id: walletId,
+          userId: existingPatient.id,
+          userRole: USER_ROLES.PATIENT,
+        });
       }
 
       if (existingPatient.isBlocked) {
@@ -150,6 +171,10 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
       role
     );
     const refreshToken = this._refreshTokenService.generateRefreshToken();
+
+    if (wallet) {
+      await this._walletRepo.create(wallet);
+    }
 
     await this._sessionRepo.storeRefreshToken(
       user.id!,

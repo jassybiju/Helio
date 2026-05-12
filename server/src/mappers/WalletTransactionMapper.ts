@@ -1,5 +1,8 @@
-import type { TRANSACTION_STATUS, WALLET_TYPE } from "@domain/common/enums/wallet.enum.ts";
-import  { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
+import type {
+  TRANSACTION_STATUS,
+  TRANSACTION_TYPE,
+} from "@domain/common/enums/wallet.enum.ts";
+import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import type { WalletTransactionDoc } from "@infrastructure/database/model/WalletTransactionModel.ts";
 
 export class WalletTransactionMapper {
@@ -7,7 +10,7 @@ export class WalletTransactionMapper {
     return new WalletTransaction(
       doc._id,
       doc.wallet_id,
-      doc.type as WALLET_TYPE,
+      doc.type as TRANSACTION_TYPE,
       doc.amount,
       doc.status as TRANSACTION_STATUS,
       doc.reference_id ?? null,
@@ -16,7 +19,7 @@ export class WalletTransactionMapper {
     );
   }
 
-  static toPersistence(tx: WalletTransaction) : WalletTransactionDoc{
+  static toPersistence(tx: WalletTransaction): WalletTransactionDoc {
     return {
       _id: tx.id,
       wallet_id: tx.walletId,

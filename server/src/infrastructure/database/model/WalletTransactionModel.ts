@@ -7,7 +7,7 @@ const walletTransactionSchema = new Schema({
 
   type: {
     type: String,
-    enum: ["CREDIT", "DEBIT"], // match WALLET_TYPE
+    enum: ["CREDIT", "DEBIT"], // match TRANSACTION_TYPE
     required: true,
   },
 
@@ -35,8 +35,8 @@ const walletTransactionSchema = new Schema({
   },
 
   created_at: { type: Date, required: true },
+  is_deleted: { type: Boolean, default: false },
 });
-
 
 export const walletTransactionModel = model(
   "WalletTransactionModel",

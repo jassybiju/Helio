@@ -9,6 +9,7 @@ export class AdminRepository implements IAdminRepository {
   async findByEmail(email: Email): Promise<Admin | null> {
     try {
       const adminDoc = await AdminModel.findOne({ email: email.value });
+      console.log(adminDoc);
       if (!adminDoc) return null;
       return new Admin(
         adminDoc._id!,

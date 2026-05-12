@@ -10,7 +10,7 @@ export const useCreateAppointment = () => {
       startTime: string;
       consultationType: "ONLINE" | "CLINIC";
     }) => {
-      const res = await (apiRequest("/patient/appointment",HTTP_METHOD.POST, data) as Promise<APIResponse<{appointementId : string}>>);
+      const res = await (apiRequest("/patient/appointment",HTTP_METHOD.POST, data) as Promise<APIResponse<{appointmentId : string}>>);
       return res.data;
     },
   });

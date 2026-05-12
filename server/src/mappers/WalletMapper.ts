@@ -1,5 +1,5 @@
 import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import  { Wallet } from "@domain/entities/Wallet.ts";
+import { Wallet } from "@domain/entities/Wallet.ts";
 import type { WalletDoc } from "@infrastructure/database/model/WalletModel.ts";
 
 export class WalletMapper {

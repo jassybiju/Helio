@@ -1,5 +1,6 @@
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
+import type { ClientSession } from "mongoose";
 
 export interface IAppointmentRepository {
   /**
@@ -8,7 +9,13 @@ export interface IAppointmentRepository {
    */
   create(appointment: Appointment): Promise<void>;
 
-  countConfirmed(
+  update(appointment: Appointment): Promise<void>;
+
+  findById(id: string): Promise<Appointment | null>;
+
+  withSession(session: ClientSession): IAppointmentRepository;
+
+  countOccupiedSlots(
     doctorId: string,
     startTime: Date,
     type: CONSULTATION_TYPE
@@ -25,4 +32,6 @@ export interface IAppointmentRepository {
     start: Date,
     end: Date
   ): Promise<Appointment[]>;
+
+  expirePendingAppointments(): Promise<void>;
 }

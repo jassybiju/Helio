@@ -20,6 +20,8 @@ import { EmailService } from "@infrastructure/services/EmailService.ts";
 import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswordUseCase.ts";
 import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts";
 import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
+import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
+import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -35,6 +37,7 @@ const sessionRepo = new RedisSessionRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
+const walletRepo = new WalletRepository(loggerService);
 
 const patientValidator = new PatientValidator(
   patientRepo,
@@ -55,7 +58,9 @@ const verifyPatientUseCase = new VerifyOTPUseCase(
   loggerService,
   otpRepo,
   patientRepo,
-  doctorRepo
+  doctorRepo,
+  walletRepo,
+  nanoidGenerator
 );
 const resendPatientOTPUseCase = new ResendOTPUseCase(
   loggerService,
@@ -94,7 +99,8 @@ const googleLoginUseCase = new GoogleLoginUseCase(
   nanoidGenerator,
   accessTokenService,
   refreshTokenService,
-  sessionRepo
+  sessionRepo,
+  walletRepo
 );
 
 export const authController = new PatientAuthController(

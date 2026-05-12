@@ -79,7 +79,7 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
     }
 
     // count existing appointment on that schedule
-    const count = await this._appointmentRepo.countConfirmed(
+    const count = await this._appointmentRepo.countOccupiedSlots(
       doctor.id,
       start,
       data.consultationType
@@ -103,6 +103,7 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
     }
 
     const PLATFORM_FEE = Number(process.env.PLATFORM_FEE)!;
+    console.log(PLATFORM_FEE, 123);
     const consultationFee =
       doctor[
         data.consultationType === CONSULTATION_TYPE.CLINIC
@@ -123,7 +124,10 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
       consultationFee: consultationFee,
       startTime: start,
       endTime,
+      platformFee: PLATFORM_FEE,
     });
+    console.log(PLATFORM_FEE, appointment, 123);
+
     await this._appointmentRepo.create(appointment);
 
     return {

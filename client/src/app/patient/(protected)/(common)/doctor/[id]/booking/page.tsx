@@ -1,4 +1,4 @@
-import DoctorBookingComponent from '@/src/features/patient/bookings/components/DoctorBookingComponent'
+import DoctorBookingComponent from '@/src/features/patient/slot/bookings/components/DoctorBookingComponent'
 import React from 'react'
 
 const DoctorBookingPage = async ({ params }: { params: Promise<{ id: string }> }) => {

@@ -45,6 +45,12 @@ export const API_ENDPOINT = {
     DOCTOR : {
       BASE : "/patient/doctors/",
       ID : (id : string) => `/patient/doctors/${id}`
+    },
+    APPOINTMENT : {
+      ID : {
+        BASE : (id : string) => `/patient/appointment/${id}`,
+        CHECKOUT : (id : string) => `/patient/appointment/${id}/checkout`
+      }
     }
   },
 } as const;

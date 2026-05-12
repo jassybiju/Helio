@@ -13,3 +13,8 @@ export enum PAYMENT_STATUS {
   REFUNDED = "REFUNDED",
   PAID = "PAID",
 }
+
+export enum PAYMENT_TYPE {
+  WALLET = "WALLET",
+  RAZORPAY = "RAZORPAY",
+}

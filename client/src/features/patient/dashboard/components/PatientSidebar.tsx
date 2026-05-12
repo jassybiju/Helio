@@ -8,7 +8,8 @@ import Image from "next/image";
 import { useLogout } from "@/src/features/auth/hooks/useLogout";
 
 const menuItems = [
-  { label: "Dashboard", href: "/", icon: LayoutGrid },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutGrid },
+  { label: "Wallet", href: "/dashboard/wallet", icon: LayoutGrid },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 

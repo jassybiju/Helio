@@ -6,5 +6,7 @@ export class AppError extends Error {
     public statusCode: HTTPStatus
   ) {
     super(message);
+
+    this.name = this.constructor.name;
   }
 }

@@ -1,19 +1,36 @@
-import type { TRANSACTION_STATUS } from "@domain/common/enums/wallet.enum.ts";
+import type {
+  TRANSACTION_STATUS,
+  TRANSACTION_TYPE,
+} from "@domain/common/enums/wallet.enum.ts";
 import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import type { ClientSession } from "mongoose";
 
+export interface ITransactionFilter {
+  fromDate?: Date | undefined;
+  toDate?: Date | undefined;
+  type?: TRANSACTION_TYPE | undefined;
+  order: "asc" | "desc";
+  page: number;
+  limit: number;
+}
+
 export interface IWalletTransactionRepository {
   withSession(session: ClientSession): IWalletTransactionRepository;
-  
-  create(transaction : WalletTransaction) : Promise<void>
 
-  findById(id : string) : Promise<WalletTransaction | null>
+  create(transaction: WalletTransaction): Promise<void>;
 
-  findByWalletId(walletId : string) : Promise<WalletTransaction[]>
+  findById(id: string): Promise<WalletTransaction | null>;
 
-  findByReferenceId(referenceId : string) : Promise<WalletTransaction | null>
+  findByWalletId(walletId: string): Promise<WalletTransaction[]>;
 
-  update(transaction : WalletTransaction) : Promise<void>
+  findByReferenceId(referenceId: string): Promise<WalletTransaction | null>;
 
-  delete(id : string) : Promise<void>
+  update(transaction: WalletTransaction): Promise<void>;
+
+  delete(id: string): Promise<void>;
+
+  findAllWithFilters(
+    walletId: string,
+    params: ITransactionFilter
+  ): Promise<{ transactions: WalletTransaction[]; totalCount: number }>;
 }

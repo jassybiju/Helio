@@ -7,14 +7,21 @@ import {
 } from "../model/AppointmentModel.ts";
 import { AppointmentMapper } from "../../../mappers/AppointmentMapper.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import type { ClientSession } from "mongoose";
+import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 
 export class AppointmentRepository
   extends BaseRepository<Appointment, AppointmentRaw>
   implements IAppointmentRepository
 {
-  constructor() {
-    super(appointmentModel);
+  constructor(session?: ClientSession) {
+    super(appointmentModel, session);
   }
+
+  withSession(session: ClientSession): IAppointmentRepository {
+    return new AppointmentRepository(session);
+  }
+
   async findExistingPatientAppointment(
     patientId: string,
     doctorId: string,
@@ -26,7 +33,7 @@ export class AppointmentRepository
     );
   }
 
-  async countConfirmed(
+  async countOccupiedSlots(
     doctorId: string,
     startTime: Date,
     type: CONSULTATION_TYPE
@@ -35,11 +42,20 @@ export class AppointmentRepository
       doctor_id: doctorId,
       start_time: startTime,
       consultation_type: type,
+      status: { $ne: APPOINTMENT_STATUS.EXPIRED },
     });
   }
 
   async create(appointment: Appointment): Promise<void> {
     await super.create(appointment, AppointmentMapper.toPersistence);
+  }
+
+  async update(appointment: Appointment): Promise<void> {
+    await super.update(
+      appointment,
+      appointment.id,
+      AppointmentMapper.toPersistence
+    );
   }
 
   async findActiveInRange(
@@ -50,7 +66,6 @@ export class AppointmentRepository
     console.log(start);
     let startTime = new Date(start).setHours(0, 0, 0, 0);
     let endTime = new Date(end).setHours(23, 59, 59, 999);
-    console.log(startTime, endTime, doctorId, 111);
     return await super.find(
       {
         doctor_id: doctorId,
@@ -63,5 +78,26 @@ export class AppointmentRepository
       {},
       AppointmentMapper.toDomain
     );
+  }
+
+  async findById(id: string) {
+    return await super.findById(id, AppointmentMapper.toDomain);
+  }
+
+  async expirePendingAppointments(): Promise<void> {
+    const result = await appointmentModel.updateMany(
+      {
+        status: APPOINTMENT_STATUS.PENDING,
+        expires_at: {
+          $lt: new Date(),
+        },
+      },
+      {
+        $set: {
+          status: APPOINTMENT_STATUS.EXPIRED,
+        },
+      }
+    );
+    console.log(result);
   }
 }

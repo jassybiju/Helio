@@ -21,6 +21,7 @@ import { ResetPasswordUseCase } from "@application/use-cases/auth/ResetPasswordU
 import { LocalFileUploadService } from "@infrastructure/services/LocalFileUploadService.ts";
 import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
 import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts";
+import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -37,6 +38,7 @@ const doctorRepo = new MongoDoctorRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
 const refreshTokenRepo = new RedisSessionRepository(loggerService);
+const walletRepo = new WalletRepository(loggerService);
 
 const doctorValidator = new DoctorValidator(doctorRepo, bcryptPasswordService);
 
@@ -56,7 +58,9 @@ const verifyDoctorUseCase = new VerifyOTPUseCase(
   loggerService,
   otpRepo,
   patientRepo,
-  doctorRepo
+  doctorRepo,
+  walletRepo,
+  nanoidGenerator
 );
 
 const resendDoctorOTPUseCase = new ResendOTPUseCase(
@@ -99,7 +103,8 @@ const googleLoginUseCase = new GoogleLoginUseCase(
   nanoidGenerator,
   accessTokenService,
   refreshTokenService,
-  refreshTokenRepo
+  refreshTokenRepo,
+  walletRepo
 );
 
 export const doctorAuthController = new DoctorAuthController(

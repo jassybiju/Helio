@@ -1,4 +1,4 @@
-export enum WALLET_TYPE {
+export enum TRANSACTION_TYPE {
   CREDIT = "CREDIT",
   DEBIT = "DEBIT",
 }

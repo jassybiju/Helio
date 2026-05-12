@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import { doctorProfileService } from "../../services/profile.service";
+import { useSpecialtyQuery } from "@/src/hooks/useSpecialtyQuery";
 
 export const useDoctorCompleteProfile = () => {
   const {
@@ -21,6 +22,8 @@ export const useDoctorCompleteProfile = () => {
   } = useForm({
     resolver: zodResolver(doctorCompleteProfileSchema),
   });
+
+  const {data} = useSpecialtyQuery()
 
   const router = useRouter();
   console.log(errors);
@@ -42,6 +45,7 @@ export const useDoctorCompleteProfile = () => {
   };
 
   return {
+    specialities : data,
     register,
     errors,
     onSubmit: handleSubmit(onSubmit),

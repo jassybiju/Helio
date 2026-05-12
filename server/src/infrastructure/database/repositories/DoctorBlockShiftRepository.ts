@@ -28,7 +28,6 @@ export class DoctorBlockShiftRepository
     });
     const startTime = new Date(startDate).setHours(0, 0, 0, 0);
     const endTime = new Date(endDate).setHours(23, 59, 59, 999);
-    console.log(startTime, endTime, 112);
     return await super.find(
       { doctor_id: doctorId, start_time: { $gte: startTime, $lte: endTime } },
       {},

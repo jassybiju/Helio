@@ -21,6 +21,9 @@ import { SpecialtyController } from "./presentation/http/controllers/speciality.
 import { specialityController } from "./presentation/http/di/specialty.di.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { adminSpecialtyRouter } from "./presentation/http/routes/admin/specialty.routes.ts";
+import { walletRouter } from "./presentation/http/routes/wallet.routes.ts";
+import { expireAppointmentsUseCase } from "./presentation/http/di/jobs/appointmentExpiry.di.ts";
+import { appointmentExpiryJob } from "@infrastructure/jobs/appointmentExpiry.job.ts";
 
 export const app = express();
 
@@ -67,10 +70,14 @@ app.use(`${api}doctor`, doctorRouter);
 app.use(`${api}patient`, patientRouter);
 app.get(`${api}specialty`, specialityController.getAll);
 
+app.use(`${api}wallet`, walletRouter);
+
 app.get("/health", (req, res) => {
   console.log("Api is health");
   res.json({ health_status: "API is healthy" });
 });
+
+appointmentExpiryJob(expireAppointmentsUseCase);
 
 app.use((err: AppError, req: Request, res: Response, _next: NextFunction) => {
   const logger = new PinoLoggerService();

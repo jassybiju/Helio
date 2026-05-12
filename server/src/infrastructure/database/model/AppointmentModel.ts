@@ -14,7 +14,8 @@ const appointmentSchema = new Schema({
     required: true,
   },
   consultation_fee: { type: Number, required: true },
-  amount_paid: { type: Number, default: 0 },
+  platform_fee: { type: Number, required: true },
+  total_amount: { type: Number, default: 0 },
   status: {
     type: String,
     enum: [

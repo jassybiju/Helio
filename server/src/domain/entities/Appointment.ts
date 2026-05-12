@@ -19,13 +19,14 @@ export class Appointment {
 
     private readonly _consultationType: CONSULTATION_TYPE,
     private readonly _consultationFee: number,
-    private readonly _amountPaid: number | null,
+    private readonly _totalAmount: number,
+    private readonly _platformFee: number,
 
-    private readonly _status: APPOINTMENT_STATUS,
+    private _status: APPOINTMENT_STATUS,
     private readonly _cancellationReason: string | null,
 
-    private readonly _paymentStatus: PAYMENT_STATUS,
-    private readonly _paymentId: string | null,
+    private _paymentStatus: PAYMENT_STATUS,
+    private _paymentId: string | null,
 
     private readonly _rescheduledFromAppointmentId: string | null,
     private readonly _rescheduleReason: string | null,
@@ -51,6 +52,16 @@ export class Appointment {
     }
   }
 
+  paymentCompleted(paymentId?: string) {
+    this._paymentStatus = PAYMENT_STATUS.PAID;
+
+    this._status = APPOINTMENT_STATUS.CONFIRMED;
+
+    if (paymentId) {
+      this._paymentId = paymentId;
+    }
+  }
+
   static create({
     appointmentId,
     doctorId,
@@ -59,12 +70,14 @@ export class Appointment {
     endTime,
     consultationType,
     consultationFee,
+    platformFee,
   }: {
     appointmentId: string;
     startTime: Date;
     endTime: Date;
     consultationType: CONSULTATION_TYPE;
     consultationFee: number;
+    platformFee: number;
     doctorId: string;
     patientId: string;
   }) {
@@ -76,7 +89,8 @@ export class Appointment {
       endTime,
       consultationType,
       consultationFee,
-      0,
+      consultationFee + platformFee,
+      platformFee,
       APPOINTMENT_STATUS.PENDING,
       null,
       PAYMENT_STATUS.PENDING,
@@ -86,7 +100,7 @@ export class Appointment {
       null,
       null,
       null,
-      new Date(Date.now() + 10 * 60 * 1000), // expires_at
+      new Date(Date.now() + 5 * 60 * 1000), // expires_at
       new Date(),
       new Date()
     );
@@ -113,8 +127,11 @@ export class Appointment {
   get consultationFee() {
     return this._consultationFee;
   }
-  get amountPaid() {
-    return this._amountPaid;
+  get platformFee() {
+    return this._platformFee;
+  }
+  get totalAmount() {
+    return this._totalAmount;
   }
   get status() {
     return this._status;
