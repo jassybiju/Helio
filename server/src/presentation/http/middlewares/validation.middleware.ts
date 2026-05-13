@@ -17,6 +17,7 @@ export const validate =
       query: req.query,
     });
 
+    console.log(parsed, 1121);
     if (!parsed.success) {
       return next(
         new ValidationError(
@@ -32,6 +33,13 @@ export const validate =
     if (parsed.data.params) {
       req.params = parsed.data.params;
     }
-
+    if (parsed.data.query) {
+      Object.defineProperty(req, "query", {
+        ...Object.getOwnPropertyDescriptor(req, "query"),
+        writable: true,
+        value: { ...parsed.data.query },
+      });
+    }
+    console.log(req.query);
     next();
   };

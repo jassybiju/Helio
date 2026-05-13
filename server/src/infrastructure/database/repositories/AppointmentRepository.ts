@@ -1,4 +1,7 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
+import type {
+  FindAppointmentsFilter,
+  IAppointmentRepository,
+} from "@application/ports/repositories/IAppointmentRepository.ts";
 import { Appointment } from "@domain/entities/Appointment.ts";
 import { BaseRepository } from "./BaseRepository.ts";
 import {
@@ -7,8 +10,10 @@ import {
 } from "../model/AppointmentModel.ts";
 import { AppointmentMapper } from "../../../mappers/AppointmentMapper.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { ClientSession } from "mongoose";
+import type { ClientSession, PipelineStage } from "mongoose";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import type { PatientRawDoc } from "../model/PatientModel.ts";
+import type { DoctorRawDoc } from "../model/DoctorModel.ts";
 
 export class AppointmentRepository
   extends BaseRepository<Appointment, AppointmentRaw>
@@ -99,5 +104,132 @@ export class AppointmentRepository
       }
     );
     console.log(result);
+  }
+
+  async findManyWithFilters(filters: FindAppointmentsFilter) {
+    console.log(filters, 99988);
+    const query: Record<string, unknown> = {
+      is_deleted: false,
+    };
+
+    if (filters.doctorId) {
+      query.doctor_id = filters.doctorId;
+    }
+
+    if (filters.status) {
+      query.status = filters.status;
+    }
+
+    if (filters.consultationType) {
+      query.consultation_type = filters.consultationType;
+    }
+
+    if (filters.startDate && filters.endDate) {
+      query.start_time = {
+        $gte: filters.startDate,
+        $lte: filters.endDate,
+      };
+    }
+
+    const skip = (filters.page - 1) * filters.limit;
+    console.log(skip, filters);
+    const pipeline: PipelineStage[] = [
+      {
+        $match: query,
+      },
+
+      {
+        $lookup: {
+          from: "patientmodels",
+          localField: "patient_id",
+          foreignField: "_id",
+          as: "patient",
+        },
+      },
+
+      {
+        $unwind: "$patient",
+      },
+      {
+        $lookup: {
+          from: "doctormodels",
+          localField: "doctor_id",
+          foreignField: "_id",
+          as: "doctor",
+        },
+      },
+
+      {
+        $unwind: "$doctor",
+      },
+    ];
+
+    if (filters.patientSearch?.trim()) {
+      pipeline.push({
+        $match: {
+          $or: [
+            {
+              "patient.first_name": {
+                $regex: filters.patientSearch,
+                $options: "i",
+              },
+            },
+          ],
+        },
+      });
+    }
+
+    if (filters.doctorSearch?.trim()) {
+      pipeline.push({
+        $match: {
+          $or: [
+            {
+              "doctor.full_name": {
+                $regex: filters.doctorSearch,
+                $options: "i",
+              },
+            },
+          ],
+        },
+      });
+    }
+
+    pipeline.push(
+      {
+        $sort: {
+          start_time: 1,
+        },
+      },
+
+      {
+        $facet: {
+          data: [{ $skip: skip }, { $limit: filters.limit }],
+
+          totalCount: [{ $count: "count" }],
+        },
+      }
+    );
+
+    const result = await super.aggregate<{
+      data: (AppointmentRaw & {
+        patient: PatientRawDoc;
+        doctor: DoctorRawDoc;
+      })[];
+      totalCount: { count: number }[];
+    }>(pipeline);
+    console.log(result[0], pipeline);
+    const first = result[0]!;
+
+    return {
+      appointments: first.data.map((doc) => ({
+        appointment: AppointmentMapper.toDomain(doc),
+
+        patientName: doc.patient.first_name,
+
+        doctorName: doc.doctor.full_name,
+      })),
+
+      totalCount: first.totalCount[0]?.count ?? 0,
+    };
   }
 }

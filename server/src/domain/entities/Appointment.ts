@@ -44,12 +44,12 @@ export class Appointment {
         HTTPStatus.UNPROCESSBLE_ENTITY
       );
     }
-    if (this._startTime < new Date()) {
-      throw new AppError(
-        "Cannot book past slot",
-        HTTPStatus.UNPROCESSBLE_ENTITY
-      );
-    }
+    // if (this._startTime < new Date()) {
+    //   throw new AppError(
+    //     "Cannot book past slot",
+    //     HTTPStatus.UNPROCESSBLE_ENTITY
+    //   );
+    // }
   }
 
   paymentCompleted(paymentId?: string) {

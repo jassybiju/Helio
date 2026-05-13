@@ -1,6 +1,35 @@
+import type { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
 import type { ClientSession } from "mongoose";
+
+export type DoctorAppointmentListItem = {
+  appointment: Appointment;
+
+  patientName: string;
+
+  doctorName: string;
+};
+
+export type FindAppointmentsFilter = {
+  doctorId?: string;
+  patientId?: string;
+
+  patientSearch?: string | null;
+  doctorSearch?: string | null;
+
+  status?: APPOINTMENT_STATUS | null;
+  consultationType?: CONSULTATION_TYPE | null;
+
+  startDate?: Date | null;
+  endDate?: Date | null;
+
+  page: number;
+  limit: number;
+
+  sortBy?: string;
+  order: "asc" | "desc";
+};
 
 export interface IAppointmentRepository {
   /**
@@ -34,4 +63,9 @@ export interface IAppointmentRepository {
   ): Promise<Appointment[]>;
 
   expirePendingAppointments(): Promise<void>;
+
+  findManyWithFilters(filters: FindAppointmentsFilter): Promise<{
+    appointments: DoctorAppointmentListItem[];
+    totalCount: number;
+  }>;
 }
