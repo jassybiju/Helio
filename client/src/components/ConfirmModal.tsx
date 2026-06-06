@@ -1,6 +1,6 @@
 "use client";
 
-  import { ModalProps } from "@/src/layout/ModalProvider";
+import { ModalProps } from "@/src/layout/ModalProvider";
 
 interface ConfirmModalProps extends ModalProps {
   title: string;

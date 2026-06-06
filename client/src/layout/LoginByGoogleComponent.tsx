@@ -20,7 +20,7 @@ const LoginByGoogleComponent = ({
     try {
       await googleLogin(credientialResponse.credential!);
       toast.success('Google Login Success')
-    } catch (error) {
+    } catch  {
       toast.error("Google Login Error")
     }
   };

@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { CreditCard, Plus, TrendingDown, Calendar, Download, ArrowUpRight, ArrowDownLeft, MoreVertical, Wallet, Eye, EyeOff, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CreditCard, Plus, Calendar, Download, ArrowUpRight, ArrowDownLeft, MoreVertical, Wallet, Eye, EyeOff, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useGetWalletQuery } from '../hooks/useGetWalletQuery'
+import { useModal } from '@/src/hooks/useModal'
+import AddMoneyModal from './AddMoneyModal'
 
 interface Transaction {
   id: string
@@ -75,18 +77,12 @@ const ITEMS_PER_PAGE = 5
 
 export default function WalletPage() {
   const [showBalance, setShowBalance] = useState(true)
-  const {data} =useGetWalletQuery({page : 1, limit : 10, order : 'asc'})
-  console.log(data)
   const [activeFilter, setActiveFilter] = useState<'all' | 'income' | 'expense'>('all')
   const [currentPage, setCurrentPage] = useState(1)
+  const {data} =useGetWalletQuery({page : currentPage, limit : ITEMS_PER_PAGE, order : 'desc'})
+  console.log(data)
+  const {open} = useModal() 
 
-  const balance = 250.50
-  const totalSpent = transactions
-    .filter(t => t.type === 'debit' && t.status === 'completed')
-    .reduce((sum, t) => sum + t.amount, 0)
-  const totalEarned = transactions
-    .filter(t => t.type === 'credit' && t.status === 'completed')
-    .reduce((sum, t) => sum + t.amount, 0)
 
   const filteredTransactions = transactions.filter(t => {
     if (activeFilter === 'income') return t.type === 'credit'
@@ -94,9 +90,8 @@ export default function WalletPage() {
     return true
   })
 
-  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE)
+  const totalPages = Math.ceil((data?.data.totalCount ?? 0 )/ ITEMS_PER_PAGE)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-  const paginatedTransactions = filteredTransactions.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -115,6 +110,9 @@ export default function WalletPage() {
     setCurrentPage(1)
   }
 
+  const handleAddMoney = () => {
+    open(AddMoneyModal)
+  }
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -129,7 +127,7 @@ export default function WalletPage() {
           <div>
             <p className="text-sm font-medium opacity-90">Available Balance</p>
             <div className="flex items-center gap-3 mt-2">
-              <p className="text-5xl font-bold">{showBalance ? `$${balance.toFixed(2)}` : '••••••'}</p>
+              <p className="text-5xl font-bold">{showBalance ? `$${data?.data.balance.toFixed(2)}` : '••••••'}</p>
               <button
                 onClick={() => setShowBalance(!showBalance)}
                 className="p-2 hover:bg-blue-700 rounded-lg transition"
@@ -142,7 +140,7 @@ export default function WalletPage() {
         </div>
         
         <div className="flex gap-3 flex-wrap">
-          <button className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-slate-100 transition">
+          <button onClick={handleAddMoney} className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-slate-100 transition">
             <Plus className="w-4 h-4" />
             Add Funds
           </button>
@@ -158,7 +156,7 @@ export default function WalletPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-semibold text-slate-600 uppercase">Total Spent</span>
@@ -191,7 +189,7 @@ export default function WalletPage() {
           <p className="text-3xl font-bold text-slate-900">{transactions.length}</p>
           <p className="text-xs text-slate-500">All time activity</p>
         </div>
-      </div>
+      </div> */}
 
       {/* Transaction History */}
       <div className="space-y-4">
@@ -201,7 +199,7 @@ export default function WalletPage() {
 
         {/* Filter Tabs */}
         <div className="flex gap-2 border-b border-slate-200">
-          {(['all', 'income', 'expense'] as const).map(filter => (
+          {(['all'] as const).map(filter => (
             <button
               key={filter}
               onClick={() => handleFilterChange(filter)}
@@ -218,7 +216,7 @@ export default function WalletPage() {
 
         {/* Transactions List */}
         <div className="space-y-3">
-          {data?.data.transactions.length > 0 ? (
+          {data?.data.transactions && data?.data.transactions?.length > 0 ? (
             data?.data.transactions.map(transaction => (
               <div key={transaction.id} className="bg-white rounded-lg border border-slate-200 p-5 hover:shadow-md transition">
                 <div className="flex items-center justify-between">
@@ -252,9 +250,9 @@ export default function WalletPage() {
                         {transaction.type === 'debit' ? '-' : '+'}${transaction.amount}
                       </p>
                       <p className={`text-xs font-medium ${
-                        transaction.status === 'completed' ? 'text-green-600' : 'text-yellow-600'
+                        transaction.type === 'completed' ? 'text-green-600' : 'text-yellow-600'
                       }`}>
-                        {transaction.status === 'completed' ? 'Completed' : 'Pending'}
+                        {transaction.type}
                       </p>
                     </div>
                     <button className="p-2 text-slate-400 hover:text-slate-600 transition">
@@ -313,7 +311,7 @@ export default function WalletPage() {
       </div>
 
       {/* Payment Methods */}
-      <div className="space-y-4">
+      {/* <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-slate-900">Payment Methods</h2>
           <button className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-1">
@@ -353,7 +351,7 @@ export default function WalletPage() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

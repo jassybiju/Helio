@@ -2,25 +2,18 @@
 
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Link from "next/link";
-import {
-  Calendar,
-  Clock,
-  DollarSign,
-  Tag,
-  Lock,
-  Wallet,
-  CreditCard,
-} from "lucide-react";
+import { DollarSign, Tag, Lock, Wallet, CreditCard } from "lucide-react";
 import { useParams } from "next/navigation";
 import { usePatientCheckoutQuery } from "../hooks/usePatientCheckoutQuery";
 import { useGetWalletQuery } from "@/src/features/wallet/hooks/useGetWalletQuery";
 import { usePatientCheckoutMutation } from "../hooks/usePatientCheckoutMutation";
 import { useRouter } from "next/navigation";
+import usePatientVerifyPaymentMutation from "../hooks/usePatientVerifyPaymentMutation";
 
 const PatientCheckoutComponent = () => {
   const { id } = useParams();
   const { data, isError } = usePatientCheckoutQuery(id as string);
+  const verifyPayment = usePatientVerifyPaymentMutation(id as string);
   const { data: wallet } = useGetWalletQuery();
   const router = useRouter();
   const { mutate, isPending: isProcessing } = usePatientCheckoutMutation(
@@ -33,7 +26,70 @@ const PatientCheckoutComponent = () => {
   const [promoCode, setPromoCode] = useState("");
 
   const handlePayment = async () => {
-    mutate(selectedPayment);
+    if (selectedPayment === "WALLET") {
+      mutate("WALLET", {
+        onSuccess() {
+          router.push(`/appointments/${id}/success`);
+        },
+      });
+      return;
+    }
+
+    mutate("RAZORPAY", {
+      onSuccess: async (response) => {
+        const data = response.data as {
+          key: string;
+          amount: number;
+          currency: "INR";
+          orderId: string;
+        };
+
+        console.log("_++++++", data);
+        const options = {
+          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
+          amount: data.amount,
+          currency: data.currency,
+          order_id: data.orderId,
+
+          name: "Your App",
+
+          description: "Appointment Payment",
+
+          handler: async function (paymentResponse: {
+            razorpay_payment_id: string;
+            razorpay_order_id: string;
+            razorpay_signature: string;
+          }) {
+            await verifyPayment.mutateAsync({
+              razorpay_order_id: paymentResponse.razorpay_order_id,
+
+              razorpay_payment_id: paymentResponse.razorpay_payment_id,
+
+              razorpay_signature: paymentResponse.razorpay_signature,
+            });
+
+            router.push(`/appointments/${id}/success`);
+          },
+          modal: {
+            ondismiss: function () {
+              router.push(`/appointments/${id}/error`);
+            },
+          },
+          prefill: {
+            name: "Patient Name",
+            email: "patient@email.com",
+          },
+
+          theme: {
+            color: "#2563eb",
+          },
+        };
+
+        const razor = new window.Razorpay(options);
+
+        razor.open();
+      },
+    });
   };
 
   useEffect(() => {
@@ -74,15 +130,14 @@ const PatientCheckoutComponent = () => {
                 <div className="flex items-center justify-between pb-4 border-b border-slate-200">
                   <span className="text-slate-600">Date & Time</span>
                   <span className="font-semibold text-slate-900">
-                    {new Date(checkoutData.start_time).toLocaleDateString(
-                      "en-US",
-                      {
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      },
-                    )}
+                    {new Date(
+                      checkoutData.appointment.startTime,
+                    ).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                     {/* {date && new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}, {time} */}
                   </span>
                 </div>
@@ -91,7 +146,7 @@ const PatientCheckoutComponent = () => {
                 <div className="flex items-center justify-between pb-4 border-b border-slate-200">
                   <span className="text-slate-600">Type</span>
                   <span className="font-semibold text-slate-900">
-                    {checkoutData.consultationType}
+                    {checkoutData.appointment.consultationType}
                     {/* {type === 'in-clinic' ? 'In-Clinic Visit' : 'Online Consultation'} */}
                   </span>
                 </div>
@@ -101,13 +156,13 @@ const PatientCheckoutComponent = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Consultation Fee</span>
                     <span className="font-semibold text-slate-900">
-                      ${checkoutData.consultationFee.toFixed(2)}
+                      ${checkoutData.appointment.consultationFee?.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Service Charge</span>
                     <span className="font-semibold text-slate-900">
-                      ${checkoutData.platformFee.toFixed(2)}
+                      ${checkoutData.appointment.platformFee?.toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -116,7 +171,7 @@ const PatientCheckoutComponent = () => {
                 <div className="flex items-center justify-between pt-2">
                   <span className="font-bold text-slate-900">Total Amount</span>
                   <span className="text-3xl font-bold text-blue-600">
-                    ${checkoutData.totalFee.toFixed(2)}
+                    ${checkoutData.appointment.totalAmount?.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -210,7 +265,7 @@ const PatientCheckoutComponent = () => {
                     <p className="text-sm text-slate-600">
                       Amount to be deducted:{" "}
                       <span className="font-semibold text-slate-900">
-                        ${checkoutData.totalFee.toFixed(2)}
+                        ${checkoutData.appointment.totalAmount?.toFixed(2)}
                       </span>
                     </p>
                   </div>
@@ -293,7 +348,7 @@ const PatientCheckoutComponent = () => {
                 <Lock className="w-5 h-5" />
                 {isProcessing
                   ? "Processing..."
-                  : `Pay & Confirm Appointment ($${data.data.totalFee.toFixed(2)})`}
+                  : `Pay & Confirm Appointment ($${data.data.appointment.totalAmount?.toFixed(2)})`}
               </button>
 
               {/* Security Info */}

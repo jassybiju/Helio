@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  Star,
-  MapPin,
-  ArrowLeft,
-  Calendar,
-  Clock,
-  MapPinIcon,
-  Video,
-} from "lucide-react";
-import { act, useEffect, useState } from "react";
+import { Clock } from "lucide-react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useDoctorSlotQuery } from "../hooks/useDoctorSlotQuery";
@@ -19,8 +11,8 @@ import { isAxiosError } from "axios";
 
 const DoctorBookingComponent = ({ id }: { id: string }) => {
   const { data, isError } = useDoctorSlotQuery(id);
-  const { mutate, isPending } = useCreateAppointment();
-  const resData = data?.data.slots?? {};
+  const { mutate } = useCreateAppointment();
+  const resData = data?.data.slots ?? {};
 
   const router = useRouter();
 
@@ -35,21 +27,19 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
   const activeDate = selectedDate ?? firstDate;
   if (isError) return null;
 
-  const doctor = data?.data.doctor
+  const doctor = data?.data.doctor;
 
   // Generate week days starting from today
-  const inClinicSlotsTimes =
-    activeDate && resData[activeDate]?.clinic?.times
-      ? resData[activeDate].clinic.times
-      : [];
+  const inClinicSlots = activeDate
+    ? (resData[activeDate]?.clinic?.slots ?? [])
+    : [];
 
-  const onlineSlotsTimes =
-    activeDate && resData[activeDate]?.online?.times
-      ? resData[activeDate].online.times
-      : [];
+  const onlineSlots = activeDate
+    ? (resData[activeDate]?.online?.slots ?? [])
+    : [];
 
   const handleBooking = () => {
-    console.log(activeDate, selectedTime, selectedType)
+    console.log(activeDate, selectedTime, selectedType);
     if (!activeDate || !selectedTime || !selectedType) return;
 
     mutate(
@@ -61,13 +51,14 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
       {
         onSuccess: (res) => {
           const appointmentId = res.appointmentId;
-          console.log(res)
-          toast.success("Appointment Created")
+          console.log(res);
+          toast.success("Appointment Created");
           // ✅ Redirect to payment page
           router.push(`/appointments/${appointmentId}/checkout`);
         },
         onError: (err) => {
-          if(isAxiosError(err)) toast.error(err?.response?.data?.message || "Booking failed");
+          if (isAxiosError(err))
+            toast.error(err?.response?.data?.message || "Booking failed");
         },
       },
     );
@@ -184,23 +175,30 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
               <h3 className="font-bold mb-4">In-Clinic</h3>
 
               <div className="grid grid-cols-3 gap-2">
-                {inClinicSlotsTimes.map((slot: string, i: number) => (
+                {inClinicSlots.map((slot, i: number) => (
                   <button
                     key={i}
+                    disabled={slot.status !== "AVAILABLE"}
                     onClick={() => {
-                      setSelectedTime(slot);
+                      if (slot.status !== "AVAILABLE") return;
+
+                      setSelectedTime(slot.time);
                       setSelectedType("in-clinic");
                     }}
-                    className={`p-2 rounded border ${
-                      activeDate === slot && selectedType === "in-clinic"
+                    className={`p-2 rounded border transition ${
+                      selectedTime === slot.time && selectedType === "in-clinic"
                         ? "bg-blue-600 text-white"
-                        : "text-black"
+                        : slot.status === "AVAILABLE"
+                          ? "bg-green-100 text-black"
+                          : slot.status === "BOOKED"
+                            ? "bg-red-200 text-red-800 cursor-not-allowed"
+                            : "bg-gray-300 text-gray-700 cursor-not-allowed"
                     }`}
                   >
-                    {new Date(slot).toLocaleTimeString("en-IN", {
+                    {new Date(slot.time).toLocaleTimeString("en-IN", {
                       hour: "2-digit",
                       minute: "2-digit",
-                    })}{" "}
+                    })}
                   </button>
                 ))}
               </div>
@@ -209,25 +207,31 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
             {/* ONLINE */}
             <div className="bg-white p-6 rounded-lg border">
               <h3 className="font-bold mb-4">Online</h3>
-
               <div className="grid grid-cols-3 gap-2">
-                {onlineSlotsTimes.map((slot: string, i: number) => (
+                {onlineSlots.map((slot, i: number) => (
                   <button
                     key={i}
+                    disabled={slot.status !== "AVAILABLE"}
                     onClick={() => {
-                      setSelectedTime(slot);
+                      if (slot.status !== "AVAILABLE") return;
+
+                      setSelectedTime(slot.time);
                       setSelectedType("online");
                     }}
-                    className={`p-2 rounded border ${
-                      selectedTime === slot && selectedType === "online"
+                    className={`p-2 rounded border transition ${
+                      selectedTime === slot.time && selectedType === "online"
                         ? "bg-blue-600 text-white"
-                        : "text-black"
+                        : slot.status === "AVAILABLE"
+                          ? "bg-green-100 text-black"
+                          : slot.status === "BOOKED"
+                            ? "bg-red-200 text-red-800 cursor-not-allowed"
+                            : "bg-gray-300 text-gray-700 cursor-not-allowed"
                     }`}
                   >
-                    {new Date(slot).toLocaleTimeString("en-IN", {
+                    {new Date(slot.time).toLocaleTimeString("en-IN", {
                       hour: "2-digit",
                       minute: "2-digit",
-                    })}{" "}
+                    })}
                   </button>
                 ))}
               </div>

@@ -1,36 +1,30 @@
-'use client'
+"use client";
 
-import TableComponent from '@/src/components/TableComponent';
-import { Calendar, Lightbulb } from 'lucide-react';
-import React from 'react'
-import { DAY_OF_WEEK } from '../../schemas/schedule.schema';
-import { useDoctorBlockSlot } from '../hooks/useDoctorBlockSlot';
+import TableComponent from "@/src/components/TableComponent";
+import { Calendar, Lightbulb } from "lucide-react";
+import React from "react";
+import { useDoctorBlockSlot } from "../hooks/useDoctorBlockSlot";
 
 const DoctorBlockSlotComponent = () => {
-  const {register, errors, onSubmit, column, data} = useDoctorBlockSlot()
+  const { register, errors, onSubmit, column, data } = useDoctorBlockSlot();
+  console.log(errors)
   return (
-  <div className="space-y-8">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <Calendar className="w-6 h-6 text-blue-600" />
-        <h1 className="text-3xl font-bold text-slate-900">Block Slots</h1>
-      </div>
-
-      {/* Main Content */}
       <div className="grid grid-cols-3 gap-8">
-        {/* Add New Slot Form */}
+        {/* Add New Slot Form */}   
         <div className="bg-white col-span-1 rounded-lg border border-slate-200 p-8 space-y-6">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">➕</span>
-            <h2 className="text-2xl font-bold text-slate-900">Add New Block Slot</h2>
+            <span className="text-2xl"> ➕ </span>
+            <h2 className="text-2xl font-bold text-slate-900">
+              Add New Block Slot
+            </h2>
           </div>
 
           <div className="space-y-4">
-            {/* Day of Week */}
-          
 
             {/* Start and End Time */}
-            <div >
+            <div>
               <div>
                 <label className="text-sm font-semibold text-slate-900 mb-2 block">
                   Start Time
@@ -48,14 +42,14 @@ const DoctorBlockSlotComponent = () => {
               </div>
             </div>
             <div>
-                <div>
+              <div>
                 <label className="text-sm font-semibold text-slate-900 mb-2 block">
                   End Time
                 </label>
                 <input
                   type="datetime-local"
                   {...register("endTime")}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3    border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 {errors.endTime && (
                   <p className="text-red-500 text-xs mt-1">
@@ -81,7 +75,6 @@ const DoctorBlockSlotComponent = () => {
                 </p>
               )}
             </div>
-
 
             {/* Create Button */}
             <button
@@ -175,7 +168,8 @@ const DoctorBlockSlotComponent = () => {
           </div>
         </div>
       </div>
-    </div>  )
-}
+    </div>
+  );
+};
 
-export default DoctorBlockSlotComponent
+export default DoctorBlockSlotComponent;

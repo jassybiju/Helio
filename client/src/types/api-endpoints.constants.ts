@@ -31,26 +31,35 @@ export const API_ENDPOINT = {
     },
     SCHEDULE: {
       BASE: "/doctor/schedule",
-      ID : (id : string)=>'/doctor/schedule/'+id
+      ID: (id: string) => "/doctor/schedule/" + id,
     },
-    SLOT : {
-      BASE : '/doctor/slot',
-      BLOCK : '/doctor/slot/block'
-    }
+    SLOT: {
+      BASE: "/doctor/slot",
+      BLOCK: {
+        BASE: "/doctor/slot/block",
+        ID: (id: string) => `/doctor/slot/block/${id}`,
+      },
+    },
   },
   PATIENT: {
     PROFILE: {
       I: "/patient/profile/",
     },
-    DOCTOR : {
-      BASE : "/patient/doctors/",
-      ID : (id : string) => `/patient/doctors/${id}`
+    DOCTOR: {
+      BASE: "/patient/doctors/",
+      ID: (id: string) => `/patient/doctors/${id}`,
     },
-    APPOINTMENT : {
-      ID : {
-        BASE : (id : string) => `/patient/appointment/${id}`,
-        CHECKOUT : (id : string) => `/patient/appointment/${id}/checkout`
-      }
-    }
+    APPOINTMENT: {
+      BASE: `/patient/appointment`,
+      ID: {
+        BASE: (id: string) => `/patient/appointment/${id}`,
+        CHECKOUT: (id: string) => `/patient/appointment/${id}/checkout`,
+        VERIFY: (id: string) => `/patient/appointment/${id}/verify`,
+      },
+    },
+    LAB: {
+      BASE: `/patient/lab`,
+      UPLOAD : (id : string) => `/patient/lab/${id}/upload`
+    },
   },
 } as const;

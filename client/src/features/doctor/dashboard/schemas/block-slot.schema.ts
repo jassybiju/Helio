@@ -5,6 +5,7 @@ export const blockDoctorSlotSchema = z
     startTime: z.coerce.date(),
     endTime: z.coerce.date(),
     reason: z.string(),
+    force : z.boolean().optional()
   })
   .refine(
     (data) => {

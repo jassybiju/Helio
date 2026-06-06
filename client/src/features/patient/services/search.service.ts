@@ -31,15 +31,19 @@ export const patientSearchService = {
       API_ENDPOINT.PATIENT.DOCTOR.ID(doctorId),
       HTTP_METHOD.GET,
     ) as Promise<
-      APIResponse<{doctor : Doctor, slots : 
-        Record<
+      APIResponse<{
+        doctor: Doctor;
+        slots: Record<
           string,
           {
-            clinic: { times: string[]; location: string };
-            online: { times: string[] };
+            clinic: {
+              slots: { time: string; status: string }[];
+              location: string;
+            };
+            online: { slots: { time: string; status: string }[] };
           }
-          >}
-        >
+        >;
+      }>
     >;
   },
 };

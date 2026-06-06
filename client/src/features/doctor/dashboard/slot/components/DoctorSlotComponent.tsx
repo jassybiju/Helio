@@ -3,18 +3,6 @@
 import {  Calendar, Clock } from 'lucide-react'
 import { useDoctorSlotQuery } from '../hooks/useDoctorSlotQuery'
 
-interface SlotItem {
-  id: string
-  appointmentId: string | null
-  status: string
-}
-
-interface GroupedSlot {
-  shiftId: string
-  startTime: string
-  endTime: string
-  slots: SlotItem[]
-}
 
 
 const DoctorSlotComponent = () => {
@@ -65,6 +53,7 @@ const DoctorSlotComponent = () => {
       <div className="space-y-10">
         {daysOrder.map((day) => {
           const daySlots = slots[day]!
+          console.log(daySlots)
           if (!daySlots || daySlots?.length === 0) return null
 
           return (
@@ -120,13 +109,13 @@ const DoctorSlotComponent = () => {
                     {/* Slot count */}
                     <div className="mb-3">
                       <span className="px-2 py-1 text-xs bg-slate-100 text-black rounded">
-                        {group?.slots?.length} slots
+                        {group?.length} slots
                       </span>
                     </div>
 
                     {/* Slots */}
                     <div className="space-y-1">
-                      {group.slots?.map((slot, i) => (
+                      {(group?.slots ?? []).map((slot, i) => (
                         <div
                           key={i}
                           className="flex justify-between text-sm border-b pb-1"
@@ -137,10 +126,10 @@ const DoctorSlotComponent = () => {
 
                           <span
                             className={`text-xs font-medium ${getStatusColor(
-                              slot.status
+                              slot
                             )}`}
                           >
-                            {slot.status}
+                            {slot}
                           </span>
                         </div>
                       ))}

@@ -1,4 +1,5 @@
 import Navbar from "@/src/components/Navbar";
+import Script from "next/script";
 import React from "react";
 
 type PatientProtectedCommonLayoutType = {
@@ -9,6 +10,10 @@ const PatientProtectedCommonLayout = ({
 }: PatientProtectedCommonLayoutType) => {
   return (
     <>
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="afterInteractive"
+      />
       <Navbar>
         <nav className="hidden md:flex items-center gap-8">
           <a

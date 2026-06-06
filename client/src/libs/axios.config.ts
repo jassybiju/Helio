@@ -3,6 +3,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { invalidateQuery } from "./queryClient";
 
 const isServer = typeof window === "undefined";
 
@@ -66,6 +67,7 @@ apiClient.interceptors.response.use(
 
         isRefreshing = false;
         processQueue(refreshError);
+        invalidateQuery('me')
         return Promise.reject(refreshError);
       } finally {
 

@@ -23,7 +23,7 @@ export const useGetDoctorAppointmentsQuery = ({
   return useQuery({
     queryKey: ["appointment", {search, date, status, type,page,limit}],
     queryFn: () =>
-      doctorAppointmentService.getAppointment({ search, date, status, type ,page, limit}),
+      doctorAppointmentService.getAppointments({ search, date, status, type ,page, limit}),
     placeholderData : keepPreviousData
   });
 };

@@ -1,10 +1,14 @@
-import PatientCheckoutComponent from '@/src/features/patient/slot/checkout/components/PatientCheckoutComponent'
-import React from 'react'
+import PatientCheckoutComponent from "@/src/features/patient/slot/checkout/components/PatientCheckoutComponent";
+import Script from "next/script";
+import React from "react";
 
 const PatientBookingCheckout = () => {
   return (
-    <PatientCheckoutComponent/>
-  )
-}
+    <>
+      
+      <PatientCheckoutComponent />
+    </>
+  );
+};
 
-export default PatientBookingCheckout
+export default PatientBookingCheckout;

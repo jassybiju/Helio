@@ -65,15 +65,15 @@ const DoctorScheduleComponent = () => {
       },
     });
   };
-  const daysOfWeek = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  // const daysOfWeek = [
+  //   "Monday",
+  //   "Tuesday",
+  //   "Wednesday",
+  //   "Thursday",
+  //   "Friday",
+  //   "Saturday",
+  //   "Sunday",
+  // ];
 
   const handleDeleteSlot = (id: string) => {
     open(ConfirmModal, {

@@ -3,11 +3,10 @@
 import TableComponent, { ColumnType } from "@/src/components/TableComponent";
 import React from "react";
 import { useSpecialtyQuery } from "../hooks/useSpecialtyQuery";
-import { useAddSpecialtyMutation } from "../hooks/useAddSpecialty";
 import { useModal } from "@/src/hooks/useModal";
 import AddSpecialtyModal from "./AddSpecialtyModal";
 import ClayButton from "@/src/components/ui/ClayButton";
-import { DeleteIcon, Trash2 } from "lucide-react";
+import {  Trash2 } from "lucide-react";
 import { useDeleteSpecialtyMutation } from "../hooks/useDeleteSpecialty";
 
 const AdminSpecialtyComponent = () => {

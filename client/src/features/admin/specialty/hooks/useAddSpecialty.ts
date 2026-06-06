@@ -1,7 +1,7 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import { HTTP_METHOD } from "@/src/types/API.types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation,  } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { toast } from "react-toastify";
 

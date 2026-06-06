@@ -93,7 +93,7 @@ export const ModalStack = ({
   close: (id: string) => void;
 }) => {
   if (!stack.length) return null;
-
+  console.log(stack)
   return createPortal(
     <div
       onClick={() => close(stack[stack.length - 1].id)}
@@ -103,22 +103,37 @@ export const ModalStack = ({
         const Comp = entry.component;
         const depth = stack.length - 1 - i;
         const isTop = i === stack.length - 1;
-
+        console.log(Comp)
         return (
           <div
             key={entry.id}
-            onClick={(e) => e.stopPropagation()}
-            className="absolute overflow-hidden min-w-80 max-w-[90vw] max-h-[85vh] overflow-y-auto rounded-2xl bg-white shadow-2xl transition-transform duration-200"
-            style={{
-              transform: `translateY(-${depth * 12}px) scale(${1 - depth * 0.05})`,
-              transformOrigin: "top center",
-              zIndex: 50 + i,
-              animation: isTop
-                ? "modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1)"
-                : "none",
-            }}
+            className="fixed inset-0 flex items-center justify-center"
+            style={{ zIndex: 50 + i * 2 }}
           >
-            <Comp {...entry.props} close={() => close(entry.id)} />
+            {/* Backdrop for every modal except the first */}
+            {i > 0 && (
+              <div
+                className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                onClick={() => {
+                  if (isTop) close(entry.id);
+                }}
+              />
+            )}
+
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="relative min-w-80 max-w-[90vw] max-h-[85vh] overflow-y-auto rounded-2xl bg-white shadow-2xl"
+              style={{
+                zIndex: 51 + i * 2,
+                transform: `translateY(-${depth * 12}px) scale(${1 - depth * 0.05})`,
+                transformOrigin: "top center",
+                animation: isTop
+                  ? "modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1)"
+                  : "none",
+              }}
+            >
+              <Comp {...entry.props} close={() => close(entry.id)} />
+            </div>
           </div>
         );
       })}
