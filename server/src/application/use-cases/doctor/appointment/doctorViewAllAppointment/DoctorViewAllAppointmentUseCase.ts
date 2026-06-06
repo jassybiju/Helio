@@ -9,7 +9,6 @@ import type { IDoctorRepository } from "@application/ports/repositories/IDoctorR
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
 import { DoctorViewAllAppointmentMapper } from "./DoctorViewAllAppointmentMapper.ts";
 
 export class DoctorViewAllAppointmentUseCase implements IDoctorViewAllAppointmentUseCase {

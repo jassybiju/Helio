@@ -63,8 +63,8 @@ export class PatientDoctorController {
   getDoctorSlots = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const doctorId = req.params.doctorId! as string;
-
-      const response = await this._getSlotUseCase.execute(doctorId);
+      const patientId = req.user?.id as string;
+      const response = await this._getSlotUseCase.execute(doctorId, patientId);
       const doctor = response.doctor;
       return apiResponse(
         res,

@@ -7,12 +7,14 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
+import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
 
 export class GetAppointmentUseCase implements IGetAppointmentUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _patientRepo: IPatientRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
+    private readonly _consultationRepo: IConsultationRepository,
     private readonly _doctorRepo: IDoctorRepository
   ) {}
   async execute(
@@ -31,7 +33,7 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
     if (!appointment) {
       throw new AppError("Appointment Not Found", HTTPStatus.NOT_FOUND);
     }
-
+    console.log(patient.id, appointment.patientId, patientId);
     if (appointment.patientId !== patient.id) {
       throw new AppError(
         "Appointment Not of this user",
@@ -45,17 +47,44 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
       throw new AppError(MESSAGE.DOCTOR_NOT_FOUND, HTTPStatus.NOT_FOUND);
     }
 
+    const consultation = await this._consultationRepo.findByAppointmentId(
+      appointment.id
+    );
+    let consultationDTO = null;
+    if (consultation) {
+      consultationDTO = {
+        primaryDiagnosis: consultation.primaryDiagnosis,
+        clinicalObservation: consultation.clinicalObservation,
+        generalAdvice: consultation.generalAdvice,
+        quickNote: consultation.quickNote,
+      };
+    }
     return {
       appointmentId: appointment.id,
-      doctorId: appointment.doctorId,
-      doctorName: doctor.fullName,
-      consultationFee: appointment.consultationFee,
-      start_time: appointment.startTime,
-      end_time: appointment.endTime,
-      consultationType: appointment.consultationType,
-      platformFee: appointment.platformFee,
-      status: appointment.status,
-      totalFee: appointment.totalAmount,
+      doctor: {
+        id: doctor.id,
+        name: doctor.fullName,
+        specialization: doctor.specialization,
+        profilePicture: null,
+      },
+
+      appointment: {
+        id: appointment.id,
+        startTime: appointment.startTime,
+        endTime: appointment.endTime,
+        consultationType: appointment.consultationType,
+        consultationFee: appointment.consultationFee,
+        platformFee: appointment.platformFee,
+        totalAmount: appointment.totalAmount,
+        status: appointment.status,
+      },
+      payment: {
+        paymentStatus: appointment.paymentStatus,
+        paymentId: appointment.paymentId,
+      },
+      consultation: consultationDTO,
+      cancellationReason: appointment.cancellationReason,
+      createdAt: appointment.createdAt,
     };
   }
 }

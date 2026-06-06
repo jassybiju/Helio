@@ -4,7 +4,6 @@ import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts
 import { DoctorShiftRepository } from "@infrastructure/database/repositories/DoctorShiftRepository.ts";
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { SlotGenerator } from "@application/service/SlotGenerator.ts";
 import { GetDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleUseCase.ts";
 import { DeleteDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/deleteDoctorSchedule/DeleteDoctorScheduleUseCase.ts";
 import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";

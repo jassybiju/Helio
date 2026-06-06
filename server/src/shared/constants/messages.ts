@@ -60,4 +60,11 @@ export enum MESSAGE {
   APPOINTMENT_NOT_FOUND = "Appointment Not Found",
   APPOINTMENT_NOT_ACCESS = "Unauthrized Appointment Access",
   APPOINTMENT_ALREADY_PAID = "Appointment ALready paid",
+
+  // consultation
+  CONSULTATION_NOT_FOUND = "Consultation Not Found",
+  CONSULTATION_NOT_ACCESS = "Unauthrized Consultation Access",
+
+  // block
+  BLOCK_NOT_FOUND = "Doctor Block not found",
 }

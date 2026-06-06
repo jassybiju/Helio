@@ -3,7 +3,6 @@ import type {
   PAYMENT_STATUS,
 } from "@domain/common/enums/appointment.enum.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { Appointment } from "@domain/entities/Appointment.ts";
 import type { AppointmentRaw } from "@infrastructure/database/model/AppointmentModel.ts";
 
@@ -13,7 +12,7 @@ export class AppointmentMapper {
       raw._id,
       raw.doctor_id,
       raw.patient_id,
-      raw.start_time,
+      new Date(raw.start_time),
       new Date(raw.end_time),
       raw.consultation_type as CONSULTATION_TYPE,
       raw.consultation_fee,
@@ -21,6 +20,9 @@ export class AppointmentMapper {
       raw.platform_fee,
       raw.status as APPOINTMENT_STATUS,
       raw.cancellation_reason ?? null,
+      raw.queue_number,
+      raw.consultation_started_at ?? null,
+      raw.consultation_ended_at ?? null,
       raw.payment_status as PAYMENT_STATUS,
       raw.payment_id ?? null,
       raw.rescheduled_from_appointment_id ?? null,
@@ -50,6 +52,9 @@ export class AppointmentMapper {
       status: domain.status,
       cancellation_reason: domain.cancellationReason ?? null,
 
+      queue_number: domain.queueNumber,
+      consultation_ended_at: domain.consultationEndedAt,
+      consultation_started_at: domain.consultationStartedAt,
       payment_status: domain.paymentStatus,
       payment_id: domain.paymentId ?? null,
 

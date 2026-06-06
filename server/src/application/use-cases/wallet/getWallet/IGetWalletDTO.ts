@@ -6,6 +6,7 @@ export interface IGetWalletDTO {
     amount: number;
     type: TRANSACTION_TYPE;
     date: string;
+    description: string | null;
   }[];
   balance: number;
   totalCount: number;

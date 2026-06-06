@@ -7,15 +7,25 @@ import { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
 import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type Razorpay from "razorpay";
 
 export class AddMoneyUseCase implements IAddMoneyUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _walletRepo: IWalletRepository,
     private readonly _transactionRepo: IWalletTransactionRepository,
-    private readonly _idGenerator: IIDGenerator
+    private readonly _idGenerator: IIDGenerator,
+    private readonly _razorpay: Razorpay
   ) {}
-  async execute(userId: string, amount: number): Promise<void> {
+  async execute(
+    userId: string,
+    amount: number
+  ): Promise<{
+    transactionId: string;
+    orderId: string;
+    amount: number;
+    currency: "INR";
+  }> {
     // TODO : Add Atomicitiy HERE
 
     this._logger.info("Add money attempt", { userId, amount });
@@ -25,8 +35,6 @@ export class AddMoneyUseCase implements IAddMoneyUseCase {
     if (!wallet) {
       throw new AppError("Wallet Not found", HTTPStatus.NOT_FOUND);
     }
-    wallet.credit(amount);
-    await this._walletRepo.update(wallet);
 
     const TRAN_PREFIX = process.env.TRANSACTION_PREFIX!;
 
@@ -38,7 +46,19 @@ export class AddMoneyUseCase implements IAddMoneyUseCase {
       referenceId: null,
       description: `Amount add to wallet at ${new Date().toDateString()}`,
     });
+    const order = await this._razorpay.orders.create({
+      amount: amount * 100,
+      currency: "INR",
+      receipt: transaction.id,
+    });
 
     await this._transactionRepo.create(transaction);
+
+    return {
+      transactionId: transaction.id,
+      orderId: order.id,
+      amount: amount,
+      currency: "INR",
+    };
   }
 }

@@ -24,11 +24,16 @@ export abstract class BaseRepository<
 
   protected async findOne(
     query: QueryFilter<TModel>,
-    map: (doc: TModel) => TDomain
+    map: (doc: TModel) => TDomain,
+    options?: {
+      sort?: Record<string, 1 | -1>;
+    }
   ): Promise<TDomain | null> {
     const doc = await this._model
       .findOne({ ...query, is_deleted: false })
+      .sort(options?.sort ?? {})
       .session(this._session);
+
     if (!doc) return null;
 
     return map(doc);
@@ -54,7 +59,7 @@ export abstract class BaseRepository<
     id: string,
     persistence: (entity: TDomain) => Record<string, unknown>
   ): Promise<void> {
-    const result = await this._model
+    await this._model
       .updateOne({ _id: id, is_deleted: false }, persistence(entity))
       .session(this._session);
   }

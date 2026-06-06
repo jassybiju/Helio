@@ -1,9 +1,7 @@
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IDoctorSlotRepository } from "@application/ports/repositories/IDoctorSlotRepository.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
 import type {
   IDoctorScheduleInput,
@@ -14,7 +12,6 @@ import { Time } from "@domain/value-objects/Time.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { getNextDateForDay } from "@shared/utils/date.utils.ts";
 
 export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
   constructor(

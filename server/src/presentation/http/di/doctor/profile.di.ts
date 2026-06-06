@@ -1,6 +1,5 @@
 import { CompleteDoctorProfileUseCase } from "@application/use-cases/doctor/profile/CompleteDoctorProfileUseCase.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { LocalFileUploadService } from "@infrastructure/services/LocalFileUploadService.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { DoctorProfileController } from "../../controllers/doctor/profile.controller.ts";
 import { GetDoctorProfileUseCase } from "@application/use-cases/doctor/profile/getDoctorProfile/GetDoctorProfileUseCase.ts";
@@ -9,17 +8,18 @@ import { UpdateDoctorProfileUseCase } from "@application/use-cases/doctor/profil
 import { ChangeDoctorPasswordUseCase } from "@application/use-cases/doctor/profile/changePassword/DoctorChangePasswordUseCase.ts";
 import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
 import { DoctorValidator } from "@application/validators/DoctorValidator.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
 const loggerService = new PinoLoggerService();
 const doctorRepo = new MongoDoctorRepository(loggerService);
-const localFileUpload = new LocalFileUploadService();
+const fileUpload = new CloudinaryFileUploadService();
 const passwordService = new BcryptPasswordService();
 const doctorValidator = new DoctorValidator(doctorRepo, passwordService);
 
 const doctorProfileCompleteUseCase = new CompleteDoctorProfileUseCase(
   loggerService,
   doctorRepo,
-  localFileUpload
+  fileUpload
 );
 const doctorGetProfileUseCase = new GetDoctorProfileUseCase(
   loggerService,

@@ -5,6 +5,8 @@ import { WalletRepository } from "@infrastructure/database/repositories/WalletRe
 import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { AddMoneyUseCase } from "@application/use-cases/wallet/addMoney/AddMoneyUseCase.ts";
+import { razorpay } from "@config/razorpay.config.ts";
+import { AddMoneyVerifyUseCase } from "@application/use-cases/wallet/addMoney/AddMoneyVerifyUseCase.ts";
 
 const logger = new PinoLoggerService();
 
@@ -21,10 +23,17 @@ const addMoneyUseCase = new AddMoneyUseCase(
   logger,
   walletRepo,
   transactionRepo,
-  idGenerator
+  idGenerator,
+  razorpay
 );
 
+const verifyAddMoney = new AddMoneyVerifyUseCase(
+  logger,
+  walletRepo,
+  transactionRepo
+);
 export const walletController = new WalletController(
   getWalletUseCase,
-  addMoneyUseCase
+  addMoneyUseCase,
+  verifyAddMoney
 );

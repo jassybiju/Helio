@@ -9,6 +9,8 @@ import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { DoctorBlockShiftRepository } from "@infrastructure/database/repositories/DoctorBlockShiftRepository.ts";
 import { GetDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotUseCase.ts";
 import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
+import { DeleteDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/deleteDoctorBlockSlot/DeleteDoctorBlockSlotUseCase.ts";
+import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
 
 const loggerService = new PinoLoggerService();
 
@@ -17,7 +19,8 @@ const idGenerator = new NanoidGenerator();
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const doctorShiftRepo = new DoctorShiftRepository(loggerService);
 const doctorBlockShiftRepo = new DoctorBlockShiftRepository(loggerService);
-const appointmentRepo = new AppointmentRepository();
+const appointmentRepo = new AppointmentRepository(loggerService);
+const uow = new MongoUnitOfWork();
 const doctorGetWeeklySlotUseCase = new GetDoctorWeeklySlotsUsecase(
   loggerService,
   doctorRepo,
@@ -30,7 +33,9 @@ const doctorGetWeeklySlotUseCase = new GetDoctorWeeklySlotsUsecase(
 const doctorBlockSlotUseCase = new BlockDoctorSlotUseCase(
   loggerService,
   idGenerator,
-  doctorBlockShiftRepo
+  doctorBlockShiftRepo,
+  appointmentRepo,
+  uow
 );
 
 const getDoctorBlockSlotUseCase = new GetDoctorBlockSlotUseCase(
@@ -39,8 +44,14 @@ const getDoctorBlockSlotUseCase = new GetDoctorBlockSlotUseCase(
   doctorBlockShiftRepo
 );
 
+const deleteDoctorBlockSlotUseCase = new DeleteDoctorBlockSlotUseCase(
+  loggerService,
+  doctorBlockShiftRepo,
+  doctorRepo
+);
 export const doctorSlotController = new DoctorSlotController(
   doctorGetWeeklySlotUseCase,
   doctorBlockSlotUseCase,
-  getDoctorBlockSlotUseCase
+  getDoctorBlockSlotUseCase,
+  deleteDoctorBlockSlotUseCase
 );

@@ -1,6 +1,4 @@
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
-import { SLOT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
 import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
 import { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
 import {
@@ -16,10 +14,10 @@ export class SlotGenerator implements ISlotGenerator {
     const slots: DoctorSlot[] = [];
 
     const interval = shift.slotIntervalInMinutes;
-    const capacity = shift.capacityPerSlot;
+    // const capacity = shift.capacityPerSlot;
     let currentTime = shift.startTime.clone();
 
-    const SLOT_PREFIX = process.env.SLOT_PREFIX;
+    // const SLOT_PREFIX = process.env.SLOT_PREFIX;
 
     while (currentTime.isBefore(shift.endTime)) {
       const nextTime = currentTime.addMinutes(interval);
@@ -33,7 +31,10 @@ export class SlotGenerator implements ISlotGenerator {
           shift.doctorId,
           istToUtc(combineDateAndTime(date, currentTime)),
           istToUtc(combineDateAndTime(date, nextTime)),
-          shift.consultationType
+          shift.consultationType,
+          shift.capacityPerSlot,
+          0,
+          shift.location
         )
       );
 

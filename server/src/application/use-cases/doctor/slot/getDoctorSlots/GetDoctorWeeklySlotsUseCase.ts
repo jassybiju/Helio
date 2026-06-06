@@ -5,7 +5,6 @@ import type { IGetDoctorWeeklySlotsUseCase } from "@application/ports/use-cases/
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { IGroupedSlots } from "./IGetDoctorWeeklySlotsDTO.ts";
 import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
 import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
 import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
@@ -33,7 +32,7 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
     params: IDoctorSlotFilters
   ): Promise<Record<string, SlotWithUnits[]>> {
     this._logger.info("Get Doctor Slots Attempt", { doctorId });
-    const { page, limit } = params;
+    // const { page, limit } = params;
 
     const doctor = await this._doctorRepo.findById(doctorId);
 
@@ -93,31 +92,21 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
       const appts = slotMap.get(slotKey) || [];
       console.log(appts, key, 2234);
       const shift = shifts.find((s) => slot.shiftId === s.shiftId);
+
       const capacity = shift?.capacityPerSlot ?? 1;
 
-      let units = [];
+      const activeAppointments = appts.filter(
+        (appt) =>
+          appt.status !== APPOINTMENT_STATUS.CANCELLED &&
+          appt.status !== APPOINTMENT_STATUS.EXPIRED
+      );
 
-      for (let i = 0; i < capacity; i++) {
-        const appt = appts[i];
-        if (!appt) {
-          units.push({ status: SLOT_STATUS.AVAILABLE });
-          continue;
-        }
-
-        if (
-          appt.status === APPOINTMENT_STATUS.CANCELLED ||
-          appt.status === APPOINTMENT_STATUS.EXPIRED
-        ) {
-          units.push({ status: SLOT_STATUS.AVAILABLE });
-        } else {
-          units.push({ status: SLOT_STATUS.BOOKED });
-        }
-      }
+      slot.setCapacity(capacity);
+      slot.setBookedCount(activeAppointments.length);
 
       if (!result[key]) {
         result[key] = [];
       }
-      slot.setUnits(units);
       result[key].push(slot);
     }
     return result;

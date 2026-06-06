@@ -4,6 +4,7 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import {
   apiResponse,
+  errorResponse,
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import type { NextFunction, Request, Response } from "express";
@@ -11,20 +12,44 @@ import {
   blockDoctorSlotSchema,
   getAllDoctorSlotsSchema,
 } from "../../schemas/doctor/slot.schema.ts";
-import { parse } from "zod";
 import { GetDoctorWeeklySlotsMapper } from "@application/use-cases/doctor/slot/getDoctorSlots/GetDoctorWeeklySlotsMapper.ts";
 import type { IGetDoctorWeeklySlotsUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorWeeklySlotsUseCase.ts";
 import type { IBlockDoctorSlotUseCase } from "@application/ports/use-cases/doctor/slot/IBlockDoctorSlotUseCase.ts";
 import type { IGetDoctorBlockSlotUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorBlockSlotUseCase.ts";
-import { DoctorBlockShiftMapper } from "../../../../mappers/DoctorBlockShiftMapper.ts";
 import { GetDoctorBlockSlotMapper } from "@application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotMapper.ts";
+import type { IDeleteDoctorBlockSlotUseCase } from "@application/ports/use-cases/doctor/slot/IDeleteDoctorBlockSlotUseCase.ts";
 
 export class DoctorSlotController {
   constructor(
     private readonly _getSlots: IGetDoctorWeeklySlotsUseCase,
     private readonly _blockSlot: IBlockDoctorSlotUseCase,
-    private readonly _getBlockSlot: IGetDoctorBlockSlotUseCase
+    private readonly _getBlockSlot: IGetDoctorBlockSlotUseCase,
+    private readonly _deleteblockSlot: IDeleteDoctorBlockSlotUseCase
   ) {}
+
+  deleteBlock = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const doctorId = req?.user?.id;
+
+      if (!doctorId) {
+        throw new AppError("Doctor Id required", HTTPStatus.UNAUTHORIZED);
+      }
+
+      const { blockId } = req.params;
+      const response = await this._deleteblockSlot.execute(
+        doctorId,
+        blockId as string
+      );
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, "Block Deleted Successfully")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 
   getSlots = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -80,6 +105,14 @@ export class DoctorSlotController {
       }
 
       const response = await this._blockSlot.execute(doctorId, parsed.data);
+
+      if (!response.blocked) {
+        return apiResponse(
+          res,
+          HTTPStatus.CONFLICT,
+          errorResponse("Block Failed", response)
+        );
+      }
 
       return apiResponse(
         res,

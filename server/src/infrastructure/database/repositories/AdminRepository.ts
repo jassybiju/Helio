@@ -16,7 +16,7 @@ export class AdminRepository implements IAdminRepository {
         new Email(adminDoc.email!),
         adminDoc.passwordHash!
       );
-    } catch (error) {
+    } catch {
       throw new AppError("Error fetching admin", HTTPStatus.INTERNAL_ERROR);
     }
   }

@@ -18,6 +18,10 @@ export class WalletTransaction {
     private readonly _createdAt: Date
   ) {}
 
+  paymentSuccessful() {
+    this._status = TRANSACTION_STATUS.COMPLETED;
+  }
+
   static createTransaction({
     id,
     walletId,

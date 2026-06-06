@@ -5,11 +5,7 @@ import type {
 import type { ISearchDoctorsDTO } from "./ISearchDoctorDTO.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IDoctorSlotRepository } from "@application/ports/repositories/IDoctorSlotRepository.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
-import { istToUtc, utcToIst } from "@shared/utils/date.utils.ts";
 import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
 
 export class SearchDoctorsUseCase implements ISearchDoctorUseCase {

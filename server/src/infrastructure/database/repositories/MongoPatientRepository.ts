@@ -3,7 +3,7 @@ import type {
   IPatientRepository,
 } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { QueryFilter } from "mongoose";
+import type { ClientSession, QueryFilter } from "mongoose";
 import { Patient } from "@domain/entities/Patient.ts";
 import { Email } from "@domain/value-objects/Email.ts";
 import { AppError } from "@shared/errors/AppError.ts";
@@ -16,8 +16,19 @@ export class PatientRepository
   extends BaseRepository<Patient, PatientDoc>
   implements IPatientRepository
 {
-  constructor(private readonly _loggerService: ILogger) {
-    super(patientModel);
+  constructor(
+    private readonly _loggerService: ILogger,
+    session?: ClientSession
+  ) {
+    super(patientModel, session);
+  }
+
+  withSession(session: ClientSession) {
+    return new PatientRepository(this._loggerService, session);
+  }
+
+  findByIds(ids: string[]): Promise<Patient[]> {
+    return super.find({ _id: { $in: ids } }, {}, PatientMapper.toDomain);
   }
 
   /**

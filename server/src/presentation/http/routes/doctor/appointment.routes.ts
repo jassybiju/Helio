@@ -16,3 +16,22 @@ doctorAppointmentRoutes.get(
   validate(doctorViewAllAppointmentSchema),
   doctorAppointmentController.getAllAppointments
 );
+
+doctorAppointmentRoutes.get(
+  "/today",
+  doctorAppointmentController.getTodaysAppointment
+);
+doctorAppointmentRoutes.post(
+  "/:appointmentId/start",
+  doctorAppointmentController.startConsultation
+);
+
+doctorAppointmentRoutes.get(
+  "/:appointmentId",
+  doctorAppointmentController.getAppointment
+);
+
+doctorAppointmentRoutes.patch(
+  "/:appointmentId/skip",
+  doctorAppointmentController.skipAppointment
+);

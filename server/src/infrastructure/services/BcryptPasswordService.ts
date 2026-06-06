@@ -18,7 +18,7 @@ export class BcryptPasswordService implements IPasswordService {
     try {
       console.log(password, hash, await bcrypt.compare(password, hash));
       return await bcrypt.compare(password, hash);
-    } catch (error) {
+    } catch {
       throw new AppError("Error in comparing password", 500);
     }
   }

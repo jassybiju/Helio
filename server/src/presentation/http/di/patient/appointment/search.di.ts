@@ -6,6 +6,7 @@ import { DoctorShiftRepository } from "@infrastructure/database/repositories/Doc
 import { SlotGenerator } from "@application/service/SlotGenerator.ts";
 import { GetSlotUseCase } from "@application/use-cases/patient/appointments/getSlots/GetSlotUseCase.ts";
 import { DoctorBlockShiftRepository } from "@infrastructure/database/repositories/DoctorBlockShiftRepository.ts";
+import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
 
 const loggerService = new PinoLoggerService();
 const slotGenerator = new SlotGenerator();
@@ -13,7 +14,7 @@ const slotGenerator = new SlotGenerator();
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const doctorShiftRepo = new DoctorShiftRepository(loggerService);
 const blockSlotRepo = new DoctorBlockShiftRepository(loggerService);
-
+const appointmentRepo = new AppointmentRepository(loggerService);
 const searchDoctorUseCase = new SearchDoctorsUseCase(
   loggerService,
   doctorShiftRepo,
@@ -25,7 +26,8 @@ const getSlotsUseCase = new GetSlotUseCase(
   doctorRepo,
   doctorShiftRepo,
   blockSlotRepo,
-  slotGenerator
+  slotGenerator,
+  appointmentRepo
 );
 export const patientDoctorController = new PatientDoctorController(
   searchDoctorUseCase,

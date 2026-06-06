@@ -21,7 +21,6 @@ import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswor
 import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts";
 import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
 import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
-import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
 
 const loggerService = new PinoLoggerService();
 const bcryptPasswordService = new BcryptPasswordService();

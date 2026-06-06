@@ -10,10 +10,14 @@ export function successResponse<T>(data: T, message: string): APIResponse<T> {
   };
 }
 
-export function errorResponse(message: string): APIResponse<null> {
+export function errorResponse(
+  message: string,
+  error?: unknown
+): APIResponse<null> {
   return {
     success: false,
     message,
+    error: error ? error : null,
   };
 }
 export function apiResponse<T>(

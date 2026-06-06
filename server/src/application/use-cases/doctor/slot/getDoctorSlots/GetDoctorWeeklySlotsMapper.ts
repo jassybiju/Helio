@@ -1,8 +1,6 @@
 import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
-import type {
-  IGroupedSlots,
-  IWeeklySlotsResponseDTO,
-} from "./IGetDoctorWeeklySlotsDTO.ts";
+import type { IWeeklySlotsResponseDTO } from "./IGetDoctorWeeklySlotsDTO.ts";
+import { SLOT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
 
 export class GetDoctorWeeklySlotsMapper {
   static toDto(data: Record<string, DoctorSlot[]>): IWeeklySlotsResponseDTO {
@@ -16,7 +14,11 @@ export class GetDoctorWeeklySlotsMapper {
         endTime: slot.endTime.toLocaleString("en-US", {
           timeZone: "Asia/Kolkata",
         }),
-        slots: slot.slots,
+        slots: [
+          ...Array(slot.bookedCount).fill(SLOT_STATUS.BOOKED),
+
+          ...Array(slot.availableCount).fill(SLOT_STATUS.AVAILABLE),
+        ],
       }));
     }
 

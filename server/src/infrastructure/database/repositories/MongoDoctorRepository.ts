@@ -6,9 +6,6 @@ import type {
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { doctorModel, type DoctorDoc } from "../model/DoctorModel.ts";
 import { DoctorMapper } from "../../../mappers/DoctorMapper.ts";
 import { BaseRepository } from "./BaseRepository.ts";

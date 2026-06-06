@@ -7,7 +7,6 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { type NextFunction, type Request, type Response } from "express";
-import { success } from "zod";
 
 export class SpecialtyController {
   constructor(

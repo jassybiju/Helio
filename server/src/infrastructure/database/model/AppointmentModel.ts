@@ -29,6 +29,9 @@ const appointmentSchema = new Schema({
     ],
     default: "PENDING",
   },
+  queue_number: { type: Number, default: 0 },
+  consultation_started_at: { type: Date, default: null },
+  consultation_ended_at: { type: Date, default: null },
   cancellation_reason: { type: String },
   payment_status: {
     type: String,
@@ -41,7 +44,7 @@ const appointmentSchema = new Schema({
   reschedule_reason: { type: String, default: null },
   rescheduled_by: {
     type: String,
-    enum: ["DOCTOR", "PATIENT"],
+    enum: ["doctor", "patient"],
     default: null,
   },
   rescheduled_at: { type: Date, default: null },

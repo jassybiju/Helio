@@ -1,4 +1,3 @@
-import type { Appointment } from "@domain/entities/Appointment.ts";
 import type { IDoctorViewAllAppointmentDTO } from "./IDoctorViewAllAppointmentDTO.ts";
 import type { DoctorAppointmentListItem } from "@application/ports/repositories/IAppointmentRepository.ts";
 
@@ -15,6 +14,7 @@ export class DoctorViewAllAppointmentMapper {
         type: app.consultationType,
         paymentStatus: app.paymentStatus,
         status: app.status,
+        queueNumber: app.queueNumber,
       };
     });
   }

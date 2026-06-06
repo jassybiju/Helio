@@ -8,3 +8,4 @@ walletRouter.use(authMiddleware);
 
 walletRouter.get("/", walletController.getWallet);
 walletRouter.post("/", walletController.addMoney);
+walletRouter.post("/:transactionId", walletController.verifyAddMoney);

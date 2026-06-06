@@ -3,13 +3,40 @@ import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts
 
 export interface IGetAppointmentDTO {
   appointmentId: string;
-  doctorId: string;
-  doctorName: string;
-  start_time: Date;
-  end_time: Date;
-  consultationType: CONSULTATION_TYPE;
-  consultationFee: number;
-  platformFee: number;
-  status: APPOINTMENT_STATUS;
-  totalFee: number;
+
+  doctor: {
+    id: string;
+    name: string;
+    specialization?: string | null;
+    profilePicture?: string | null;
+  };
+
+  appointment: {
+    id: string;
+    startTime: Date;
+    endTime: Date;
+
+    consultationType: CONSULTATION_TYPE;
+
+    consultationFee: number;
+    platformFee: number;
+    totalAmount: number;
+
+    status: APPOINTMENT_STATUS;
+  };
+
+  payment: {
+    paymentStatus: string;
+    paymentId: string | null;
+  };
+  consultation: {
+    primaryDiagnosis: string | null;
+    clinicalObservation: string | null;
+    generalAdvice: string | null;
+    quickNote: string | null;
+  } | null;
+
+  cancellationReason: string | null;
+
+  createdAt: Date;
 }

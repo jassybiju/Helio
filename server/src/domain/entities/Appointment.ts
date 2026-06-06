@@ -1,4 +1,3 @@
-import { DoctorValidator } from "@application/validators/DoctorValidator.ts";
 import {
   APPOINTMENT_STATUS,
   PAYMENT_STATUS,
@@ -6,6 +5,7 @@ import {
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { AppError } from "@shared/errors/AppError.ts";
+import { ConflictError } from "@shared/errors/ConflictError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class Appointment {
@@ -23,7 +23,11 @@ export class Appointment {
     private readonly _platformFee: number,
 
     private _status: APPOINTMENT_STATUS,
-    private readonly _cancellationReason: string | null,
+    private _cancellationReason: string | null,
+
+    private readonly _queueNumber: number,
+    private _consultationStartedAt: Date | null,
+    private _consultationEndedAt: Date | null,
 
     private _paymentStatus: PAYMENT_STATUS,
     private _paymentId: string | null,
@@ -52,14 +56,52 @@ export class Appointment {
     // }
   }
 
+  cancelByDoctor(reason?: string) {
+    this.transitionTo(APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED);
+    this._cancellationReason = reason ?? null;
+  }
+
+  startConsultation() {
+    this.transitionTo(APPOINTMENT_STATUS.ONGOING);
+    // if (this._paymentStatus === PAYMENT_STATUS.PAID) {
+    //   this._paymentStatus = PAYMENT_STATUS.REFUND_PENDING;
+    // }
+    this._consultationStartedAt = new Date();
+  }
+
+  endConsultation() {
+    if (this._status !== APPOINTMENT_STATUS.ONGOING) {
+      throw new ConflictError("Appointment is not ongoing");
+    }
+    this._status = APPOINTMENT_STATUS.COMPLETED;
+    this._consultationEndedAt = new Date();
+  }
+
   paymentCompleted(paymentId?: string) {
     this._paymentStatus = PAYMENT_STATUS.PAID;
 
-    this._status = APPOINTMENT_STATUS.CONFIRMED;
+    this.transitionTo(APPOINTMENT_STATUS.CONFIRMED);
 
     if (paymentId) {
       this._paymentId = paymentId;
     }
+  }
+
+  skip(){
+    this.transitionTo(APPOINTMENT_STATUS.SKIPPED)
+  }
+
+  cancelByDoctorComplete() {
+    this.transitionTo(APPOINTMENT_STATUS.CANCELLED_BY_DOCTOR);
+  }
+
+  private transitionTo(toStatus: APPOINTMENT_STATUS) {
+    if (!Appointment.isValidTransition(this._status, toStatus)) {
+      throw new ConflictError(
+        `Invalid trnasition from ${this._status} to ${toStatus}`
+      );
+    }
+    this._status = toStatus;
   }
 
   static create({
@@ -71,6 +113,11 @@ export class Appointment {
     consultationType,
     consultationFee,
     platformFee,
+    queueNumber,
+    rescheduledFromAppointmentId,
+    rescheduleReason,
+    rescheduledBy,
+    rescheduleCount,
   }: {
     appointmentId: string;
     startTime: Date;
@@ -80,7 +127,16 @@ export class Appointment {
     platformFee: number;
     doctorId: string;
     patientId: string;
+    queueNumber: number;
+    rescheduledFromAppointmentId?: string;
+    rescheduleReason?: string;
+    rescheduledBy?: USER_ROLES;
+    rescheduleCount?: number;
   }) {
+    let rescheduledAt = null;
+    if (rescheduledFromAppointmentId) {
+      rescheduledAt = new Date();
+    }
     return new Appointment(
       appointmentId,
       doctorId,
@@ -93,17 +149,54 @@ export class Appointment {
       platformFee,
       APPOINTMENT_STATUS.PENDING,
       null,
+      queueNumber,
+      null,
+      null,
       PAYMENT_STATUS.PENDING,
       null,
-      null,
-      null,
-      null,
-      null,
-      null,
+      rescheduledFromAppointmentId ?? null,
+      rescheduleReason ?? null,
+      rescheduledBy ?? null,
+      rescheduledAt,
+      rescheduleCount ?? null,
       new Date(Date.now() + 5 * 60 * 1000), // expires_at
       new Date(),
       new Date()
     );
+  }
+
+  private static _validTransition: Record<
+    APPOINTMENT_STATUS,
+    APPOINTMENT_STATUS[]
+  > = {
+    [APPOINTMENT_STATUS.PENDING]: [
+      APPOINTMENT_STATUS.EXPIRED,
+      APPOINTMENT_STATUS.CONFIRMED,
+    ],
+    [APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED]: [
+      APPOINTMENT_STATUS.CANCELLED_BY_DOCTOR,
+    ],
+    [APPOINTMENT_STATUS.CANCELLED_BY_DOCTOR]: [],
+    [APPOINTMENT_STATUS.CANCELLED_BY_PATIENT]: [],
+    [APPOINTMENT_STATUS.COMPLETED]: [],
+    [APPOINTMENT_STATUS.CONFIRMED]: [
+      APPOINTMENT_STATUS.NO_SHOW,
+      APPOINTMENT_STATUS.ONGOING,
+      APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED,
+      APPOINTMENT_STATUS.CANCELLED_BY_PATIENT,
+      APPOINTMENT_STATUS.SKIPPED
+    ],
+    [APPOINTMENT_STATUS.EXPIRED]: [],
+    [APPOINTMENT_STATUS.NO_SHOW]: [],
+    [APPOINTMENT_STATUS.ONGOING]: [APPOINTMENT_STATUS.COMPLETED],
+    [APPOINTMENT_STATUS.SKIPPED]: [APPOINTMENT_STATUS.ONGOING, APPOINTMENT_STATUS.NO_SHOW],
+  };
+
+  static isValidTransition(
+    fromStatus: APPOINTMENT_STATUS,
+    toStatus: APPOINTMENT_STATUS
+  ): boolean {
+    return this._validTransition[fromStatus].includes(toStatus);
   }
 
   get id() {
@@ -144,6 +237,16 @@ export class Appointment {
   }
   get paymentId() {
     return this._paymentId;
+  }
+  get queueNumber() {
+    return this._queueNumber;
+  }
+  get consultationStartedAt() {
+    return this._consultationStartedAt;
+  }
+
+  get consultationEndedAt() {
+    return this._consultationEndedAt;
   }
   get rescheduledFromAppointmentId() {
     return this._rescheduledFromAppointmentId;

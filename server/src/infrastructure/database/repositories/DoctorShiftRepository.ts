@@ -174,7 +174,7 @@ export class DoctorShiftRepository
       this._loggerService.info("Saving doctorShifts", { shifts });
       await super.insertMany(shifts, DoctorShiftMapper.toPersistance);
     } catch (error) {
-      this._loggerService.error("Failer to saves shifts", { shifts });
+      this._loggerService.error("Failer to saves shifts", { shifts, error });
 
       throw new AppError(
         "Failed to Save Doctor Shifts",

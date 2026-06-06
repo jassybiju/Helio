@@ -14,16 +14,33 @@ import { WalletRepository } from "@infrastructure/database/repositories/WalletRe
 import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
 import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
 import { RazorpayPaymentService } from "@infrastructure/services/RazorpayPaymentService.ts";
+import { GetAllAppointmentUseCase } from "@application/use-cases/patient/appointments/getAllAppointments/GetAllAppointmentUseCase.ts";
+import { ConsultationRepository } from "@infrastructure/database/repositories/ConsultationRepository.ts";
+import { LabReportRepository } from "@infrastructure/database/repositories/LabReportRepository.ts";
+import { razorpay } from "@config/razorpay.config.ts";
+import { VerifyAppointmentPaymentUseCase } from "@application/use-cases/patient/appointments/verifyPayment/VerifyAppointmentPaymentUseCase.ts";
+import { GetPatientLiveQueueUseCase } from "@application/use-cases/patient/appointments/getLiveQueue/GetPatientLiveQueueUseCase.ts";
+import { GetRescheduledSlotsUseCase } from "@application/use-cases/patient/appointments/cancellation/getResheduledSlots/GetRescheduledSlotsUseCase.ts";
+import { DoctorBlockShiftRepository } from "@infrastructure/database/repositories/DoctorBlockShiftRepository.ts";
+import { SlotGenerator } from "@application/service/SlotGenerator.ts";
+import { RespondPatientResheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedule/RespondPatientResheduleAppointmentUseCase.ts";
+import { RespondPatientCancelAndRefundAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/cancelAndRefundResponse/RespondPatientCancelAndRefundUseCase.ts";
 
 const logger = new PinoLoggerService();
 const idGenerator = new NanoidGenerator();
 
 const doctorRepo = new MongoDoctorRepository(logger);
 const doctorShiftRepo = new DoctorShiftRepository(logger);
-const appointmentRepo = new AppointmentRepository();
+const blockShiftRepo = new DoctorBlockShiftRepository(logger);
+const appointmentRepo = new AppointmentRepository(logger);
 const patientRepo = new PatientRepository(logger);
 const walletRepo = new WalletRepository(logger);
 const transactionRepo = new WalletTransactionRepository(logger);
+const consultationRepo = new ConsultationRepository(logger);
+const labRepo = new LabReportRepository(logger);
+
+const slotService = new SlotGenerator();
+
 const uow = new MongoUnitOfWork();
 
 const walletService = new WalletPaymentService(
@@ -33,7 +50,8 @@ const walletService = new WalletPaymentService(
   idGenerator,
   uow
 );
-const razorpayService = new RazorpayPaymentService();
+
+const razorpayService = new RazorpayPaymentService(razorpay);
 
 const createAppointmentUseCase = new CreateAppointmentUseCase(
   logger,
@@ -47,6 +65,7 @@ const getAppointment = new GetAppointmentUseCase(
   logger,
   patientRepo,
   appointmentRepo,
+  consultationRepo,
   doctorRepo
 );
 
@@ -57,8 +76,63 @@ const checkout = new CheckoutAppointmentUseCase(
   new PaymentServiceFactory(walletService, razorpayService)
 );
 
+const getAll = new GetAllAppointmentUseCase(
+  logger,
+  patientRepo,
+  appointmentRepo,
+  doctorRepo,
+  consultationRepo,
+  labRepo
+);
+const verifyPayment = new VerifyAppointmentPaymentUseCase(
+  logger,
+  appointmentRepo
+);
+
+const liveQueue = new GetPatientLiveQueueUseCase(
+  logger,
+  patientRepo,
+  appointmentRepo
+);
+
+const getRescheduleSlots = new GetRescheduledSlotsUseCase(
+  logger,
+  patientRepo,
+  doctorRepo,
+  appointmentRepo,
+  doctorShiftRepo,
+  blockShiftRepo,
+  slotService
+);
+
+const rescheduleAppointment = new RespondPatientResheduleAppointmentUseCase(
+  logger,
+  appointmentRepo,
+  patientRepo,
+  doctorRepo,
+  doctorShiftRepo,
+  idGenerator,
+  uow
+);
+
+const cancelAndRefundAppointment =
+  new RespondPatientCancelAndRefundAppointmentUseCase(
+    logger,
+    patientRepo,
+    appointmentRepo,
+    walletRepo,
+    transactionRepo,
+    idGenerator,
+    uow
+  );
 export const patientAppointmentController = new PatientAppointmentController(
   createAppointmentUseCase,
   getAppointment,
-  checkout
+  checkout,
+  getAll,
+  liveQueue,
+  verifyPayment,
+  getRescheduleSlots,
+  rescheduleAppointment,
+  cancelAndRefundAppointment
 );

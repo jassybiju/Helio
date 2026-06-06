@@ -17,7 +17,6 @@ import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.ts"
 import path from "path";
 import { fileURLToPath } from "url";
 import { patientRouter } from "./presentation/http/routes/patient/index.routes.ts";
-import { SpecialtyController } from "./presentation/http/controllers/speciality.controller.ts";
 import { specialityController } from "./presentation/http/di/specialty.di.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { adminSpecialtyRouter } from "./presentation/http/routes/admin/specialty.routes.ts";
@@ -26,7 +25,7 @@ import { expireAppointmentsUseCase } from "./presentation/http/di/jobs/appointme
 import { appointmentExpiryJob } from "@infrastructure/jobs/appointmentExpiry.job.ts";
 
 export const app = express();
-
+console.log(process.env.RAZORPAY_KEY, "111122");
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -78,6 +77,10 @@ app.get("/health", (req, res) => {
 });
 
 appointmentExpiryJob(expireAppointmentsUseCase);
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  return res.status(HTTPStatus.NOT_FOUND).json(errorResponse("No Endpoint"));
+});
 
 app.use((err: AppError, req: Request, res: Response, _next: NextFunction) => {
   const logger = new PinoLoggerService();

@@ -22,6 +22,7 @@ export class GetWalletMapper {
         amount: transaction.amount,
         date: transaction.createdAt.toISOString(),
         type: transaction.type,
+        description: transaction.description,
       })),
       limit,
       totalCount,

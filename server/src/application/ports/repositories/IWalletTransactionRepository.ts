@@ -1,7 +1,4 @@
-import type {
-  TRANSACTION_STATUS,
-  TRANSACTION_TYPE,
-} from "@domain/common/enums/wallet.enum.ts";
+import type { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
 import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import type { ClientSession } from "mongoose";
 

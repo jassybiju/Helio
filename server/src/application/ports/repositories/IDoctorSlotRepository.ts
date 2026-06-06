@@ -1,7 +1,4 @@
-import type {
-  CONSULTATION_TYPE,
-  DAY_OF_WEEK,
-} from "@domain/common/enums/doctorShift.enum.ts";
+import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
 import type { ClientSession } from "mongoose";
 

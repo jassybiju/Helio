@@ -9,9 +9,15 @@ import type { IDoctorShiftRepository } from "@application/ports/repositories/IDo
 import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
 import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
 import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import {
+  CONSULTATION_TYPE,
+  SLOT_STATUS,
+} from "@domain/common/enums/doctorShift.enum.ts";
 import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
+import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
+import type { Appointment } from "@domain/entities/Appointment.ts";
+import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 
 export class GetSlotUseCase implements IGetSlotUseCase {
   constructor(
@@ -19,10 +25,12 @@ export class GetSlotUseCase implements IGetSlotUseCase {
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _doctorShiftRepo: IDoctorShiftRepository,
     private readonly _blockSlotRepo: IDoctorBlockShiftRepository,
-    private readonly _slotService: ISlotGenerator
+    private readonly _slotService: ISlotGenerator,
+    private readonly _appointmentRepo: IAppointmentRepository
   ) {}
   async execute(
-    doctorId: string
+    doctorId: string,
+    patientId?: string
   ): Promise<{ slots: IGetSlotDTO; doctor: Doctor }> {
     this._logger.info("Get Slot Attempt", { doctorId });
 
@@ -51,12 +59,56 @@ export class GetSlotUseCase implements IGetSlotUseCase {
       endDate
     );
 
+    const appointments =
+      await this._appointmentRepo.findDoctorAppointmentForRange(
+        doctor.id,
+        istNow,
+        endDate
+      );
+
     let result: IGetSlotDTO = {};
+
+    this._logger.debug("slots", slots);
+    // for (const slot of slots) {
+    //   if (this.isSlotBlocked(slot, blockedShift)) continue;
+
+    //   if (slot.startTime < istNow) continue;
+
+    //   const dateKey = new Intl.DateTimeFormat("en-CA", {
+    //     timeZone: "Asia/Kolkata",
+    //     year: "numeric",
+    //     month: "2-digit",
+    //     day: "2-digit",
+    //   }).format(slot.startTime);
+    //   if (!result[dateKey]) {
+    //     result[dateKey] = {
+    //       clinic: {
+    //         slots: [] as { time: string; status: SLOT_STATUS }[],
+    //         location: "",
+    //       },
+    //       online: { slots: [] },
+    //     };
+    //   }
+
+    //   if (slot.consultationType === CONSULTATION_TYPE.ONLINE) {
+    //     const status = this.getSlotStatus(slot, blockedShift, appointments);
+    //     result[dateKey]?.online.slots.push({
+    //       time: slot.startTime.toISOString(),
+    //       status: status,
+    //     });
+    //   } else if (slot.consultationType == CONSULTATION_TYPE.CLINIC) {
+    //     if (result[dateKey]?.clinic.location === "") {
+    //       result[dateKey]!.clinic.location = slot.location!;
+    //     }
+    //     result[dateKey]?.clinic.slots.push({
+    //       time: slot.startTime.toISOString(),
+    //       status: this.getSlotStatus(slot, blockedShift, appointments),
+    //     });
+    //   }
+    // }
 
     for (const slot of slots) {
       if (this.isSlotBlocked(slot, blockedShift)) continue;
-
-      if (slot.startTime < istNow) continue;
 
       const dateKey = new Intl.DateTimeFormat("en-CA", {
         timeZone: "Asia/Kolkata",
@@ -64,20 +116,40 @@ export class GetSlotUseCase implements IGetSlotUseCase {
         month: "2-digit",
         day: "2-digit",
       }).format(slot.startTime);
+
       if (!result[dateKey]) {
         result[dateKey] = {
-          clinic: { times: [] as string[], location: "" },
-          online: { times: [] as string[] },
+          clinic: { slots: [], location: "" },
+          online: { slots: [] },
         };
       }
 
       if (slot.consultationType === CONSULTATION_TYPE.ONLINE) {
-        result[dateKey]?.online.times.push(slot.startTime.toISOString());
+        const status = this.getSlotStatus(
+          slot,
+          blockedShift,
+          appointments,
+          patientId
+        );
+        result[dateKey]?.online.slots.push({
+          time: slot.startTime.toISOString(),
+          status,
+        });
       } else if (slot.consultationType == CONSULTATION_TYPE.CLINIC) {
+        const status = this.getSlotStatus(
+          slot,
+          blockedShift,
+          appointments,
+          patientId
+        );
+
         if (result[dateKey]?.clinic.location === "") {
           result[dateKey]!.clinic.location = slot.location!;
         }
-        result[dateKey]?.clinic.times.push(slot.startTime.toISOString());
+        result[dateKey]?.clinic.slots.push({
+          time: slot.startTime.toISOString(),
+          status,
+        });
       }
     }
 
@@ -92,5 +164,52 @@ export class GetSlotUseCase implements IGetSlotUseCase {
       (block) =>
         slot.startTime < block.endTime && slot.endTime > block.startTime
     );
+  }
+
+  private getSlotStatus(
+    slot: DoctorSlot,
+    blockedShifts: DoctorBlockShift[],
+    appointments: Appointment[],
+    patientId?: string
+  ) {
+    const isBlocked = blockedShifts.some(
+      (block) =>
+        slot.startTime < block.endTime && slot.endTime > block.startTime
+    );
+
+    if (isBlocked) {
+      return SLOT_STATUS.BLOCKED;
+    }
+
+    const slotAppointments = appointments.filter(
+      (appointment) =>
+        appointment.startTime.getTime() === slot.startTime.getTime() &&
+        appointment.consultationType === slot.consultationType
+    );
+
+    // if current patient already booked this slot
+    if (patientId) {
+      const alreadyBookedByPatient = slotAppointments.some(
+        (appointment) =>
+          appointment.patientId === patientId &&
+          appointment.status !== APPOINTMENT_STATUS.EXPIRED
+      );
+
+      if (alreadyBookedByPatient) {
+        return SLOT_STATUS.BOOKED;
+      }
+    }
+
+    const activeAppointments = slotAppointments.filter(
+      (appointment) =>
+        appointment.status !== APPOINTMENT_STATUS.CANCELLED &&
+        appointment.status !== APPOINTMENT_STATUS.EXPIRED
+    );
+
+    if (activeAppointments.length >= slot.capacity) {
+      return SLOT_STATUS.BOOKED;
+    }
+
+    return SLOT_STATUS.AVAILABLE;
   }
 }

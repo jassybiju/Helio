@@ -19,16 +19,17 @@ export type FindAppointmentsFilter = {
   doctorSearch?: string | null;
 
   status?: APPOINTMENT_STATUS | null;
+  statuses?: APPOINTMENT_STATUS[] | null;
   consultationType?: CONSULTATION_TYPE | null;
 
   startDate?: Date | null;
   endDate?: Date | null;
 
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
 
-  sortBy?: string;
-  order: "asc" | "desc";
+  sort?: Record<string, 1 | -1>;
+  order?: "asc" | "desc";
 };
 
 export interface IAppointmentRepository {
@@ -68,4 +69,33 @@ export interface IAppointmentRepository {
     appointments: DoctorAppointmentListItem[];
     totalCount: number;
   }>;
+
+  findOngoingAppointmentByDoctor(doctorId: string): Promise<Appointment | null>;
+
+  findNextQueueAppointment(
+    doctorId: string,
+    date: Date
+  ): Promise<Appointment | null>;
+
+  countAllAppointmentbyDoctorId(doctorId: string): Promise<number>;
+
+  /**
+   *
+   * @param filters Filter object NOTE Date is in UTC
+   * @returns
+   */
+  findDoctorAppointmentForRange(
+    doctorId: string,
+    startTime: Date,
+    endTime: Date
+  ): Promise<Appointment[]>;
+
+  findActiveQueueByDoctorAndTime(
+    doctorId: string,
+    startTime: Date
+  ): Promise<Appointment[]>;
+
+  findAllWithFilters(
+    filters: FindAppointmentsFilter
+  ): Promise<DoctorAppointmentListItem[]>;
 }

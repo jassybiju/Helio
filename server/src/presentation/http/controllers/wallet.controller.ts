@@ -9,13 +9,37 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import type { IAddMoneyUseCase } from "@application/ports/use-cases/wallet/IAddMoneyUseCase.ts";
 import { GetWalletMapper } from "@application/use-cases/wallet/getWallet/GetWalletMapper.ts";
+import type { IAddMoneyVerifyUseCase } from "@application/ports/use-cases/wallet/IAddMoneyVerifyUseCase.ts";
 
 export class WalletController {
   constructor(
     private readonly _getWalletUseCase: IGetWalletUseCase,
-    private readonly _addMoneyUseCase: IAddMoneyUseCase
+    private readonly _addMoneyUseCase: IAddMoneyUseCase,
+    private readonly _verifyAddMoney: IAddMoneyVerifyUseCase
   ) {}
 
+  verifyAddMoney = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { transactionId } = req.params;
+      const patientId = req.user?.id as string;
+      const body = req.body;
+      const response = await this._verifyAddMoney.execute({
+        transactionId: transactionId as string,
+        userId: patientId,
+
+        razorpay_order_id: body.razorpay_order_id,
+        razorpay_payment_id: body.razorpay_payment_id,
+        razorpay_signature: body.razorpay_signature,
+      });
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, "Payment Verified Suceesful")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
   getWallet = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?.id;
@@ -71,7 +95,7 @@ export class WalletController {
       return apiResponse(
         res,
         HTTPStatus.OK,
-        successResponse(null, "Money Added Succesffuly")
+        successResponse(response, "Money Added Succesffuly")
       );
     } catch (error) {
       next(error);

@@ -104,17 +104,27 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
 
     const PLATFORM_FEE = Number(process.env.PLATFORM_FEE)!;
     console.log(PLATFORM_FEE, 123);
-    const consultationFee =
+    let consultationFee =
       doctor[
         data.consultationType === CONSULTATION_TYPE.CLINIC
           ? "clinicFee"
           : "onlineFee"
       ]!;
+
+    // const confirmedConsultation =
+    //   await this._appointmentRepo.countAllAppointmentbyDoctorId(doctor.id);
+    // console.log(confirmedConsultation);
+    // if (confirmedConsultation > 2) {
+    //   consultationFee = consultationFee + 10;
+    // }
+
     const AP_PREFIX = process.env.AP_PREFIX!;
+
     const APPOINTMENTID = this._idGenerator.generate(AP_PREFIX);
     const endTime = new Date(
       start.getTime() + matchedShift.slotIntervalInMinutes * 60 * 1000
     );
+
     // create appointment
     const appointment = Appointment.create({
       appointmentId: APPOINTMENTID,
@@ -124,6 +134,7 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
       consultationFee: consultationFee,
       startTime: start,
       endTime,
+      queueNumber: count,
       platformFee: PLATFORM_FEE,
     });
     console.log(PLATFORM_FEE, appointment, 123);

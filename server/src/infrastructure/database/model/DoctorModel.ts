@@ -1,4 +1,3 @@
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const doctorSchema = new Schema(

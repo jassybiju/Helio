@@ -7,15 +7,23 @@ import {
   type BlockShiftDoc,
 } from "../model/BlockShiftModel.ts";
 import { DoctorBlockShiftMapper } from "../../../mappers/DoctorBlockShiftMapper.ts";
+import type { ClientSession } from "mongoose";
+import { istToUtc } from "@shared/utils/date.utils.ts";
 
 export class DoctorBlockShiftRepository
   extends BaseRepository<DoctorBlockShift, BlockShiftDoc>
   implements IDoctorBlockShiftRepository
 {
-  constructor(private readonly _logger: ILogger) {
-    super(blockShiftModel);
+  constructor(
+    private readonly _logger: ILogger,
+    session?: ClientSession
+  ) {
+    super(blockShiftModel, session);
   }
 
+  withSession(session: ClientSession): IDoctorBlockShiftRepository {
+    return new DoctorBlockShiftRepository(this._logger, session);
+  }
   async findByDoctorFromRange(
     doctorId: string,
     startDate: Date,
@@ -58,11 +66,28 @@ export class DoctorBlockShiftRepository
   }
 
   async findByDoctor(doctorId: string): Promise<DoctorBlockShift[]> {
-    const startDate = new Date().setHours(0, 0, 0, 0);
+    const startDate = new Date();
+    startDate.setHours(0, 0, 0, 0);
     return await super.find(
-      { doctor_id: doctorId, start_time: { $gte: startDate } },
+      { doctor_id: doctorId, start_time: { $gte: istToUtc(startDate) } },
       {},
       DoctorBlockShiftMapper.toDomain
     );
+  }
+
+  async findById(id: string) {
+    return await super.findById(id, DoctorBlockShiftMapper.toDomain);
+  }
+
+  async update(blockShift: DoctorBlockShift) {
+    return await super.update(
+      blockShift,
+      blockShift.id,
+      DoctorBlockShiftMapper.toPersistance
+    );
+  }
+
+  async delete(id: string) {
+    return await super.delete(id);
   }
 }
