@@ -32,6 +32,15 @@ export class Consultation {
   ) {}
 
   end() {
+
+    if(!this._medicationPeriod){
+      throw new ConflictError("Medication period not set");
+    } 
+
+    if(!this._primaryDiagnosis || !this._clinicalObservation || !this._generalAdvice || !this._quickNote){
+      throw new ConflictError("Notes not added");
+    }
+
     if (this._endedAt) {
       throw new ConflictError("Consultation already ended");
     }
