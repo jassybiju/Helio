@@ -20,7 +20,7 @@ export class DoctorAppointmentController {
     private readonly _getAppointment: IDoctorViewAppointmentUseCase,
     private readonly _startConsultation: IDoctorStartConsultationUseCase,
     private readonly _viewTodaysAppointment: IDoctorViewTodaysAppointmentUseCase,
-    private readonly _skipAppointment : ISkipDoctorAppointmentUseCase,
+    private readonly _skipAppointment: ISkipDoctorAppointmentUseCase
   ) {}
 
   getTodaysAppointment = async (
@@ -122,11 +122,7 @@ export class DoctorAppointmentController {
       next(error);
     }
   };
-  skipAppointment = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
+  skipAppointment = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { appointmentId } = req.params;
 

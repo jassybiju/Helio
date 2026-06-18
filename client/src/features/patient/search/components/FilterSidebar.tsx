@@ -56,7 +56,7 @@ export default function FilterSidebar({ onFiltersChange }: FilterSidebarProps) {
           className="w-full px-3 py-2 border rounded-lg text-sm"
         >
           <option value="">All</option>
-          {data?.data.map(x =>(
+          {data?.data?.specialty.map(x =>(
           <option key={x.value} value={x.value}>{x.label} </option>
             
           ))}

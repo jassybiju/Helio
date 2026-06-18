@@ -3,14 +3,17 @@ import type { ISpecialityRepository } from "@application/ports/repositories/ISpe
 export class GetSpecialtiesUseCase {
   constructor(private specialtyRepo: ISpecialityRepository) {}
 
-  async execute() {
-    const specialties = await this.specialtyRepo.findAllActive();
-
+  async execute({ page, limit }: { page?: number; limit?: number }) {
+    const specialties = await this.specialtyRepo.findMany({ page, limit });
+    console.log(specialties);
     // Optional: format for UI (label/value)
-    return specialties.map((spec) => ({
-      _id: spec.id,
-      label: spec.name,
-      value: spec.name,
-    }));
+    return {
+      specialty: specialties.specialty.map((spec) => ({
+        _id: spec.id,
+        label: spec.name,
+        value: spec.name,
+      })),
+      count: specialties.totalCount,
+    };
   }
 }

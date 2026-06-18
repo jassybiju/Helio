@@ -155,4 +155,5 @@ export interface IDoctorTodayAppointment {
   };
   ongoing: ITodayAppointmentCardDTO[];
   skipped: ITodayAppointmentCardDTO[];
+  upcoming : ITodayAppointmentCardDTO | undefined
 }

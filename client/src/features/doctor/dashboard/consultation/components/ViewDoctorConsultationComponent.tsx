@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useDoctorConsultation from "../hooks/useDoctorConsultation";
+import { CONSULTATION_TYPE } from "@/src/types/appointment.types";
+import VideoCall from "@/src/components/VideoCall";
 
 const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
   const {
@@ -74,6 +76,10 @@ const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
             Complete Consultations
           </button>
         </div>
+
+        {consultationData.consultationType === CONSULTATION_TYPE.ONLINE && (
+          <VideoCall appointmentId={consultationData?.appointment?.id}/>
+        )}
 
         {/* Tabs Navigation */}
         <div className="bg-white rounded-lg border border-slate-200 border-b-0">
@@ -470,6 +476,44 @@ const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
                             }
                           >
                             <Download className="w-4 h-4 text-slate-600" />
+                          </td>
+                        </tr>
+                      ))}
+                      {history?.labReport.map((h,i)=>(
+                        <tr
+                          key={i}
+                          className="border-b border-slate-200 hover:bg-slate-50"
+                        >
+                          <td className="px-6 py-4 text-sm text-slate-900">
+                            {new Date(new Date(h.uploadedAt)).toDateString()}
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
+                              Appointment
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-sm text-slate-900">
+                            {h.testName}{" "}
+                          </td>
+                           <td className="px-6 py-4 text-sm text-slate-900">
+                            {h.instructions}{" "}
+                          </td>
+                          
+                          <td className="px-6 py-4">
+                            <span className="text-sm font-semibold text-green-600">
+                              {h.status}{" "}
+                            </span>
+                          </td>
+                          <td
+                            className="px-6 py-4 flex gap-2"
+                            onClick={() =>
+                              viewHistoryDetails({
+                                type: "lab",
+                                data: h,
+                              })
+                            }
+                          >
+                            <Eye className="w-4 h-4 text-slate-600" />
                           </td>
                         </tr>
                       ))}

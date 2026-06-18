@@ -19,6 +19,12 @@ import { APPOINTMENT_STATUS } from "@/src/types/appointment.types";
 import { useGetPatientLiveQueueQuery } from "../hooks/useGetPatientLiveQueueQuery";
 import { useModal } from "@/src/hooks/useModal";
 import PatientAppointmentCancellationConfirmationModal from "./PatientAppointmentCancellationConfirmationModal";
+import { socket } from "@/src/libs/socket";
+import { invalidateQuery } from "@/src/libs/queryClient";
+import VideoCall from "@/src/components/VideoCall";
+import { ConfirmModal } from "@/src/components/ConfirmModal";
+import { toast } from "react-toastify";
+import { useCancelPatientAppointmentMutation } from "../hooks/useCancelPatientAppointment";
 
 interface Appointment {
   id: string;
@@ -39,8 +45,6 @@ interface QueueInfo {
   totalPatientsInQueue: number;
 }
 
-
-
 const queueDataMap: Record<string, QueueInfo> = {
   "1": {
     appointmentId: "1",
@@ -56,38 +60,51 @@ export default function PatientAppointmentDetailsComponent() {
   const params = useParams();
   const appointmentId = params.id as string;
 
+  const {mutate : cancelAppointment} = useCancelPatientAppointmentMutation(appointmentId)
   const { data: data } = useGetPatientsAppointmentQuery(appointmentId);
   const { data: liveData } = useGetPatientLiveQueueQuery(appointmentId);
-  const {open} = useModal()
+  const { open } = useModal();
   const [queue, setQueue] = useState<QueueInfo | null>(
     queueDataMap[appointmentId] || null,
   );
+  const [doctorOnline, setDoctorOnline] = useState<boolean>(false);
+
   const appointment = data?.data;
 
-  const hasLiveData = !!liveData?.data;
+  const hasLiveData =
+    !!liveData?.data &&
+    appointment?.appointment.status === APPOINTMENT_STATUS.CONFIRMED;
   // Simulate live queue updates
-  useEffect(() => {
-    if (!queue) return;
+  // useEffect(() => {
+  //   if (!queue) return;
 
-    const interval = setInterval(() => {
-      setQueue((prev) => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          currentQueueNumber: Math.max(
-            prev.currentQueueNumber,
-            Math.floor(Math.random() * 12) + 4,
-          ),
-          estimatedWaitTime: Math.max(2, prev.estimatedWaitTime - 1),
-        };
-      });
-    }, 5000);
+  //   const interval = setInterval(() => {
+  //     setQueue((prev) => {
+  //       if (!prev) return null;
+  //       return {
+  //         ...prev,
+  //         currentQueueNumber: Math.max(
+  //           prev.currentQueueNumber,
+  //           Math.floor(Math.random() * 12) + 4,
+  //         ),
+  //         estimatedWaitTime: Math.max(2, prev.estimatedWaitTime - 1),
+  //       };
+  //     });
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, [queue]);
+  //   return () => clearInterval(interval);
+  // }, [queue]);
 
   const openCancellatonConfirmationModal = () => {
-    open(PatientAppointmentCancellationConfirmationModal,{date : appointment?.appointment.startTime, fee : appointment?.appointment.consultationFee, appointmentId : appointment?.appointment.id})
+    open(PatientAppointmentCancellationConfirmationModal, {
+      date: appointment?.appointment.startTime,
+      fee: appointment?.appointment.consultationFee,
+      appointmentId: appointment?.appointment.id,
+    });
+  };
+
+  const handleCancelAppointment = () => {
+    open(ConfirmModal, {title : "Are you sure you want to cancel ?", message : "Are you sure you want to cancel ?",onConfirm: cancelAppointment})
   }
 
   if (!appointment) {
@@ -106,6 +123,8 @@ export default function PatientAppointmentDetailsComponent() {
     );
   }
 
+
+
   const statusConfig: Record<Partial<APPOINTMENT_STATUS>, object> = {
     PENDING: {
       color: "bg-blue-100",
@@ -117,7 +136,7 @@ export default function PatientAppointmentDetailsComponent() {
       textColor: "text-green-700",
       badge: "Completed",
     },
-    CANCELLED: {
+    CANCELLED_BY_DOCTOR: {
       color: "bg-red-100",
       textColor: "text-red-700",
       badge: "Cancelled",
@@ -129,8 +148,9 @@ export default function PatientAppointmentDetailsComponent() {
   };
 
   const config = statusConfig[appointment.appointment.status] ?? {};
- 
-
+const fakeDate = new Date()
+fakeDate.setDate(new Date().getDate() + 1)
+fakeDate.setHours(0,0,0,0) 
   return (
     <div className="space-y-6">
       {/* Back Button */}
@@ -142,33 +162,34 @@ export default function PatientAppointmentDetailsComponent() {
         Back to Appointmentsds
       </button>
 
-          {appointment.appointment.status === APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-6 space-y-4">
-                <div className="flex items-start gap-4">
-                  <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
-                  <div className="flex-1">
-                    <h2 className="text-xl font-bold text-red-900 mb-1">
-                      Appointment Cancelled by Doctor
-                    </h2>
-                    <p className="text-red-800 mb-3">
-                      {appointment.cancellationReason}
-                    </p>
-                    <p className="text-sm text-red-700">
-                      Cancelled on{" "}
-                      {new Date(
-                        appointment.cancellationDate || "",
-                      ).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={openCancellatonConfirmationModal}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition"
-                >
-                  Choose Reschedule or Accept Refund
-                </button>
-              </div>
-            )}
+      {appointment.appointment.status ===
+        APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 space-y-4">
+          <div className="flex items-start gap-4">
+            <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-red-900 mb-1">
+                Appointment Cancelled by Doctor
+              </h2>
+              <p className="text-red-800 mb-3">
+                {appointment.cancellationReason}
+              </p>
+              <p className="text-sm text-red-700">
+                Cancelled on{" "}
+                {new Date(
+                  appointment.cancellationDate || "",
+                ).toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={openCancellatonConfirmationModal}
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition"
+          >
+            Choose Reschedule or Accept Refund
+          </button>
+        </div>
+      )}
       {/* Header */}
       <div className="bg-white rounded-lg border border-slate-200 p-6">
         <div className="flex items-start justify-between mb-6">
@@ -186,7 +207,7 @@ export default function PatientAppointmentDetailsComponent() {
             {config.badge}
           </span>
         </div>
-        {appointment.appointment.status}sdd 
+        {appointment.appointment.status}sdd
         {/* Appointment Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="border-l-4 border-blue-600 pl-4">
@@ -230,7 +251,7 @@ export default function PatientAppointmentDetailsComponent() {
 
           <div className="border-l-4 border-blue-600 pl-4">
             <p className="text-xs font-semibold text-slate-600 uppercase mb-1">
-              Consultation Fee
+              Consultation Fees
             </p>
             <p className="text-lg font-bold text-slate-900">
               ${appointment.appointment.totalAmount}
@@ -238,12 +259,17 @@ export default function PatientAppointmentDetailsComponent() {
           </div>
         </div>
       </div>
-
+      sddf
+      {fakeDate.toString()}
+      {fakeDate===new Date(new Date(appointment.appointment.startTime).setHours(0,0,0,0)) && "true"}
+{ fakeDate.toString() === new Date(new Date(appointment.appointment.startTime).setHours(0,0,0,0)).toString() && [APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.ONGOING].includes(appointment.appointment.status) && 
+      <VideoCall patientName={appointment.doctor.name} appointmentId={appointment.appointmentId}/>
+}
       {/* Doctor Information */}
       <div className="bg-white rounded-lg border border-slate-200 p-6">
         <h2 className="text-lg font-bold text-slate-900 mb-4">
-          Doctor Information
-        </h2>
+          Doctor Information { doctorOnline ? 'ONLINE' : "OFFLINE"}
+        </h2> 
         <div className="space-y-3">
           <div className="flex items-center gap-3 pb-3 border-b border-slate-200">
             <User className="w-5 h-5 text-slate-400" />
@@ -342,9 +368,130 @@ export default function PatientAppointmentDetailsComponent() {
           </div>
         </div>
       )}
+      {/* Consultation Details */}
+      {appointment?.consultation && (
+        <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-6">
+          <h2 className="text-lg font-bold text-slate-900">
+            Consultation Details
+          </h2>
+
+          {/* Vitals */}
+          <div>
+            <h3 className="text-md font-semibold text-slate-800 mb-3">
+              Vitals
+            </h3>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <VitalCard
+                label="Blood Pressure"
+                value={appointment.consultation.vitals.bloodPressure}
+              />
+              <VitalCard
+                label="Oxygen Level"
+                value={appointment.consultation.oxygenLevel}
+              />
+              <VitalCard
+                label="Heart Rate"
+                value={appointment.consultation.vitals?.heartRate}
+              />
+              <VitalCard
+                label="Temperature"
+                value={appointment.consultation.vitals?.temperature}
+              />
+              <VitalCard
+                label="Weight"
+                value={appointment.consultation.vitals?.weight}
+              />
+              <VitalCard
+                label="Height"
+                value={appointment.consultation.vitals?.height}
+              />
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div>
+            <h3 className="text-md font-semibold text-slate-800 mb-3">
+              Clinical Notes
+            </h3>
+
+            <div className="space-y-2 text-sm text-slate-700">
+              <p>
+                <span className="font-semibold">Primary Diagnosis:</span>{" "}
+                {appointment.consultation.primaryDiagnosis || "-"}
+              </p>
+              <p>
+                <span className="font-semibold">Clinical Observation:</span>{" "}
+                {appointment.consultation.clinicalObservation || "-"}
+              </p>
+              <p>
+                <span className="font-semibold">General Advice:</span>{" "}
+                {appointment.consultation.generalAdvice || "-"}
+              </p>
+              <p>
+                <span className="font-semibold">Quick Note:</span>{" "}
+                {appointment.consultation.quickNote || "-"}
+              </p>
+            </div>
+          </div>
+
+          {/* Prescriptions */}
+          <div>
+            <h3 className="text-md font-semibold text-slate-800 mb-3">
+              Prescriptions
+            </h3>
+            {appointment.consultation.prescriptions?.length > 0 ? (
+              <div className="space-y-2">
+                {appointment.consultation.prescriptions.map(
+                  (p: unknown, idx: number) => {
+                    const timingList = [];
+
+                    if (p.timings?.morning) timingList.push("Morning");
+                    if (p.timings?.afternoon) timingList.push("Afternoon");
+                    if (p.timings?.night) timingList.push("Night");
+
+                    return (
+                      <div
+                        key={idx}
+                        className="p-3 border rounded-lg bg-slate-50 text-sm"
+                      >
+                        <p className="font-semibold">{p.name}</p>
+
+                        <p className="text-slate-600">
+                          {timingList.length > 0
+                            ? timingList.join(", ")
+                            : "No timing"}{" "}
+                          • {p.durationInDays} days •{" "}
+                          {p.foodTiming === 0
+                            ? "Before Food"
+                            : p.foodTiming === 1
+                              ? "After Food"
+                              : "Any Time"}
+                        </p>
+
+                        {p.instruction && (
+                          <p className="text-xs text-slate-500 mt-1">
+                            {p.instruction}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  },
+                )}
+              </div>
+            ) : (
+              <p className="text-sm text-slate-500">
+                No prescriptions available
+              </p>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Action Buttons */}
       <div className="bg-white rounded-lg border border-slate-200 p-6 flex gap-3">
+        <div className="w-full">
+
         {appointment.appointment.status === "ONGOING" && (
           <>
             <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
@@ -368,7 +515,29 @@ export default function PatientAppointmentDetailsComponent() {
         <button className="px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
           View Notes
         </button>
+        </div>
+{  appointment.appointment.status === APPOINTMENT_STATUS.CONFIRMED && 
+
+        <button onClick={handleCancelAppointment} className="px-6 py-3 text-nowrap  border bg-red-300 border-slate-200 text-red-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+          Cancel Appointment
+        </button>
+}
       </div>
     </div>
   );
 }
+
+const VitalCard = ({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | number | null;
+}) => {
+  return (
+    <div className="p-3 border border-slate-200 rounded-lg bg-slate-50">
+      <p className="text-xs text-slate-500 uppercase font-semibold">{label}</p>
+      <p className="text-lg font-bold text-slate-900">{value ?? "-"}</p>
+    </div>
+  );
+};

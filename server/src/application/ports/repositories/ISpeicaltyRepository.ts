@@ -11,5 +11,9 @@ export interface ISpecialityRepository {
 
   findAllActive(): Promise<Specialty[]>;
 
+  findMany(filters: {
+    page?: number | undefined;
+    limit?: number | undefined;
+  }): Promise<unknown>;
   delete(id: string): Promise<void>;
 }

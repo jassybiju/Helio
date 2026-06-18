@@ -1,5 +1,8 @@
 export interface IGetSpecialityUsecase {
-  execute(): Promise<
+  execute(data: {
+    page?: number | undefined;
+    limit?: number | undefined;
+  }): Promise<
     {
       label: string;
       value: string;

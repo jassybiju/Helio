@@ -139,7 +139,7 @@ const AppointmentCard = ({
             </>
           )}
 
-          {appointment.status === APPOINTMENT_STATUS.CONFIRMED && (
+          {[APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.SKIPPED].includes(appointment.status) && (
             <>
               <button
                 onClick={() => startConsultation(appointment.id)}

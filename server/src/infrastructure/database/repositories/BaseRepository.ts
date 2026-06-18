@@ -59,6 +59,7 @@ export abstract class BaseRepository<
     id: string,
     persistence: (entity: TDomain) => Record<string, unknown>
   ): Promise<void> {
+    console.log(persistence(entity), id);
     await this._model
       .updateOne({ _id: id, is_deleted: false }, persistence(entity))
       .session(this._session);

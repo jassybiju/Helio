@@ -1,3 +1,3 @@
 export interface ISkipDoctorAppointmentUseCase {
-  execute(doctorId :string, appointmentId : string) : Promise<void>
+  execute(doctorId: string, appointmentId: string): Promise<void>;
 }

@@ -17,7 +17,10 @@ export class SpecialtyController {
 
   getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await this._getSpecialtiesUseCase.execute();
+      const query = req.query as unknown;
+      const data = await this._getSpecialtiesUseCase.execute(
+        query as { page: number; limit: number }
+      );
       res.json({
         message: "Specialties fetched",
         data,

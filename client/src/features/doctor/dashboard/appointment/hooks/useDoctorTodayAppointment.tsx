@@ -13,7 +13,7 @@ const useDoctorTodayAppointment = () => {
     stats : data?.data.stats,
     ongoingAppointments : data?.data.ongoing ?? [],
     skippedAppointments : data?.data.skipped ?? [],
-    next : data?.data.next ?? [],
+    next : data?.data.upcoming ?? null,
     startConsultation,
     skipAppointment
   }

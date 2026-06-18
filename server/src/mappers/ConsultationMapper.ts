@@ -35,6 +35,8 @@ export class ConsultationMapper {
             )
         )
       : [];
+
+    console.log(raw.prescriptions, 123);
     return new Consultation(
       raw._id,
       raw.appointment_id,
@@ -58,6 +60,7 @@ export class ConsultationMapper {
   static toPersistance(consultation: Consultation): ConsultationRawDoc {
     const vitals = consultation.vitals;
     const prescription = consultation.prescriptions;
+    console.log(prescription);
     return {
       _id: consultation.id,
       appointment_id: consultation.appointmentId,
@@ -81,6 +84,7 @@ export class ConsultationMapper {
       ended_at: consultation.endedAt,
       created_at: consultation.createdAt,
       medication_period: consultation.medicationPeriod,
+      is_deleted: false,
       vitals: vitals
         ? {
             blood_pressure: vitals?.bloodPressure,

@@ -8,6 +8,7 @@ interface ViewPDFModalProps extends ModalProps {
 }
 
 const ViewPDFModal = ({ file, title, close }: ViewPDFModalProps) => {
+  console.log(file)
   return (
     <div className="flex flex-col w-[90vw] max-w-4xl h-[85vh] bg-white rounded-2xl overflow-hidden">
       {/* Header */}

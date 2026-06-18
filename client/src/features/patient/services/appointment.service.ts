@@ -65,6 +65,12 @@ export interface IGetPatientAppointment {
 
     status: APPOINTMENT_STATUS;
   };
+  consultation : {
+    primaryDiagnosis : string | null,
+    generalAdvice : string | null,
+    quickNote : string | null,
+    clinicalObservation : string | null,
+  }
 
   payment: {
     paymentStatus: string;
@@ -254,6 +260,12 @@ export const appointmentService = {
   cancelAndRefundAppointment(appointmentId: string) {
     return apiRequest(
       `/patient/appointment/${appointmentId}/cancel-response`,
+      HTTP_METHOD.POST,
+    );
+  },
+   cancelAppointment(appointmentId: string) {
+    return apiRequest(
+      `/patient/appointment/${appointmentId}/cancel`,
       HTTP_METHOD.POST,
     );
   },

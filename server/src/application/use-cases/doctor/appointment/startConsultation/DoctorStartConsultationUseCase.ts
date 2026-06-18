@@ -5,6 +5,9 @@ import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
 import type { IDoctorStartConsultationUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorStartConsultationUseCase.ts";
+import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import type { Appointment } from "@domain/entities/Appointment.ts";
 import { Consultation } from "@domain/entities/Consultation.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { ConflictError } from "@shared/errors/ConflictError.ts";
@@ -67,7 +70,7 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
 
       // checking if next appointment exists
       const fakeDate = new Date();
-      fakeDate.setDate(fakeDate.getDate() + 2);
+      fakeDate.setDate(fakeDate.getDate() + 1);
       // const date = new Date()
       console.log(fakeDate);
 
@@ -81,14 +84,40 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
       if (!nextQueueAppointment) {
         throw new ConflictError("No appointment available in queue");
       }
+
+      const startable: Appointment[] = [];
+
+      let isSeenConfirmed: boolean = false;
+
+      for (const appt of nextQueueAppointment) {
+        if (appt.status === APPOINTMENT_STATUS.SKIPPED) {
+          startable.push(appt);
+          continue;
+        }
+
+        if (appt.status === APPOINTMENT_STATUS.CONFIRMED) {
+          if (!isSeenConfirmed) {
+            startable.push(appt);
+            isSeenConfirmed = true;
+          } else {
+            break;
+          }
+        }
+      }
+      console.log(
+        startable,
+        startable.find((appt) => appt.id == appointment.id),
+        appointment.id,
+        "START"
+      );
       // validating if the order is correct
-      if (nextQueueAppointment.id !== appointment.id) {
+      if (!startable.find((appt) => appt.id == appointment.id)) {
         throw new ConflictError("Previous queue consultation not completed");
       }
 
-      if (fakeDate < appointment.startTime) {
-        throw new ConflictError("Appointment can't start before given time");
-      }
+      // if (fakeDate < appointment.startTime) {
+      //   throw new ConflictError("Appointment can't start before given time");
+      // }
       console.log(process.env.CONSULT_PREFIX);
       const CONSULTATION_ID = this._idGenerator.generate(
         process.env.CONSULT_PREFIX!
@@ -108,6 +137,13 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
         appointmentRepo.update(appointment),
       ]);
 
+      if (appointment.consultationType === CONSULTATION_TYPE.ONLINE) {
+        // this._realTime.emitToRoom(
+        //   `appointment-${appointment.id}`,
+        //   "consultation-started",
+        //   { appointmentId: appointment.id }
+        // );
+      }
       return { consultationId: consultation.id };
     });
   }

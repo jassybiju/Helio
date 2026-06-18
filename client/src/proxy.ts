@@ -22,6 +22,15 @@ export function proxy(req: NextRequest) {
   console.log(subdomain, host);
   if (subdomain === "") subdomain = "patient";
 
+
+  // JUST CHANGED 
+  // if (
+  //   url.pathname === `/${subdomain}` ||
+  //   url.pathname.startsWith(`/${subdomain}/`)
+  // ) {
+  //   return NextResponse.next();
+  // }
+
   // redirecting path based on subdomain
   if (subdomain) {
     console.log(

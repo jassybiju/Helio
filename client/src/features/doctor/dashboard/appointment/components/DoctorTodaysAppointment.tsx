@@ -14,13 +14,12 @@ import useDoctorTodayAppointment from "../hooks/useDoctorTodayAppointment";
 
 const DoctorTodaysAppointment = () => {
   const fakeToday = new Date();
-  fakeToday.setDate(fakeToday.getDate() + 2);
+  fakeToday.setDate(fakeToday.getDate() + 1);
   const today = fakeToday.toISOString().split("T")[0];
 
-
-  const [expandedSkippedSection, setExpandedSkippedSection] = useState(false)
-  const {stats, ongoingAppointments, skippedAppointments,next} = useDoctorTodayAppointment() 
-
+  const [expandedSkippedSection, setExpandedSkippedSection] = useState(false);
+  const { stats, ongoingAppointments, skippedAppointments, next } =
+    useDoctorTodayAppointment();
 
   return (
     <>
@@ -104,7 +103,7 @@ const DoctorTodaysAppointment = () => {
           </div> */}
 
           {/* Shift Time */}
-          <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl border border-indigo-200 p-6 space-y-3">
+          {/* <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl border border-indigo-200 p-6 space-y-3">
             <p className="text-sm font-semibold text-indigo-900 uppercase tracking-wide">
               Your Shift
             </p>
@@ -123,25 +122,8 @@ const DoctorTodaysAppointment = () => {
                 <p className="text-2xl font-bold text-indigo-900">6:00 PM</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
-
-        {/* Upcoming Section */}
-
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
-              <h2 className="text-base font-bold text-slate-900">Upcoming</h2>
-              <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-                {next.length}
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
-                <AppointmentCard  appointment={next} />
-
-            </div>
-          </div>
 
         {/* Ongoing Section */}
         {ongoingAppointments.length > 0 && (
@@ -155,15 +137,29 @@ const DoctorTodaysAppointment = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {ongoingAppointments.map((apt) => (
-                <AppointmentCard
-                  key={apt.id}
-                  appointment={apt}
-                />
+                <AppointmentCard key={apt.id} appointment={apt} />
               ))}
             </div>
           </div>
         )}
 
+        {/* Upcoming Section */}
+        {next ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
+              <h2 className="text-base font-bold text-slate-900">Upcoming</h2>
+              <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
+                {/* {next.length} */}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+              <AppointmentCard appointment={next} />
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         {/* Skipped Section */}
         {skippedAppointments.length > 0 && (
           <div className="space-y-2">

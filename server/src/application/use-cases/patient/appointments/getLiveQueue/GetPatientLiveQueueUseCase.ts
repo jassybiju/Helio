@@ -85,10 +85,10 @@ export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
     const queueNumberOfOngoingAppointment =
       queueAppointments.indexOf(referenceAppointment);
 
-    this._logger.debug("referenceAppoint", {
-      queueAppointments,
-      referenceAppointment,
-    });
+    // this._logger.debug("referenceAppoint", {
+    //   queueAppointments,
+    //   referenceAppointment,
+    // });
 
     const slotDurationMs =
       appointment.endTime.getTime() - appointment.startTime.getTime();

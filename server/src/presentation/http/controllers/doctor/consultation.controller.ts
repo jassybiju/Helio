@@ -244,6 +244,7 @@ export class ConsultationController {
       }
 
       const { appointmentId } = req.params;
+      console.log(appointmentId, doctorId);
       const response = await this._viewHistory.execute(
         doctorId,
         appointmentId as string

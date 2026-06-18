@@ -57,8 +57,24 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
         clinicalObservation: consultation.clinicalObservation,
         generalAdvice: consultation.generalAdvice,
         quickNote: consultation.quickNote,
+        prescriptions: consultation.prescriptions.map((pres) => ({
+          name: pres.name,
+          timings: pres.timings,
+          durationInDays: pres.durationInDays,
+          foodTiming: pres.foodTiming,
+          instruction: pres.instruction,
+        })),
+        vitals: {
+          bloodPressure: consultation.vitals?.bloodPressure,
+          oxygenLevel: consultation.vitals?.oxygenLevel,
+          heartRate: consultation.vitals?.heartRate,
+          temperature: consultation.vitals?.temperature,
+          weight: consultation.vitals?.weight,
+          height: consultation.vitals?.height,
+        },
       };
     }
+
     return {
       appointmentId: appointment.id,
       doctor: {

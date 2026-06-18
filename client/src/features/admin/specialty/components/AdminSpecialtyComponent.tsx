@@ -1,16 +1,19 @@
 "use client";
 
 import TableComponent, { ColumnType } from "@/src/components/TableComponent";
-import React from "react";
+import React, { useState } from "react";
 import { useSpecialtyQuery } from "../hooks/useSpecialtyQuery";
 import { useModal } from "@/src/hooks/useModal";
 import AddSpecialtyModal from "./AddSpecialtyModal";
 import ClayButton from "@/src/components/ui/ClayButton";
 import {  Trash2 } from "lucide-react";
 import { useDeleteSpecialtyMutation } from "../hooks/useDeleteSpecialty";
+import Pagination from "@/src/components/Pagination";
 
+const LIMIT = 5
 const AdminSpecialtyComponent = () => {
-  const { data } = useSpecialtyQuery();
+  const [page, setPage] = useState(0)
+  const { data } = useSpecialtyQuery({page});
   const { mutate: deleteSpecialty } = useDeleteSpecialtyMutation();
   const { open } = useModal();
   const specialty = data;
@@ -31,7 +34,7 @@ const AdminSpecialtyComponent = () => {
       render: (x) =><div onClick={()=>handleDelete(x)} className=" flex text-center justify-center"> <Trash2 color="red"/></div>,
     },
   ];
-
+console.log(specialty?.data.count)
   const handleDelete = (id : string) => {
     deleteSpecialty(id)
   }
@@ -50,7 +53,8 @@ const AdminSpecialtyComponent = () => {
       </div>
       <ClayButton onClick={handleOpenAddSpecialty}>Add Specialty</ClayButton>
 
-      <TableComponent data={specialty?.data} columns={columns} />
+      <TableComponent data={specialty?.data.specialty} columns={columns} />
+      <Pagination currentPage={page} totalPages={Math.ceil(specialty?.data.count/LIMIT)} onPageChange={(page)=>setPage(page)}/>
     </div>
   );
 };

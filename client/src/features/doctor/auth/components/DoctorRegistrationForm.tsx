@@ -106,7 +106,7 @@ const DoctorRegistrationForm = () => {
             }`}
           >
             <option value="">Select Specialization</option>
-            {specialization?.data?.map(x => (<option key={x.value} value={x.value}>
+            {specialization?.data?.specialty.map(x => (<option key={x.value} value={x.value}>
               {x.label}
             </option>))}
           </select>

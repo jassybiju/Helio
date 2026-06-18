@@ -56,3 +56,8 @@ patientAppointmentRouter.post(
   "/:appointmentId/cancel-response",
   patientAppointmentController.cancelAndRefundAppointment
 );
+
+patientAppointmentRouter.post(
+  "/:appointmentId/cancel",
+  patientAppointmentController.patientCancelAppointment
+);

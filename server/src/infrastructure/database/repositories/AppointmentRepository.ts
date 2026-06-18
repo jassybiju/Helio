@@ -101,6 +101,7 @@ export class AppointmentRepository
   }
 
   async findById(id: string) {
+    this._logger.debug("Finding APpointmentId,", id);
     return await super.findById(id, AppointmentMapper.toDomain);
   }
 
@@ -306,7 +307,7 @@ export class AppointmentRepository
   async findNextQueueAppointment(
     doctorId: string,
     date: Date
-  ): Promise<Appointment | null> {
+  ): Promise<Appointment[]> {
     this._logger.info("finding next queue appointment ", { doctorId, date });
     const startDate = new Date(date);
     startDate.setHours(0, 0, 0, 0);
@@ -314,11 +315,16 @@ export class AppointmentRepository
     const endDate = new Date(date);
     endDate.setHours(23, 59, 59, 999);
 
-    return await super.findOne(
+    return await super.find(
       {
         doctor_id: doctorId,
         start_time: { $gte: istToUtc(startDate), $lte: istToUtc(endDate) },
-        status: { $in: [APPOINTMENT_STATUS.CONFIRMED] },
+        status: {
+          $in: [APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.SKIPPED],
+        },
+      },
+      {
+        sort: { queueNumber: 1 },
       },
       AppointmentMapper.toDomain
     );
@@ -519,5 +525,12 @@ export class AppointmentRepository
       });
     }
     return pipeline;
+  }
+
+  async countAppointmentWithPatientAndDoctor(
+    patientId: string,
+    doctorId: string
+  ) {
+    return await super.count({ patient_id: patientId, doctor_id: doctorId });
   }
 }

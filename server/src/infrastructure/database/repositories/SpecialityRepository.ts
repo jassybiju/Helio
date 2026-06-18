@@ -1,6 +1,7 @@
 import { Specialty } from "@domain/entities/Specialty.ts";
 import { SpecialtyModel } from "../model/SpecialityModel.ts";
 import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
+import type { PipelineStage } from "mongoose";
 
 export class SpecialtyRepository implements ISpecialityRepository {
   async findAll() {
@@ -48,5 +49,38 @@ export class SpecialtyRepository implements ISpecialityRepository {
 
   async delete(id: string): Promise<void> {
     await SpecialtyModel.deleteOne({ _id: id });
+  }
+
+  async findMany(filters: { page?: number; limit?: number }) {
+    const query: Record<string, unknown> = {};
+
+    query.isActive = true;
+    if (!filters.page) {
+      filters.page = 1;
+    }
+    if (!filters.limit) {
+      filters.limit = 5;
+    }
+
+    console.log(filters, query);
+
+    let skip: number = Math.max((filters.page - 1) * filters.limit, 0);
+
+    const pipeline: PipelineStage[] = [
+      { $match: query },
+      {
+        $facet: {
+          data: [{ $skip: skip }, { $limit: filters.limit }],
+          totalCount: [{ $count: "count" }],
+        },
+      },
+    ];
+
+    const result = await SpecialtyModel.aggregate(pipeline);
+
+    return {
+      specialty: result[0].data,
+      totalCount: result[0].totalCount[0]?.count ?? 0,
+    };
   }
 }

@@ -25,6 +25,7 @@ import { DoctorBlockShiftRepository } from "@infrastructure/database/repositorie
 import { SlotGenerator } from "@application/service/SlotGenerator.ts";
 import { RespondPatientResheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedule/RespondPatientResheduleAppointmentUseCase.ts";
 import { RespondPatientCancelAndRefundAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/cancelAndRefundResponse/RespondPatientCancelAndRefundUseCase.ts";
+import { PatientAppointmentCancellationUseCase } from "@application/use-cases/patient/appointments/cancellation/patientCancel/PatientAppointmentCancellationUseCase.ts";
 
 const logger = new PinoLoggerService();
 const idGenerator = new NanoidGenerator();
@@ -125,6 +126,15 @@ const cancelAndRefundAppointment =
     idGenerator,
     uow
   );
+const cancelAppointment = new PatientAppointmentCancellationUseCase(
+  logger,
+  patientRepo,
+  appointmentRepo,
+  walletRepo,
+  transactionRepo,
+  idGenerator,
+  uow
+);
 export const patientAppointmentController = new PatientAppointmentController(
   createAppointmentUseCase,
   getAppointment,
@@ -134,5 +144,6 @@ export const patientAppointmentController = new PatientAppointmentController(
   verifyPayment,
   getRescheduleSlots,
   rescheduleAppointment,
-  cancelAndRefundAppointment
+  cancelAndRefundAppointment,
+  cancelAppointment
 );

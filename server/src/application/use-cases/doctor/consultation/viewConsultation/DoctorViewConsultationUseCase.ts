@@ -79,6 +79,11 @@ export class DoctorViewConsultationUseCase implements IDoctorViewConsultationUse
         phone: patient.phone,
         email: patient.email,
       },
+      appointment: {
+        id: appointment.id,
+        startTime: appointment.startTime,
+        endTime: appointment.endTime,
+      },
       previousVitals: {
         bloodPressure: previousVitals?.bloodPressure ?? null,
         oxygenLevel: previousVitals?.oxygenLevel ?? null,

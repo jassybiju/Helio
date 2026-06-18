@@ -33,11 +33,11 @@ export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppo
     }
 
     const now = new Date();
-    const startDateIST = new Date(
+    const fakeStartDateIST = new Date(
       now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
     );
-    startDateIST.setDate(startDateIST.getDate() + 2);
-    startDateIST.setHours(0, 0, 0, 0);
+    fakeStartDateIST.setDate(fakeStartDateIST.getDate() + 1);
+    fakeStartDateIST.setHours(0, 0, 0, 0);
 
     const endDateIST = new Date(
       now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
@@ -50,7 +50,7 @@ export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppo
     const appointments =
       await this._appointmentRepo.findDoctorAppointmentForRange(
         doctor.id,
-        istToUtc(startDateIST),
+        istToUtc(fakeStartDateIST),
         istToUtc(endDateIST)
       );
 
@@ -109,10 +109,8 @@ export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppo
       ongoing: allDTOs.filter(
         (appointment) => appointment.status === APPOINTMENT_STATUS.ONGOING
       ),
-      next: allDTOs.filter((appointment) =>
-        [APPOINTMENT_STATUS.CONFIRMED, ].includes(
-          appointment.status
-        )
+      upcoming: allDTOs.filter((appointment) =>
+        [APPOINTMENT_STATUS.CONFIRMED].includes(appointment.status)
       )[0],
     };
   }

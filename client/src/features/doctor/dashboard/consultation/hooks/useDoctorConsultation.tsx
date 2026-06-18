@@ -18,6 +18,9 @@ import {
   LabHistoryDetail,
 } from "../../../services/consultation.service";
 import ViewHistoryDetailModal from "../components/ViewHistoryDetailModal";
+import { socket } from "@/src/libs/socket";
+import { invalidateQuery } from "@/src/libs/queryClient";
+import ViewPDFModal from "@/src/components/ViewPDFModal";
 
 
 interface LabTest {
@@ -64,6 +67,27 @@ const useDoctorConsultation = (id: string) => {
 
   const [isRecordingNewVitals, setIsRecordingNewVitals] = useState(false);
 
+
+
+   useEffect(() => {
+      // socket.emit("join-appointment", id);
+      console.log(112);
+      socket.on("consultation-started", () => {
+        invalidateQuery("appointment");
+      });
+  
+      socket.on("consultation-ended", () => {
+        invalidateQuery("appointment");
+      });
+      
+      // socket.on("user-joined", (data) => {
+      //   console.log(data);
+      // });
+      return () => {
+        socket.off("consultation-started");
+        socket.off("consultation-ended");
+      };
+    }, [socket]);
   /**
    * -----------------------------------
    * API
@@ -309,7 +333,8 @@ const useDoctorConsultation = (id: string) => {
   const viewHistoryDetails = (
     payload: ConsultationHistoryDetail | LabHistoryDetail,
   ) => {
-    open(ViewHistoryDetailModal, { data:payload});
+
+      open(ViewHistoryDetailModal, { data:payload});
   };
   /**
    * -----------------------------------

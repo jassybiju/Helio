@@ -4,6 +4,8 @@ import type {
   ConsultationHistoryDetail,
   LabHistoryDetail,
 } from "../../../services/consultation.service";
+import { useModal } from "@/src/hooks/useModal";
+import ViewPDFModal from "@/src/components/ViewPDFModal";
 
 type Props = ModalProps & {
   data: ConsultationHistoryDetail | LabHistoryDetail;
@@ -13,6 +15,7 @@ const ViewHistoryDetailModal = ({
   close,
   data,
 }: Props) => {
+  const {open} = useModal()
   const consultationData:
     | ConsultationHistoryDetail["data"]
     | null =
@@ -27,6 +30,11 @@ const ViewHistoryDetailModal = ({
       ? (data.data as LabHistoryDetail["data"])
       : null;
 
+
+      const viewPDF = (file : string) => {
+        console.log(file)
+        open(ViewPDFModal, {file : file,title : "Lab Report" })
+      }
   return (
     <div className="mx-4 w-full max-w-4xl overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
       {/* Header */}
@@ -436,14 +444,13 @@ const ViewHistoryDetailModal = ({
                 Document
               </h3>
 
-              <a
-                href={labData.documentKey}
-                target="_blank"
+              <button
+                onClick={()=>viewPDF(labData.documentKey)}
                 rel="noreferrer"
                 className="font-medium text-blue-600 underline"
               >
                 View Uploaded Report
-              </a>
+              </button>
             </div>
           )}
         </div>

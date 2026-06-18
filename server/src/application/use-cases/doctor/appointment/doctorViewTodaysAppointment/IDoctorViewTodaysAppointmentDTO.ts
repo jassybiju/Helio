@@ -25,5 +25,5 @@ export interface IDoctorViewTodaysAppointmentDTO {
   };
   ongoing: ITodayAppointmentCardDTO[];
   skipped: ITodayAppointmentCardDTO[];
-  next: ITodayAppointmentCardDTO;
+  upcoming: ITodayAppointmentCardDTO | undefined;
 }

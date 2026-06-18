@@ -50,7 +50,11 @@ const viewTodaysAppointment = new DoctorViewTodaysAppointmentUseCase(
   appointmentRepo,
   fileUpload
 );
-const skipAppointment = new SkipDoctorAppointmentUseCase(loggerService, doctorRepo, appointmentRepo)
+const skipAppointment = new SkipDoctorAppointmentUseCase(
+  loggerService,
+  doctorRepo,
+  appointmentRepo
+);
 
 export const doctorAppointmentController = new DoctorAppointmentController(
   doctorViewAllAppointments,

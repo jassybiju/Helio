@@ -75,7 +75,7 @@ export interface IAppointmentRepository {
   findNextQueueAppointment(
     doctorId: string,
     date: Date
-  ): Promise<Appointment | null>;
+  ): Promise<Appointment[]>;
 
   countAllAppointmentbyDoctorId(doctorId: string): Promise<number>;
 
@@ -98,4 +98,9 @@ export interface IAppointmentRepository {
   findAllWithFilters(
     filters: FindAppointmentsFilter
   ): Promise<DoctorAppointmentListItem[]>;
+
+  countAppointmentWithPatientAndDoctor(
+    patientId: string,
+    doctorId: string
+  ): Promise<number>;
 }

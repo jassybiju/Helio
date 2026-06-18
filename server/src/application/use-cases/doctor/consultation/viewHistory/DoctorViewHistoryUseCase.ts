@@ -9,6 +9,7 @@ import { MESSAGE } from "@shared/constants/messages.ts";
 import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import type { IDoctorViewHistoryDTO } from "./IDoctorViewHistoryDTO.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 
 export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
   constructor(
@@ -16,19 +17,21 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _consultationRepo: IConsultationRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
-    private readonly _labRepo: ILabReportRepository
+    private readonly _labRepo: ILabReportRepository,
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(
     doctorId: string,
     appointmentId: string
   ): Promise<IDoctorViewHistoryDTO> {
-    this._logger.info("");
+    this._logger.info("Doctor View History ", { doctorId, appointmentId });
 
     const doctor = await this._doctorRepo.findById(doctorId);
+    this._logger.debug("Dcotor", doctor);
     if (!doctor) {
       throw new NotFoundError(MESSAGE.DOCTOR_NOT_FOUND);
     }
-
+    this._logger.debug("appointment", appointmentId);
     const appointment = await this._appointmentRepo.findById(appointmentId);
     if (!appointment) {
       throw new NotFoundError(MESSAGE.APPOINTMENT_NOT_FOUND);
@@ -62,6 +65,11 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
       consultations.map(async (consultation) => {
         const appointment = await this._appointmentRepo.findById(
           consultation.appointmentId
+        );
+        console.log(
+          "consultation",
+          consultation.appointmentId,
+          consultation.id
         );
 
         const doctor = await this._doctorRepo.findById(consultation.doctorId);
@@ -123,7 +131,7 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
       instructions: report.instructions,
       requestedAt: report.requestedAt,
       uploadedAt: report.uploadedAt,
-      documentKey: report.documentKey,
+      documentKey: this._fileUpload.getFileUrl(report.documentKey ?? ""),
       status: report.status,
     }));
 
