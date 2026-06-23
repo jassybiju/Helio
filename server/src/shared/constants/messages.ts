@@ -67,4 +67,7 @@ export enum MESSAGE {
 
   // block
   BLOCK_NOT_FOUND = "Doctor Block not found",
+
+  // chat session
+  CHAT_SESSION_NOT_FOUND = "CHat session not found",
 }

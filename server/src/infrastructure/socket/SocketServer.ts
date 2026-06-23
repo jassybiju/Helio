@@ -2,6 +2,7 @@ import { Server } from "socket.io";
 import type { Server as HttpServer } from "http";
 import { socketAuthMiddleware } from "../../presentation/socket/middlewares/socket.middleware.ts";
 import { SignalingHandler } from "../../presentation/socket/handlers/SignalingHandler.ts";
+import { setIO } from "@config/socket.instance.ts";
 export class SocketServer {
   private _io!: Server;
 
@@ -19,6 +20,8 @@ export class SocketServer {
       },
     });
     console.log("INTIALIZEDdd");
+
+    setIO(this._io);
     this._io.use(socketAuthMiddleware);
 
     const signalingHandler = new SignalingHandler(this._io!);

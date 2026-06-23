@@ -51,7 +51,7 @@ export class DoctorViewAppointmentMapper {
             })),
             startedAt: consultation.startedAt,
             endedAt: consultation.endedAt,
-            medicationDuration: consultation.medicationPeriod,
+            medicationPeriod: consultation.medicationPeriod,
           },
     };
   }

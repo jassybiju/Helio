@@ -22,7 +22,6 @@ import { socket } from "@/src/libs/socket";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import ViewPDFModal from "@/src/components/ViewPDFModal";
 
-
 interface LabTest {
   id: string;
   name: string;
@@ -49,7 +48,7 @@ type ConsultationForm = {
   oxygenLevel: number | null;
   weight: number | null;
   height: number | null;
-  medicationPeriod : number | null,
+  medicationPeriod: number | null;
   diagnosis: string;
   quickNote: string;
   advice: string;
@@ -67,27 +66,25 @@ const useDoctorConsultation = (id: string) => {
 
   const [isRecordingNewVitals, setIsRecordingNewVitals] = useState(false);
 
+  useEffect(() => {
+    // socket.emit("join-appointment", id);
+    console.log(112);
+    socket.on("consultation-started", () => {
+      invalidateQuery("appointment");
+    });
 
+    socket.on("consultation-ended", () => {
+      invalidateQuery("appointment");
+    });
 
-   useEffect(() => {
-      // socket.emit("join-appointment", id);
-      console.log(112);
-      socket.on("consultation-started", () => {
-        invalidateQuery("appointment");
-      });
-  
-      socket.on("consultation-ended", () => {
-        invalidateQuery("appointment");
-      });
-      
-      // socket.on("user-joined", (data) => {
-      //   console.log(data);
-      // });
-      return () => {
-        socket.off("consultation-started");
-        socket.off("consultation-ended");
-      };
-    }, [socket]);
+    // socket.on("user-joined", (data) => {
+    //   console.log(data);
+    // });
+    return () => {
+      socket.off("consultation-started");
+      socket.off("consultation-ended");
+    };
+  }, [socket]);
   /**
    * -----------------------------------
    * API
@@ -120,7 +117,7 @@ const useDoctorConsultation = (id: string) => {
       oxygenLevel: null,
       weight: null,
       height: null,
-      medicationPeriod : null,
+      medicationPeriod: null,
 
       diagnosis: "",
       quickNote: "",
@@ -160,7 +157,7 @@ const useDoctorConsultation = (id: string) => {
       advice: consultationData?.generalAdvice ?? "",
 
       clinicalObservation: consultationData?.clinicalObservation ?? "",
-      medicationPeriod : consultationData.medicationPeriod ?? null
+      medicationPeriod: consultationData.medicationPeriod ?? null,
     });
   }, [consultationData, currentVitals, reset]);
 
@@ -258,11 +255,9 @@ const useDoctorConsultation = (id: string) => {
    * -----------------------------------
    */
 
-
   const handleRemoveMedicine = (name: string) => {
     removeMedicine(name);
   };
-
 
   const handleOpenMedicineModal = () => {
     open(AddMedicineModal, { id });
@@ -333,8 +328,7 @@ const useDoctorConsultation = (id: string) => {
   const viewHistoryDetails = (
     payload: ConsultationHistoryDetail | LabHistoryDetail,
   ) => {
-
-      open(ViewHistoryDetailModal, { data:payload});
+    open(ViewHistoryDetailModal, { data: payload });
   };
   /**
    * -----------------------------------
@@ -343,8 +337,11 @@ const useDoctorConsultation = (id: string) => {
    */
 
   const handleCompleteConsultation = () => {
-    endConsultaiton();
-    router.push("/appointment/today");
+    endConsultaiton(null, {
+      onSuccess() {
+        router.push("/appointment/today");
+      },
+    });
   };
 
   return {

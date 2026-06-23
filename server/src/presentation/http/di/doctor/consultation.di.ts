@@ -17,6 +17,7 @@ import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
 import { DoctorRemoveLabReportUseCase } from "@application/use-cases/doctor/consultation/labReport/DoctorRemoveLabReportUseCase.ts";
 import { DoctorViewHistoryUseCase } from "@application/use-cases/doctor/consultation/viewHistory/DoctorViewHistoryUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { ChatSessionRepository } from "@infrastructure/database/repositories/ChatSessionRepository.ts";
 
 const loggerService = new PinoLoggerService();
 const idGenerator = new NanoidGenerator();
@@ -28,11 +29,15 @@ const consultationRepo = new ConsultationRepository(loggerService);
 const labRepo = new LabReportRepository(loggerService);
 const uow = new MongoUnitOfWork();
 const fileUpload = new CloudinaryFileUploadService();
+const chatSessionRepo = new ChatSessionRepository(loggerService);
+
 const endConsultation = new DoctorEndConsultationUseCase(
   loggerService,
   doctorRepo,
   appointmentRepo,
   consultationRepo,
+  chatSessionRepo,
+  idGenerator,
   uow
 );
 const updateVitals = new DoctorUpdateVitalsUseCase(

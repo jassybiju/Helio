@@ -50,8 +50,6 @@ export class ConsultationMapper {
       raw.consultation_type,
       prescription,
       raw.medication_period ?? null,
-      raw.free_follow_up_valid_until ?? null,
-      raw.free_follow_up_used,
       raw.started_at,
       raw.ended_at ?? null,
       raw.created_at
@@ -78,8 +76,6 @@ export class ConsultationMapper {
         instructions: pres.instruction ?? null,
         timings: pres.timings,
       })),
-      free_follow_up_used: consultation.freeFollowUpUsed,
-      free_follow_up_valid_until: consultation.freeFollowUpValidUntil,
       started_at: consultation.startedAt,
       ended_at: consultation.endedAt,
       created_at: consultation.createdAt,

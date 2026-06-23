@@ -22,8 +22,6 @@ export class Consultation {
     private _prescriptions: Prescription[],
 
     private _medicationPeriod: number | null,
-    private readonly _freeFollowUpValidUntil: Date | null,
-    private _freeFollowUpUsed: boolean,
 
     private readonly _startedAt: Date,
     private _endedAt: Date | null,
@@ -32,12 +30,16 @@ export class Consultation {
   ) {}
 
   end() {
-
-    if(!this._medicationPeriod){
+    if (!this._medicationPeriod) {
       throw new ConflictError("Medication period not set");
-    } 
+    }
 
-    if(!this._primaryDiagnosis || !this._clinicalObservation || !this._generalAdvice || !this._quickNote){
+    if (
+      !this._primaryDiagnosis ||
+      !this._clinicalObservation ||
+      !this._generalAdvice ||
+      !this._quickNote
+    ) {
       throw new ConflictError("Notes not added");
     }
 
@@ -95,6 +97,12 @@ export class Consultation {
     );
   }
   ensureActive() {
+    console.log(
+      !this.startedAt || this._endedAt,
+      this._startedAt,
+      this._endedAt,
+      this
+    );
     if (!this._startedAt || this._endedAt) {
       throw new ConflictError("Consultation not active");
     }
@@ -132,8 +140,6 @@ export class Consultation {
       consultationType,
       [],
       null,
-      null,
-      false,
       startedAt,
       null,
       new Date()
@@ -173,12 +179,7 @@ export class Consultation {
   get prescriptions() {
     return this._prescriptions;
   }
-  get freeFollowUpValidUntil() {
-    return this._freeFollowUpValidUntil;
-  }
-  get freeFollowUpUsed() {
-    return this._freeFollowUpUsed;
-  }
+
   get medicationPeriod() {
     return this._medicationPeriod;
   }

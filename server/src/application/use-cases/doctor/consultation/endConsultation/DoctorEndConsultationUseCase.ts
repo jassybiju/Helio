@@ -1,9 +1,12 @@
 import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
+import type { IChatSessionRepository } from "@application/ports/repositories/IChatSessionRepository.ts";
 import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
+import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
 import type { IDoctorEndConsultationUseCase } from "@application/ports/use-cases/doctor/consultation/IDoctorEndConsultationUseCase.ts";
+import { ChatSession } from "@domain/entities/ChatSession.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
@@ -14,6 +17,8 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _consultationRepo: IConsultationRepository,
+    private readonly _chatSessionRepo: IChatSessionRepository,
+    private readonly _idGenerator: IIDGenerator,
     private readonly _uow: IUnitOfWork
   ) {}
   async execute(doctorId: string, appointmentId: string): Promise<void> {
@@ -26,6 +31,7 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
       const doctorRepo = this._doctorRepo.withSession(session);
       const appointmentRepo = this._appointmentRepo.withSession(session);
       const consultationRepo = this._consultationRepo.withSession(session);
+      const chatSessionRepo = this._chatSessionRepo.withSession(session);
 
       const doctor = await doctorRepo.findById(doctorId);
       if (!doctor) {
@@ -36,7 +42,7 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
       if (!appointment) {
         throw new NotFoundError(MESSAGE.APPOINTMENT_NOT_FOUND);
       }
-      const consultation = await this._consultationRepo.findByAppointmentId(
+      const consultation = await consultationRepo.findByAppointmentId(
         appointment.id
       );
       if (!consultation) {
@@ -47,13 +53,48 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
         throw new ForbiddenError(MESSAGE.APPOINTMENT_NOT_ACCESS);
       }
 
+      // checking if follow Up allowed. if allowed check if existing chat session exists if exists
+      // update expires at else create new Session
+
+      let chatSession = null;
+      let shouldUpdateChatSession = false;
+      if (consultation?.medicationPeriod && consultation.medicationPeriod > 0) {
+        chatSession = await chatSessionRepo.findByPatientIdAndDoctorId(
+          appointment.patientId,
+          appointment.doctorId
+        );
+
+        if (!chatSession) {
+          const chatSessionId = this._idGenerator.generate(
+            process.env.CHAT_SES_PREFIX!
+          );
+          chatSession = ChatSession.create({
+            id: chatSessionId,
+            patientId: appointment.patientId,
+            doctorId: appointment.doctorId,
+            period: consultation.medicationPeriod,
+          });
+        } else {
+          shouldUpdateChatSession = true;
+          chatSession.updateExpiry(consultation.medicationPeriod);
+        }
+      }
       consultation.end();
       appointment.endConsultation();
-
-      await Promise.all([
+      const operations = [
         consultationRepo.update(consultation),
         appointmentRepo.update(appointment),
-      ]);
+      ];
+
+      if (chatSession) {
+        operations.push(
+          shouldUpdateChatSession
+            ? chatSessionRepo.update(chatSession)
+            : chatSessionRepo.create(chatSession)
+        );
+      }
+
+      await Promise.all(operations);
     });
   }
 }

@@ -1,0 +1,5 @@
+export enum CHAT_SESSION_STATUS {
+  ACTIVE = "ACTIVE",
+  EXPIRED = "EXPIRED",
+  CLOSED = "CLOSED",
+}

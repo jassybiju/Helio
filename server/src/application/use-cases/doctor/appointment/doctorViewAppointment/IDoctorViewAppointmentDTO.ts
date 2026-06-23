@@ -55,6 +55,7 @@ export interface IDoctorViewAppointmentDTO {
 
       instruction: string | null;
     }[];
+    medicationPeriod: number | null;
 
     startedAt: Date;
     endedAt: Date | null;
