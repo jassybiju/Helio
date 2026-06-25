@@ -22,6 +22,7 @@ export class ReviewMapper {
       comments: review.comments,
       created_at: review?.createdAt ?? null,
       updated_at: review?.updatedAt ?? null,
+      is_deleted : false
     };
   }
 }

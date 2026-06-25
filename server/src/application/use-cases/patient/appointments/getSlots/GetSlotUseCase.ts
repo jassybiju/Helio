@@ -18,6 +18,9 @@ import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import type { Review } from "@domain/entities/Review.ts";
+import type { IReviewRepository } from "@application/ports/repositories/IReviewRepository.ts";
+import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 
 export class GetSlotUseCase implements IGetSlotUseCase {
   constructor(
@@ -26,16 +29,32 @@ export class GetSlotUseCase implements IGetSlotUseCase {
     private readonly _doctorShiftRepo: IDoctorShiftRepository,
     private readonly _blockSlotRepo: IDoctorBlockShiftRepository,
     private readonly _slotService: ISlotGenerator,
-    private readonly _appointmentRepo: IAppointmentRepository
+    private readonly _appointmentRepo: IAppointmentRepository,
+    private readonly _reviewRepo: IReviewRepository,
+    private readonly _patientRepo: IPatientRepository
   ) {}
   async execute(
     doctorId: string,
-    patientId?: string
-  ): Promise<{ slots: IGetSlotDTO; doctor: Doctor }> {
-    this._logger.info("Get Slot Attempt", { doctorId });
+    patientId: string,
+    reviewInput: {
+      page?: number | undefined;
+      limit?: number | undefined;
+    }
+  ): Promise<{
+    slots: IGetSlotDTO;
+    doctor: Doctor;
+    reviews: {
+      id: string;
+      patientName: string;
+      comments: string;
+      ratings: number;
+      createdAt: Date;
+    }[];
+    totalReviews: number[];
+  }> {
+    this._logger.info("Get Slot Attempt", { doctorId , reviewInput});
 
     const doctor = await this._doctorRepo.findById(doctorId);
-    console.log(doctor, 223, doctorId);
     if (!doctor) {
       throw new AppError(MESSAGE.DOCTOR_NOT_FOUND, HTTPStatus.NOT_FOUND);
     }
@@ -68,7 +87,6 @@ export class GetSlotUseCase implements IGetSlotUseCase {
 
     let result: IGetSlotDTO = {};
 
-    this._logger.debug("slots", slots);
     // for (const slot of slots) {
     //   if (this.isSlotBlocked(slot, blockedShift)) continue;
 
@@ -152,8 +170,33 @@ export class GetSlotUseCase implements IGetSlotUseCase {
         });
       }
     }
-
-    return { slots: result, doctor };
+    console.log(this._reviewRepo);
+    const reviews = await this._reviewRepo.findManyByDoctorIdPaginated(
+      doctor.id,
+      reviewInput?.page ?? 1,
+      reviewInput?.limit ?? 5
+    );
+    console.log("REVIEWS", reviews);
+    const patients = await this._patientRepo.findByIds([
+      ...new Set(reviews.map((review) => review.patientId)),
+    ]);
+    const totalReviews = await this._reviewRepo.countRatingsByDoctorId(
+      doctor.id
+    );
+    return {
+      slots: result,
+      doctor,
+      reviews: reviews.map((review) => ({
+        id: review.id,
+        comments: review.comments,
+        patientName:
+          patients.find((p) => p.id === review.patientId)?.fullName ??
+          "No Name",
+        ratings: review.rating,
+        createdAt: review.createdAt,
+      })),
+      totalReviews,
+    };
   }
 
   private isSlotBlocked(
@@ -202,8 +245,9 @@ export class GetSlotUseCase implements IGetSlotUseCase {
 
     const activeAppointments = slotAppointments.filter(
       (appointment) =>
-        appointment.status !== APPOINTMENT_STATUS.CANCELLED &&
-        appointment.status !== APPOINTMENT_STATUS.EXPIRED
+        appointment.status !== APPOINTMENT_STATUS.CANCELLED_BY_DOCTOR &&
+        appointment.status !== APPOINTMENT_STATUS.EXPIRED &&
+        appointment.status !== APPOINTMENT_STATUS.CANCELLED_BY_PATIENT
     );
 
     if (activeAppointments.length >= slot.capacity) {

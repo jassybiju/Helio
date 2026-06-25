@@ -5,6 +5,7 @@ import { CreditCard, Plus, Calendar, Download, ArrowUpRight, ArrowDownLeft, More
 import { useGetWalletQuery } from '../hooks/useGetWalletQuery'
 import { useModal } from '@/src/hooks/useModal'
 import AddMoneyModal from './AddMoneyModal'
+import Pagination from '@/src/components/Pagination'
 
 interface Transaction {
   id: string
@@ -268,9 +269,9 @@ export default function WalletPage() {
             </div>
           )}
         </div>
-
+          <Pagination onPageChange={(page)=>setCurrentPage(page)} currentPage={currentPage} totalPages={totalPages}/>
         {/* Pagination Controls */}
-        {filteredTransactions.length > 0 && (
+        {/* {filteredTransactions.length > 0 && (
           <div className="flex items-center justify-between border-t border-slate-200 pt-4">
             <p className="text-sm text-slate-600">
               Showing <span className="font-semibold">{startIndex + 1}</span> to <span className="font-semibold">{Math.min(startIndex + ITEMS_PER_PAGE, filteredTransactions.length)}</span> of <span className="font-semibold">{filteredTransactions.length}</span> transactions
@@ -307,7 +308,7 @@ export default function WalletPage() {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Payment Methods */}

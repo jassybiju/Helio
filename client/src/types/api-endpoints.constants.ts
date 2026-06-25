@@ -69,5 +69,6 @@ export const API_ENDPOINT = {
       BASE: "/patient/chat",
       ID: (id: string) => `/patient/chat/${id}`,
     },
+    REVIEW : (doctorId : string) => `/patient/review/${doctorId}`
   },
 } as const;

@@ -48,7 +48,12 @@ export class PatientAddReviewUseCase implements IAddReview {
       );
     }
 
-    const reviewId = this._idGenerator.generate(process.env.REVIEW_ID!);
+    const countNumberOfReviews = await this._reviewRepo.countReviewByPatientIdAndDoctorId(patient.id, doctor.id)
+    if(countNumberOfReviews > 1){
+      throw new ConflictError("Only One Review is possible")
+    }
+
+    const reviewId = this._idGenerator.generate(process.env.REVIEW_PREFIX!);
     const review = Review.create({
       id: reviewId,
       doctorId: doctor.id,

@@ -21,6 +21,54 @@ export class ReviewRepository
     return new ReviewRepository(this._logger, session);
   }
 
+  countReviewByPatientIdAndDoctorId(patientId: string, doctorId: string): Promise<number> {
+    return super.count({patient_id : patientId, doctor_id : doctorId}) 
+  }
+  async countRatingsByDoctorId(doctorId: string): Promise<number[]> {
+    const response = await super.aggregate<{counts : number[]}>([
+      {
+        $match: {
+          doctor_id: doctorId,
+        },
+      },
+      {
+        $facet: {
+          "1": [{ $match: { rating: 1 } }, { $count: "count" }],
+          "2": [{ $match: { rating: 2 } }, { $count: "count" }],
+          "3": [{ $match: { rating: 3 } }, { $count: "count" }],
+          "4": [{ $match: { rating: 4 } }, { $count: "count" }],
+          "5": [{ $match: { rating: 5 } }, { $count: "count" }],
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          counts: [
+            { $ifNull: [{ $arrayElemAt: ["$1.count", 0] }, 0] },
+            { $ifNull: [{ $arrayElemAt: ["$2.count", 0] }, 0] },
+            { $ifNull: [{ $arrayElemAt: ["$3.count", 0] }, 0] },
+            { $ifNull: [{ $arrayElemAt: ["$4.count", 0] }, 0] },
+            { $ifNull: [{ $arrayElemAt: ["$5.count", 0] }, 0] },
+          ],
+        },
+      },
+    ]);
+
+    return response[0]?.counts 
+  }
+  findManyByDoctorIdPaginated(
+    doctorId: string,
+    page: number,
+    limit: number
+  ): Promise<Review[]> {
+    const skip = (page - 1) * limit;
+    console.log(skip);
+    return super.find(
+      { doctor_id: doctorId },
+      { skip, limit },
+      ReviewMapper.toDomain
+    );
+  }
   findById(id: string): Promise<Review | null> {
     return super.findById(id, ReviewMapper.toDomain);
   }

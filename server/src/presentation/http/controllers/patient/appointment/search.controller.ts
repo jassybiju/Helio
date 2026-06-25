@@ -64,7 +64,10 @@ export class PatientDoctorController {
     try {
       const doctorId = req.params.doctorId! as string;
       const patientId = req.user?.id as string;
-      const response = await this._getSlotUseCase.execute(doctorId, patientId);
+      const page = req.query.page! as string
+      const limit = req.query.limit! as string
+
+      const response = await this._getSlotUseCase.execute(doctorId, patientId,{page : Number(page), limit: Number(limit)});
       const doctor = response.doctor;
       return apiResponse(
         res,
@@ -78,7 +81,10 @@ export class PatientDoctorController {
               onlineFee: doctor.onlineFee,
               clinicFee: doctor.clinicFee,
               yearsOfExperience: doctor.yearsOfExperience,
+              doctorId: doctor.id,
             },
+            reviews: response.reviews,
+            totalCount : response.totalReviews
           },
           "Slots got successfully"
         )

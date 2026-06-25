@@ -93,7 +93,9 @@ const mockReviews = {
 };
 
 const DoctorBookingComponent = ({ id }: { id: string }) => {
-  const { data, isError } = useDoctorSlotQuery(id);
+  const [page, setPage] = useState(1)
+  const LIMIT = 1
+  const { data, isError } = useDoctorSlotQuery(id,page, LIMIT);
   const { mutate } = useCreateAppointment();
   const resData = data?.data.slots ?? {};
 
@@ -111,7 +113,11 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
   if (isError) return null;
 
   const doctor = data?.data.doctor;
-
+  const reviews= data?.data.reviews
+  const totalReviews = data?.data.totalCount.reduce((acc,cur)=>acc+cur,0) ?? 0
+  const sumReview = data?.data.totalCount.reduce((acc,cur,i)=>acc+(cur * (i+1)),0) ?? 0
+  const avgRatings = sumReview/totalReviews
+  const totalPages= Math.ceil(totalReviews! / LIMIT)
   // Generate week days starting from today
   const inClinicSlots = activeDate
     ? (resData[activeDate]?.clinic?.slots ?? [])
@@ -333,14 +339,17 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
         </div>
         {doctor && (
           <>
+          {doctor?.doctorId}
             <AddReview doctorId={doctor?.doctorId} />
             <div className="mt-12">
               <ReviewsSection
-                doctorName={doctor.name}
-                doctorRole={doctor.role}
-                averageRating={20}
-                totalReviews={doctor.totalReviews}
-                reviews={mockReviews["2"]}
+                  totalReviewCount={data.data.totalCount}
+                averageRating={avgRatings}
+                totalReviews={totalReviews}
+                reviews={reviews!}
+                onPageChange={(page)=>setPage(page)}
+                currentPage={page}
+                totalPage={totalPages}
               />
             </div>
           </>

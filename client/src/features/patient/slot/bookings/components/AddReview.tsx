@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { Star, Send } from 'lucide-react'
 import ClayButton from '@/src/components/ui/ClayButton'
+import { useAddReviewMutation } from '../hooks/useAddReviewMutation'
+import { toast } from 'react-toastify'
+import { isAxiosError } from 'axios'
 
 interface AddReviewProps {
   doctorId: string
@@ -11,21 +14,24 @@ interface AddReviewProps {
 export function AddReview({ doctorId }: AddReviewProps) {
   const [rating, setRating] = useState<number>(5)
   const [comment, setComment] = useState<string>('')
-  const [author, setAuthor] = useState<string>('')
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [hoveredRating, setHoveredRating] = useState<number>(0)
-
+  const {mutate : reviewSubmit} = useAddReviewMutation(doctorId)
   const handleSubmit = () => {
-    if (author.trim() && comment.trim()) {
-      onReviewSubmit({
+    if ( comment.trim()) {
+      reviewSubmit({
         rating,
         comment,
-        author,
-      })
+      },{onSuccess : ()=>{
+        toast.success("Review Added Successfully")
+        setIsSubmitted(true)
+      }, onError(err){
+        if(isAxiosError(err)){
+          toast.error(err.response?.data.message)
+        }
+      }})
       setRating(5)
       setComment('')
-      setAuthor('')
-      setIsSubmitted(true)
       setTimeout(() => setIsSubmitted(false), 3000)
     }
   }

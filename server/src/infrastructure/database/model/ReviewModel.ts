@@ -8,6 +8,7 @@ export const reviewSchema = new Schema({
   comments: { type: String, required: true },
   created_at: { type: Date },
   updated_at: { type: Date },
+  is_deleted : {type : Boolean, default : false}
 });
 
 export const reviewModel = model("ReviewModel", reviewSchema);
