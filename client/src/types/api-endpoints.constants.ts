@@ -40,6 +40,10 @@ export const API_ENDPOINT = {
         ID: (id: string) => `/doctor/slot/block/${id}`,
       },
     },
+    CHAT: {
+      BASE: "/doctor/chat",
+      ID: (id: string) => `/doctor/chat/${id}`,
+    },
   },
   PATIENT: {
     PROFILE: {
@@ -59,7 +63,11 @@ export const API_ENDPOINT = {
     },
     LAB: {
       BASE: `/patient/lab`,
-      UPLOAD : (id : string) => `/patient/lab/${id}/upload`
+      UPLOAD: (id: string) => `/patient/lab/${id}/upload`,
+    },
+    CHAT: {
+      BASE: "/patient/chat",
+      ID: (id: string) => `/patient/chat/${id}`,
     },
   },
 } as const;

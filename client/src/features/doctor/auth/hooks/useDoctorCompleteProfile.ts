@@ -26,7 +26,6 @@ export const useDoctorCompleteProfile = () => {
   const {data} = useSpecialtyQuery()
 
   const router = useRouter();
-  console.log(errors);
   const onSubmit = async (data: DoctorCompleteProfileFormData) => {
     try {
       await doctorProfileService.completeProfile(data);

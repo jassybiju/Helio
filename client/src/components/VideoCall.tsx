@@ -49,12 +49,10 @@ const VideoCall = ({
     audioTracks?.forEach((track) => {
       track.enabled = !track.enabled;
     });
-    console.log(...audioTracks);
     setIsMicOn((prev) => !prev);
   };
   const toggleCamera = () => {
     const videoTracks = streamRef.current?.getVideoTracks();
-    console.log(...videoTracks);
     videoTracks?.forEach((track) => {
       track.enabled = !track.enabled;
     });

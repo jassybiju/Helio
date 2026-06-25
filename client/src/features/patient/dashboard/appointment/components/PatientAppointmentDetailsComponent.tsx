@@ -25,6 +25,7 @@ import VideoCall from "@/src/components/VideoCall";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import { toast } from "react-toastify";
 import { useCancelPatientAppointmentMutation } from "../hooks/useCancelPatientAppointment";
+import PatientAppointmentCancellationModal from "./PatientAppointmentCancellationModal";
 
 interface Appointment {
   id: string;
@@ -60,7 +61,8 @@ export default function PatientAppointmentDetailsComponent() {
   const params = useParams();
   const appointmentId = params.id as string;
 
-  const {mutate : cancelAppointment} = useCancelPatientAppointmentMutation(appointmentId)
+  const { mutate: cancelAppointment } =
+    useCancelPatientAppointmentMutation(appointmentId);
   const { data: data } = useGetPatientsAppointmentQuery(appointmentId);
   const { data: liveData } = useGetPatientLiveQueueQuery(appointmentId);
   const { open } = useModal();
@@ -104,8 +106,12 @@ export default function PatientAppointmentDetailsComponent() {
   };
 
   const handleCancelAppointment = () => {
-    open(ConfirmModal, {title : "Are you sure you want to cancel ?", message : "Are you sure you want to cancel ?",onConfirm: cancelAppointment})
-  }
+    open(PatientAppointmentCancellationModal, {
+      date: appointment?.appointment.startTime,
+      fee: appointment?.appointment.consultationFee,
+      appointmentId: appointment?.appointment.id,
+    });
+  };
 
   if (!appointment) {
     return (
@@ -122,8 +128,6 @@ export default function PatientAppointmentDetailsComponent() {
       </div>
     );
   }
-
-
 
   const statusConfig: Record<Partial<APPOINTMENT_STATUS>, object> = {
     PENDING: {
@@ -148,9 +152,9 @@ export default function PatientAppointmentDetailsComponent() {
   };
 
   const config = statusConfig[appointment.appointment.status] ?? {};
-const fakeDate = new Date()
-fakeDate.setDate(new Date().getDate() + 1)
-fakeDate.setHours(0,0,0,0) 
+  const fakeDate = new Date();
+  fakeDate.setDate(new Date().getDate() + 1);
+  fakeDate.setHours(0, 0, 0, 0);
   return (
     <div className="space-y-6">
       {/* Back Button */}
@@ -161,7 +165,6 @@ fakeDate.setHours(0,0,0,0)
         <ArrowLeft className="w-4 h-4" />
         Back to Appointmentsds
       </button>
-
       {appointment.appointment.status ===
         APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 space-y-4">
@@ -261,15 +264,27 @@ fakeDate.setHours(0,0,0,0)
       </div>
       sddf
       {fakeDate.toString()}
-      {fakeDate===new Date(new Date(appointment.appointment.startTime).setHours(0,0,0,0)) && "true"}
-{ fakeDate.toString() === new Date(new Date(appointment.appointment.startTime).setHours(0,0,0,0)).toString() && [APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.ONGOING].includes(appointment.appointment.status) && 
-      <VideoCall patientName={appointment.doctor.name} appointmentId={appointment.appointmentId}/>
-}
+      {fakeDate ===
+        new Date(
+          new Date(appointment.appointment.startTime).setHours(0, 0, 0, 0),
+        ) && "true"}
+      {fakeDate.toString() ===
+        new Date(
+          new Date(appointment.appointment.startTime).setHours(0, 0, 0, 0),
+        ).toString() &&
+        [APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.ONGOING].includes(
+          appointment.appointment.status,
+        ) && (
+          <VideoCall
+            patientName={appointment.doctor.name}
+            appointmentId={appointment.appointmentId}
+          />
+        )}
       {/* Doctor Information */}
       <div className="bg-white rounded-lg border border-slate-200 p-6">
         <h2 className="text-lg font-bold text-slate-900 mb-4">
-          Doctor Information { doctorOnline ? 'ONLINE' : "OFFLINE"}
-        </h2> 
+          Doctor Information {doctorOnline ? "ONLINE" : "OFFLINE"}
+        </h2>
         <div className="space-y-3">
           <div className="flex items-center gap-3 pb-3 border-b border-slate-200">
             <User className="w-5 h-5 text-slate-400" />
@@ -303,7 +318,6 @@ fakeDate.setHours(0,0,0,0)
           </div> */}
         </div>
       </div>
-
       {/* Live Queue Status */}
       {hasLiveData && (
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 space-y-4">
@@ -487,41 +501,41 @@ fakeDate.setHours(0,0,0,0)
           </div>
         </div>
       )}
-
       {/* Action Buttons */}
       <div className="bg-white rounded-lg border border-slate-200 p-6 flex gap-3">
         <div className="w-full">
+          {appointment.appointment.status === "ONGOING" && (
+            <>
+              <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+                <Video className="w-5 h-5" />
+                Join Consultation
+              </button>
+              <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+                <MessageSquare className="w-5 h-5" />
+                Message Doctor
+              </button>
+            </>
+          )}
 
-        {appointment.appointment.status === "ONGOING" && (
-          <>
+          {appointment.status === "completed" && (
             <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
-              <Video className="w-5 h-5" />
-              Join Consultation
+              <Download className="w-5 h-5" />
+              Download Prescription
             </button>
-            <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-              <MessageSquare className="w-5 h-5" />
-              Message Doctor
-            </button>
-          </>
-        )}
+          )}
 
-        {appointment.status === "completed" && (
-          <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
-            <Download className="w-5 h-5" />
-            Download Prescription
+          <button className="px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+            View Notes
+          </button>
+        </div>
+        {appointment.appointment.status === APPOINTMENT_STATUS.CONFIRMED && (
+          <button
+            onClick={handleCancelAppointment}
+            className="px-6 py-3 text-nowrap  border bg-red-300 border-slate-200 text-red-700 hover:bg-slate-50 font-semibold rounded-lg transition"
+          >
+            Cancel Appointment
           </button>
         )}
-
-        <button className="px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-          View Notes
-        </button>
-        </div>
-{  appointment.appointment.status === APPOINTMENT_STATUS.CONFIRMED && 
-
-        <button onClick={handleCancelAppointment} className="px-6 py-3 text-nowrap  border bg-red-300 border-slate-200 text-red-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-          Cancel Appointment
-        </button>
-}
       </div>
     </div>
   );

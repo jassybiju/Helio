@@ -1,66 +1,66 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useState } from 'react'
-import { MessageSquare } from 'lucide-react'
+import Link from "next/link";
+import { useState } from "react";
+import { MessageSquare } from "lucide-react";
+import { ChatListType } from "../types/chat.type";
 
 interface Chat {
-  id: string
-  doctorName: string
-  lastMessage: string
-  lastMessageAt: string
-  unreadCount: number
-  status: 'active' | 'expired'
-  daysRemaining?: string
+  id: string;
+  doctorName: string;
+  lastMessage: string;
+  lastMessageAt: string;
+  unreadCount: number;
+  status: "active" | "expired";
+  daysRemaining?: string;
 }
 
 interface Props {
-  activeId: string
-  baseUrl: string
+  activeId: string | null;
+  baseUrl: string;
+  list: ChatListType;
+  setActiveId: (id: string) => void;
 }
 
 export default function ConsultationChatList({
   activeId,
+  list,
   baseUrl,
+  setActiveId,
 }: Props) {
-  const [tab, setTab] = useState<'active' | 'expired'>(
-    'active'
-  )
+  const [tab, setTab] = useState<"active" | "expired">("active");
 
   const chats: Chat[] = [
     {
-      id: '1',
-      doctorName: 'Dr. Michael Chen',
+      id: "1",
+      doctorName: "Dr. Michael Chen",
       lastMessage:
-        'I have been feeling some dizziness after taking the medication.',
-      lastMessageAt: '2m',
+        "I have been feeling some dizziness after taking the medication.",
+      lastMessageAt: "2m",
       unreadCount: 1,
-      status: 'active',
-      daysRemaining: '7 days',
+      status: "active",
+      daysRemaining: "7 days",
     },
     {
-      id: '2',
-      doctorName: 'Dr. Sarah Wilson',
-      lastMessage:
-        'Continue taking the medicine after meals.',
-      lastMessageAt: '1h',
+      id: "2",
+      doctorName: "Dr. Sarah Wilson",
+      lastMessage: "Continue taking the medicine after meals.",
+      lastMessageAt: "1h",
       unreadCount: 0,
-      status: 'active',
-      daysRemaining: '12 days',
+      status: "active",
+      daysRemaining: "12 days",
     },
     {
-      id: '3',
-      doctorName: 'Dr. James Anderson',
-      lastMessage: 'Follow-up consultation completed.',
-      lastMessageAt: '3d',
+      id: "3",
+      doctorName: "Dr. James Anderson",
+      lastMessage: "Follow-up consultation completed.",
+      lastMessageAt: "3d",
       unreadCount: 0,
-      status: 'expired',
+      status: "expired",
     },
-  ]
+  ];
 
-  const filtered = chats.filter(
-    (chat) => chat.status === tab
-  )
+  const filtered = chats.filter((chat) => chat.status === tab);
 
   return (
     <div className="w-[340px] border-r border-slate-200 bg-white flex flex-col">
@@ -76,22 +76,22 @@ export default function ConsultationChatList({
       <div className="border-b border-slate-200 p-3">
         <div className="flex rounded-lg bg-slate-100 p-1">
           <button
-            onClick={() => setTab('active')}
+            onClick={() => setTab("active")}
             className={`flex-1 rounded-md py-2 text-sm font-medium transition ${
-              tab === 'active'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-slate-600'
+              tab === "active"
+                ? "bg-white text-blue-600 shadow-sm"
+                : "text-slate-600"
             }`}
           >
             Active
           </button>
 
           <button
-            onClick={() => setTab('expired')}
+            onClick={() => setTab("expired")}
             className={`flex-1 rounded-md py-2 text-sm font-medium transition ${
-              tab === 'expired'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-slate-600'
+              tab === "expired"
+                ? "bg-white text-blue-600 shadow-sm"
+                : "text-slate-600"
             }`}
           >
             Expired
@@ -100,67 +100,64 @@ export default function ConsultationChatList({
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        {filtered.map((chat) => {
-          const selected = chat.id === activeId
+        {list?.chats?.active.map((chat) => {
+          const selected = chat.id === activeId;
 
           return (
-            <Link
-              key={chat.id}
-              href={`${baseUrl}/${chat.id}`}
-            >
+            <button className="w-full" key={chat.id} onClick={() => setActiveId(chat.id)}>
               <div
                 className={`border-b border-slate-100 px-4 py-4 transition ${
                   selected
-                    ? 'bg-blue-50 border-l-4 border-l-blue-600'
-                    : 'hover:bg-slate-50'
+                    ? "bg-blue-50 border-l-4 border-l-blue-600"
+                    : "hover:bg-slate-50"
                 }`}
               >
                 <div className="flex gap-3">
                   <div className="h-11 w-11 flex-shrink-0 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
-                    {chat.doctorName
-                      .split(' ')
+                    {chat.name
+                      .split(" ")
                       .slice(-2)
                       .map((word) => word[0])
-                      .join('')}
+                      .join("")}
                   </div>
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
                       <h3 className="truncate text-sm font-semibold text-slate-900">
-                        {chat.doctorName}
+                        {chat.name}
                       </h3>
 
                       <span className="text-xs text-slate-400">
-                        {chat.lastMessageAt}
+                        {/* {chat.lastMessageAt} */}
                       </span>
                     </div>
 
                     <p className="mt-1 line-clamp-2 text-sm text-slate-500">
-                      {chat.lastMessage}
+                      {chat.message}
                     </p>
 
                     <div className="mt-3 flex items-center justify-between">
-                      {chat.daysRemaining ? (
+                      {chat.expiresIn ? (
                         <span className="rounded-full bg-blue-50 px-2 py-1 text-[11px] font-medium text-blue-700">
-                          {chat.daysRemaining} left
+                          {chat.expiresIn} left
                         </span>
                       ) : (
                         <span />
                       )}
 
-                      {chat.unreadCount > 0 && (
+                      {/* {chat.unreadCount > 0 && (
                         <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] text-white">
                           {chat.unreadCount}
-                        </span>
-                      )}
+                        </span> */}
+                      {/* )} */}
                     </div>
                   </div>
                 </div>
               </div>
-            </Link>
-          )
+            </button>
+          );
         })}
       </div>
     </div>
-  )
+  );
 }

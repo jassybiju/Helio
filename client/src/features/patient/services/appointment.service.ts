@@ -65,12 +65,12 @@ export interface IGetPatientAppointment {
 
     status: APPOINTMENT_STATUS;
   };
-  consultation : {
-    primaryDiagnosis : string | null,
-    generalAdvice : string | null,
-    quickNote : string | null,
-    clinicalObservation : string | null,
-  }
+  consultation: {
+    primaryDiagnosis: string | null;
+    generalAdvice: string | null;
+    quickNote: string | null;
+    clinicalObservation: string | null;
+  };
 
   payment: {
     paymentStatus: string;
@@ -197,16 +197,16 @@ export const appointmentService = {
       data,
     ) as Promise<APIResponse<IGetPatientLabReports>>;
   },
-    uploadLabReport: (reportId: string, data: File) => {
-      const formData = new FormData();
-     formData.append('document', data)
-      console.log(reportId, API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId))
-      return apiRequest(
-        API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId),
-        HTTP_METHOD.PATCH,
-        formData,
-      );
-    },
+  uploadLabReport: (reportId: string, data: File) => {
+    const formData = new FormData();
+    formData.append("document", data);
+    console.log(reportId, API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId));
+    return apiRequest(
+      API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId),
+      HTTP_METHOD.PATCH,
+      formData,
+    );
+  },
 
   getLiveQueue: (id: string) => {
     return apiRequest(
@@ -263,10 +263,22 @@ export const appointmentService = {
       HTTP_METHOD.POST,
     );
   },
-   cancelAppointment(appointmentId: string) {
+  cancelAppointment(appointmentId: string) {
     return apiRequest(
       `/patient/appointment/${appointmentId}/cancel`,
       HTTP_METHOD.POST,
+    );
+  },
+  reschedulePatientAppointment(
+    appointmentId: string,
+    data: {
+      startTime: string;
+      consultationType: "ONLINE" | "CLINIC";
+    },
+  ) {
+    return apiRequest(
+      `/patient/appointment/${appointmentId}/reschedule`,
+      HTTP_METHOD.POST,data
     );
   },
 };

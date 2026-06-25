@@ -34,7 +34,6 @@ const AdminSpecialtyComponent = () => {
       render: (x) =><div onClick={()=>handleDelete(x)} className=" flex text-center justify-center"> <Trash2 color="red"/></div>,
     },
   ];
-console.log(specialty?.data.count)
   const handleDelete = (id : string) => {
     deleteSpecialty(id)
   }

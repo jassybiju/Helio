@@ -8,6 +8,89 @@ import { useDoctorSlotQuery } from "../hooks/useDoctorSlotQuery";
 import { useCreateAppointment } from "../hooks/useCreateAppointment";
 import { toast } from "react-toastify";
 import { isAxiosError } from "axios";
+import { ReviewsSection } from "./ReviewsSection";
+import { AddReview } from "./AddReview";
+
+const mockReviews = {
+  "1": [
+    {
+      id: "1",
+      author: "John Smith",
+      rating: 5,
+      date: "2 weeks ago",
+      comment:
+        "Great doctor! Very attentive and took time to understand my concerns. Highly recommended!",
+      avatar: "JS",
+    },
+    {
+      id: "2",
+      author: "Emily Johnson",
+      rating: 4,
+      date: "1 month ago",
+      comment:
+        "Good consultation. Dr. Chen was professional and provided clear guidance on my treatment.",
+      avatar: "EJ",
+    },
+    {
+      id: "3",
+      author: "Michael Rodriguez",
+      rating: 5,
+      date: "1 month ago",
+      comment:
+        "Excellent care and very personable. Definitely coming back for follow-ups!",
+      avatar: "MR",
+    },
+  ],
+  "2": [
+    {
+      id: "1",
+      author: "Lisa Chen",
+      rating: 5,
+      date: "3 weeks ago",
+      comment:
+        "Dr. Miller is amazing! She solved my skin issue completely. Very professional.",
+      avatar: "LC",
+    },
+    {
+      id: "2",
+      author: "Amanda White",
+      rating: 4,
+      date: "2 months ago",
+      comment:
+        "Good treatment and helpful advice. Saw improvement in a few weeks.",
+      avatar: "AW",
+    },
+  ],
+  "3": [
+    {
+      id: "1",
+      author: "Robert Taylor",
+      rating: 5,
+      date: "1 week ago",
+      comment:
+        "Dr. Wilson is an excellent cardiologist. Very knowledgeable and caring. Trust him completely.",
+      avatar: "RT",
+    },
+    {
+      id: "2",
+      author: "Patricia Lee",
+      rating: 5,
+      date: "3 weeks ago",
+      comment:
+        "Outstanding doctor. My heart condition has improved significantly under his care.",
+      avatar: "PL",
+    },
+    {
+      id: "3",
+      author: "James Brown",
+      rating: 4,
+      date: "1 month ago",
+      comment:
+        "Professional and thorough. Explained everything clearly. Very satisfied.",
+      avatar: "JB",
+    },
+  ],
+};
 
 const DoctorBookingComponent = ({ id }: { id: string }) => {
   const { data, isError } = useDoctorSlotQuery(id);
@@ -248,6 +331,20 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
             )}
           </div>
         </div>
+        {doctor && (
+          <>
+            <AddReview doctorId={doctor?.doctorId} />
+            <div className="mt-12">
+              <ReviewsSection
+                doctorName={doctor.name}
+                doctorRole={doctor.role}
+                averageRating={20}
+                totalReviews={doctor.totalReviews}
+                reviews={mockReviews["2"]}
+              />
+            </div>
+          </>
+        )}
       </div>
     </main>
   );

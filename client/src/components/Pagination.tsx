@@ -16,7 +16,6 @@ export default function Pagination({
   const getPageNumbers = () => {
     const pages = [];
     const maxButtons = 5;
-    console.log(totalPages)
     if (totalPages <= maxButtons) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);

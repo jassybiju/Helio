@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutGrid, LogOut, Settings } from "lucide-react";
+import { LayoutGrid, LogOut, MessageCircle, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -12,6 +12,7 @@ const menuItems = [
   { label: "appointment", href: "/dashboard/appointment", icon: LayoutGrid },
   { label: "Lab Report", href: "/dashboard/lab-report", icon: LayoutGrid },
   { label: "Wallet", href: "/dashboard/wallet", icon: LayoutGrid },
+  { label: "Chat", href: "/dashboard/chat", icon: MessageCircle },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 

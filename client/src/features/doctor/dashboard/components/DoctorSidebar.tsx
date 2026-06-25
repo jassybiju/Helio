@@ -3,6 +3,7 @@
 import {
   LayoutGrid,
   LogOut,
+  MessageCircle,
   Settings,
 } from "lucide-react";
 import Link from "next/link";
@@ -18,6 +19,7 @@ const menuItems = [
   { label: "Appointment", href: "/appointment", icon: LayoutGrid },
   { label: "Slot", href: "/slot", icon: LayoutGrid },
   { label: "Block Slot", href: "/block-slot", icon: LayoutGrid },
+  { label: "Message", href: "/chat", icon: MessageCircle },
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 

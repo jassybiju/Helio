@@ -15,7 +15,6 @@ export const useStartDoctorConsultation = () => {
     onError(error){
       if(isAxiosError(error)){
         toast.error(error.response?.data.message)
-        console.log(error)
       }
     }
   })

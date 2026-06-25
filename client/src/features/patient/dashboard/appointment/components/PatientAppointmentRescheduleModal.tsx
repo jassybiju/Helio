@@ -6,16 +6,21 @@ import { Calendar, Clock, Stethoscope, AlertTriangle, X } from "lucide-react";
 import { ModalProps } from "@/src/layout/ModalProvider";
 import { useGetPatientRescheduleSlotsQuery } from "../hooks/useGetPatientRescheduleSlotsQuery";
 import { toast } from "react-toastify";
-import { useRescheduleAppointmentMutation } from "../hooks/useRescheduleAppointmentMutation";
 import { isAxiosError } from "axios";
+import { UseMutateFunction } from "@tanstack/react-query";
+import { APIResponse } from "@/src/types/API.types";
+import { AddReview } from "../../../slot/bookings/components/AddReview";
 
 const PatientAppointmentRescheduleModal = ({
   close,
   appointmentId,
-}: ModalProps & { appointmentId: string }) => {
+  rescheduleAppointment,
+}: ModalProps & {
+  appointmentId: string;
+  rescheduleAppointment: UseMutateFunction<APIResponse<unknown>, unknown, {consultationType : "ONLINE" | "CLINIC", startTime : string}, unknown>
+}) => {
   const { data, isLoading } = useGetPatientRescheduleSlotsQuery(appointmentId);
-const { mutate: rescheduleAppointment } =
-    useRescheduleAppointmentMutation(appointmentId);
+
   const doctor = data?.data?.doctor;
   const slotsData = data?.data?.slots ?? {};
 
@@ -107,7 +112,7 @@ const { mutate: rescheduleAppointment } =
         onError(error) {
           console.log(isAxiosError(error));
           if (isAxiosError(error)) {
-            console.log(error.response?.data)
+            console.log(error.response?.data);
             toast.error(error.response?.data.message);
           }
         },
@@ -288,7 +293,7 @@ const { mutate: rescheduleAppointment } =
           </div>
         )}
       </div>
-
+<AddReview doctorId={doctor?.id}/>
       {/* Footer */}
       <div className="flex justify-end gap-3 border-t p-6">
         <button

@@ -1,83 +1,61 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import {
-  Clock,
-  Paperclip,
-  Send,
-  Smile,
-} from 'lucide-react'
+import { useEffect, useRef, useState } from "react";
+import { Clock, Paperclip, Send, Smile } from "lucide-react";
+import { IDoctorGetChat } from "@/src/features/doctor/services/chat.service";
+import { useDoctorSendMessageMutation } from "@/src/features/doctor/dashboard/chat/hooks/useDoctorSendMessageMutation";
+import { SendeeType } from "../types/chat.type";
+import { socket } from "@/src/libs/socket";
+import { toast } from "react-toastify";
 
 interface Message {
-  id: string
-  sender: 'doctor' | 'patient'
-  content: string
-  timestamp: string
+  id: string;
+  sender: "doctor" | "patient";
+  content: string;
+  timestamp: string;
 }
 
 interface Props {
-  doctorName: string
-  patientName: string
-  userType: 'doctor' | 'patient'
-  consultationStatus: 'active' | 'ended'
+  chatId: string | null;
+  chatData: IDoctorGetChat['chats'] | undefined;
+  sendeeData : SendeeType | undefined,
+  userType: "doctor" | "patient";
+  consultationStatus: "active" | "ended";
+   onSendMessage: (
+    message: string,
+  ) => void;
 }
 
 export default function ConsultationChat({
-  doctorName,
-  userType,
-  consultationStatus,
+  chatId,
+userType,
+  sendeeData,
+  chatData,
+  consultationStatus, 
+  onSendMessage
 }: Props) {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState("");
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      sender: 'doctor',
-      content:
-        'Hello Michael, I have prescribed Lisinopril for your blood pressure. Please take one tablet every morning after breakfast.',
-      timestamp: '09:15 AM',
-    },
-    {
-      id: '2',
-      sender: 'patient',
-      content:
-        'Should I avoid any foods while taking this medication?',
-      timestamp: '09:22 AM',
-    },
-    {
-      id: '3',
-      sender: 'doctor',
-      content:
-        'Avoid excessive salt intake and continue monitoring your blood pressure.',
-      timestamp: '09:35 AM',
-    },
-  ])
+  const bottomRef = useRef<HTMLDivElement>(null);
+  
 
-  const bottomRef = useRef<HTMLDivElement>(null)
+
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({
-      behavior: 'smooth',
-    })
-  }, [messages])
+      behavior: "smooth",
+    });
+  }, [chatData]);
 
-  const sendMessage = () => {
-    if (!message.trim()) return
+  const handleSendMessage = () => {
+    if (!message.trim()) return;
+    onSendMessage(message, );
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        sender: userType,
-        content: message,
-        timestamp: new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-      },
-    ])
+    setMessage("");
+  };
 
-    setMessage('')
+  if (!chatId) {
+    return null;
   }
 
   return (
@@ -89,12 +67,10 @@ export default function ConsultationChat({
           </div>
 
           <div>
-            <h2 className="font-semibold text-slate-900">
-              Dr. {doctorName}
-            </h2>
+            <h2 className="font-semibold text-slate-900">{sendeeData?.name}</h2>
 
             <p className="text-xs text-slate-500">
-              Internal Medicine Specialist
+              {/* Internal Medicine Specialist */}
             </p>
           </div>
         </div>
@@ -107,76 +83,69 @@ export default function ConsultationChat({
       <div className="border-b border-blue-100 bg-blue-50 px-6 py-3">
         <div className="flex items-center gap-2 text-sm text-blue-700">
           <Clock className="h-4 w-4" />
-          <span>
-            Active follow-up period • 7 days remaining
-          </span>
+          <span>Active follow-up period • 7 days remaining</span>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto bg-slate-50 px-6 py-6">
         <div className="mx-auto max-w-3xl space-y-4">
-          {messages.map((msg) => {
-            const mine = msg.sender === userType
+          {chatData?.map((msg) => {
+            const mine = msg.sendBy === userType;
 
             return (
               <div
                 key={msg.id}
                 className={`flex ${
                   mine
-                    ? 'justify-start flex-row-reverse'
-                    : 'justify-start flex-row'
+                    ? "justify-start flex-row-reverse"
+                    : "justify-start flex-row"
                 }`}
               >
-                <div className={`h-min rounded-full  p-4 ${
-                  mine
-                    ? 'bg-blue-600  text-white'
-                    : 'border border-slate-200 bg-white text-slate-900 shadow-sm'
-                }`}>
-                  
+                <div
+                  className={`h-min rounded-full  p-4 ${
+                    mine
+                      ? "bg-blue-600  text-white"
+                      : "border border-slate-200 bg-white text-slate-900 shadow-sm"
+                  }`}
+                >
                   FM
-                  </div>
+                </div>
                 <div
                   className={`max-w-[75%] rounded-2xl px-5 py-4 ${
                     mine
-                      ? 'bg-blue-600 text-white'
-                      : 'border border-slate-200 bg-white text-slate-900 shadow-sm'
+                      ? "bg-blue-600 text-white"
+                      : "border border-slate-200 bg-white text-slate-900 shadow-sm"
                   }`}
                 >
-                  <p className="text-sm leading-6">
-                    {msg.content}
-                  </p>
+                  <p className="text-sm leading-6">{msg.message}</p>
 
                   <p
                     className={`mt-2 text-xs ${
-                      mine
-                        ? 'text-blue-100'
-                        : 'text-slate-400'
+                      mine ? "text-blue-100" : "text-slate-400"
                     }`}
                   >
-                    {msg.timestamp}
+                    {new Date(msg.sendAt)?.toLocaleDateString()}
                   </p>
                 </div>
               </div>
-            )
+            );
           })}
 
           <div ref={bottomRef} />
         </div>
       </div>
 
-      {consultationStatus === 'active' && (
+      {consultationStatus === "active" && (
         <div className="border-t border-slate-200 bg-white p-4">
           <div className="flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-2">
             <Paperclip className="h-5 w-5 text-slate-400" />
 
             <input
               value={message}
-              onChange={(e) =>
-                setMessage(e.target.value)
-              }
+              onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  sendMessage()
+                if (e.key === "Enter") {
+                  handleSendMessage();
                 }
               }}
               placeholder="Type your message..."
@@ -186,7 +155,7 @@ export default function ConsultationChat({
             <Smile className="h-5 w-5 text-slate-400" />
 
             <button
-              onClick={sendMessage}
+              onClick={handleSendMessage}
               className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600"
             >
               <Send className="h-4 w-4 text-white" />
@@ -195,5 +164,5 @@ export default function ConsultationChat({
         </div>
       )}
     </div>
-  )
+  );
 }
