@@ -7,4 +7,10 @@ export interface IChatMessageRepository {
   create(chatMessage: ChatMessage): Promise<void>;
   update(chatMessage: ChatMessage): Promise<void>;
   delete(id: string): Promise<void>;
+
+  findLastMessageWithSessionId(
+    chatSessionId: string
+  ): Promise<ChatMessage | null>;
+
+  findMessagesWithSessionId(chatSessionId: string): Promise<ChatMessage[]>;
 }

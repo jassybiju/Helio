@@ -72,7 +72,7 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
       const fakeDate = new Date();
       fakeDate.setDate(fakeDate.getDate() + 1);
       // const date = new Date()
-      console.log(fakeDate);
+      console.log("FAKEDATE", fakeDate, new Date());
 
       this._logger.error(
         "For Debug I set date + 2 in start consultation change on prod"
@@ -108,7 +108,7 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
         startable,
         startable.find((appt) => appt.id == appointment.id),
         appointment.id,
-        "START"
+        "START123"
       );
       // validating if the order is correct
       if (!startable.find((appt) => appt.id == appointment.id)) {

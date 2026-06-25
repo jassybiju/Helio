@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const doctorSendChatSchema = z.object({
+export const sendChatSchema = z.object({
   body: z.object({
     content: z.string("Requires Content").min(1, "Min 1 character required"),
   }),

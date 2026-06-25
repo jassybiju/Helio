@@ -33,7 +33,7 @@ export abstract class BaseRepository<
       .findOne({ ...query, is_deleted: false })
       .sort(options?.sort ?? {})
       .session(this._session);
-
+    console.log(doc, query, options, this._model, 123);
     if (!doc) return null;
 
     return map(doc);

@@ -3,7 +3,7 @@ import { model, now, Schema, type InferSchemaType } from "mongoose";
 
 export const chatMessageSchema = new Schema({
   _id: { type: String, required: true, unique: true },
-  chat_session_id: { type: String, required: true,  },
+  chat_session_id: { type: String, required: true },
   sender_id: { type: String, required: true },
   sender_role: { type: String, required: true, enum: USER_ROLES },
   message: { type: String, required: true },

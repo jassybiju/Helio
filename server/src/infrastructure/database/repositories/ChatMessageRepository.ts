@@ -24,13 +24,34 @@ export class ChatMessageRepository
     return new ChatMessageRepository(this._logger, session);
   }
 
+  findMessagesWithSessionId(chatSessionId: string): Promise<ChatMessage[]> {
+    return super.find(
+      { chat_session_id: chatSessionId },
+      { sort: { created_at: 1 } },
+      ChatMessageMapper.toDomain
+    );
+  }
+
   findById(id: string) {
     return super.findById(id, ChatMessageMapper.toDomain);
+  }
+
+  findLastMessageWithSessionId(
+    chatSessionId: string
+  ): Promise<ChatMessage | null> {
+    return super.findOne(
+      { chat_session_id: chatSessionId },
+      ChatMessageMapper.toDomain,
+      {
+        sort: { created_at: -1 },
+      }
+    );
   }
 
   async create(chatMessage: ChatMessage): Promise<void> {
     await super.create(chatMessage, ChatMessageMapper.toPersistance);
   }
+
   async update(chatMessage: ChatMessage): Promise<void> {
     await super.update(
       chatMessage,

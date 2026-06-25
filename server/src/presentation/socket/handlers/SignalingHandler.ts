@@ -8,7 +8,7 @@ export class SignalingHandler {
   register(socket: Socket) {
     socket.on("webrtc:join-room", async ({ appointmentId }) => {
       const userId = socket.data.user.id;
-      logger.debug("JOINED");
+      logger.debug("JOINED SIGNALING");
       const canJoin = await this._canJoinAppointment(appointmentId, userId);
       if (!canJoin) {
         return;
@@ -22,7 +22,7 @@ export class SignalingHandler {
       const otherSocket = sockets
         .filter((s) => s.id !== socket.id)
         .map((s) => s.id);
-
+      console.log(otherSocket, "SOCKETS")
       // if (otherSocket.length > 0) {
       // socket.emit("webrtc:participant-exists", { socketId: socket.id });
       // }

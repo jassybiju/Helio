@@ -61,3 +61,8 @@ patientAppointmentRouter.post(
   "/:appointmentId/cancel",
   patientAppointmentController.patientCancelAppointment
 );
+patientAppointmentRouter.post(
+  "/:appointmentId/reschedule",
+  validate(rescheduleAppointmentSchema),
+  patientAppointmentController.patientRescheduleAppointment
+);

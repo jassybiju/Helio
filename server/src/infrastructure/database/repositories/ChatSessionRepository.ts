@@ -8,6 +8,7 @@ import {
 import type { ClientSession } from "mongoose";
 import { ChatSessionMapper } from "../../../mappers/ChatSessionMapper.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 export class ChatSessionRepository
   extends BaseRepository<ChatSession, ChatSessionRaw>
@@ -24,6 +25,19 @@ export class ChatSessionRepository
     return new ChatSessionRepository(this._logger, session);
   }
 
+  findManyByUserIdAndType(
+    userId: string,
+    role: USER_ROLES
+  ): Promise<ChatSession[]> {
+    if (role === USER_ROLES.DOCTOR) {
+      return super.find({ doctor_id: userId }, {}, ChatSessionMapper.toDomain);
+    } else if (role === USER_ROLES.PATIENT) {
+      return super.find({ patient_id: userId }, {}, ChatSessionMapper.toDomain);
+    } else {
+      throw new Error("INVALID ROLE");
+    }
+  }
+
   findById(id: string) {
     return super.findById(id, ChatSessionMapper.toDomain);
   }
@@ -36,6 +50,10 @@ export class ChatSessionRepository
       { patient_id: patientId, doctor_id: doctorId },
       ChatSessionMapper.toDomain
     );
+  }
+
+  findManyByDoctorId(doctorId: string): Promise<ChatSession[]> {
+    return super.find({ doctor_id: doctorId }, {}, ChatSessionMapper.toDomain);
   }
 
   async create(chatSession: ChatSession): Promise<void> {

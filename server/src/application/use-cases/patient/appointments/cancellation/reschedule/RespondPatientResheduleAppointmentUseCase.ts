@@ -34,7 +34,7 @@ export class RespondPatientResheduleAppointmentUseCase implements IRespondPatien
     appointmentId: string,
     data: IRespondPatientResheduleAppointmentInput
   ): Promise<void> {
-    await this._logger.info("Patient Reshedule Appointment Attempt", {
+    this._logger.info("Patient Reshedule Appointment Attempt", {
       patientId,
       appointmentId,
       data,

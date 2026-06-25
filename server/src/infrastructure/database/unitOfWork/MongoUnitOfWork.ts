@@ -5,10 +5,9 @@ export class MongoUnitOfWork implements IUnitOfWork {
   async execute<T>(
     work: (
       session: ClientSession,
-      afterCommit?: (fn: () => Promise<void>) => void
+      afterCommit: (fn: () => Promise<void>) => void
     ) => Promise<T>
   ): Promise<T> {
-
     const session = await mongoose.startSession();
 
     // Save all the function to an arry

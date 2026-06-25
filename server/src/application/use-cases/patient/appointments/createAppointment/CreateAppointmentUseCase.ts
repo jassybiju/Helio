@@ -103,18 +103,6 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
       );
     }
 
-    // count the number of appointments patient had with the doctor
-    const countNumberOfAppointments =
-      await this._appointmentRepo.countAppointmentWithPatientAndDoctor(
-        patientId,
-        doctor.id
-      );
-    this._logger.debug("COUNTING : ", { countNumberOfAppointments });
-
-    if (countNumberOfAppointments > 1) {
-      throw new ConflictError("MAX APPOINTMENTS CREATED WITH THIS DOCTOR");
-    }
-
     const PLATFORM_FEE = Number(process.env.PLATFORM_FEE)!;
     console.log(PLATFORM_FEE, 123);
     let consultationFee =

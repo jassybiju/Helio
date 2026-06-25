@@ -23,6 +23,17 @@ export class ChatSession {
     this._updatedAt = new Date();
   }
 
+  isExpired(): boolean {
+    const expired = new Date() >= this._expiresAt;
+
+    if (expired && this._status !== CHAT_SESSION_STATUS.EXPIRED) {
+      this._status = CHAT_SESSION_STATUS.EXPIRED;
+      this._updatedAt = new Date();
+    }
+
+    return expired;
+  }
+
   static create({
     id,
     patientId,
@@ -38,8 +49,8 @@ export class ChatSession {
     expiresAt.setDate(expiresAt.getDate() + period);
     return new ChatSession(
       id,
-      doctorId,
       patientId,
+      doctorId,
       CHAT_SESSION_STATUS.ACTIVE,
       expiresAt,
       new Date(),

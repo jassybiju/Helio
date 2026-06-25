@@ -43,7 +43,7 @@ export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppo
       now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
     );
 
-    endDateIST.setDate(endDateIST.getDate() + 2);
+    endDateIST.setDate(endDateIST.getDate() + 1);
 
     endDateIST.setHours(23, 59, 59, 999);
 

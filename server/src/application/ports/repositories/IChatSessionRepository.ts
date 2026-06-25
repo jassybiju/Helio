@@ -1,3 +1,4 @@
+import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import type { ChatSession } from "@domain/entities/ChatSession.ts";
 import type { ClientSession } from "mongoose";
 
@@ -17,4 +18,20 @@ export interface IChatSessionRepository {
     patientId: string,
     doctorId: string
   ): Promise<ChatSession | null>;
+
+  /**
+   * Find Chatsession by doctor Id
+   * @param doctorId
+   */
+  findManyByDoctorId(doctorId: string): Promise<ChatSession[]>;
+
+  /**
+   * Find Chatsession by user Id and role
+   * @param userId
+   * @param role
+   */
+  findManyByUserIdAndType(
+    userId: string,
+    role: USER_ROLES
+  ): Promise<ChatSession[]>;
 }

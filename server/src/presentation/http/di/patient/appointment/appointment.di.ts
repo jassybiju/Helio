@@ -26,6 +26,7 @@ import { SlotGenerator } from "@application/service/SlotGenerator.ts";
 import { RespondPatientResheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedule/RespondPatientResheduleAppointmentUseCase.ts";
 import { RespondPatientCancelAndRefundAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/cancelAndRefundResponse/RespondPatientCancelAndRefundUseCase.ts";
 import { PatientAppointmentCancellationUseCase } from "@application/use-cases/patient/appointments/cancellation/patientCancel/PatientAppointmentCancellationUseCase.ts";
+import { PatientRescheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedulePatient/PatientRescheduleAppointmentUseCase.ts";
 
 const logger = new PinoLoggerService();
 const idGenerator = new NanoidGenerator();
@@ -135,6 +136,15 @@ const cancelAppointment = new PatientAppointmentCancellationUseCase(
   idGenerator,
   uow
 );
+const resheduleAppointment = new PatientRescheduleAppointmentUseCase(
+  logger,
+  appointmentRepo,
+  patientRepo,
+  doctorRepo,
+  doctorShiftRepo,
+  idGenerator,
+  uow
+);
 export const patientAppointmentController = new PatientAppointmentController(
   createAppointmentUseCase,
   getAppointment,
@@ -145,5 +155,6 @@ export const patientAppointmentController = new PatientAppointmentController(
   getRescheduleSlots,
   rescheduleAppointment,
   cancelAndRefundAppointment,
-  cancelAppointment
+  cancelAppointment,
+  resheduleAppointment
 );

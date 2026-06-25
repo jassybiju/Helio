@@ -20,6 +20,7 @@ import type { IGetRescheduledSlotsUseCase } from "@application/ports/use-cases/p
 import type { IRespondPatientResheduleAppointmentUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IRespondPatientResheduleAppointmentUseCase.ts";
 import type { IRespondPatientCancelAndRefundAppointment } from "@application/ports/use-cases/patient/appointments/cancellation/IRespondPatientCancelAndRefundAppointment.ts";
 import type { IPatientCancellationUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IPatientCancellationUseCase.ts";
+import type { IPatientRescheduleUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IPatientRescheduleUseCase.ts";
 
 export class PatientAppointmentController {
   constructor(
@@ -32,8 +33,34 @@ export class PatientAppointmentController {
     private readonly _getRescheduleSlots: IGetRescheduledSlotsUseCase,
     private readonly _rescheduleAppointment: IRespondPatientResheduleAppointmentUseCase,
     private readonly _cancelAndRefundAppointment: IRespondPatientCancelAndRefundAppointment,
-    private readonly _patientCancelAppointment: IPatientCancellationUseCase
+    private readonly _patientCancelAppointment: IPatientCancellationUseCase,
+    private readonly _patientRescheduleAppointment: IPatientRescheduleUseCase
   ) {}
+
+  patientRescheduleAppointment = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { appointmentId } = req.params;
+      const patientId = req.user?.id as string;
+      const data = req.body;
+      const response = await this._patientRescheduleAppointment.execute(
+        patientId,
+        appointmentId as string,
+        data
+      );
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, "APPOINTMENT RESCHEUDULED SUCCESS")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 
   patientCancelAppointment = async (
     req: Request,

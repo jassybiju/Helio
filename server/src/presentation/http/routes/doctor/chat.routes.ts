@@ -4,7 +4,7 @@ import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { doctorChatController } from "../../di/doctor/chat.di.ts";
 import { validate } from "../../middlewares/validation.middleware.ts";
-import { doctorSendChatSchema } from "../../schemas/doctor/chat.schema.ts";
+import { sendChatSchema } from "../../schemas/chat.schema.ts";
 
 export const doctorChatRouter = Router();
 
@@ -13,6 +13,9 @@ doctorChatRouter.use(authorizeMiddleware(USER_ROLES.DOCTOR));
 
 doctorChatRouter.post(
   "/:chatSessionId/",
-  validate(doctorSendChatSchema),
+  validate(sendChatSchema),
   doctorChatController.sendMessage
 );
+
+doctorChatRouter.get("/", doctorChatController.getChatList);
+doctorChatRouter.get("/:chatSessionId", doctorChatController.getChat);

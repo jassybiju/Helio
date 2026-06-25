@@ -9,6 +9,7 @@ import type { IDoctorSendMessageUseCase } from "@application/ports/use-cases/doc
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { ChatMessage } from "@domain/entities/ChatMessage.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
+import { ConflictError } from "@shared/errors/ConflictError.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 
 export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
@@ -18,7 +19,7 @@ export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
     private readonly _chatSessionRepo: IChatSessionRepository,
     private readonly _chatMessageRepo: IChatMessageRepository,
     private readonly _idGenerator: IIDGenerator,
-    private readonly _realTimeNotifier : IRealTimeNotifier,
+    private readonly _realTimeNotifier: IRealTimeNotifier,
     private readonly _uow: IUnitOfWork
   ) {}
 
@@ -33,7 +34,12 @@ export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
     doctorId: string,
     chatSessionId: string,
     content: string
-  ): Promise<void> {
+  ): Promise<{
+    id: string;
+    message: string;
+    sendBy: USER_ROLES;
+    sendAt: Date;
+  }> {
     this._logger.info("Doctor Send Message Attempt", {
       doctorId,
       chatSessionId,
@@ -56,7 +62,6 @@ export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
       if (!chatSession) {
         throw new NotFoundError(MESSAGE.CHAT_SESSION_NOT_FOUND);
       }
-
       const chatMessageId = this._idGenerator.generate(
         process.env.MESSAGE_PREFIX!
       );
@@ -69,8 +74,34 @@ export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
       );
 
       await chatMessageRepo.create(chatMessage);
-      afterCommit(()=>this._realTimeNotifier.emitToRoom(`chat:${chatSession.id}`,'chat:send', {message : chatMessage.message} ))
-    });
+      afterCommit(async () => {
+        const payload = {
+          message: chatMessage.message,
+          id: chatMessage.id,
+          sendBy: chatMessage.senderRole,
+          sendAt: chatMessage.createdAt,
+          chatSessionId: chatSession.id,
+        };
 
+        this._realTimeNotifier.emitToRoom(
+          `chat:${chatSession.id}`,
+          "chat:send",
+          { message: chatMessage.message }
+        );
+
+        this._realTimeNotifier.emitToRoom(
+          `user:${USER_ROLES.PATIENT}:${chatSession.patientId}`,
+          "chat:list-update",
+          payload
+        );
+      });
+
+      return {
+        id: chatMessage.id,
+        message: chatMessage.message,
+        sendBy: chatMessage.senderRole,
+        sendAt: chatMessage.createdAt,
+      };
+    });
   }
 }

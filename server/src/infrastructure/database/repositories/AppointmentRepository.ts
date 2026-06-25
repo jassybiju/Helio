@@ -15,7 +15,7 @@ import type { ClientSession, PipelineStage, QueryFilter } from "mongoose";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import type { PatientRawDoc } from "../model/PatientModel.ts";
 import type { DoctorRawDoc } from "../model/DoctorModel.ts";
-import { istToUtc } from "@shared/utils/date.utils.ts";
+import { istToUtc, utcToIst } from "@shared/utils/date.utils.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 
 export class AppointmentRepository
@@ -33,6 +33,16 @@ export class AppointmentRepository
     return new AppointmentRepository(this._logger, session);
   }
 
+  async countCompletedAppointments(
+    patientId: string,
+    doctorId: string
+  ): Promise<number> {
+    return super.count({
+      patient_id: patientId,
+      doctor_id: doctorId,
+      status: APPOINTMENT_STATUS.COMPLETED,
+    });
+  }
   async findExistingPatientAppointment(
     patientId: string,
     doctorId: string,
@@ -309,10 +319,10 @@ export class AppointmentRepository
     date: Date
   ): Promise<Appointment[]> {
     this._logger.info("finding next queue appointment ", { doctorId, date });
-    const startDate = new Date(date);
+    const startDate = new Date(utcToIst(date));
     startDate.setHours(0, 0, 0, 0);
 
-    const endDate = new Date(date);
+    const endDate = new Date(utcToIst(date));
     endDate.setHours(23, 59, 59, 999);
 
     return await super.find(

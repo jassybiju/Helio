@@ -103,4 +103,9 @@ export interface IAppointmentRepository {
     patientId: string,
     doctorId: string
   ): Promise<number>;
+
+  countCompletedAppointments(
+    patientId: string,
+    doctorId: string
+  ): Promise<number>;
 }
