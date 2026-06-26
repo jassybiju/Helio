@@ -16,7 +16,9 @@ export function useConsultationChatPage({
   useChatQuery: (id: string | null) => { data: unknown };
   useSendMessageMutation: (
     id: string | null,
-  ) => UseMutationResult<APIResponse<{ id: string; message: string; sendBy: string }>>;
+  ) => UseMutationResult<
+    APIResponse<{ id: string; message: string; sendBy: string }>
+  >;
 }) {
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
@@ -26,26 +28,63 @@ export function useConsultationChatPage({
 
   useConsultationChat({ activeSessionId, userType });
 
-  const queryCleint = useQueryClient();
+  const queryClient = useQueryClient();
 
   const handleSendMessage = (message: string) => {
+    const tempId = crypto.randomUUID();
+    // SENDING MESSAGE
     if (message) {
+      // UPDATE WITH MOCK DATA
+      queryClient.setQueryData(
+        ["chat-data", activeSessionId],
+        (old: { data: { chats: ChatType[] } } | undefined) => {
+          if (!old) return old;
+          return {
+            ...old,
+            data: {
+              ...old.data,
+              chats: [
+                ...old.data.chats,
+                { id: tempId, message, sendBy: userType, status: "sending" },
+              ],
+            },
+          };
+        },
+      );
+
+
       sendMessage(message, {
+        // ONSUCCESS MODIFY THE MOCK DATA WITH ACTUAL
         onSuccess(data) {
           console.log(data);
-          queryCleint.setQueryData(
+          queryClient.setQueryData(
             ["chat-data", activeSessionId],
             (old: { data: { chats: ChatType[] } } | undefined) => {
               if (!old) return old;
-              console.log(old,data)
+              console.log(old, data);
               return {
                 ...old,
                 data: {
                   ...old.data,
-                  chats : [
-                    ...old.data.chats,
-                    data.data
-                  ],
+                  chats: old.data.chats.map((chat) =>
+                    chat.id === tempId ? data.data : chat,
+                  ),
+                },
+              };
+            },
+          );
+        },
+        // ONERROR REMOVE THE MOCK DATA
+        onError() {
+          queryClient.setQueryData(
+            ["chat-data", activeSessionId],
+            (old: { data: { chats: ChatType[] } } | undefined) => {
+              if (!old) return old;
+              return {
+                ...old,
+                data: {
+                  ...old.data,
+                  chats: old.data.chats.filter((m) => m.id !== tempId),
                 },
               };
             },

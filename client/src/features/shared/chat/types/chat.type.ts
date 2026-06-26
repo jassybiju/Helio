@@ -5,6 +5,7 @@ export interface ChatType {
   message: string;
   sendBy: USER_ROLES;
   sendAt: Date;
+  status? : string
 }
 export interface SendeeType {
   id: string;

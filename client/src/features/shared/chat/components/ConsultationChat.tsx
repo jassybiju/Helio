@@ -126,6 +126,7 @@ userType,
                   >
                     {new Date(msg.sendAt)?.toLocaleDateString()}
                   </p>
+                  <p>{msg.status&& 'SENDING'}s</p>
                 </div>
               </div>
             );
