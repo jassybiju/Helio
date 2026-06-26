@@ -33,7 +33,6 @@ export abstract class BaseRepository<
       .findOne({ ...query, is_deleted: false })
       .sort(options?.sort ?? {})
       .session(this._session);
-    console.log(doc, query, options, this._model, 123);
     if (!doc) return null;
 
     return map(doc);
@@ -50,7 +49,6 @@ export abstract class BaseRepository<
     entity: TDomain,
     persistance: (entity: TDomain) => Record<string, unknown>
   ): Promise<void> {
-    console.log(persistance(entity));
     const doc = new this._model(persistance(entity));
     await doc.save({ session: this._session });
   }

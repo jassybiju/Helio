@@ -1,6 +1,7 @@
 import type { IGetVerificationDetailsUseCase } from "@application/ports/use-cases/doctor/verification/IGetVerificationDetailsUseCase.ts";
 import type { IResubmitVerificationUseCase } from "@application/ports/use-cases/doctor/verification/IResubmitVerificationUseCase.ts";
 import { AppError } from "@shared/errors/AppError.ts";
+import { ValidationError } from "@shared/errors/ValidationError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import {
   apiResponse,
@@ -47,6 +48,9 @@ export class DoctorVerificationController {
       const userId = req.user!.id;
       const { additionalInfo } = req.body;
 
+      if(!req.file){
+        throw new  ValidationError("FILE is required")
+      }
       if (!additionalInfo) {
         throw new AppError(
           "Additional Info is required",

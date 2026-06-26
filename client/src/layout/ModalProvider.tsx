@@ -96,14 +96,14 @@ export const ModalStack = ({
   console.log(stack)
   return createPortal(
     <div
-      onClick={() => close(stack[stack.length - 1].id)}
+      // onClick={() => close(stack[stack.length - 1].id)}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
     >
       {stack.map((entry, i) => {
         const Comp = entry.component;
         const depth = stack.length - 1 - i;
         const isTop = i === stack.length - 1;
-        console.log(Comp)
+
         return (
           <div
             key={entry.id}

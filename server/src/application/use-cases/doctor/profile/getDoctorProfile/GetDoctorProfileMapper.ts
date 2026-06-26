@@ -1,7 +1,7 @@
 import type { Doctor } from "@domain/entities/Doctor.ts";
 
 export class GetDoctorProfileMapper {
-  static toDto(doctor: Doctor) {
+  static toDto(doctor: Doctor, profilePic : string | null) {
     return {
       id: doctor.id,
       fullName: doctor.fullName,
@@ -11,6 +11,7 @@ export class GetDoctorProfileMapper {
       yearsOfExperience: doctor.yearsOfExperience,
       onlineFee: doctor.onlineFee,
       clinicFee: doctor.clinicFee,
+      profilePic : profilePic ?? null
     };
   }
 }

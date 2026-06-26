@@ -20,6 +20,9 @@ import type {
   IUpdateDoctorProfileUseCase,
 } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.ts";
 import type { IChangeDoctorPasswordUseCase } from "@application/ports/use-cases/doctor/profile/IChangeDoctorPasswordUseCase.ts";
+import type { IDoctorUpdateProfilePictureUseCase } from "@application/ports/use-cases/doctor/profile/IUpdateProfilePictureUseCase.ts";
+import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import { ValidationError } from "@shared/errors/ValidationError.ts";
 
 export class DoctorProfileController {
   constructor(
@@ -27,8 +30,35 @@ export class DoctorProfileController {
     private readonly _getDoctorProfile: IGetDoctorProfileUseCase,
     private readonly _updateDoctorFee: IUpdateDoctorFeeUseCase,
     private readonly _updateDoctorProfile: IUpdateDoctorProfileUseCase,
-    private readonly _changePassword: IChangeDoctorPasswordUseCase
+    private readonly _changePassword: IChangeDoctorPasswordUseCase,
+    private readonly _updateProfilePic: IDoctorUpdateProfilePictureUseCase
   ) {}
+
+  updateProfilePic = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = req.user?.id;
+      console.log(req.file)
+      if (!userId) {
+        throw new NotFoundError(MESSAGE.DOCTOR_NOT_FOUND);
+      }
+      if(!req.file){
+        throw new ValidationError("FILE is required")
+      }
+      await this._updateProfilePic.execute(userId, req.file!);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(null, "PROFILE PIC UPDATED")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 
   completeProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -63,8 +93,7 @@ export class DoctorProfileController {
         throw new AppError(MESSAGE.INTERNAL_ERROR, HTTPStatus.INTERNAL_ERROR);
       }
 
-      const doctor = await this._getDoctorProfile.execute(userId);
-      const response = GetDoctorProfileMapper.toDto(doctor);
+      const response = await this._getDoctorProfile.execute(userId);
 
       return apiResponse(
         res,

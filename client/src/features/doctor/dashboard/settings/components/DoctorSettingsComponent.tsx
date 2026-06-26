@@ -1,7 +1,7 @@
 "use client";
 
 import { CreditCard, Eye, EyeOff, Lock, User } from "lucide-react";
-import React, { useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { useGetDoctorQuery } from "../hooks/useGetDoctorQuery";
 import { useUpdateDoctorFeeMutation } from "../hooks/useUpdateDoctorFeeMutation";
 import ClayButton from "@/src/components/ui/ClayButton";
@@ -9,6 +9,8 @@ import { useModal } from "@/src/hooks/useModal";
 import UpdateDoctorProfileModal from "./UpdateDoctorProfileModal";
 import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
 import { useForm } from "react-hook-form";
+import { UpdateProfilePicModal } from "./UpdateProfilePicModal";
+import { useUpdateDoctorProfilePicMutation } from "../hooks/useUpdateDoctorProfilePicMutation";
 
 type FeeFormData = {
   clinicFee: string;
@@ -19,12 +21,14 @@ const DoctorSettingsComponent = () => {
   const { data } = useGetDoctorQuery();
   const { mutate: updateFee } = useUpdateDoctorFeeMutation();
   const { mutate: changePassword } = useChangePasswordMutation();
+  const { mutate: updateProfilePic } = useUpdateDoctorProfilePicMutation();
   const { register, handleSubmit } = useForm<FeeFormData>({
     values: {
       clinicFee: data?.data.clinicFee?.toString() || "",
       onlineFee: data?.data.onlineFee?.toString() || "",
     },
   });
+  const [profilePic, setProfilePic] = useState<null | string>(null);
   const { open } = useModal();
   const DOCTOR = data?.data;
   const [passwordData, setPasswordData] = useState({
@@ -48,6 +52,24 @@ const DoctorSettingsComponent = () => {
     open(UpdateDoctorProfileModal);
   };
 
+  const imageUploadRef = useRef<null | HTMLInputElement>(null);
+  const handleUpdateProfilePic = (e: ChangeEvent<HTMLInputElement>) => {
+    // imageUploadRef.current?.click()
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    open(UpdateProfilePicModal, {
+      onImageSave: async (image: string) => {
+        const file = await fetch(image).then(r => r.blob())
+        console.log(image,file,'1232d', typeof image)
+        updateProfilePic(file);
+      },
+      currentImage: URL.createObjectURL(file),
+    });
+  };
   if (!data) {
     return null;
   }
@@ -83,15 +105,32 @@ const DoctorSettingsComponent = () => {
       {/* Doctor Profile Card */}
       <div className="bg-white rounded-lg border border-slate-200 p-8">
         <div className="flex items-start gap-6">
-          <div className="relative flex-shrink-0">
-            <div className="w-32 h-32 bg-teal-500 rounded-full flex items-center justify-center text-white">
-              <svg
-                className="w-16 h-16"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+          <div className="relative flex-shrink-0 group">
+            <div className="w-32 h-32 bg-teal-500 rounded-full overflow-hidden flex items-center  justify-center text-white">
+              {DOCTOR?.profilePic ? (
+                <img src={DOCTOR?.profilePic} />
+              ) : (
+                <svg
+                  className="w-16 h-16"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+                </svg>
+              )}
+              <label
+                // onClick={handleUpdateProfilePic}
+                className={`absolute w-full h-full bg-gray-50/50 justify-between items-center  rounded-full px-2 py-1 text-black group-hover:flex hidden`}
               >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-              </svg>
+                Upload Image
+                <input
+                  type="file"
+                  ref={imageUploadRef}
+                  onChange={handleUpdateProfilePic}
+                  id=""
+                  className="hidden w-full h-full"
+                />
+              </label>
             </div>
             <div className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full border-2 border-white flex items-center justify-center text-white text-sm">
               ✓

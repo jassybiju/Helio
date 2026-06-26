@@ -9,6 +9,7 @@ import { ChangeDoctorPasswordUseCase } from "@application/use-cases/doctor/profi
 import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
 import { DoctorValidator } from "@application/validators/DoctorValidator.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { DoctorUpdateProfilePictureUseCase } from "@application/use-cases/doctor/profile/updateProfilePicture/DoctorUpdateProfilePictureUseCase.ts";
 
 const loggerService = new PinoLoggerService();
 const doctorRepo = new MongoDoctorRepository(loggerService);
@@ -23,7 +24,8 @@ const doctorProfileCompleteUseCase = new CompleteDoctorProfileUseCase(
 );
 const doctorGetProfileUseCase = new GetDoctorProfileUseCase(
   loggerService,
-  doctorRepo
+  doctorRepo,
+  fileUpload
 );
 const doctorUpdateFeeUseCase = new UpdateDoctorFeeUseCase(
   loggerService,
@@ -40,10 +42,16 @@ const doctorChangePasswordUseCase = new ChangeDoctorPasswordUseCase(
   doctorValidator
 );
 
+const updateProfilePicUseCase = new DoctorUpdateProfilePictureUseCase(
+  loggerService,
+  doctorRepo,
+  fileUpload
+);
 export const doctorProfileController = new DoctorProfileController(
   doctorProfileCompleteUseCase,
   doctorGetProfileUseCase,
   doctorUpdateFeeUseCase,
   doctorUpdateProfileUseCase,
-  doctorChangePasswordUseCase
+  doctorChangePasswordUseCase,
+  updateProfilePicUseCase
 );
