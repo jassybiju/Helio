@@ -30,37 +30,8 @@ export default function ConsultationChatList({
 }: Props) {
   const [tab, setTab] = useState<"active" | "expired">("active");
 
-  const chats: Chat[] = [
-    {
-      id: "1",
-      doctorName: "Dr. Michael Chen",
-      lastMessage:
-        "I have been feeling some dizziness after taking the medication.",
-      lastMessageAt: "2m",
-      unreadCount: 1,
-      status: "active",
-      daysRemaining: "7 days",
-    },
-    {
-      id: "2",
-      doctorName: "Dr. Sarah Wilson",
-      lastMessage: "Continue taking the medicine after meals.",
-      lastMessageAt: "1h",
-      unreadCount: 0,
-      status: "active",
-      daysRemaining: "12 days",
-    },
-    {
-      id: "3",
-      doctorName: "Dr. James Anderson",
-      lastMessage: "Follow-up consultation completed.",
-      lastMessageAt: "3d",
-      unreadCount: 0,
-      status: "expired",
-    },
-  ];
 
-  const filtered = chats.filter((chat) => chat.status === tab);
+  // const filtered = chats.filter((chat) => chat.status === tab);
 
   return (
     <div className="w-[340px] border-r border-slate-200 bg-white flex flex-col">

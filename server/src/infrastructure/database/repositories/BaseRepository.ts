@@ -78,7 +78,7 @@ export abstract class BaseRepository<
       .limit(limit ?? 0)
       .lean()
       .session(this._session);
-      console.log(docs, options, filter)
+    console.log(docs, options, filter);
     return docs.map((x) => map(x));
   }
 

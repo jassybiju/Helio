@@ -52,7 +52,7 @@ export class GetSlotUseCase implements IGetSlotUseCase {
     }[];
     totalReviews: number[];
   }> {
-    this._logger.info("Get Slot Attempt", { doctorId , reviewInput});
+    this._logger.info("Get Slot Attempt", { doctorId, reviewInput });
 
     const doctor = await this._doctorRepo.findById(doctorId);
     if (!doctor) {

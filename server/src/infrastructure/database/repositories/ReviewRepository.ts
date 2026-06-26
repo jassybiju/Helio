@@ -21,11 +21,14 @@ export class ReviewRepository
     return new ReviewRepository(this._logger, session);
   }
 
-  countReviewByPatientIdAndDoctorId(patientId: string, doctorId: string): Promise<number> {
-    return super.count({patient_id : patientId, doctor_id : doctorId}) 
+  countReviewByPatientIdAndDoctorId(
+    patientId: string,
+    doctorId: string
+  ): Promise<number> {
+    return super.count({ patient_id: patientId, doctor_id: doctorId });
   }
   async countRatingsByDoctorId(doctorId: string): Promise<number[]> {
-    const response = await super.aggregate<{counts : number[]}>([
+    const response = await super.aggregate<{ counts: number[] }>([
       {
         $match: {
           doctor_id: doctorId,
@@ -54,7 +57,7 @@ export class ReviewRepository
       },
     ]);
 
-    return response[0]?.counts 
+    return response[0]?.counts;
   }
   findManyByDoctorIdPaginated(
     doctorId: string,
