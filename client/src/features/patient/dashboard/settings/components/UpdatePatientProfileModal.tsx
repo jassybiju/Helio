@@ -7,11 +7,11 @@ import { useForm, useWatch } from "react-hook-form";
 import {
   UpdatePatientFormData,
   updatePatientSchema,
-} from "../schemas/settings.schema";
+} from "../../schemas/settings.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DOBPicker from "@/src/components/ui/DOBPicker";
-import { useGetPatientQuery } from "../settings/hooks/useGetPatientQuery";
-import { useUpdatePatientProfileMutation } from "../settings/hooks/useUpdatePatientProfileMutation";
+import { useGetPatientQuery } from "../hooks/useGetPatientQuery";
+import { useUpdatePatientProfileMutation } from "../hooks/useUpdatePatientProfileMutation";
 
 const UpdatePatientProfileModal = ({ close }: ModalProps) => {
   const { data } = useGetPatientQuery();

@@ -46,6 +46,10 @@ const patientSchema = new Schema(
     password_hash: {
       type: String,
     },
+    profile_pic_key: {
+      type: String,
+      default: null,
+    },
     gender: {
       type: String,
       enum: ["Male", "Female", "Other"],

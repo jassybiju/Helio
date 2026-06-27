@@ -23,9 +23,9 @@ const doctorSchema = new Schema(
       type: String,
       enum: ["Male", "Female", "Other"],
     },
-    profile_pic_key : {
-      type : String,
-      default : null
+    profile_pic_key: {
+      type: String,
+      default: null,
     },
     specialization: {
       type: String,

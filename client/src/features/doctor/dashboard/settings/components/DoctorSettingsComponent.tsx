@@ -9,7 +9,7 @@ import { useModal } from "@/src/hooks/useModal";
 import UpdateDoctorProfileModal from "./UpdateDoctorProfileModal";
 import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
 import { useForm } from "react-hook-form";
-import { UpdateProfilePicModal } from "./UpdateProfilePicModal";
+import { UpdateProfilePicModal } from "../../../../../components/UpdateProfilePicModal";
 import { useUpdateDoctorProfilePicMutation } from "../hooks/useUpdateDoctorProfilePicMutation";
 
 type FeeFormData = {

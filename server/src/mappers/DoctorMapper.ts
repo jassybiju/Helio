@@ -2,7 +2,10 @@ import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enu
 import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { Email } from "@domain/value-objects/Email.ts";
-import type { DoctorDoc, DoctorRawDoc } from "@infrastructure/database/model/DoctorModel.ts";
+import type {
+  DoctorDoc,
+  DoctorRawDoc,
+} from "@infrastructure/database/model/DoctorModel.ts";
 
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {
@@ -43,7 +46,7 @@ export class DoctorMapper {
       full_name: doctor.fullName,
       password_hash: doctor.passwordHash,
       gender: doctor.gender,
-      profile_pic_key : doctor.profilePicKey,
+      profile_pic_key: doctor.profilePicKey,
       specialization: doctor.specialization,
       career_start_year: doctor.careerStartYear,
       bio: doctor.bio,

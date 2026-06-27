@@ -16,4 +16,5 @@ export type IGetPatientProfileDTO = {
     createdAt: Date;
   }>;
   conditions: Array<{ _id: string; name: string; createdAt: Date }>;
+  profilePic: string | null;
 };

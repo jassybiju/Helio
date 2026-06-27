@@ -1,7 +1,7 @@
 "use client";
 
 import { Eye, EyeOff, Heart, Lock, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { useGetPatientQuery } from "../hooks/useGetPatientQuery";
 import { PatientProfileType } from "../../../services/profile.service";
 import {
@@ -14,7 +14,9 @@ import {
 } from "../hooks/useConditionMutation";
 import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
 import { useModal } from "@/src/hooks/useModal";
-import UpdatePatientProfileModal from "../../components/UpdatePatientProfileModal";
+import UpdatePatientProfileModal from "./UpdatePatientProfileModal";
+import { UpdateProfilePicModal } from "@/src/components/UpdateProfilePicModal";
+import { useUpdatePatientProfilePicMutation } from "../hooks/useUpdatePatientProfilePicMutation";
 
 const PatientSettingsComponent = () => {
   const { data, isLoading } = useGetPatientQuery();
@@ -23,6 +25,7 @@ const PatientSettingsComponent = () => {
   const { mutate: addCondition } = useAddConditionMutation();
   const { mutate: removeCondition } = useRemoveConditionMutation();
   const { mutate: changePassword } = useChangePasswordMutation();
+  const { mutate: updateProfilePic } = useUpdatePatientProfilePicMutation();
   const { open } = useModal();
   const PERSON = data?.data ?? ({} as PatientProfileType);
 
@@ -41,7 +44,25 @@ const PatientSettingsComponent = () => {
     new: false,
     confirm: false,
   });
+  const imageUploadRef = useRef<null | HTMLInputElement>(null);
 
+  const handleUpdateProfilePic = (e: ChangeEvent<HTMLInputElement>) => {
+    // imageUploadRef.current?.click()
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    open(UpdateProfilePicModal, {
+      onImageSave: async (image: string) => {
+        const file = await fetch(image).then((r) => r.blob());
+        console.log(image, file, "1232d", typeof image);
+        updateProfilePic(file);
+      },
+      currentImage: URL.createObjectURL(file),
+    });
+  };
   if (isLoading) return null;
 
   const handleUpdateModel = () => {
@@ -102,7 +123,30 @@ const PatientSettingsComponent = () => {
           {/* Profile Photo */}
           <div className="space-y-2 text-center">
             <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center relative group">
-              <span className="text-4xl font-semibold text-blue-600">AJ</span>
+              {PERSON?.profilePic ? (
+                <img src={PERSON?.profilePic} />
+              ) : (
+                <svg
+                  className="w-16 h-16"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+                </svg>
+              )}{" "}
+               <label
+                // onClick={handleUpdateProfilePic}
+                className={`absolute w-full h-full bg-gray-50/50 justify-between items-center  rounded-full px-2 py-1 text-black group-hover:flex hidden`}
+              >
+                Upload Image
+                <input
+                  type="file"
+                  ref={imageUploadRef}
+                  onChange={handleUpdateProfilePic}
+                  id=""
+                  className="hidden w-full h-full"
+                />
+              </label>
               <button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full text-white flex items-center justify-center text-sm">
                 ✓
               </button>

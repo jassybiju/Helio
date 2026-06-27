@@ -19,6 +19,8 @@ export class Patient {
     private _dob: Date | null,
     private _bloodGroup: BLOOD_GROUP | null,
 
+    private _proficPicKey: string | null,
+
     private _phone: string | null,
 
     private _isVerified: boolean,
@@ -144,6 +146,10 @@ export class Patient {
     this._googleId = googleId;
   }
 
+  updateProfilePic(key: string) {
+    this._proficPicKey = key;
+  }
+
   get age() {
     if (!this._dob) return null;
     const today = new Date();
@@ -237,6 +243,10 @@ export class Patient {
     return this._conditions;
   }
 
+  get profilePicKey() {
+    return this._proficPicKey;
+  }
+
   static googleCreate({
     id,
     firstName,
@@ -257,6 +267,7 @@ export class Patient {
       email,
       null,
       firstName,
+      null,
       null,
       null,
       null,

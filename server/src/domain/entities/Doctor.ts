@@ -14,7 +14,7 @@ export class Doctor {
     private _fullName: string,
     private _gender: GENDER | null,
 
-    private _profilePicKey : string | null,
+    private _profilePicKey: string | null,
 
     private _specialization: string | null,
     private _careerStartYear: number | null,
@@ -55,8 +55,8 @@ export class Doctor {
     }
   }
 
-  updateProfilePic(profilePicKey : string){
-    this._profilePicKey = profilePicKey
+  updateProfilePic(profilePicKey: string) {
+    this._profilePicKey = profilePicKey;
   }
 
   private static readonly _validTransistions: Record<
@@ -297,8 +297,8 @@ export class Doctor {
     ];
   }
 
-  get profilePicKey(){
-    return this._profilePicKey
+  get profilePicKey() {
+    return this._profilePicKey;
   }
   get yearsOfExperience() {
     if (this._careerStartYear) {

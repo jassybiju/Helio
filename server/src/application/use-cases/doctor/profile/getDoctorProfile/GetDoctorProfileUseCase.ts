@@ -13,7 +13,7 @@ export class GetDoctorProfileUseCase implements IGetDoctorProfileUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _doctorRepo: IDoctorRepository,
-    private readonly _fileUpload : IFileUpload
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(doctorId: string): Promise<{
     id: string;
@@ -34,9 +34,10 @@ export class GetDoctorProfileUseCase implements IGetDoctorProfileUseCase {
       throw new AppError(MESSAGE.DOCTOR_NOT_FOUND, HTTPStatus.NOT_FOUND);
     }
 
-    
-    const profilePic =doctor.profilePicKey ? this._fileUpload.getFileUrl(doctor.profilePicKey) : null
-    console.log(profilePic)
-    return GetDoctorProfileMapper.toDto(doctor,profilePic);
+    const profilePic = doctor.profilePicKey
+      ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+      : null;
+    console.log(profilePic);
+    return GetDoctorProfileMapper.toDto(doctor, profilePic);
   }
 }

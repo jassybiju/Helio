@@ -41,12 +41,12 @@ export class DoctorProfileController {
   ) => {
     try {
       const userId = req.user?.id;
-      console.log(req.file)
+      console.log(req.file);
       if (!userId) {
         throw new NotFoundError(MESSAGE.DOCTOR_NOT_FOUND);
       }
-      if(!req.file){
-        throw new ValidationError("FILE is required")
+      if (!req.file) {
+        throw new ValidationError("FILE is required");
       }
       await this._updateProfilePic.execute(userId, req.file!);
 

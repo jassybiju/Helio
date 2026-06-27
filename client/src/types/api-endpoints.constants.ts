@@ -48,6 +48,7 @@ export const API_ENDPOINT = {
   PATIENT: {
     PROFILE: {
       I: "/patient/profile/",
+      PIC : "/patient/profile/picture"
     },
     DOCTOR: {
       BASE: "/patient/doctors/",

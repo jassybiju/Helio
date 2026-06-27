@@ -28,6 +28,6 @@ doctorProfileRouter.patch(
 );
 doctorProfileRouter.patch(
   "/picture",
-  imageUpload.single('avatar'),
+  imageUpload.single("avatar"),
   doctorProfileController.updateProfilePic
 );

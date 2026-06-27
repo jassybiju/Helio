@@ -48,8 +48,8 @@ export class DoctorVerificationController {
       const userId = req.user!.id;
       const { additionalInfo } = req.body;
 
-      if(!req.file){
-        throw new  ValidationError("FILE is required")
+      if (!req.file) {
+        throw new ValidationError("FILE is required");
       }
       if (!additionalInfo) {
         throw new AppError(
