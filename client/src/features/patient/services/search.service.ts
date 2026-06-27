@@ -12,7 +12,7 @@ export interface Doctor {
   rating: number;
   reviews: number;
   nextAvailableSlot: string;
-  image: string;
+  profilePic: string;
 }
 
 export const patientSearchService = {

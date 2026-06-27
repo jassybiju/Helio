@@ -11,7 +11,7 @@ export interface ISearchDoctorsDTO {
     online: number | null;
     clinic: number | null;
   };
-
+  profilePic : string |null,
   consultationType: CONSULTATION_TYPE;
   location: string | null;
 

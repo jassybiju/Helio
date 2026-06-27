@@ -27,9 +27,11 @@ import { RespondPatientResheduleAppointmentUseCase } from "@application/use-case
 import { RespondPatientCancelAndRefundAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/cancelAndRefundResponse/RespondPatientCancelAndRefundUseCase.ts";
 import { PatientAppointmentCancellationUseCase } from "@application/use-cases/patient/appointments/cancellation/patientCancel/PatientAppointmentCancellationUseCase.ts";
 import { PatientRescheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedulePatient/PatientRescheduleAppointmentUseCase.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
 const logger = new PinoLoggerService();
 const idGenerator = new NanoidGenerator();
+const fileUpload = new CloudinaryFileUploadService()
 
 const doctorRepo = new MongoDoctorRepository(logger);
 const doctorShiftRepo = new DoctorShiftRepository(logger);
@@ -84,7 +86,8 @@ const getAll = new GetAllAppointmentUseCase(
   appointmentRepo,
   doctorRepo,
   consultationRepo,
-  labRepo
+  labRepo,
+  fileUpload
 );
 const verifyPayment = new VerifyAppointmentPaymentUseCase(
   logger,

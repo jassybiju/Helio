@@ -9,6 +9,7 @@ import { DoctorBlockShiftRepository } from "@infrastructure/database/repositorie
 import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
 import { ReviewRepository } from "@infrastructure/database/repositories/ReviewRepository.ts";
 import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
 const loggerService = new PinoLoggerService();
 const slotGenerator = new SlotGenerator();
@@ -19,11 +20,15 @@ const blockSlotRepo = new DoctorBlockShiftRepository(loggerService);
 const appointmentRepo = new AppointmentRepository(loggerService);
 const reviewRepo = new ReviewRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
+
+const fileUpload = new CloudinaryFileUploadService()
+
 const searchDoctorUseCase = new SearchDoctorsUseCase(
   loggerService,
   doctorShiftRepo,
   doctorRepo,
-  slotGenerator
+  slotGenerator,
+  fileUpload
 );
 const getSlotsUseCase = new GetSlotUseCase(
   loggerService,
@@ -33,7 +38,8 @@ const getSlotsUseCase = new GetSlotUseCase(
   slotGenerator,
   appointmentRepo,
   reviewRepo,
-  patientRepo
+  patientRepo,
+  fileUpload
 );
 export const patientDoctorController = new PatientDoctorController(
   searchDoctorUseCase,

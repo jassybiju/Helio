@@ -10,7 +10,7 @@ export interface IGetChatDTO {
   sendee: {
     id: string;
     name: string;
-    profilePic: string;
+    profilePic: string | null;
   };
   sessionId: string;
 }

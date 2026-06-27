@@ -6,5 +6,10 @@ import { useConsultationChatPage } from "@/src/features/shared/chat/hooks/useCon
 import { USER_ROLES } from "@/src/types/user.types";
 
 export const usePatientChat = () => {
- return useConsultationChatPage({userType : USER_ROLES.PATIENT, useChatListQuery : usePatientGetChatListQuery, useChatQuery : usePatientGetChatQuery, useSendMessageMutation : usePatientSendMessageMutation})
+  return useConsultationChatPage({
+    userType: USER_ROLES.PATIENT,
+    useChatListQuery: usePatientGetChatListQuery,
+    useChatQuery: usePatientGetChatQuery,
+    useSendMessageMutation: usePatientSendMessageMutation,
+  });
 };

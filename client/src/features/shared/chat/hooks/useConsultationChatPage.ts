@@ -97,7 +97,7 @@ export function useConsultationChatPage({
   return {
     chatList: chatListRes?.data,
     chatData: chatRes?.data?.chats,
-    sendeeData: chatRes?.data?.patient ?? chatRes?.data?.doctor,
+    sendeeData: chatRes?.data?.sendee,
     activeSessionId,
     setActiveSessionId,
     onSendMessage: handleSendMessage,

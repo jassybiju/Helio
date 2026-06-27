@@ -96,7 +96,6 @@ export class PatientProfileController {
 
       const response = await this._getPatientProfile.execute(userId);
 
-
       return apiResponse(
         res,
         HTTPStatus.OK,

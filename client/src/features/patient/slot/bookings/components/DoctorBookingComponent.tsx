@@ -169,8 +169,10 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg border border-slate-200 p-6 sticky top-24">
               {/* Doctor Image */}
-              <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-4xl relative">
-                {doctor?.fullName[0]}
+              <div className="w-32 h-32 mx-auto mb-4  bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-4xl relative">
+                <div className="w-full h-full overflow-hidden rounded-full flex items-center justify-center">
+                {doctor?.profilePic ? <img className="w-full h-full" src={doctor.profilePic} alt="" /> : doctor?.fullName[0]}
+                </div>
                 <span className="absolute bottom-2 right-2 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></span>
               </div>
 

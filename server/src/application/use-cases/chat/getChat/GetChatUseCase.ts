@@ -8,6 +8,7 @@ import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import type { IGetChatDTO } from "./IGetChatDTO.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 
 export class GetChatUseCase implements IGetChatUseCase {
   constructor(
@@ -15,7 +16,8 @@ export class GetChatUseCase implements IGetChatUseCase {
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _patientRepo: IPatientRepository,
     private readonly _chatSessionRepo: IChatSessionRepository,
-    private readonly _chatMessageRepo: IChatMessageRepository
+    private readonly _chatMessageRepo: IChatMessageRepository,
+    private readonly _fileUpload : IFileUpload,
   ) {}
   async execute(
     userId: string,
@@ -65,7 +67,7 @@ export class GetChatUseCase implements IGetChatUseCase {
       sendee: {
         id: sendee.id,
         name: sendee.fullName,
-        profilePic: "",
+        profilePic: sendee.profilePicKey ? this._fileUpload.getFileUrl(sendee.profilePicKey) : null,
       },
       sessionId: chatSession.id,
     };

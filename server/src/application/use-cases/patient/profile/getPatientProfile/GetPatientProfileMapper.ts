@@ -6,7 +6,7 @@ export class GetPatientProfileMapper {
     patient: Patient,
     profilePic: string | null
   ): IGetPatientProfileDTO {
-    console.log(patient)
+
     return {
       id: patient.id,
       email: patient.email,

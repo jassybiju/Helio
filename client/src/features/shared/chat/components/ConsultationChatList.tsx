@@ -84,12 +84,8 @@ export default function ConsultationChatList({
                 }`}
               >
                 <div className="flex gap-3">
-                  <div className="h-11 w-11 flex-shrink-0 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
-                    {chat.name
-                      .split(" ")
-                      .slice(-2)
-                      .map((word) => word[0])
-                      .join("")}
+                  <div className="h-11 w-11 flex-shrink-0 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
+                    {chat.profilePic ? <img src={chat.profilePic}/> : chat.name[0]}
                   </div>
 
                   <div className="min-w-0 flex-1">

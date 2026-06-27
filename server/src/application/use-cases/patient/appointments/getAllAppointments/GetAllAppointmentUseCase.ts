@@ -9,6 +9,7 @@ import { MESSAGE } from "@shared/constants/messages.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import type { IGetAllAppointmentsDTO } from "./IGetAllAppointmentsDTO.ts";
 import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 
 export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
   constructor(
@@ -17,7 +18,8 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _consultationRepo: IConsultationRepository,
-    private readonly _labRepo: ILabReportRepository
+    private readonly _labRepo: ILabReportRepository,
+    private readonly _fileUpload : IFileUpload,
   ) {}
   async execute(
     patientId: string,
@@ -60,7 +62,7 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
             id: doctor?.id ?? "",
             name: doctor?.fullName ?? "Unknown Doctor",
             specialization: doctor?.specialization ?? "",
-            profilePicture: null,
+            profilePicture: doctor?.profilePicKey ? this._fileUpload.getFileUrl(doctor.profilePicKey) : null,
             // profilePicture: doctor?.profilePicture ?? null,
           },
 

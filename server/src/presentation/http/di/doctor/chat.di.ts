@@ -11,6 +11,7 @@ import { SendMessageUseCase } from "@application/use-cases/chat/sendMessage/Send
 import { GetChatListUseCase } from "@application/use-cases/chat/getChatList/GetChatListUseCase.ts";
 import { GetChatUseCase } from "@application/use-cases/chat/getChat/GetChatUseCase.ts";
 import { DoctorChatController } from "../../controllers/doctor/chat.controller.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
 const logger = new PinoLoggerService();
 const doctorRepo = new MongoDoctorRepository(logger);
@@ -18,6 +19,7 @@ const chatMessageRepo = new ChatMessageRepository(logger);
 const chatSessionRepo = new ChatSessionRepository(logger);
 const patientRepo = new PatientRepository(logger);
 const uow = new MongoUnitOfWork();
+const fileUpload = new CloudinaryFileUploadService();
 
 const socketRealTime = new SocketRealTimeNotifier();
 const idGenerator = new NanoidGenerator();
@@ -38,14 +40,16 @@ const getChatListUseCase = new GetChatListUseCase(
   doctorRepo,
   patientRepo,
   chatSessionRepo,
-  chatMessageRepo
+  chatMessageRepo,
+  fileUpload
 );
 const getChatUseCase = new GetChatUseCase(
   logger,
   doctorRepo,
   patientRepo,
   chatSessionRepo,
-  chatMessageRepo
+  chatMessageRepo,
+  fileUpload
 );
 export const doctorChatController = new DoctorChatController(
   sendMessageUseCase,

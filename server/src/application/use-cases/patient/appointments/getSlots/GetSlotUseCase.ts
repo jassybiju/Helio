@@ -21,6 +21,7 @@ import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import type { Review } from "@domain/entities/Review.ts";
 import type { IReviewRepository } from "@application/ports/repositories/IReviewRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 
 export class GetSlotUseCase implements IGetSlotUseCase {
   constructor(
@@ -31,7 +32,8 @@ export class GetSlotUseCase implements IGetSlotUseCase {
     private readonly _slotService: ISlotGenerator,
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _reviewRepo: IReviewRepository,
-    private readonly _patientRepo: IPatientRepository
+    private readonly _patientRepo: IPatientRepository,
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(
     doctorId: string,
@@ -42,13 +44,22 @@ export class GetSlotUseCase implements IGetSlotUseCase {
     }
   ): Promise<{
     slots: IGetSlotDTO;
-    doctor: Doctor;
+    doctor: {
+      fullName: string;
+      speciality: string | null;
+      onlineFee: number | null;
+      clinicFee: number | null;
+      yearsOfExperience: number | null;
+      doctorId: string;
+      profilePic: string | null;
+    };
     reviews: {
       id: string;
       patientName: string;
       comments: string;
       ratings: number;
       createdAt: Date;
+      profilePic : string | null;
     }[];
     totalReviews: number[];
   }> {
@@ -170,31 +181,46 @@ export class GetSlotUseCase implements IGetSlotUseCase {
         });
       }
     }
-    console.log(this._reviewRepo);
     const reviews = await this._reviewRepo.findManyByDoctorIdPaginated(
       doctor.id,
       reviewInput?.page ?? 1,
       reviewInput?.limit ?? 5
     );
-    console.log("REVIEWS", reviews);
     const patients = await this._patientRepo.findByIds([
       ...new Set(reviews.map((review) => review.patientId)),
     ]);
     const totalReviews = await this._reviewRepo.countRatingsByDoctorId(
       doctor.id
     );
+
+    const profilePic = doctor.profilePicKey
+      ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+      : null;
     return {
       slots: result,
-      doctor,
-      reviews: reviews.map((review) => ({
-        id: review.id,
-        comments: review.comments,
-        patientName:
-          patients.find((p) => p.id === review.patientId)?.fullName ??
-          "No Name",
-        ratings: review.rating,
-        createdAt: review.createdAt,
-      })),
+      doctor: {
+        doctorId: doctor.id,
+        fullName: doctor.fullName,
+        speciality: doctor.specialization,
+        clinicFee: doctor.clinicFee,
+        onlineFee: doctor.onlineFee,
+        profilePic: profilePic,
+        yearsOfExperience: doctor.yearsOfExperience,
+      },
+      reviews: reviews.map((review) => {
+        const patient = patients.find((p) => p.id === review.patientId);
+
+        return {
+          id: review.id,
+          comments: review.comments,
+          patientName: patient?.fullName ?? "No Name",
+          profilePic: patient?.profilePicKey
+            ? this._fileUpload.getFileUrl(patient.profilePicKey)
+            : null,
+          ratings: review.rating,
+          createdAt: review.createdAt,
+        };
+      }),
       totalReviews,
     };
   }

@@ -71,21 +71,13 @@ export class PatientDoctorController {
         page: Number(page),
         limit: Number(limit),
       });
-      const doctor = response.doctor;
       return apiResponse(
         res,
         HTTPStatus.OK,
         successResponse(
           {
             slots: response.slots,
-            doctor: {
-              fullName: doctor.fullName,
-              speciality: doctor.specialization,
-              onlineFee: doctor.onlineFee,
-              clinicFee: doctor.clinicFee,
-              yearsOfExperience: doctor.yearsOfExperience,
-              doctorId: doctor.id,
-            },
+            doctor:response.doctor,
             reviews: response.reviews,
             totalCount: response.totalReviews,
           },

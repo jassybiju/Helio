@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import ClayButton from "./ui/ClayButton";
 import { useLogout } from "../features/auth/hooks/useLogout";
 import { useAuth } from "../features/auth/hooks/useAuth";
-import { Bell, ChevronDown } from "lucide-react";
+import { Bell, ChevronDown, UserIcon } from "lucide-react";
 import { USER_ROLES } from "../types/user.types";
 
 const UserAuthButtons = () => {
@@ -32,8 +32,8 @@ const UserAuthButtons = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
               >
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                  {data?.user.email.charAt(0)}
+                <div className="w-8 h-8 overflow-hidden bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                  { data.user.profilePic ? <img src={data.user.profilePic} alt="" /> : <UserIcon/>}
                 </div>
                 <span className="hidden sm:inline text-sm font-medium text-slate-900">
                   {data.user.email.split(" ")[0]}

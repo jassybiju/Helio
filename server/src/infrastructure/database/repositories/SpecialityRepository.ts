@@ -62,7 +62,6 @@ export class SpecialtyRepository implements ISpecialityRepository {
       filters.limit = 5;
     }
 
-    console.log(filters, query);
 
     let skip: number = Math.max((filters.page - 1) * filters.limit, 0);
 
