@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { isAxiosError } from "axios";
 import { useModal } from "@/src/hooks/useModal";
 import DoctorBlockSlotConflictModal from "../components/DoctorBlockSlotConflictModal";
+import { invalidateQuery } from "@/src/libs/queryClient";
 
 export const useDoctorBlockSlot = () => {
   const {
@@ -35,12 +36,15 @@ export const useDoctorBlockSlot = () => {
     mutate(data,{onError(error){
       if(isAxiosError(error)){
         toast.error(error.response?.data.message)
-        if(error.response?.data.error.appointments){
+        if(error.response?.data?.error?.appointments){
           console.log(error.response.data.error.appointments)
           open(DoctorBlockSlotConflictModal,{appointments : error.response.data.error.appointments, blockDetails : error.response.data.error.blockDetails})
           toast.error(error.response.data.error.reason)
         }
       }
+    }, onSuccess : ()=>{
+      toast.success("BLOCK SLOT SUCCESSFULY")
+      invalidateQuery("block-slot")
     }});
 
 

@@ -55,10 +55,8 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           ? await this._patientRepo.findById(session.patientId)
           : await this._doctorRepo.findById(session.doctorId);
 
-      const diffMs =(
-        session.expiresAt.getTime() - new Date().getTime()
-      );
-      const absDiffMs = Math.abs(diffMs)
+      const diffMs = session.expiresAt.getTime() - new Date().getTime();
+      const absDiffMs = Math.abs(diffMs);
       const days = Math.floor(absDiffMs / 86400000);
       const remainingMs = absDiffMs % 86400000;
       const remainingMinutes = Math.floor(remainingMs / 60000);
@@ -69,9 +67,8 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           : remainingMinutes > 60
             ? `${Math.floor(remainingMinutes / 60)} hours`
             : `${remainingMinutes} mins`;
-      console.log("IS EXPIRED", diffMs)
-      if(diffMs > 0){
-
+      console.log("IS EXPIRED", diffMs);
+      if (diffMs > 0) {
         result.active.push({
           id: session.id,
           name: sendee?.fullName ?? "Unknown User",
@@ -81,7 +78,7 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           message: lastMessage?.message,
           expiresIn,
         });
-      }else{
+      } else {
         result.expired.push({
           id: session.id,
           name: sendee?.fullName ?? "Unknown User",

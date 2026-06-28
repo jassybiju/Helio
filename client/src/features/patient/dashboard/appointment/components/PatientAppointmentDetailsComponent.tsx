@@ -275,12 +275,13 @@ export default function PatientAppointmentDetailsComponent() {
         [APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.ONGOING].includes(
           appointment.appointment.status,
         ) && (
-          <VideoCall
-            patientName={appointment.doctor.name}
-            appointmentId={appointment.appointmentId}
-          />
-        )}
-      {/* Doctor Information */}
+           <VideoCall
+             patientName={appointment.doctor.name}
+             appointmentId={appointment.appointmentId}
+           />
+        )} 
+          
+{/* Doctor Information */}      
       <div className="bg-white rounded-lg border border-slate-200 p-6">
         <h2 className="text-lg font-bold text-slate-900 mb-4">
           Doctor Information {doctorOnline ? "ONLINE" : "OFFLINE"}

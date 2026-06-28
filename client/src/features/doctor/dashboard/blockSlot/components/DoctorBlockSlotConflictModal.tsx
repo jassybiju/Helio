@@ -3,6 +3,7 @@ import { AlertTriangle, Check, X } from "lucide-react";
 import { useDoctorBlockSlotMutation } from "../hooks/useDoctorBlockSlotMutation";
 import { isAxiosError } from "axios";
 import { toast } from "react-toastify";
+import { invalidateQuery } from "@/src/libs/queryClient";
 type DoctorBlockSlotConflictType = {
   appointments: {appointmentId : string, date : string, patientName : string, type : string}[];
   blockDetails: {startTime : string, endTime : string, reason : string};
@@ -51,6 +52,11 @@ const DoctorBlockSlotConflictModal = ({
             }
           }
         },
+        onSuccess(){
+          invalidateQuery('block-slot')
+          toast.success("FORCE BLOCK SUCCESFFUL")
+          close()
+        }
       },
     );
   };
