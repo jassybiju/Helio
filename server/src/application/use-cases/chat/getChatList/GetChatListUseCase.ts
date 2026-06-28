@@ -9,6 +9,7 @@ import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import { diff } from "util";
 
 export class GetChatListUseCase implements IGetChatListUseCase {
   constructor(
@@ -17,7 +18,7 @@ export class GetChatListUseCase implements IGetChatListUseCase {
     private readonly _patientRepo: IPatientRepository,
     private readonly _chatSessionRepo: IChatSessionRepository,
     private readonly _chatMessageRepo: IChatMessageRepository,
-    private readonly _fileUpload : IFileUpload,
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(
     userId: string,
@@ -54,12 +55,12 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           ? await this._patientRepo.findById(session.patientId)
           : await this._doctorRepo.findById(session.doctorId);
 
-      const diffMs = Math.abs(
+      const diffMs =(
         session.expiresAt.getTime() - new Date().getTime()
       );
-
-      const days = Math.floor(diffMs / 86400000);
-      const remainingMs = diffMs % 86400000;
+      const absDiffMs = Math.abs(diffMs)
+      const days = Math.floor(absDiffMs / 86400000);
+      const remainingMs = absDiffMs % 86400000;
       const remainingMinutes = Math.floor(remainingMs / 60000);
 
       const expiresIn =
@@ -68,14 +69,29 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           : remainingMinutes > 60
             ? `${Math.floor(remainingMinutes / 60)} hours`
             : `${remainingMinutes} mins`;
+      console.log("IS EXPIRED", diffMs)
+      if(diffMs > 0){
 
-      result.active.push({
-        id: session.id,
-        name: sendee?.fullName ?? "Unknown User",
-        profilePic: sendee?.profilePicKey ? this._fileUpload.getFileUrl(sendee.profilePicKey) : null,
-        message: lastMessage?.message,
-        expiresIn,
-      });
+        result.active.push({
+          id: session.id,
+          name: sendee?.fullName ?? "Unknown User",
+          profilePic: sendee?.profilePicKey
+            ? this._fileUpload.getFileUrl(sendee.profilePicKey)
+            : null,
+          message: lastMessage?.message,
+          expiresIn,
+        });
+      }else{
+        result.expired.push({
+          id: session.id,
+          name: sendee?.fullName ?? "Unknown User",
+          profilePic: sendee?.profilePicKey
+            ? this._fileUpload.getFileUrl(sendee.profilePicKey)
+            : null,
+          message: lastMessage?.message,
+          expiresIn,
+        });
+      }
     }
 
     return { chats: result };

@@ -36,7 +36,7 @@ export class PatientGetMeHandler implements IGetMeHandler {
       email: patient.email,
       role: USER_ROLES.PATIENT,
       isProfileComplete: patient.isProfileComplete(),
-      profilePic
+      profilePic,
     };
   }
 }

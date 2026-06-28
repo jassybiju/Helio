@@ -17,7 +17,7 @@ export class GetChatUseCase implements IGetChatUseCase {
     private readonly _patientRepo: IPatientRepository,
     private readonly _chatSessionRepo: IChatSessionRepository,
     private readonly _chatMessageRepo: IChatMessageRepository,
-    private readonly _fileUpload : IFileUpload,
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(
     userId: string,
@@ -67,7 +67,9 @@ export class GetChatUseCase implements IGetChatUseCase {
       sendee: {
         id: sendee.id,
         name: sendee.fullName,
-        profilePic: sendee.profilePicKey ? this._fileUpload.getFileUrl(sendee.profilePicKey) : null,
+        profilePic: sendee.profilePicKey
+          ? this._fileUpload.getFileUrl(sendee.profilePicKey)
+          : null,
       },
       sessionId: chatSession.id,
     };

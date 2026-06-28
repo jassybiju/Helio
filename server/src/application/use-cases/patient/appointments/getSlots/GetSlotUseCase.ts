@@ -59,7 +59,7 @@ export class GetSlotUseCase implements IGetSlotUseCase {
       comments: string;
       ratings: number;
       createdAt: Date;
-      profilePic : string | null;
+      profilePic: string | null;
     }[];
     totalReviews: number[];
   }> {

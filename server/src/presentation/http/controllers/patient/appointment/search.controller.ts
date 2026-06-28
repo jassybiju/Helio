@@ -77,7 +77,7 @@ export class PatientDoctorController {
         successResponse(
           {
             slots: response.slots,
-            doctor:response.doctor,
+            doctor: response.doctor,
             reviews: response.reviews,
             totalCount: response.totalReviews,
           },

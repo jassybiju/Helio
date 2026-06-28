@@ -31,7 +31,7 @@ import { CloudinaryFileUploadService } from "@infrastructure/services/Cloudinary
 
 const logger = new PinoLoggerService();
 const idGenerator = new NanoidGenerator();
-const fileUpload = new CloudinaryFileUploadService()
+const fileUpload = new CloudinaryFileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(logger);
 const doctorShiftRepo = new DoctorShiftRepository(logger);

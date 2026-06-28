@@ -108,7 +108,7 @@ const DoctorSettingsComponent = () => {
           <div className="relative flex-shrink-0 group">
             <div className="w-32 h-32 bg-teal-500 rounded-full overflow-hidden flex items-center  justify-center text-white">
               {DOCTOR?.profilePic ? (
-                <img src={DOCTOR?.profilePic} />
+                <img className='w-full h-full' src={DOCTOR?.profilePic} />
               ) : (
                 <svg
                   className="w-16 h-16"

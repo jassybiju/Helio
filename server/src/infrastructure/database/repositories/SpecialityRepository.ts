@@ -62,7 +62,6 @@ export class SpecialtyRepository implements ISpecialityRepository {
       filters.limit = 5;
     }
 
-
     let skip: number = Math.max((filters.page - 1) * filters.limit, 0);
 
     const pipeline: PipelineStage[] = [

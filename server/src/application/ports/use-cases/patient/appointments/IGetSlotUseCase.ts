@@ -11,15 +11,15 @@ export interface IGetSlotUseCase {
     }
   ): Promise<{
     slots: IGetSlotDTO;
-  doctor: {
-    fullName: string;
-    speciality: string | null;
-    onlineFee: number | null;
-    clinicFee: number | null;
-    yearsOfExperience: number | null;
-    doctorId: string;
-    profilePic: string | null;
-  };
+    doctor: {
+      fullName: string;
+      speciality: string | null;
+      onlineFee: number | null;
+      clinicFee: number | null;
+      yearsOfExperience: number | null;
+      doctorId: string;
+      profilePic: string | null;
+    };
     reviews: {
       id: string;
       patientName: string;

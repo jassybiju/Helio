@@ -30,7 +30,7 @@ export default function ConsultationChatList({
 }: Props) {
   const [tab, setTab] = useState<"active" | "expired">("active");
 
-
+  const chatList = tab === 'active' ? list?.chats.active : list?.chats.expired
   // const filtered = chats.filter((chat) => chat.status === tab);
 
   return (
@@ -71,7 +71,7 @@ export default function ConsultationChatList({
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        {list?.chats?.active.map((chat) => {
+        {chatList?.map((chat) => {
           const selected = chat.id === activeId;
 
           return (
@@ -106,7 +106,7 @@ export default function ConsultationChatList({
                     <div className="mt-3 flex items-center justify-between">
                       {chat.expiresIn ? (
                         <span className="rounded-full bg-blue-50 px-2 py-1 text-[11px] font-medium text-blue-700">
-                          {chat.expiresIn} left
+                          {chat.expiresIn} {tab === 'active' ? 'left' : "before"}
                         </span>
                       ) : (
                         <span />

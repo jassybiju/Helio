@@ -21,10 +21,10 @@ const sessionRepo = new RedisSessionRepository(loggerService);
 
 const refreshTokenService = new CryptoRefreshTokenService();
 const accessTokenService = new JWTAccessTokenService();
-const fileUpload = new CloudinaryFileUploadService()
+const fileUpload = new CloudinaryFileUploadService();
 
-const doctorGetMeHandler = new DoctorGetMeHandler(doctorRepo,fileUpload);
-const patientGetMeHandler = new PatientGetMeHandler(patientRepo,fileUpload);
+const doctorGetMeHandler = new DoctorGetMeHandler(doctorRepo, fileUpload);
+const patientGetMeHandler = new PatientGetMeHandler(patientRepo, fileUpload);
 const adminGetMeHandler = new AdminGetMeHandler();
 const getMeUseCase = new GetMeUseCase(loggerService, [
   doctorGetMeHandler,

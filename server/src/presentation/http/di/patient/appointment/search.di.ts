@@ -21,7 +21,7 @@ const appointmentRepo = new AppointmentRepository(loggerService);
 const reviewRepo = new ReviewRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
 
-const fileUpload = new CloudinaryFileUploadService()
+const fileUpload = new CloudinaryFileUploadService();
 
 const searchDoctorUseCase = new SearchDoctorsUseCase(
   loggerService,

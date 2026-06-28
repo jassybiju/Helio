@@ -19,7 +19,7 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _consultationRepo: IConsultationRepository,
     private readonly _labRepo: ILabReportRepository,
-    private readonly _fileUpload : IFileUpload,
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(
     patientId: string,
@@ -62,7 +62,9 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
             id: doctor?.id ?? "",
             name: doctor?.fullName ?? "Unknown Doctor",
             specialization: doctor?.specialization ?? "",
-            profilePicture: doctor?.profilePicKey ? this._fileUpload.getFileUrl(doctor.profilePicKey) : null,
+            profilePicture: doctor?.profilePicKey
+              ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+              : null,
             // profilePicture: doctor?.profilePicture ?? null,
           },
 

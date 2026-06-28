@@ -15,7 +15,7 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
     private readonly _shiftRepo: IDoctorShiftRepository,
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _slotGen: ISlotGenerator,
-    private readonly _fileUpload : IFileUpload,
+    private readonly _fileUpload: IFileUpload
   ) {}
 
   async execute(
@@ -30,7 +30,7 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
 
     const doctorIds = doctors.map((doc) => doc.id);
     const shifts = await this._shiftRepo.findByDoctorIds(doctorIds);
-    
+
     const filteredShifts = shifts.filter((shift) => {
       if (
         input.consultationType &&
@@ -63,7 +63,9 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
           consultationType: s.consultationType,
           location: s.location ?? null,
           nextAvailableSlot: s.startTime,
-          profilePic : doctor.profilePicKey ? this._fileUpload.getFileUrl(doctor.profilePicKey) : null
+          profilePic: doctor.profilePicKey
+            ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+            : null,
         };
       }),
     };

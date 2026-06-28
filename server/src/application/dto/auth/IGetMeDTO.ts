@@ -12,5 +12,5 @@ export type IGetMeResponseDTO = {
   role: USER_ROLES;
   status?: DOCTOR_VERIFICATION_STATUS;
   isProfileComplete: boolean;
-  profilePic : string | null
+  profilePic: string | null;
 };
