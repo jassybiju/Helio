@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const patientSearchDoctorSchema = z.object({
-  name: z.string().min(1).optional(),
+  name: z.string().optional(),
 
   specialization: z.string().optional(),
 

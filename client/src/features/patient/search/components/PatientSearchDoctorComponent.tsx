@@ -30,7 +30,7 @@ const PatientSearchDoctorComponent = () => {
   const queryParams = useMemo(() => {
     return {
       page: currentPage,
-      limit: 4,
+      limit: 1,
       sortBy,
       ...filters,
     };

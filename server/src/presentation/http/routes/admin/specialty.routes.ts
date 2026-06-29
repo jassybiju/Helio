@@ -11,3 +11,4 @@ adminSpecialtyRouter.use(authorizeMiddleware(USER_ROLES.ADMIN));
 
 adminSpecialtyRouter.post("/", specialityController.addSpecialty);
 adminSpecialtyRouter.delete("/:id", specialityController.removeSpecialty);
+adminSpecialtyRouter.get("/", specialityController.get);

@@ -1,4 +1,5 @@
 import type { ICreateSpecialtyUseCase } from "@application/ports/use-cases/ICreateSpecialtyUseCase.ts";
+import type { IGetAllSpecialityUseCase } from "@application/ports/use-cases/IGetAllSpecialityUseCase.ts";
 import type { IGetSpecialityUsecase } from "@application/ports/use-cases/IGetSpecialityUsecase.ts";
 import type { IRemoveSpecialtyUseCase } from "@application/ports/use-cases/IRemoveSpecialtyUseCase.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
@@ -12,10 +13,23 @@ export class SpecialtyController {
   constructor(
     private readonly _getSpecialtiesUseCase: IGetSpecialityUsecase,
     private readonly _createSpecialtyUseCase: ICreateSpecialtyUseCase,
-    private readonly _removeSpecialtyUseCase: IRemoveSpecialtyUseCase
+    private readonly _removeSpecialtyUseCase: IRemoveSpecialtyUseCase,
+    private readonly _getAllSpecialtyUseCase: IGetAllSpecialityUseCase
   ) {}
 
   getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await this._getAllSpecialtyUseCase.execute();
+      res.json({
+        message: "Specialties fetched",
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  get = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const query = req.query as unknown;
       const data = await this._getSpecialtiesUseCase.execute(

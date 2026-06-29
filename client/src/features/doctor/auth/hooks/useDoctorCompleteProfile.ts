@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import { doctorProfileService } from "../../services/profile.service";
-import { useSpecialtyQuery } from "@/src/hooks/useSpecialtyQuery";
+import { useGetAllSpecialtyQuery } from "@/src/hooks/useGetAllSpecialtyQuery";
 
 export const useDoctorCompleteProfile = () => {
   const {
@@ -23,7 +23,7 @@ export const useDoctorCompleteProfile = () => {
     resolver: zodResolver(doctorCompleteProfileSchema),
   });
 
-  const {data} = useSpecialtyQuery()
+  const {data} = useGetAllSpecialtyQuery()
 
   const router = useRouter();
   const onSubmit = async (data: DoctorCompleteProfileFormData) => {

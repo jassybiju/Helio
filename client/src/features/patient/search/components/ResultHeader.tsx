@@ -20,7 +20,7 @@ export default function ResultsHeader({
         </p>
       </div>
 
-      <div className="flex items-center gap-2">
+      {/* <div className="flex items-center gap-2">
         <span className="text-gray-700 font-medium">Sort by:</span>
         <select
           value={sortBy}
@@ -33,7 +33,7 @@ export default function ResultsHeader({
           <option value="price-low">Price: Low to High</option>
           <option value="price-high">Price: High to Low</option>
         </select>
-      </div>
+      </div> */}
     </div>
   )
 }

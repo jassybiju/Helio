@@ -12,7 +12,7 @@ import Pagination from "@/src/components/Pagination";
 
 const LIMIT = 5
 const AdminSpecialtyComponent = () => {
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const { data } = useSpecialtyQuery({page});
   const { mutate: deleteSpecialty } = useDeleteSpecialtyMutation();
   const { open } = useModal();
@@ -40,7 +40,7 @@ const AdminSpecialtyComponent = () => {
   const handleOpenAddSpecialty = () => {
     open(AddSpecialtyModal);
   };
-
+  console.log(Math.ceil(specialty?.data.count / LIMIT), page)
   return (
     <div className="space-y-6">
       {/* Header */}
