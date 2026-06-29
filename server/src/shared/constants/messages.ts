@@ -72,4 +72,7 @@ export enum MESSAGE {
   CHAT_SESSION_NOT_FOUND = "CHat session not found",
   CHAT_SESSION_NOT_ACCESS = "CAN'T Access Caht",
   USER_NOT_FOUND = "User not found",
+
+  //wallet
+  WALLET_NOT_FOUND='WALLET NOT FOUND'
 }
