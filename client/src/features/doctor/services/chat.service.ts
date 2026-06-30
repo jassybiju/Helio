@@ -24,7 +24,8 @@ export const doctorChatService = {
   sendMessage(id: string, content: string) {
     return apiRequest(API_ENDPOINT.DOCTOR.CHAT.ID(id), HTTP_METHOD.POST, {
       content,
-    });
+    }) as    Promise<APIResponse<{ id: string; message: string; sendBy: string }>>
+;
   },
 };
 

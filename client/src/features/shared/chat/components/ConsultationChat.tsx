@@ -20,7 +20,7 @@ interface Props {
   chatData: IDoctorGetChat["chats"] | undefined;
   sendeeData: SendeeType | undefined;
   userType: "doctor" | "patient";
-  consultationStatus: "active" | "ended";
+  consultationStatus: "active" | "expired";
   onSendMessage: (message: string) => void;
 }
 
@@ -76,15 +76,15 @@ export default function ConsultationChat({
             </p>
           </div>
         </div>
-        <button className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+        {/* <button className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
           View Appointment
-        </button>
+        </button> */}
       </div>
 
       <div className="border-b border-blue-100 bg-blue-50 px-6 py-3">
 <div className="border-b bg-slate-50 px-6 py-2 text-xs text-slate-500">
           <Clock className="h-4 w-4" />
-          <span>Active follow-up period • 7 days remaining</span>
+          {/* <span>Active follow-up period • 7 days remaining</span> */}
         </div>
       </div>
 
@@ -153,7 +153,7 @@ export default function ConsultationChat({
         <div className="border-t border-slate-200 bg-white p-4">
           <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
             {" "}
-            <Paperclip className="h-5 w-5 text-slate-400" />
+            {/* <Paperclip className="h-5 w-5 text-slate-400" /> */}
             <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -165,7 +165,7 @@ export default function ConsultationChat({
               placeholder="Type your message..."
               className="flex-1 bg-transparent text-sm outline-none"
             />
-            <Smile className="h-5 w-5 text-slate-400" />
+            {/* <Smile className="h-5 w-5 text-slate-400" /> */}
             <button
               onClick={handleSendMessage}
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 transition hover:bg-blue-700"

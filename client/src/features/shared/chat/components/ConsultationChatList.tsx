@@ -29,8 +29,8 @@ export default function ConsultationChatList({
   setActiveId,
 }: Props) {
   const [tab, setTab] = useState<"active" | "expired">("active");
-
-  const chatList = tab === 'active' ? list?.chats.active : list?.chats.expired
+  console.log(list);
+  const chatList = tab === "active" ? list?.chats.active : list?.chats.expired;
   // const filtered = chats.filter((chat) => chat.status === tab);
 
   return (
@@ -75,7 +75,11 @@ export default function ConsultationChatList({
           const selected = chat.id === activeId;
 
           return (
-            <button className="w-full" key={chat.id} onClick={() => setActiveId(chat.id)}>
+            <button
+              className="w-full"
+              key={chat.id}
+              onClick={() => setActiveId(chat.id)}
+            >
               <div
                 className={`border-b border-slate-100 px-4 py-4 transition ${
                   selected
@@ -85,7 +89,11 @@ export default function ConsultationChatList({
               >
                 <div className="flex gap-3">
                   <div className="h-11 w-11 flex-shrink-0 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
-                    {chat.profilePic ? <img src={chat.profilePic}/> : chat.name[0]}
+                    {chat.profilePic ? (
+                      <img src={chat.profilePic} />
+                    ) : (
+                      chat?.name?.[0]
+                    )}
                   </div>
 
                   <div className="min-w-0 flex-1">
@@ -106,7 +114,8 @@ export default function ConsultationChatList({
                     <div className="mt-3 flex items-center justify-between">
                       {chat.expiresIn ? (
                         <span className="rounded-full bg-blue-50 px-2 py-1 text-[11px] font-medium text-blue-700">
-                          {chat.expiresIn} {tab === 'active' ? 'left' : "before"}
+                          {chat.expiresIn}{" "}
+                          {tab === "active" ? "left" : "before"}
                         </span>
                       ) : (
                         <span />

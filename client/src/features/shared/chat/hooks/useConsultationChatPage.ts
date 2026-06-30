@@ -2,7 +2,7 @@ import { useState } from "react";
 import { USER_ROLES } from "@/src/types/user.types";
 import { useConsultationChat } from "@/src/features/shared/chat/hooks/useConsultationChat";
 import { UseMutationResult, useQueryClient } from "@tanstack/react-query";
-import { ChatType } from "../types/chat.type";
+import { ChatListType, ChatType } from "../types/chat.type";
 import { APIResponse } from "@/src/types/API.types";
 
 export function useConsultationChatPage({
@@ -32,6 +32,7 @@ export function useConsultationChatPage({
 
   const handleSendMessage = (message: string) => {
     const tempId = crypto.randomUUID();
+    let prevMessage : string | null = null
     // SENDING MESSAGE
     if (message) {
       // UPDATE WITH MOCK DATA
@@ -51,7 +52,29 @@ export function useConsultationChatPage({
           };
         },
       );
-
+      queryClient.setQueryData(
+        ["chat-list"],
+        (old: { data: ChatListType } | undefined) => {
+          if (!old) return old;
+          prevMessage = old.data.chats.active.find(chat => chat.id === activeSessionId)?.message!
+          return {
+            ...old,
+            data: {
+              ...old.data,
+              chats: {
+                ...old.data.chats,
+                active: 
+                  old.data.chats.active.map((chat) =>
+                    chat.id === activeSessionId
+                      ? { ...chat, message: message }
+                      : chat,
+                  ),
+                
+              },
+            },
+          };
+        },
+      );
 
       sendMessage(message, {
         // ONSUCCESS MODIFY THE MOCK DATA WITH ACTUAL
@@ -89,6 +112,16 @@ export function useConsultationChatPage({
               };
             },
           );
+
+          queryClient.setQueryData(['chat-list'],(old : {data : ChatListType} | undefined)=> {
+            if(!old) return old
+            return {
+              ...old,
+              data : {...old.data,chats : {...old.data.chats, active : old.data.chats.active.map(chat => chat.id === activeSessionId ? {...chat, message : prevMessage} : chat)}}
+            }
+          })
+
+          prevMessage = null
         },
       });
     }
@@ -100,6 +133,7 @@ export function useConsultationChatPage({
     sendeeData: chatRes?.data?.sendee,
     activeSessionId,
     setActiveSessionId,
+    isExpired : chatRes?.data?.isExpired,
     onSendMessage: handleSendMessage,
   };
 }

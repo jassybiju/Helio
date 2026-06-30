@@ -8,7 +8,7 @@ import { useConsultationChat } from "@/src/features/shared/chat/hooks/useConsult
 import { USER_ROLES } from "@/src/types/user.types";
 
 const DoctorChatComponent = () => {
- const {chatData, chatList, activeSessionId, setActiveSessionId, onSendMessage,sendeeData } = useDoctorChat()
+ const {chatData, chatList, activeSessionId, setActiveSessionId, onSendMessage,sendeeData, isExpired } = useDoctorChat()
   return (
     <>
       {" "}
@@ -27,7 +27,7 @@ const DoctorChatComponent = () => {
           sendeeData={sendeeData}
           chatId={activeSessionId}
           userType="doctor"
-          consultationStatus={'active'}
+          consultationStatus={!isExpired ? 'active' : 'expired'}
         />
       )}
     </>
