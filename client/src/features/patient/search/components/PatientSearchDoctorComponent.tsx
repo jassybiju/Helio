@@ -38,7 +38,7 @@ const PatientSearchDoctorComponent = () => {
 
   const { data, isLoading, error } = usePatientSearchDoctor(queryParams);
   const doctors = data?.data?.data;
-  console.log(data, doctors);
+  const totalPages = Math.ceil((data?.data?.totalCount ?? 0) / queryParams.limit)
   if (isLoading) return <div className="p-6">Loading...</div>;
   if (error) return <div className="p-6 text-red-500">Error</div>;
 
@@ -70,7 +70,7 @@ const PatientSearchDoctorComponent = () => {
 
         <DoctorPagination
           currentPage={currentPage}
-          totalPages={data?.data?.totalPages ?? 1}
+          totalPages={totalPages}
           onPageChange={setCurrentPage}
         />
       </div>

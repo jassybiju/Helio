@@ -8,7 +8,7 @@ import { APPOINTMENT_STATUS } from "@/src/types/appointment.types";
 import { Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const LIMIT = 5;
+const LIMIT = 2;
 export const usePatientAppointment = () => {
   const [statusFilter, setStatusFilter] = useState<
     APPOINTMENT_STATUS | undefined

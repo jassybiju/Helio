@@ -74,5 +74,5 @@ export enum MESSAGE {
   USER_NOT_FOUND = "User not found",
 
   //wallet
-  WALLET_NOT_FOUND='WALLET NOT FOUND'
+  WALLET_NOT_FOUND = "WALLET NOT FOUND",
 }

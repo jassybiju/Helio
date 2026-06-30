@@ -4,7 +4,7 @@ import type { ILabReportRepository } from "@application/ports/repositories/ILabR
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetAllAppointmentsUseCase } from "@application/ports/use-cases/patient/appointments/IGetAllAppointmentsUsecase.ts";
-import type { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import type { IGetAllAppointmentsDTO } from "./IGetAllAppointmentsDTO.ts";
@@ -41,7 +41,11 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
         order: "asc",
         status: query.status ?? null,
       });
-
+    const cancelledAppointments =
+      await this._appointmentRepo.findManyWithFilters({
+        patientId: patient.id,
+        status: APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED,
+      });
     const result: IGetAllAppointmentsDTO["appointments"] = await Promise.all(
       appointments.map(async (res) => {
         const appointment = res.appointment;
@@ -65,7 +69,6 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
             profilePicture: doctor?.profilePicKey
               ? this._fileUpload.getFileUrl(doctor.profilePicKey)
               : null,
-            // profilePicture: doctor?.profilePicture ?? null,
           },
 
           appointment: {
@@ -92,7 +95,7 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
 
     return {
       appointments: result,
-
+      cancelledAppointments: cancelledAppointments.appointments,
       totalCount,
 
       page: query.page,

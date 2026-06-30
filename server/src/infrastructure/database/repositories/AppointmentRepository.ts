@@ -160,14 +160,15 @@ export class AppointmentRepository
       };
     }
 
-    if (!filters.page) {
-      filters.page = 1;
+    const page = filters.page ?? 1;
+    // if (!filters.limit) {
+    //   filters.limit = 0;
+    // }
+    const dataPipeline: PipelineStage.FacetPipelineStage[] = [];
+    if (filters.limit) {
+      let skip: number = (page - 1) * filters.limit;
+      dataPipeline.push({ $skip: skip }, { $limit: filters.limit });
     }
-    if (!filters.limit) {
-      filters.limit = 0;
-    }
-
-    let skip: number = (filters.page - 1) * filters.limit;
 
     const pipeline: PipelineStage[] = [
       {
@@ -276,7 +277,7 @@ export class AppointmentRepository
 
       {
         $facet: {
-          data: [{ $skip: skip }, { $limit: filters.limit }],
+          data: dataPipeline,
 
           totalCount: [{ $count: "count" }],
         },

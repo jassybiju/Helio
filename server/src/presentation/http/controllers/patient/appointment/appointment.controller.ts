@@ -211,7 +211,7 @@ export class PatientAppointmentController {
       return apiResponse(
         res,
         HTTPStatus.OK,
-        successResponse(response, "Doctors fetched successfully")
+        successResponse(response, "Doctor fetched successfully")
       );
     } catch (error) {
       next(error);

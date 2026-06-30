@@ -23,7 +23,7 @@ export const patientSearchService = {
       null,
       params,
     ) as Promise<
-      APIResponse<{ data: Doctor[]; total: number; totalPages: number }>
+      APIResponse<{ data: Doctor[]; totalCount: number; }>
     >;
   },
   getSlots(doctorId: string, page: number, limit : number) {

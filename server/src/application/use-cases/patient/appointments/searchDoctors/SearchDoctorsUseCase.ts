@@ -24,7 +24,7 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
     this._logger.info("Search Doctors started", input);
 
     // get all doctors based on query (name , speciality, doctorFee , experience)
-    const { doctors } = await this._doctorRepo.search(input);
+    const { doctors,totalCount } = await this._doctorRepo.search(input);
 
     if (!doctors.length) return { data: [] };
 
@@ -68,6 +68,7 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
             : null,
         };
       }),
+      totalCount
     };
   }
 }
