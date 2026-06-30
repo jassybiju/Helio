@@ -7,12 +7,14 @@ import Cropper, { Area } from "react-easy-crop";
 
 interface ProfilePictureUploadProps extends ModalProps {
   currentImage?: string;
-  onImageSave: (image: string) => void;
+  onImageSave: (image: string, onSuccess : ()=>void) => void;
+  close : ()=>void
 }
 
 export function UpdateProfilePicModal({
   currentImage,
   onImageSave,
+  close
 }: ProfilePictureUploadProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(currentImage ?? null);
   console.log(imageSrc);
@@ -43,8 +45,11 @@ export function UpdateProfilePicModal({
     }
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
     if(croppedImage){
-      console.log(croppedImage)
-      onImageSave(croppedImage)
+      console.log(croppedImage,2232)
+      onImageSave(croppedImage, ()=>{
+        console.log("123HELLO")
+        close()
+      })
     }
   }
   async function showCroppedImage() {

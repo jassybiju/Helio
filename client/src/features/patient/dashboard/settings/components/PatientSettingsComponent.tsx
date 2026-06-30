@@ -55,10 +55,10 @@ const PatientSettingsComponent = () => {
     }
 
     open(UpdateProfilePicModal, {
-      onImageSave: async (image: string) => {
+      onImageSave: async (image: string, onSuccess : ()=>void) => {
         const file = await fetch(image).then((r) => r.blob());
         console.log(image, file, "1232d", typeof image);
-        updateProfilePic(file);
+        updateProfilePic(file, {onSuccess });
       },
       currentImage: URL.createObjectURL(file),
     });
@@ -122,9 +122,9 @@ const PatientSettingsComponent = () => {
         <div className="flex items-start gap-6">
           {/* Profile Photo */}
           <div className="space-y-2 text-center">
-            <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center relative group">
+            <div className="w-24 h-24 overflow-hidden bg-blue-100 rounded-full flex items-center justify-center relative group">
               {PERSON?.profilePic ? (
-                <img src={PERSON?.profilePic} />
+                <img className="w-full h-full" src={PERSON?.profilePic} />
               ) : (
                 <svg
                   className="w-16 h-16"
