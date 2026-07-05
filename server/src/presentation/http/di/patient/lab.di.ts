@@ -5,7 +5,7 @@ import { PatientRepository } from "@infrastructure/database/repositories/MongoPa
 import { LabReportRepository } from "@infrastructure/database/repositories/LabReportRepository.ts";
 import { UploadPatientLabReportUseCase } from "@application/use-cases/patient/appointments/lab/uploadLabReport/UploadPatientLabReportUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(logger);
 const labRepo = new LabReportRepository(logger);
 const fileUpload = new CloudinaryFileUploadService();

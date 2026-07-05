@@ -21,7 +21,7 @@ import { ChatSessionRepository } from "@infrastructure/database/repositories/Cha
 import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
 import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
 
 const appointmentRepo = new AppointmentRepository(loggerService);

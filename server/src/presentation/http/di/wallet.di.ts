@@ -8,7 +8,7 @@ import { AddMoneyUseCase } from "@application/use-cases/wallet/addMoney/AddMoney
 import { razorpay } from "@config/razorpay.config.ts";
 import { AddMoneyVerifyUseCase } from "@application/use-cases/wallet/addMoney/AddMoneyVerifyUseCase.ts";
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 
 const walletRepo = new WalletRepository(logger);
 const transactionRepo = new WalletTransactionRepository(logger);

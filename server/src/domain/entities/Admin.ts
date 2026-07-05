@@ -1,4 +1,4 @@
-import type { Email } from "@domain/value-objects/Email.ts";
+import { Email } from "@domain/value-objects/Email.ts";
 
 export class Admin {
   constructor(
@@ -6,6 +6,10 @@ export class Admin {
     private readonly _email: Email,
     private readonly _passwordHash: string
   ) {}
+
+  static create(id: string, email: string, password: string) {
+    return new Admin(id, new Email(email), password);
+  }
 
   get passwordHash() {
     return this._passwordHash;

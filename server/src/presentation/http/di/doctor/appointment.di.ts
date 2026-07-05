@@ -13,7 +13,7 @@ import { DoctorViewTodaysAppointmentUseCase } from "@application/use-cases/docto
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 import { SkipDoctorAppointmentUseCase } from "@application/use-cases/doctor/appointment/skipAppointment/SkipDoctorAppointmentUseCase.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 
 const appointmentRepo = new AppointmentRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);

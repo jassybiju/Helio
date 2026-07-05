@@ -71,7 +71,7 @@ export class GetChatUseCase implements IGetChatUseCase {
           ? this._fileUpload.getFileUrl(sendee.profilePicKey)
           : null,
       },
-      isExpired : chatSession.isExpired(),
+      isExpired: chatSession.isExpired(),
       sessionId: chatSession.id,
     };
   }

@@ -1,6 +1,6 @@
 export enum DAY_OF_WEEK {
-  "MON" = "MON",
-  "TUE" = "TUE",
+  MON = "MON",
+  TUE = "TUE",
   WED = "WED",
   THU = "THU",
   FRI = "FRI",

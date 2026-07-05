@@ -5,7 +5,7 @@ import { MongoDoctorRepository } from "@infrastructure/database/repositories/Mon
 import { ResubmitVerificationUseCase } from "@application/use-cases/doctor/verification/resubmitVerification/ResubmitVerificationUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const fileService = new CloudinaryFileUploadService();
 

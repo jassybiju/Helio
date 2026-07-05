@@ -9,7 +9,7 @@ import { GetAllSpecialtyUseCase } from "@application/use-cases/GetAllSpecialtyUs
 
 const specialtyRepo = new SpecialtyRepository();
 const idGenerator = new NanoidGenerator();
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 
 const getSpecialityUseCase = new GetSpecialtiesUseCase(specialtyRepo);
 const addSpecialty = new CreateSpecialtyUseCase(

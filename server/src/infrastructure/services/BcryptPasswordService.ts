@@ -6,10 +6,12 @@ export class BcryptPasswordService implements IPasswordService {
   async hash(password: string): Promise<string> {
     try {
       const salt = process.env.BCRYPT_SALT || 10;
-      const hashedPassword = await bcrypt.hash(password, salt);
+      console.log(salt);
+      const hashedPassword = await bcrypt.hash(password, Number(salt));
       console.log(hashedPassword);
       return hashedPassword;
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new AppError("Error is hashing password", 500);
     }
   }

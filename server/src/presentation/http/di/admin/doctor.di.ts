@@ -7,7 +7,7 @@ import { GetDoctorUseCase } from "@application/use-cases/admin/doctor/getDoctor/
 import { ToggleBlockDoctorUseCase } from "@application/use-cases/admin/doctor/toggleBlock/ToggleBlockDoctorUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const fileUploadService = new CloudinaryFileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);

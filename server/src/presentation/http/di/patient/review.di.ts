@@ -7,7 +7,7 @@ import { PatientAddReviewUseCase } from "@application/use-cases/patient/review/a
 import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
 import { ReviewRepository } from "@infrastructure/database/repositories/ReviewRepository.ts";
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(logger);
 const doctorRepo = new MongoDoctorRepository(logger);
 const idGenerator = new NanoidGenerator();

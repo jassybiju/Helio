@@ -8,7 +8,7 @@ import { GetDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule
 import { DeleteDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/deleteDoctorSchedule/DeleteDoctorScheduleUseCase.ts";
 import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
 const uow = new MongoUnitOfWork();
 

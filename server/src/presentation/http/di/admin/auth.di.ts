@@ -9,7 +9,7 @@ import { AdminRepository } from "@infrastructure/database/repositories/AdminRepo
 
 const refreshTokenService = new CryptoRefreshTokenService();
 const accessTokenService = new JWTAccessTokenService();
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const passwordService = new BcryptPasswordService();
 
 const sessionRepo = new RedisSessionRepository(loggerService);

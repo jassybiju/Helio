@@ -22,7 +22,7 @@ import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts
 import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
 import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const bcryptPasswordService = new BcryptPasswordService();
 const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();

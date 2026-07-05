@@ -12,12 +12,14 @@ import { CryptoRefreshTokenService } from "@infrastructure/services/CryptoRefres
 import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenService.ts";
 import { LogoutUseCase } from "@application/use-cases/auth/logout/LogoutUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { AdminRepository } from "@infrastructure/database/repositories/AdminRepository.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 
 const patientRepo = new PatientRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const sessionRepo = new RedisSessionRepository(loggerService);
+const adminRepo = new AdminRepository()
 
 const refreshTokenService = new CryptoRefreshTokenService();
 const accessTokenService = new JWTAccessTokenService();
@@ -25,7 +27,7 @@ const fileUpload = new CloudinaryFileUploadService();
 
 const doctorGetMeHandler = new DoctorGetMeHandler(doctorRepo, fileUpload);
 const patientGetMeHandler = new PatientGetMeHandler(patientRepo, fileUpload);
-const adminGetMeHandler = new AdminGetMeHandler();
+const adminGetMeHandler = new AdminGetMeHandler(adminRepo);
 const getMeUseCase = new GetMeUseCase(loggerService, [
   doctorGetMeHandler,
   patientGetMeHandler,

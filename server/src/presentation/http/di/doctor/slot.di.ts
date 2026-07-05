@@ -12,7 +12,7 @@ import { AppointmentRepository } from "@infrastructure/database/repositories/App
 import { DeleteDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/deleteDoctorBlockSlot/DeleteDoctorBlockSlotUseCase.ts";
 import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 
 const idGenerator = new NanoidGenerator();
 

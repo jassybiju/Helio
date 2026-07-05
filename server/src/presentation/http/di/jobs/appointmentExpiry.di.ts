@@ -5,7 +5,7 @@ import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts
 
 const appointmentRepository = new AppointmentRepository();
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 
 export const expireAppointmentsUseCase = new ExpiryAppointmentsUseCase(
   logger,

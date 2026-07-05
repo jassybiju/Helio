@@ -13,7 +13,7 @@ import { GetChatUseCase } from "@application/use-cases/chat/getChat/GetChatUseCa
 import { DoctorChatController } from "../../controllers/doctor/chat.controller.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(logger);
 const chatMessageRepo = new ChatMessageRepository(logger);
 const chatSessionRepo = new ChatSessionRepository(logger);

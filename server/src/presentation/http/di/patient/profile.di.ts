@@ -16,7 +16,7 @@ import { UpdatePatientProfileUseCase } from "@application/use-cases/patient/prof
 import { PatientUpdateProfilePictureUseCase } from "@application/use-cases/patient/updateProfilePic/PatientUpdateProfilePictureUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 const idGenerator = new NanoidGenerator();
 const bcryptPasswordService = new BcryptPasswordService();

@@ -25,7 +25,6 @@ import { expireAppointmentsUseCase } from "./presentation/http/di/jobs/appointme
 import { appointmentExpiryJob } from "@infrastructure/jobs/appointmentExpiry.job.ts";
 
 export const app = express();
-console.log(process.env.RAZORPAY_KEY, "111122");
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -83,7 +82,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: AppError, req: Request, res: Response, _next: NextFunction) => {
-  const logger = new PinoLoggerService();
+  const logger = PinoLoggerService.getInstance();
 
   if (err instanceof Error) {
     logger.error(err.message, err);

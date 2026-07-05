@@ -29,7 +29,7 @@ import { PatientAppointmentCancellationUseCase } from "@application/use-cases/pa
 import { PatientRescheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedulePatient/PatientRescheduleAppointmentUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
 const fileUpload = new CloudinaryFileUploadService();
 

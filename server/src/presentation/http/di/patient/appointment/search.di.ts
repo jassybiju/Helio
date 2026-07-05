@@ -11,7 +11,7 @@ import { ReviewRepository } from "@infrastructure/database/repositories/ReviewRe
 import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const slotGenerator = new SlotGenerator();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);

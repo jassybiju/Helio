@@ -12,7 +12,7 @@ import { SendMessageUseCase } from "@application/use-cases/chat/sendMessage/Send
 import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(logger);
 const chatMessageRepo = new ChatMessageRepository(logger);
 const chatSessionRepo = new ChatSessionRepository(logger);

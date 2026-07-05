@@ -11,7 +11,7 @@ import { DoctorValidator } from "@application/validators/DoctorValidator.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 import { DoctorUpdateProfilePictureUseCase } from "@application/use-cases/doctor/profile/updateProfilePicture/DoctorUpdateProfilePictureUseCase.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const fileUpload = new CloudinaryFileUploadService();
 const passwordService = new BcryptPasswordService();

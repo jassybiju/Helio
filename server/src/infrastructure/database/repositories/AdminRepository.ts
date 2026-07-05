@@ -20,4 +20,34 @@ export class AdminRepository implements IAdminRepository {
       throw new AppError("Error fetching admin", HTTPStatus.INTERNAL_ERROR);
     }
   }
+
+  async create(admin: Admin) {
+    try {
+      await AdminModel.create({
+        email: admin.email.value,
+        _id: admin.id,
+        passwordHash: admin.passwordHash,
+      });
+    } catch (error) {
+      console.log(error);
+      throw new AppError("Error Creating Admin,", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
+
+  async findById(id: string): Promise<Admin | null> {
+    try {
+      const adminDoc = await AdminModel.findOne({ _id: id });
+      console.log(adminDoc);
+      if (!adminDoc) return null;
+      return new Admin(
+        adminDoc._id!,
+        new Email(adminDoc.email!),
+        adminDoc.passwordHash!
+      );
+      
+    } catch (error) {
+      console.log(error);
+      throw new AppError("Error Fidnign Admin,", HTTPStatus.INTERNAL_ERROR);
+    }
+  }
 }

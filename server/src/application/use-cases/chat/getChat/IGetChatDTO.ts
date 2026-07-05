@@ -13,5 +13,5 @@ export interface IGetChatDTO {
     profilePic: string | null;
   };
   sessionId: string;
-  isExpired : boolean
+  isExpired: boolean;
 }
