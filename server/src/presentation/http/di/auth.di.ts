@@ -19,7 +19,7 @@ const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const sessionRepo = new RedisSessionRepository(loggerService);
-const adminRepo = new AdminRepository()
+const adminRepo = new AdminRepository();
 
 const refreshTokenService = new CryptoRefreshTokenService();
 const accessTokenService = new JWTAccessTokenService();

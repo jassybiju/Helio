@@ -6,17 +6,14 @@ import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import type { IAdminRepository } from "@application/ports/repositories/IAdminRepository.ts";
 
 export class AdminGetMeHandler implements IGetMeHandler {
-  constructor(
-    private readonly _adminRepo : IAdminRepository
-  ) {}
+  constructor(private readonly _adminRepo: IAdminRepository) {}
 
   supports(role: USER_ROLES): boolean {
     return role === USER_ROLES.ADMIN;
   }
 
   async execute(id: string): Promise<IGetMeResponseDTO> {
-
-    const admin = await this._adminRepo.findById(id)
+    const admin = await this._adminRepo.findById(id);
     if (!admin) {
       throw new AppError("No Valid Credientals", HTTPStatus.UNAUTHORIZED);
     }

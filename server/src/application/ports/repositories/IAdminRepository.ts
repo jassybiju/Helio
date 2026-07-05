@@ -4,5 +4,5 @@ import type { Email } from "@domain/value-objects/Email.ts";
 export interface IAdminRepository {
   findByEmail(email: Email): Promise<Admin | null>;
   create(admin: Admin): Promise<void>;
-  findById(id : string) : Promise<Admin | null>
+  findById(id: string): Promise<Admin | null>;
 }

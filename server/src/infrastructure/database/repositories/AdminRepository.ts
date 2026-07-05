@@ -44,7 +44,6 @@ export class AdminRepository implements IAdminRepository {
         new Email(adminDoc.email!),
         adminDoc.passwordHash!
       );
-      
     } catch (error) {
       console.log(error);
       throw new AppError("Error Fidnign Admin,", HTTPStatus.INTERNAL_ERROR);
