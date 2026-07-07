@@ -32,7 +32,7 @@ const DoctorProfileComplete = () => {
             }`}
           >
             <option value="">Select Specialization</option>
-            {specialities?.data?.specialty?.map(x => (<option key={x.value} value={x.value}>
+            {specialities?.data?.map(x => (<option key={x.value} value={x.value}>
               {x.label}
             </option>))}
           </select>
