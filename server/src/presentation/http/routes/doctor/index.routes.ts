@@ -7,6 +7,7 @@ import { doctorSlotRouter } from "./slot.routes.ts";
 import { doctorAppointmentRoutes } from "./appointment.routes.ts";
 import { doctorConsultationRoutes } from "./consultation.routes.ts";
 import { doctorChatRouter } from "./chat.routes.ts";
+import { doctorDashboardRoutes } from "./dashboard.routes.ts";
 
 export const doctorRouter = Router();
 
@@ -18,3 +19,4 @@ doctorRouter.use("/slot", doctorSlotRouter);
 doctorRouter.use("/appointment", doctorAppointmentRoutes);
 doctorRouter.use("/consultation", doctorConsultationRoutes);
 doctorRouter.use("/chat", doctorChatRouter);
+doctorRouter.use("/dashboard", doctorDashboardRoutes);

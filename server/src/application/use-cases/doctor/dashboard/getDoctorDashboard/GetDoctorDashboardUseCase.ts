@@ -9,6 +9,7 @@ import { istToUtc } from "@shared/utils/date.utils.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
+import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
 
 export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
   constructor(
@@ -16,7 +17,8 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _patientRepo: IPatientRepository,
-    private readonly _walletRepo: IWalletRepository
+    private readonly _walletRepo: IWalletRepository,
+    private readonly _transactionRepo: IWalletTransactionRepository
   ) {}
   async execute(doctorId: string): Promise<IGetDoctorDashboardDTO> {
     this._logger.info("Get Doctor Dashboard attempt", { doctorId });

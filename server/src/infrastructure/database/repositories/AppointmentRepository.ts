@@ -358,7 +358,13 @@ export class AppointmentRepository
     const start = new Date(startTime);
     const end = new Date(endTime);
     return super.find(
-      { doctor_id: doctorId, start_time: { $gte: start, $lte: end } },
+      {
+        doctor_id: doctorId,
+        start_time: { $gte: start, $lte: end },
+        status: {
+          $nin: [APPOINTMENT_STATUS.PENDING, APPOINTMENT_STATUS.EXPIRED],
+        },
+      },
       {},
       AppointmentMapper.toDomain
     );

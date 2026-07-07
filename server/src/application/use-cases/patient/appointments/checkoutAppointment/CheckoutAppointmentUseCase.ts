@@ -39,6 +39,10 @@ export class CheckoutAppointmentUseCase implements ICheckoutAppointmentUseCase {
       );
     }
 
+    if (appointment.status === APPOINTMENT_STATUS.EXPIRED) {
+      throw new AppError("Appointment Already expired", HTTPStatus.BAD_REQUEST);
+    }
+
     if (appointment.status === APPOINTMENT_STATUS.CONFIRMED) {
       throw new AppError(
         MESSAGE.APPOINTMENT_ALREADY_PAID,

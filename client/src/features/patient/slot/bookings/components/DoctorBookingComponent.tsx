@@ -11,87 +11,6 @@ import { isAxiosError } from "axios";
 import { ReviewsSection } from "./ReviewsSection";
 import { AddReview } from "./AddReview";
 
-const mockReviews = {
-  "1": [
-    {
-      id: "1",
-      author: "John Smith",
-      rating: 5,
-      date: "2 weeks ago",
-      comment:
-        "Great doctor! Very attentive and took time to understand my concerns. Highly recommended!",
-      avatar: "JS",
-    },
-    {
-      id: "2",
-      author: "Emily Johnson",
-      rating: 4,
-      date: "1 month ago",
-      comment:
-        "Good consultation. Dr. Chen was professional and provided clear guidance on my treatment.",
-      avatar: "EJ",
-    },
-    {
-      id: "3",
-      author: "Michael Rodriguez",
-      rating: 5,
-      date: "1 month ago",
-      comment:
-        "Excellent care and very personable. Definitely coming back for follow-ups!",
-      avatar: "MR",
-    },
-  ],
-  "2": [
-    {
-      id: "1",
-      author: "Lisa Chen",
-      rating: 5,
-      date: "3 weeks ago",
-      comment:
-        "Dr. Miller is amazing! She solved my skin issue completely. Very professional.",
-      avatar: "LC",
-    },
-    {
-      id: "2",
-      author: "Amanda White",
-      rating: 4,
-      date: "2 months ago",
-      comment:
-        "Good treatment and helpful advice. Saw improvement in a few weeks.",
-      avatar: "AW",
-    },
-  ],
-  "3": [
-    {
-      id: "1",
-      author: "Robert Taylor",
-      rating: 5,
-      date: "1 week ago",
-      comment:
-        "Dr. Wilson is an excellent cardiologist. Very knowledgeable and caring. Trust him completely.",
-      avatar: "RT",
-    },
-    {
-      id: "2",
-      author: "Patricia Lee",
-      rating: 5,
-      date: "3 weeks ago",
-      comment:
-        "Outstanding doctor. My heart condition has improved significantly under his care.",
-      avatar: "PL",
-    },
-    {
-      id: "3",
-      author: "James Brown",
-      rating: 4,
-      date: "1 month ago",
-      comment:
-        "Professional and thorough. Explained everything clearly. Very satisfied.",
-      avatar: "JB",
-    },
-  ],
-};
-
 const DoctorBookingComponent = ({ id }: { id: string }) => {
   const [page, setPage] = useState(1)
   const LIMIT = 1
@@ -116,11 +35,12 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
   const reviews= data?.data.reviews
   const totalReviews = data?.data.totalCount.reduce((acc,cur)=>acc+cur,0) ?? 0
   const sumReview = data?.data.totalCount.reduce((acc,cur,i)=>acc+(cur * (i+1)),0) ?? 0
-  const avgRatings = sumReview/totalReviews
+  const avgRatings = totalReviews > 0 ? (sumReview/totalReviews) : 0
+  console.log(sumReview , totalReviews)
   const totalPages= Math.ceil(totalReviews! / LIMIT)
   // Generate week days starting from today
   const inClinicSlots = activeDate
-    ? (resData[activeDate]?.clinic?.slots ?? [])
+    ? (resData[activeDate]?.clinic?.slots ?? [])  
     : [];
 
   const onlineSlots = activeDate

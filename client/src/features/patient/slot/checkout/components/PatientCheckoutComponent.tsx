@@ -35,6 +35,9 @@ const PatientCheckoutComponent = () => {
       return;
     }
 
+            console.log("_++++++",process.env.NEXT_PUBLIC_RAZORPAY_KEY);
+
+
     mutate("RAZORPAY", {
       onSuccess: async (response) => {
         const data = response.data as {
@@ -44,7 +47,7 @@ const PatientCheckoutComponent = () => {
           orderId: string;
         };
 
-        console.log("_++++++", data);
+        console.log("_++++++", data,process.env.NEXT_PUBLIC_RAZORPAY_KEY);
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
           amount: data.amount,

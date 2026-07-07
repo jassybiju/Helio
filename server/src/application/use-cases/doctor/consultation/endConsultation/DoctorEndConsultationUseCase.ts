@@ -108,12 +108,12 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
       });
 
       wallet.credit(appointment.consultationFee);
-
+      console.log(transaction, 1234444);
       const operations = [
         consultationRepo.update(consultation),
         appointmentRepo.update(appointment),
         walletRepo.update(wallet),
-        transactionRepo.update(transaction),
+        transactionRepo.create(transaction),
       ];
 
       if (chatSession) {
