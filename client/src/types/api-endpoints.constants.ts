@@ -44,6 +44,9 @@ export const API_ENDPOINT = {
       BASE: "/doctor/chat",
       ID: (id: string) => `/doctor/chat/${id}`,
     },
+    DASHBOARD : {
+      BASE : '/doctor/dashboard/'
+    }
   },
   PATIENT: {
     PROFILE: {

@@ -24,3 +24,9 @@ export enum PAYMENT_TYPE {
   WALLET = "WALLET",
   RAZORPAY = "RAZORPAY",
 }
+
+export enum BOOKING_PERIOD {
+  WEEK = "WEEK",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}

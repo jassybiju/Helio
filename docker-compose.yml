@@ -60,6 +60,11 @@ services:
     depends_on:
       - backend
 
+  gotenberg:
+    image : gotenberg/gotenberg:8-chromium
+    ports:
+      - "4000:3000"
+
 volumes:
   mongo_data:
     name: my_mongo_data
