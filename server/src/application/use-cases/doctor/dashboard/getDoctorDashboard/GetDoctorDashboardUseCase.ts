@@ -7,7 +7,10 @@ import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
 import { istToUtc } from "@shared/utils/date.utils.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import {
+  APPOINTMENT_STATUS,
+  BOOKING_PERIOD,
+} from "@domain/common/enums/appointment.enum.ts";
 import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
 import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
 
@@ -20,7 +23,10 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
     private readonly _walletRepo: IWalletRepository,
     private readonly _transactionRepo: IWalletTransactionRepository
   ) {}
-  async execute(doctorId: string): Promise<IGetDoctorDashboardDTO> {
+  async execute(
+    doctorId: string,
+    period: BOOKING_PERIOD
+  ): Promise<IGetDoctorDashboardDTO> {
     this._logger.info("Get Doctor Dashboard attempt", { doctorId });
 
     const doctor = await this._doctorRepo.findById(doctorId);
@@ -51,6 +57,11 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         istToUtc(endDateIST)
       );
 
+    const bookingTrend = await this._appointmentRepo.getDoctorBookingTrend(
+      doctor.id,
+      period
+    );
+    console.log(bookingTrend);
     const totalCompletedAppointments =
       await this._appointmentRepo.findAllWithFilters({
         status: APPOINTMENT_STATUS.COMPLETED,
@@ -70,7 +81,11 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         ).length,
         walletBalance: 1,
       },
-      bookingTrend: { period: "7d", labels: ["asd"], values: [1] },
+      bookingTrend: {
+        period: period,
+        labels: bookingTrend.map((x) => x.label),
+        values: bookingTrend.map((x) => x.count),
+      },
       transactions: [],
     };
   }

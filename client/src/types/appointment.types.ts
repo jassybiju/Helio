@@ -21,3 +21,9 @@ export enum CONSULTATION_TYPE {
   ONLINE = "ONLINE",
   CLINIC = "CLINIC",
 }
+
+export enum BOOKING_PERIOD {
+  WEEK = 'WEEK',
+  MONTH = 'MONTH',
+  YEAR = 'YEAR'
+}

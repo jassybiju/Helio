@@ -1,3 +1,5 @@
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+
 export interface IGetDoctorDashboardDTO {
   summary: {
     todayAppointments: number;
@@ -7,7 +9,7 @@ export interface IGetDoctorDashboardDTO {
     walletBalance: number;
   };
   bookingTrend: {
-    period: "7d" | "30d" | "month" | "year";
+    period: BOOKING_PERIOD;
     labels: string[];
     values: number[];
   };

@@ -1,4 +1,7 @@
-import type { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import type {
+  APPOINTMENT_STATUS,
+  BOOKING_PERIOD,
+} from "@domain/common/enums/appointment.enum.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
 import type { ClientSession } from "mongoose";
@@ -44,6 +47,11 @@ export interface IAppointmentRepository {
   findById(id: string): Promise<Appointment | null>;
 
   withSession(session: ClientSession): IAppointmentRepository;
+
+  getDoctorBookingTrend(
+    doctorId: string,
+    period: BOOKING_PERIOD
+  ): Promise<{ label: string; count: number }[]>;
 
   countOccupiedSlots(
     doctorId: string,

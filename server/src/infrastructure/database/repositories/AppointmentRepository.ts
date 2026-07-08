@@ -12,7 +12,10 @@ import {
 import { AppointmentMapper } from "../../../mappers/AppointmentMapper.ts";
 import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { ClientSession, PipelineStage, QueryFilter } from "mongoose";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import {
+  APPOINTMENT_STATUS,
+  BOOKING_PERIOD,
+} from "@domain/common/enums/appointment.enum.ts";
 import type { PatientRawDoc } from "../model/PatientModel.ts";
 import type { DoctorRawDoc } from "../model/DoctorModel.ts";
 import { istToUtc, utcToIst } from "@shared/utils/date.utils.ts";
@@ -62,6 +65,77 @@ export class AppointmentRepository
       },
       AppointmentMapper.toDomain
     );
+  }
+
+  async getDoctorBookingTrend(
+    doctorId: string,
+    period: BOOKING_PERIOD
+  ): Promise<{ label: string; count: number }[]> {
+    this._logger.info("Fetching Doctor Booking");
+    const now = new Date();
+    const startDate = new Date();
+
+    let groupFormat: string;
+
+    switch (period) {
+      case BOOKING_PERIOD.WEEK:
+        startDate.setDate(now.getDate() - 6);
+        groupFormat = "%Y-%m-%d";
+        break;
+
+      case BOOKING_PERIOD.MONTH:
+        startDate.setDate(now.getDate() - 29);
+        groupFormat = "%Y-%m-%d";
+        break;
+
+      case BOOKING_PERIOD.YEAR:
+        startDate.setMonth(now.getMonth() - 11);
+        startDate.setDate(1);
+        groupFormat = "%Y-%m";
+        break;
+
+      default:
+        throw new Error("Invalid period");
+    }
+
+    const result = await this.aggregate<{
+      _id: string;
+      count: number;
+    }>([
+      {
+        $match: {
+          doctor_id: doctorId,
+          is_deleted: false,
+          start_time: {
+            $gte: startDate,
+            $lte: now,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: groupFormat,
+              date: "$start_time",
+            },
+          },
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $sort: {
+          _id: 1,
+        },
+      },
+    ]);
+    console.log(groupFormat, startDate, now, doctorId, result);
+    return result.map((item) => ({
+      label: item._id,
+      count: item.count,
+    }));
   }
 
   async countOccupiedSlots(
