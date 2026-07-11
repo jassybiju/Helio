@@ -7,6 +7,7 @@ export interface IWalletRepository {
   create(wallet: Wallet): Promise<void>;
 
   findById(id: string): Promise<Wallet | null>;
+  findAdminWallet(): Promise<Wallet | null>;
 
   findByUserId(userId: string): Promise<Wallet | null>;
 

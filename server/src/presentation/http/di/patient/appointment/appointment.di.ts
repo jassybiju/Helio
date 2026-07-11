@@ -73,7 +73,7 @@ const createAppointmentUseCase = new CreateAppointmentUseCase(
   doctorShiftRepo,
   appointmentRepo,
   idGenerator,
-  notificationService,
+  notificationService
 );
 
 const getAppointment = new GetAppointmentUseCase(

@@ -5,6 +5,7 @@ import type { IWalletRepository } from "@application/ports/repositories/IWalletR
 import type { ClientSession } from "mongoose";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import { WalletMapper } from "../../../mappers/WalletMapper.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 export class WalletRepository
   extends BaseRepository<Wallet, WalletDoc>
@@ -19,6 +20,10 @@ export class WalletRepository
 
   withSession(session: ClientSession): IWalletRepository {
     return new WalletRepository(this._logger, session);
+  }
+
+  findAdminWallet(): Promise<Wallet | null> {
+    return super.findOne({user_role : USER_ROLES.ADMIN}, WalletMapper.toDomain)
   }
 
   findByUserId(userId: string): Promise<Wallet | null> {

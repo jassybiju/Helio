@@ -19,6 +19,7 @@ const menuItems = [
   { label: "Slot", href: "/slot", icon: LayoutGrid },
   { label: "Block Slot", href: "/block-slot", icon: LayoutGrid },
   { label: "Message", href: "/chat", icon: MessageCircle },
+  { label: "Wallet", href: "/wallet", icon: MessageCircle },
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 

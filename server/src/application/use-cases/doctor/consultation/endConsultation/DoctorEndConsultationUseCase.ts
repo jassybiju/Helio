@@ -108,12 +108,32 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
       });
 
       wallet.credit(appointment.consultationFee);
-      console.log(transaction, 1234444);
+
+      const adminWallet = await walletRepo.findAdminWallet();
+
+      if (!adminWallet) {
+        throw new NotFoundError(MESSAGE.WALLET_NOT_FOUND);
+      }
+
+      adminWallet.credit(appointment.platformFee);
+      const adminTransactionId = this._idGenerator.generate(
+        process.env.TRANSACTION_PREFIX!
+      );
+      const adminTransaction = WalletTransaction.createTransaction({
+        id: adminTransactionId,
+        walletId: adminWallet.id,
+        amount: appointment.platformFee,
+        type: TRANSACTION_TYPE.CREDIT,
+        description: `PAYMENT FOR APPOINTMENT OF ID ${appointment.id}`,
+      });
+
       const operations = [
         consultationRepo.update(consultation),
         appointmentRepo.update(appointment),
         walletRepo.update(wallet),
         transactionRepo.create(transaction),
+        walletRepo.update(adminWallet),
+        transactionRepo.create(adminTransaction)
       ];
 
       if (chatSession) {

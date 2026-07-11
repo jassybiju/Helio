@@ -26,7 +26,7 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
     private readonly _doctorShiftRepo: IDoctorShiftRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _idGenerator: IIDGenerator,
-    private readonly _notificationService: INotificationService,
+    private readonly _notificationService: INotificationService
   ) {}
   async execute(
     patientId: string,
