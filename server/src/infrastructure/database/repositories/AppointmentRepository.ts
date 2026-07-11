@@ -1,6 +1,7 @@
 import type {
   DoctorAppointmentListItem,
   FindAppointmentsFilter,
+  IAppointmentDashboardStatistics,
   IAppointmentRepository,
 } from "@application/ports/repositories/IAppointmentRepository.ts";
 import { Appointment } from "@domain/entities/Appointment.ts";
@@ -74,7 +75,7 @@ export class AppointmentRepository
     this._logger.info("Fetching Doctor Booking");
     const now = new Date();
     const startDate = new Date();
-
+    now.setHours(23, 59, 59, 999);
     let groupFormat: string;
 
     switch (period) {
@@ -165,8 +166,8 @@ export class AppointmentRepository
 
   async findActiveInRange(
     doctorId: string,
-    start: Date,
-    end: Date
+    _start: Date,
+    _end: Date
   ): Promise<Appointment[]> {
     // let startTime = new Date(start).setHours(0, 0, 0, 0);
     // let endTime = new Date(end).setHours(23, 59, 59, 999);
@@ -623,5 +624,191 @@ export class AppointmentRepository
     doctorId: string
   ) {
     return await super.count({ patient_id: patientId, doctor_id: doctorId });
+  }
+  async getDashboardStatistics(
+    period: BOOKING_PERIOD
+  ): Promise<IAppointmentDashboardStatistics> {
+    const now = new Date();
+
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(now);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    let analyticsStartDate = new Date(now);
+    let groupFormat = "%Y-%m-%d";
+
+    switch (period) {
+      case BOOKING_PERIOD.WEEK:
+        analyticsStartDate.setDate(now.getDate() - 6);
+        analyticsStartDate.setHours(0, 0, 0, 0);
+        groupFormat = "%Y-%m-%d";
+        break;
+
+      case BOOKING_PERIOD.MONTH:
+        analyticsStartDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        groupFormat = "%Y-%m-%d";
+        break;
+
+      case BOOKING_PERIOD.YEAR:
+        analyticsStartDate = new Date(now.getFullYear(), 0, 1);
+        groupFormat = "%Y-%m";
+        break;
+    }
+
+    const [result] = await super.aggregate<{
+      totalAppointments: { count: number }[];
+      completedAppointments: { count: number }[];
+      upcomingAppointments: { count: number }[];
+      todayAppointments: { count: number }[];
+      appointmentAnalytics: { _id: string; count: number }[];
+      appointmentStatusDistribution: { _id: string; count: number }[];
+    }>([
+      {
+        $match: {
+          is_deleted: false,
+        },
+      },
+      {
+        $facet: {
+          totalAppointments: [{ $count: "count" }],
+
+          completedAppointments: [
+            { $match: { status: "COMPLETED" } },
+            { $count: "count" },
+          ],
+
+          upcomingAppointments: [
+            {
+              $match: {
+                start_time: {
+                  $gt: now,
+                },
+              },
+            },
+            { $count: "count" },
+          ],
+
+          todayAppointments: [
+            {
+              $match: {
+                start_time: {
+                  $gte: startOfDay,
+                  $lte: endOfDay,
+                },
+              },
+            },
+            { $count: "count" },
+          ],
+
+          appointmentAnalytics: [
+            {
+              $match: {
+                created_at: {
+                  $gte: analyticsStartDate,
+                  $lte: now,
+                },
+              },
+            },
+            {
+              $group: {
+                _id: {
+                  $dateToString: {
+                    format: groupFormat,
+                    date: "$created_at",
+                  },
+                },
+                count: {
+                  $sum: 1,
+                },
+              },
+            },
+            {
+              $sort: {
+                _id: 1,
+              },
+            },
+          ],
+
+          appointmentStatusDistribution: [
+            {
+              $group: {
+                _id: "$status",
+                count: {
+                  $sum: 1,
+                },
+              },
+            },
+          ],
+        },
+      },
+    ]);
+
+    const statusMap = Object.fromEntries(
+      result.appointmentStatusDistribution.map((x) => [x._id, x.count])
+    );
+
+    const appointmentAnalytics = result.appointmentAnalytics.map((item) => {
+      let label = item._id;
+
+      switch (period) {
+        case BOOKING_PERIOD.WEEK:
+          label = new Date(item._id).toLocaleDateString("en-US", {
+            weekday: "short",
+          });
+          break;
+
+        case BOOKING_PERIOD.MONTH:
+          label = new Date(item._id).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          });
+          break;
+
+        case BOOKING_PERIOD.YEAR:
+          label = new Date(`${item._id}-01`).toLocaleDateString("en-US", {
+            month: "short",
+          });
+          break;
+      }
+
+      return {
+        label,
+        count: item.count,
+      };
+    });
+
+    return {
+      totalAppointments: result.totalAppointments[0]?.count ?? 0,
+      completedAppointments: result.completedAppointments[0]?.count ?? 0,
+      upcomingAppointments: result.upcomingAppointments[0]?.count ?? 0,
+      todayAppointments: result.todayAppointments[0]?.count ?? 0,
+      appointmentAnalytics,
+      appointmentStatusDistribution: {
+        confirmed: statusMap.CONFIRMED ?? 0,
+        ongoing: statusMap.ONGOING ?? 0,
+        completed: statusMap.COMPLETED ?? 0,
+        cancelled:
+          (statusMap.CANCELLED_BY_DOCTOR ?? 0) +
+          (statusMap.CANCELLED_BY_PATIENT ?? 0),
+        noShow: statusMap.NO_SHOW ?? 0,
+        expired: statusMap.EXPIRED ?? 0,
+      },
+    };
+  }
+
+  private getISOWeek(date: Date): number {
+    const tmp = new Date(date);
+
+    tmp.setHours(0, 0, 0, 0);
+
+    tmp.setDate(tmp.getDate() + 4 - (tmp.getDay() || 7));
+
+    const yearStart = new Date(tmp.getFullYear(), 0, 1);
+
+    return Math.ceil(
+      ((tmp.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
+    );
   }
 }

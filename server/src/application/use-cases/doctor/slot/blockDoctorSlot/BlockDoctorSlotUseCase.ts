@@ -2,15 +2,16 @@ import type { IAppointmentRepository } from "@application/ports/repositories/IAp
 import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { INotificationService } from "@application/ports/services/INotificationService.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
 import type {
   IBlockDoctorInput,
   IBlockDoctorSlotUseCase,
 } from "@application/ports/use-cases/doctor/slot/IBlockDoctorSlotUseCase.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
 import { AppError } from "@shared/errors/AppError.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class BlockDoctorSlotUseCase implements IBlockDoctorSlotUseCase {
@@ -19,7 +20,8 @@ export class BlockDoctorSlotUseCase implements IBlockDoctorSlotUseCase {
     private readonly _idGenerator: IIDGenerator,
     private readonly _blockShiftRepo: IDoctorBlockShiftRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
-    private readonly _uow: IUnitOfWork
+    private readonly _uow: IUnitOfWork,
+    private readonly _notificationService: INotificationService
   ) {}
   async execute(
     doctorId: string,
@@ -102,6 +104,12 @@ export class BlockDoctorSlotUseCase implements IBlockDoctorSlotUseCase {
       await Promise.all(
         overlappingAppointments.map(async ({ appointment }) => {
           appointment.cancelByDoctor(input.reason);
+          this._notificationService.notify(
+            appointment.patientId,
+            USER_ROLES.PATIENT,
+            "Appointment Canclled By Doctor Handle",
+            `Appointment ${appointment.id} cancelled by doctor becuase of ${input.reason}`
+          );
           return appointmentRepo.update(appointment);
         })
       );

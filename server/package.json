@@ -23,6 +23,7 @@
     "eslint-fix": "^1.0.3",
     "express": "^5.2.1",
     "google-auth-library": "^10.6.2",
+    "handlebars": "^4.7.9",
     "inquirer": "^13.3.0",
     "mongoose": "^9.3.0",
     "morgan": "^1.10.1",

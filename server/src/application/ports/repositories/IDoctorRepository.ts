@@ -1,3 +1,4 @@
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
 import type { ClientSession } from "mongoose";
@@ -49,4 +50,15 @@ export interface IDoctorRepository {
   search(
     params: IDoctorSearchQuery
   ): Promise<{ doctors: Doctor[]; totalCount: number }>;
+
+  getRegistrationAnalytics(
+    period: BOOKING_PERIOD
+  ): Promise<IRegistrationAnalytics>;
+
+  count(): Promise<number>;
+}
+
+export interface IRegistrationAnalytics {
+  labels: string[];
+  count: number[];
 }

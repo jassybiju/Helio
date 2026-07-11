@@ -1,3 +1,7 @@
+import {
+  APPOINTMENT_STATUS,
+  PAYMENT_STATUS,
+} from "@domain/common/enums/appointment.enum.ts";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const appointmentSchema = new Schema({
@@ -18,15 +22,7 @@ const appointmentSchema = new Schema({
   total_amount: { type: Number, default: 0 },
   status: {
     type: String,
-    enum: [
-      "PENDING",
-      "ONGOING",
-      "NO_SHOW",
-      "CONFIRMED",
-      "CANCELLED",
-      "COMPLETED",
-      "EXPIRED",
-    ],
+    enum: APPOINTMENT_STATUS,
     default: "PENDING",
   },
   queue_number: { type: Number, default: 0 },
@@ -35,7 +31,7 @@ const appointmentSchema = new Schema({
   cancellation_reason: { type: String },
   payment_status: {
     type: String,
-    enum: ["PENDING", "PAID", "REFUNDED"],
+    enum: PAYMENT_STATUS,
     default: "PENDING",
   },
   payment_id: { type: String },
@@ -44,7 +40,7 @@ const appointmentSchema = new Schema({
   reschedule_reason: { type: String, default: null },
   rescheduled_by: {
     type: String,
-    enum: ["doctor", "patient"],
+    enum: ["DOCTOR", "PATIENT"],
     default: null,
   },
   rescheduled_at: { type: Date, default: null },

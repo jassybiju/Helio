@@ -10,7 +10,7 @@ export class WalletTransaction {
     private readonly _type: TRANSACTION_TYPE,
 
     private readonly _amount: number,
-    private readonly _status: TRANSACTION_STATUS,
+    private _status: TRANSACTION_STATUS,
 
     private readonly _referenceId: string | null,
     private readonly _description: string | null,

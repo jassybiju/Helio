@@ -13,6 +13,9 @@ export const API_ENDPOINT = {
       TOGGLE: (id: string) => `/admin/doctor/${id}/status`,
       APPROVAL: (id: string) => `/admin/doctor/${id}/approval-status`,
     },
+    DASHBOARD : {
+      BASE : '/admin/dashboard/'
+    }
   },
   DOCTOR: {
     AUTH: {

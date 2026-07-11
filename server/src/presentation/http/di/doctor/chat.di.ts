@@ -1,4 +1,3 @@
-import { DoctorSendMessageUseCase } from "@application/use-cases/doctor/chat/sendMessage/DoctorSendMessageUseCase.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
 import { ChatMessageRepository } from "@infrastructure/database/repositories/ChatMessageRepository.ts";

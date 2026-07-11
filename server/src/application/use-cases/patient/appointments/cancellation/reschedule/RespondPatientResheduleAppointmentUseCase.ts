@@ -12,7 +12,6 @@ import { MESSAGE } from "@shared/constants/messages.ts";
 import { ConflictError } from "@shared/errors/ConflictError.ts";
 import { jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
 import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import { Appointment } from "@domain/entities/Appointment.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";

@@ -2,14 +2,14 @@
 
 import { socket } from "@/src/libs/socket";
 import { useEffect, useRef, useState } from "react";
-import { addPeer, createPeer, initPeer } from "../services/webrtc.service";
+import {  initPeer } from "../services/webrtc.service";
 import type Peer from "simple-peer";
 
 export const useWebRTC = (appointmentId: string) => {
   const [peer, setPeer] = useState<Peer.Instance>();
   const [remoteMediaStream, setRemoteMediaStream] = useState<MediaStream | null>();
-  const [isMicOn, setIsMicOn] = useState(true);
-  const [isCameraOn, setIsCameraOn] = useState(true);
+  // const [isMicOn, setIsMicOn] = useState(true);
+  // const [isCameraOn, setIsCameraOn] = useState(true);
   const userVideoRef = useRef<HTMLVideoElement>(null);
   const peerRef = useRef<Peer.Instance | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -107,7 +107,7 @@ export const useWebRTC = (appointmentId: string) => {
     return () => {
       leave();
     };
-  }, []);
+  }, [leave]);
 
   return { isJoined, join, leave, userVideoRef, streamRef, remoteMediaStream };
 };

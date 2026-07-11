@@ -1,5 +1,4 @@
 import type { IUserPresenceService } from "@application/ports/IUserPresenceService.ts";
-import type { Socket } from "socket.io";
 import type { AuthenticatedSocket } from "../types/AuthenticatedSocket.ts";
 
 // responsible to connection lifecyle

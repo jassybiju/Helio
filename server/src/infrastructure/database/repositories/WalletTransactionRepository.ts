@@ -99,6 +99,17 @@ export class WalletTransactionRepository
     );
   }
 
+  async findNWithWalletId(
+    walletId: string,
+    n: number
+  ): Promise<WalletTransaction[]> {
+    return super.find(
+      { wallet_id: walletId },
+      { limit: n, sort: { created_at: -1 } },
+      WalletTransactionMapper.toDomain
+    );
+  }
+
   async delete(id: string): Promise<void> {
     this._logger.info("Deleting Transacction by id ", { id });
     await super.delete(id);

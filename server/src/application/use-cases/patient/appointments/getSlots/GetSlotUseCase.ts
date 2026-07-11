@@ -14,11 +14,9 @@ import {
   SLOT_STATUS,
 } from "@domain/common/enums/doctorShift.enum.ts";
 import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import type { Review } from "@domain/entities/Review.ts";
 import type { IReviewRepository } from "@application/ports/repositories/IReviewRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";

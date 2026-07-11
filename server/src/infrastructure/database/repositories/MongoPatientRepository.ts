@@ -11,6 +11,7 @@ import { PatientMapper } from "../../../mappers/PatientMapper.ts";
 import { patientModel, type PatientDoc } from "../model/PatientModel.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { BaseRepository } from "./BaseRepository.ts";
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 
 export class PatientRepository
   extends BaseRepository<Patient, PatientDoc>
@@ -156,5 +157,13 @@ export class PatientRepository
       this._loggerService.error("Failed to fetch patients", error as Error);
       throw new AppError("Failed to fetch patients", HTTPStatus.INTERNAL_ERROR);
     }
+  }
+
+  async getRegistrationAnalytics(period: BOOKING_PERIOD) {
+    return super.getRegistrationAnalytics(period);
+  }
+
+  async count() {
+    return super.count({});
   }
 }

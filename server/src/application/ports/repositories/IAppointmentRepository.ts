@@ -116,4 +116,29 @@ export interface IAppointmentRepository {
     patientId: string,
     doctorId: string
   ): Promise<number>;
+
+  getDashboardStatistics(
+    period: BOOKING_PERIOD
+  ): Promise<IAppointmentDashboardStatistics>;
+}
+
+export interface IAppointmentDashboardStatistics {
+  totalAppointments: number;
+  completedAppointments: number;
+  upcomingAppointments: number;
+  todayAppointments: number;
+
+  appointmentAnalytics: {
+    label: string;
+    count: number;
+  }[];
+
+  appointmentStatusDistribution: {
+    confirmed: number;
+    ongoing: number;
+    completed: number;
+    cancelled: number;
+    noShow: number;
+    expired: number;
+  };
 }

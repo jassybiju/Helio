@@ -9,7 +9,6 @@ import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import { diff } from "util";
 
 export class GetChatListUseCase implements IGetChatListUseCase {
   constructor(

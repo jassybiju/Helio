@@ -13,7 +13,6 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import type { IGetDoctorProfileUseCase } from "@application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { GetDoctorProfileMapper } from "@application/use-cases/doctor/profile/getDoctorProfile/GetDoctorProfileMapper.ts";
 import type { IUpdateDoctorFeeUseCase } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorFeeUseCase.ts";
 import type {
   IUpdateDoctorInput,

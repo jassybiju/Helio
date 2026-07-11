@@ -1,3 +1,4 @@
+import { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 import type {
   ClientSession,
   Model,
@@ -102,5 +103,165 @@ export abstract class BaseRepository<
 
   protected async count(filter: QueryFilter<TModel>): Promise<number> {
     return await this._model.countDocuments(filter).session(this._session);
+  }
+  protected async getRegistrationAnalytics(
+    period: BOOKING_PERIOD,
+    dateField = "createdAt"
+  ): Promise<{ labels: string[]; count: number[] }> {
+    const now = new Date();
+
+    let startDate: Date;
+    let labels: string[];
+    let groupId: Record<string, unknown>;
+
+    switch (period) {
+      case BOOKING_PERIOD.WEEK: {
+        startDate = new Date(now);
+        startDate.setHours(0, 0, 0, 0);
+        startDate.setDate(now.getDate() - 6);
+
+        labels = Array.from({ length: 7 }, (_, i) => {
+          const d = new Date(startDate);
+          d.setDate(startDate.getDate() + i);
+
+          return d.toLocaleDateString("en-US", {
+            weekday: "short",
+          });
+        });
+
+        groupId = {
+          year: { $year: `$${dateField}` },
+          month: { $month: `$${dateField}` },
+          day: { $dayOfMonth: `$${dateField}` },
+        };
+
+        break;
+      }
+
+      case BOOKING_PERIOD.MONTH: {
+        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        const daysInMonth = new Date(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          0
+        ).getDate();
+
+        labels = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`);
+
+        groupId = {
+          day: {
+            $dayOfMonth: `$${dateField}`,
+          },
+        };
+
+        break;
+      }
+
+      case BOOKING_PERIOD.YEAR: {
+        startDate = new Date(now.getFullYear(), 0, 1);
+
+        labels = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        groupId = {
+          month: {
+            $month: `$${dateField}`,
+          },
+        };
+
+        break;
+      }
+    }
+
+    const data = await this.aggregate<{
+      _id: string;
+      total: number;
+    }>([
+      {
+        $match: {
+          is_deleted: false,
+          [dateField]: {
+            $gte: startDate,
+            $lte: now,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: groupId,
+          total: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $sort: {
+          "_id.year": 1,
+          "_id.month": 1,
+          "_id.day": 1,
+        },
+      },
+    ]);
+
+    const count = new Array(labels.length).fill(0);
+
+    for (const row of data) {
+      let index = -1;
+
+      switch (period) {
+        case BOOKING_PERIOD.WEEK: {
+          const d = new Date(row._id.year, row._id.month - 1, row._id.day);
+
+          index = Math.floor((d.getTime() - startDate.getTime()) / 86400000);
+          break;
+        }
+
+        case BOOKING_PERIOD.MONTH: {
+          index = row._id.day - 1;
+          break;
+        }
+
+        case BOOKING_PERIOD.YEAR: {
+          index = row._id.month - 1;
+          break;
+        }
+      }
+
+      if (index >= 0 && index < count.length) {
+        count[index] = row.total;
+      }
+    }
+
+    return {
+      labels,
+      count,
+    };
+  }
+
+  private getISOWeek(date: Date): number {
+    const tmp = new Date(date);
+
+    tmp.setHours(0, 0, 0, 0);
+
+    tmp.setDate(tmp.getDate() + 4 - (tmp.getDay() || 7));
+
+    const yearStart = new Date(tmp.getFullYear(), 0, 1);
+
+    return Math.ceil(
+      ((tmp.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
+    );
   }
 }

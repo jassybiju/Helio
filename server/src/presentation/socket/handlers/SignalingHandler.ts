@@ -38,7 +38,7 @@ export class SignalingHandler {
       }
     });
 
-    socket.on("webrtc:signal", ({ appointmentId, signal, to }) => {
+    socket.on("webrtc:signal", ({ signal, to }) => {
       this._io.to(to).emit("webrtc:signal", {
         signal,
         from: socket.id,
@@ -57,8 +57,8 @@ export class SignalingHandler {
   }
 
   private async _canJoinAppointment(
-    appointmentId: string,
-    userId: string
+    _appointmentId: string,
+    _userId: string
   ): Promise<boolean> {
     return true;
   }

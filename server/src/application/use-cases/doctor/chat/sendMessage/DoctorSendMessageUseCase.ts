@@ -9,7 +9,6 @@ import type { IDoctorSendMessageUseCase } from "@application/ports/use-cases/doc
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { ChatMessage } from "@domain/entities/ChatMessage.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 
 export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {

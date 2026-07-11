@@ -1,19 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { MessageSquare } from "lucide-react";
 import { ChatListType } from "../types/chat.type";
 
-interface Chat {
-  id: string;
-  doctorName: string;
-  lastMessage: string;
-  lastMessageAt: string;
-  unreadCount: number;
-  status: "active" | "expired";
-  daysRemaining?: string;
-}
+// interface Chat {
+//   id: string;
+//   doctorName: string;
+//   lastMessage: string;
+//   lastMessageAt: string;
+//   unreadCount: number;
+//   status: "active" | "expired";
+//   daysRemaining?: string;
+// }
 
 interface Props {
   activeId: string | null;
@@ -29,7 +28,7 @@ export default function ConsultationChatList({
   setActiveId,
 }: Props) {
   const [tab, setTab] = useState<"active" | "expired">("active");
-  console.log(list);
+  console.log(list,baseUrl);
   const chatList = tab === "active" ? list?.chats.active : list?.chats.expired;
   // const filtered = chats.filter((chat) => chat.status === tab);
 

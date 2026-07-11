@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { CheckCircle, Download, ArrowLeft } from 'lucide-react'
-import { usePatientCheckoutQuery } from '../hooks/usePatientCheckoutQuery'
-import { useParams } from 'next/navigation'
-import React from 'react'
+import Link from "next/link";
+import { CheckCircle, Download, ArrowLeft } from "lucide-react";
+import { usePatientCheckoutQuery } from "../hooks/usePatientCheckoutQuery";
+import { useParams } from "next/navigation";
+import React from "react";
+import { PDF_TYPE } from "@/src/types/pdf.type";
+import { useDownloadPDF } from "@/src/hooks/useDownloadPDF";
 
 const PaymentSuccessComponent = () => {
-  const {id} = useParams()
-  const {data} = usePatientCheckoutQuery(id as string)
-
-  
+  const { id } = useParams();
+  const { data } = usePatientCheckoutQuery(id as string);
+  const {mutate : downloadPDF} = useDownloadPDF()
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex flex-col">
-
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-2xl space-y-8">
@@ -26,8 +26,12 @@ const PaymentSuccessComponent = () => {
 
           {/* Heading */}
           <div className="text-center space-y-3">
-            <h1 className="text-4xl font-bold text-slate-900">Payment Successful!</h1>
-            <p className="text-lg text-slate-600">Your payment has been processed and confirmed.</p>
+            <h1 className="text-4xl font-bold text-slate-900">
+              Payment Successful!
+            </h1>
+            <p className="text-lg text-slate-600">
+              Your payment has been processed and confirmed.
+            </p>
           </div>
 
           {/* Blue Divider */}
@@ -39,8 +43,12 @@ const PaymentSuccessComponent = () => {
             <div className="flex items-start justify-between pb-6 border-b border-slate-200">
               <div>
                 {/* <p className="text-sm font-semibold text-blue-600 uppercase mb-2">Transaction ID: #PAY-2024-8847</p> */}
-                <h2 className="text-2xl font-bold text-slate-900">Consultation Booking</h2>
-                <p className="text-sm text-slate-600 mt-1">{data?.data.doctor.name} • {data?.data.doctor.specialization}</p>
+                <h2 className="text-2xl font-bold text-slate-900">
+                  Consultation Booking
+                </h2>
+                <p className="text-sm text-slate-600 mt-1">
+                  {data?.data.doctor.name} • {data?.data.doctor.specialization}
+                </p>
               </div>
               <span className="px-4 py-2 bg-green-100 text-green-700 text-xs font-bold rounded-lg uppercase">
                 Completed
@@ -50,26 +58,48 @@ const PaymentSuccessComponent = () => {
             {/* Payment Details Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <p className="text-xs font-semibold text-slate-600 uppercase mb-2">Amount Paid</p>
-                <p className="text-3xl font-bold text-slate-900">${data?.data.appointment.totalAmount}</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
+                  Amount Paid
+                </p>
+                <p className="text-3xl font-bold text-slate-900">
+                  ${data?.data.appointment.totalAmount}
+                </p>
               </div>
               <div>
-                <p className="text-xs font-semibold text-slate-600 uppercase mb-2">Payment Date</p>
-                <p className="text-lg font-semibold text-slate-900">{new Date(data?.data.createdAt).toLocaleString()}</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
+                  Payment Date
+                </p>
+                <p className="text-lg font-semibold text-slate-900">
+                  {new Date(data?.data.createdAt).toLocaleString()}
+                </p>
               </div>
               {/* <div>
                 <p className="text-xs font-semibold text-slate-600 uppercase mb-2">Payment Method</p>
                 <p className="text-lg font-semibold text-slate-900">Credit Card (Visa ending in 4242)</p>
               </div> */}
               <div>
-                <p className="text-xs font-semibold text-slate-600 uppercase mb-2">Appointment Date</p>
-                <p className="text-lg font-semibold text-slate-900">{new Date(data?.data.appointment.startTime ?? '').toLocaleString()}</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
+                  Appointment Date
+                </p>
+                <p className="text-lg font-semibold text-slate-900">
+                  {new Date(
+                    data?.data.appointment.startTime ?? "",
+                  ).toLocaleString()}
+                </p>
               </div>
             </div>
 
             {/* Action Buttons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-slate-200">
-              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+              <button
+                onClick={() =>
+                  downloadPDF({
+                    type: PDF_TYPE.PATIENT_INVOICE,
+                    resource_id: data?.data.appointmentId,
+                  })
+                }
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+              >
                 <Download className="w-5 h-5" />
                 Download Receipt
               </button>
@@ -89,7 +119,8 @@ const PaymentSuccessComponent = () => {
               Return to Dashboard
             </Link>
             <p className="text-sm text-slate-600 max-w-md mx-auto">
-              A confirmation email has been sent to your registered email address with all payment details and appointment information.
+              A confirmation email has been sent to your registered email
+              address with all payment details and appointment information.
             </p>
           </div>
         </div>
@@ -101,42 +132,92 @@ const PaymentSuccessComponent = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <p className="text-sm font-semibold text-slate-900 mb-4">Helio</p>
-              <p className="text-sm text-slate-600">Modern healthcare for the digital age. Patient care, redesigned with empathy and technology.</p>
+              <p className="text-sm text-slate-600">
+                Modern healthcare for the digital age. Patient care, redesigned
+                with empathy and technology.
+              </p>
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-600 uppercase mb-4">Services</p>
+              <p className="text-xs font-semibold text-slate-600 uppercase mb-4">
+                Services
+              </p>
               <ul className="space-y-2 text-sm text-slate-600">
-                <li><a href="#" className="hover:text-slate-900">Telemedicine</a></li>
-                <li><a href="#" className="hover:text-slate-900">Specialists</a></li>
-                <li><a href="#" className="hover:text-slate-900">Mental Health</a></li>
-                <li><a href="#" className="hover:text-slate-900">Pediatrics</a></li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Telemedicine
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Specialists
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Mental Health
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Pediatrics
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-600 uppercase mb-4">Support</p>
+              <p className="text-xs font-semibold text-slate-600 uppercase mb-4">
+                Support
+              </p>
               <ul className="space-y-2 text-sm text-slate-600">
-                <li><a href="#" className="hover:text-slate-900">Help Center</a></li>
-                <li><a href="#" className="hover:text-slate-900">Contact Us</a></li>
-                <li><a href="#" className="hover:text-slate-900">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-slate-900">Terms of Service</a></li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Help Center
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Contact Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-slate-900">
+                    Terms of Service
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-600 uppercase mb-4">Connect</p>
+              <p className="text-xs font-semibold text-slate-600 uppercase mb-4">
+                Connect
+              </p>
               <div className="flex gap-4">
-                <a href="#" className="text-slate-600 hover:text-slate-900">🌐</a>
-                <a href="#" className="text-slate-600 hover:text-slate-900">↗️</a>
-                <a href="#" className="text-slate-600 hover:text-slate-900">✉️</a>
+                <a href="#" className="text-slate-600 hover:text-slate-900">
+                  🌐
+                </a>
+                <a href="#" className="text-slate-600 hover:text-slate-900">
+                  ↗️
+                </a>
+                <a href="#" className="text-slate-600 hover:text-slate-900">
+                  ✉️
+                </a>
               </div>
             </div>
           </div>
           <div className="border-t border-slate-200 pt-8">
-            <p className="text-sm text-slate-600 text-center">© 2024 Helio Inc. All rights reserved. Made for the future of care.</p>
+            <p className="text-sm text-slate-600 text-center">
+              © 2024 Helio Inc. All rights reserved. Made for the future of
+              care.
+            </p>
           </div>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default PaymentSuccessComponent
+export default PaymentSuccessComponent;

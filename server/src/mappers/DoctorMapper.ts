@@ -28,7 +28,7 @@ export class DoctorMapper {
       raw.google_id as string,
       raw.is_verified,
       raw.is_blocked,
-      raw.createdAt,
+      new Date(raw.createdAt),
       raw.updatedAt,
       raw.verification_history?.map((x) => ({
         status: x.status as DOCTOR_VERIFICATION_STATUS,

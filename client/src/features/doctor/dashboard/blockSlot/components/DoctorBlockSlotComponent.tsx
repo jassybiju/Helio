@@ -1,18 +1,18 @@
 "use client";
 
 import TableComponent from "@/src/components/TableComponent";
-import { Calendar, Lightbulb } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import React from "react";
 import { useDoctorBlockSlot } from "../hooks/useDoctorBlockSlot";
 
 const DoctorBlockSlotComponent = () => {
   const { register, errors, onSubmit, column, data } = useDoctorBlockSlot();
-  console.log(errors)
+  console.log(errors);
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="grid grid-cols-3 gap-8">
-        {/* Add New Slot Form */}   
+        {/* Add New Slot Form */}
         <div className="bg-white col-span-1 rounded-lg border border-slate-200 p-8 space-y-6">
           <div className="flex items-center gap-2">
             <span className="text-2xl"> ➕ </span>
@@ -22,7 +22,6 @@ const DoctorBlockSlotComponent = () => {
           </div>
 
           <div className="space-y-4">
-
             {/* Start and End Time */}
             <div>
               <div>

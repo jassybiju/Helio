@@ -18,6 +18,7 @@ export class SocketServer {
           "http://localhost:3000",
           "http://helixo.com:3000",
           "http://doctor.helixo.com:3000",
+          "http://admin.helixo.com:3000",
         ],
         credentials: true,
       },
@@ -36,10 +37,7 @@ export class SocketServer {
       console.log("Connected", socket.id);
 
       socket.join(`user:${socket.data.user.role}:${socket.data.user.id}`);
-      console.log(
-        "USER JOINED",
-        `user:${socket.data.user.role}:${socket.data.user.id}`
-      );
+
       logger.info(
         "USER JOINED",
         `user:${socket.data.user.role}:${socket.data.user.id}`

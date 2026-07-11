@@ -1,9 +1,10 @@
-import type { Server, Socket } from "socket.io";
+import type { Server } from "socket.io";
 import jwt from "jsonwebtoken";
 export const socketAuthMiddleware: Parameters<Server["use"]>[0] = (
   socket,
   next
 ) => {
+  console.log("++++++++++ASB");
   try {
     const cookieHeader = socket.handshake.headers.cookie;
 
@@ -30,7 +31,6 @@ export const socketAuthMiddleware: Parameters<Server["use"]>[0] = (
       id: payload.id,
       role: payload.role,
     };
-
     next();
   } catch {
     next(new Error("Unauthroized"));

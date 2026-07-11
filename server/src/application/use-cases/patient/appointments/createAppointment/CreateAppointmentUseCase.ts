@@ -11,10 +11,13 @@ import type { IAppointmentRepository } from "@application/ports/repositories/IAp
 import { AppError } from "@shared/errors/AppError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
+import { istToUtc, jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
 import { Appointment } from "@domain/entities/Appointment.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
+import type { INotificationService } from "@application/ports/services/INotificationService.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { IReviewRepository } from "@application/ports/repositories/IReviewRepository.ts";
+import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
 
 export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
   constructor(
@@ -22,7 +25,8 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _doctorShiftRepo: IDoctorShiftRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
-    private readonly _idGenerator: IIDGenerator
+    private readonly _idGenerator: IIDGenerator,
+    private readonly _notificationService: INotificationService,
   ) {}
   async execute(
     patientId: string,
@@ -142,6 +146,12 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
 
     await this._appointmentRepo.create(appointment);
 
+    this._notificationService.notify(
+      data.doctorId,
+      USER_ROLES.DOCTOR,
+      `New Appointment created by ${patientId}`,
+      "Appointment created for " + appointment.startTime.toDateString()
+    );
     return {
       appointmentId: APPOINTMENTID,
     };

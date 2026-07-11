@@ -11,6 +11,7 @@ import { DoctorMapper } from "../../../mappers/DoctorMapper.ts";
 import { BaseRepository } from "./BaseRepository.ts";
 import type { ClientSession, QueryFilter } from "mongoose";
 import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 
 export class MongoDoctorRepository
   extends BaseRepository<Doctor, DoctorDoc>
@@ -186,5 +187,13 @@ export class MongoDoctorRepository
       doctors,
       totalCount,
     };
+  }
+
+  async getRegistrationAnalytics(period: BOOKING_PERIOD) {
+    return super.getRegistrationAnalytics(period);
+  }
+
+  async count() {
+    return super.count({});
   }
 }

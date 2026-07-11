@@ -67,6 +67,15 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         status: APPOINTMENT_STATUS.COMPLETED,
       });
 
+    const wallet = await this._walletRepo.findByUserId(doctor.id);
+    if (!wallet) {
+      throw new NotFoundError(MESSAGE.WALLET_NOT_FOUND);
+    }
+    const transactions = await this._transactionRepo.findNWithWalletId(
+      wallet.id,
+      5
+    );
+    console.log(transactions, wallet);
     return {
       summary: {
         todayAppointments: appointments.length,
@@ -79,14 +88,19 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         todaysCompletedAppointments: appointments.filter(
           (appointment) => appointment.status === APPOINTMENT_STATUS.COMPLETED
         ).length,
-        walletBalance: 1,
+        walletBalance: wallet.balance,
       },
       bookingTrend: {
         period: period,
         labels: bookingTrend.map((x) => x.label),
         values: bookingTrend.map((x) => x.count),
       },
-      transactions: [],
+      transactions: transactions.map((trans) => ({
+        id: trans.id,
+        date: trans.createdAt.toDateString(),
+        type: trans.type,
+        description: trans.description ?? "",
+      })),
     };
   }
 }

@@ -1,4 +1,3 @@
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetAllSpecialityUseCase } from "@application/ports/use-cases/IGetAllSpecialityUseCase.ts";

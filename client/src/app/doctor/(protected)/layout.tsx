@@ -1,6 +1,9 @@
+'use client'
+
+
 import ProtectedLayout from "@/src/layout/ProtectedLayout";
 import { USER_ROLES } from "@/src/types/user.types";
-import React from "react";
+import React, { useEffect } from "react";
 
 type PropType = {
   children: React.ReactNode;

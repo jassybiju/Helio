@@ -7,7 +7,7 @@ import { invalidateQuery } from "./queryClient";
 
 const isServer = typeof window === "undefined";
 
-const apiClient = axios.create({
+export const apiClient = axios.create({
   baseURL: isServer
     ? process.env.SERVER_BACKEND_URL
     : process.env.NEXT_PUBLIC_BACKEND_URL,

@@ -6,12 +6,10 @@ import type { IAppointmentRepository } from "@application/ports/repositories/IAp
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { th } from "zod/locales";
 import { ConflictError } from "@shared/errors/ConflictError.ts";
 import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
 import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
 import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
-import type { IGetSlotDTO } from "../../getSlots/IGetSlotDTO.ts";
 import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
 import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
 import {

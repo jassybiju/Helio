@@ -13,7 +13,6 @@ import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
 import { utcToIst } from "@shared/utils/date.utils.ts";
 import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { SLOT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
 
 type SlotWithUnits = DoctorSlot;
@@ -29,7 +28,7 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
   ) {}
   async execute(
     doctorId: string,
-    params: IDoctorSlotFilters
+    _params: IDoctorSlotFilters
   ): Promise<Record<string, SlotWithUnits[]>> {
     this._logger.info("Get Doctor Slots Attempt", { doctorId });
     // const { page, limit } = params;

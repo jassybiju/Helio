@@ -4,7 +4,6 @@ import {
   APPOINTMENT_STATUS,
   CONSULTATION_TYPE,
 } from "@/src/types/appointment.types";
-import { appointmentService } from "../../patient/services/appointment.service";
 
 export const doctorAppointmentService = {
   getAppointments: ({

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { doctorDashboardService } from "../../../services/dashboard.service";
 
-export const useDoctorDashboardQuery = () => {
+export const useDoctorDashboardQuery = (period : string) => {
   return useQuery({
-    queryKey: ["dashboard"],
-    queryFn: doctorDashboardService.getDashboard,
+    queryKey: ["dashboard",period],
+    queryFn:()=>doctorDashboardService.getDashboard(period),
   });
 };

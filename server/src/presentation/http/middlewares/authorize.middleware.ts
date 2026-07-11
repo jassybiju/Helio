@@ -4,13 +4,14 @@ import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import type { NextFunction, Request, Response } from "express";
 
-export const authorizeMiddleware = (role: USER_ROLES) => {
+export const authorizeMiddleware = (role: USER_ROLES | USER_ROLES[]) => {
+  const allowedRoles = Array.isArray(role) ? role : [role];
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) {
       throw new AppError(MESSAGE.NOT_AUTHENTICATED, HTTPStatus.UNAUTHORIZED);
     }
-
-    if (req.user.role !== role) {
+    console.log(allowedRoles, req.user.role);
+    if (!allowedRoles.includes(req.user.role)) {
       throw new AppError(MESSAGE.NOT_AUTHORIZED, HTTPStatus.FORBIDDEN);
     }
 

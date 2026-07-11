@@ -5,10 +5,8 @@ import { ModalProps } from '@/src/layout/ModalProvider'
 import { AlertTriangle, Check, X } from 'lucide-react'
 import React, { useState } from 'react'
 import PatientAppointmentRescheduleModal from './PatientAppointmentRescheduleModal'
-import { useCancelAndRefundAppointmentMutation } from '../hooks/useCancelAndRefundAppointmentMutation'
 import { toast } from 'react-toastify'
 import { useCancelPatientAppointmentMutation } from '../hooks/useCancelPatientAppointment'
-import { useRescheduleAppointmentMutation } from '../hooks/useRescheduleAppointmentMutation'
 import { useReschedulePatientAppointmentMutation } from '../hooks/useReschedulePatientAppointmentMutation'
 
 const PatientAppointmentCancellationModal = ({close, date, fee, appointmentId}: ModalProps & {date : Date, fee : number,appointmentId : string}) => {

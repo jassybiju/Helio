@@ -13,17 +13,13 @@ import {
   User,
   AlertTriangle,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState,  } from "react";
 import { useGetPatientsAppointmentQuery } from "../hooks/useGetPatientsAppointmentQuery";
 import { APPOINTMENT_STATUS } from "@/src/types/appointment.types";
 import { useGetPatientLiveQueueQuery } from "../hooks/useGetPatientLiveQueueQuery";
 import { useModal } from "@/src/hooks/useModal";
 import PatientAppointmentCancellationConfirmationModal from "./PatientAppointmentCancellationConfirmationModal";
-import { socket } from "@/src/libs/socket";
-import { invalidateQuery } from "@/src/libs/queryClient";
 import VideoCall from "@/src/components/VideoCall";
-import { ConfirmModal } from "@/src/components/ConfirmModal";
-import { toast } from "react-toastify";
 import { useCancelPatientAppointmentMutation } from "../hooks/useCancelPatientAppointment";
 import PatientAppointmentCancellationModal from "./PatientAppointmentCancellationModal";
 
@@ -66,10 +62,8 @@ export default function PatientAppointmentDetailsComponent() {
   const { data: data } = useGetPatientsAppointmentQuery(appointmentId);
   const { data: liveData } = useGetPatientLiveQueueQuery(appointmentId);
   const { open } = useModal();
-  const [queue, setQueue] = useState<QueueInfo | null>(
-    queueDataMap[appointmentId] || null,
-  );
-  const [doctorOnline, setDoctorOnline] = useState<boolean>(false);
+ 
+  const [doctorOnline, _setDoctorOnline] = useState<boolean>(false);
 
   const appointment = data?.data;
 

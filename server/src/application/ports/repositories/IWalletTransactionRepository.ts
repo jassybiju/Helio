@@ -30,4 +30,6 @@ export interface IWalletTransactionRepository {
     walletId: string,
     params: ITransactionFilter
   ): Promise<{ transactions: WalletTransaction[]; totalCount: number }>;
+
+  findNWithWalletId(walletId: string, n: number): Promise<WalletTransaction[]>;
 }

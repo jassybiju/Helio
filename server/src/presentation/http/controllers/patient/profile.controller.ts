@@ -11,7 +11,6 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { GetPatientProfileMapper } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileMapper.ts";
 import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.ts";
 import type { IAddPatientAllergenUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientAllergenUseCase.ts";
 import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";

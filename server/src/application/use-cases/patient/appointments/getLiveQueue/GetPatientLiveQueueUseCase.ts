@@ -28,7 +28,7 @@ export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
       patientId,
     });
 
-    const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
+    // const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
     const appointment = await this._appointmentRepo.findById(appointmentId);
     if (!appointment) {
       throw new NotFoundError(MESSAGE.APPOINTMENT_NOT_FOUND);
@@ -94,19 +94,19 @@ export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
       appointment.endTime.getTime() - appointment.startTime.getTime();
     const slotDurationSeconds = slotDurationMs / 1000;
 
-    const elapsedTime =
-      Date.now() - new Date(appointment.consultationStartedAt!).getTime();
+    // const elapsedTime =
+    //   Date.now() - new Date(appointment.consultationStartedAt!).getTime();
 
-    const consultationStartedMs = new Date(
-      new Date(referenceAppointment.consultationStartedAt!).getTime() -
-        TWO_DAYS_MS
-    ).getTime();
-    const currentAppointmentEndTimeMs = new Date(
-      new Date(appointment.endTime).getTime() - TWO_DAYS_MS
-    ).getTime();
-    const currentAppointmentStartTimeMs = new Date(
-      new Date(appointment.startTime).getTime() - TWO_DAYS_MS
-    ).getTime();
+    // const _consultationStartedMs = new Date(
+    //   new Date(referenceAppointment.consultationStartedAt!).getTime() -
+    //     TWO_DAYS_MS
+    // ).getTime();
+    // const _currentAppointmentEndTimeMs = new Date(
+    //   new Date(appointment.endTime).getTime() - TWO_DAYS_MS
+    // ).getTime();
+    // const _currentAppointmentStartTimeMs = new Date(
+    //   new Date(appointment.startTime).getTime() - TWO_DAYS_MS
+    // ).getTime();
 
     const positionDifference = queueNumber - queueNumberOfOngoingAppointment;
 

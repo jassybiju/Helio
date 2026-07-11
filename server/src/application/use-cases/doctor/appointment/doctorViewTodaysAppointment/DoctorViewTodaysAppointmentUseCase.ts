@@ -13,7 +13,6 @@ import { istToUtc, utcToIst } from "@shared/utils/date.utils.ts";
 import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
-import type { Patient } from "@domain/entities/Patient.ts";
 
 export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppointmentUseCase {
   constructor(

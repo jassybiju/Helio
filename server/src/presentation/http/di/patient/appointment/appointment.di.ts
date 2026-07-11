@@ -28,6 +28,10 @@ import { RespondPatientCancelAndRefundAppointmentUseCase } from "@application/us
 import { PatientAppointmentCancellationUseCase } from "@application/use-cases/patient/appointments/cancellation/patientCancel/PatientAppointmentCancellationUseCase.ts";
 import { PatientRescheduleAppointmentUseCase } from "@application/use-cases/patient/appointments/cancellation/reschedulePatient/PatientRescheduleAppointmentUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { SocketRealTimeNotifier } from "@infrastructure/services/SocketRealTimeNotifier.ts";
+import { NotificationService } from "@application/service/NotificationService.ts";
+import { NotificationRepository } from "@infrastructure/database/repositories/NotificationRepository.ts";
+import { ReviewRepository } from "@infrastructure/database/repositories/ReviewRepository.ts";
 
 const logger = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
@@ -42,7 +46,7 @@ const walletRepo = new WalletRepository(logger);
 const transactionRepo = new WalletTransactionRepository(logger);
 const consultationRepo = new ConsultationRepository(logger);
 const labRepo = new LabReportRepository(logger);
-
+const notificationRepo = new NotificationRepository(logger);
 const slotService = new SlotGenerator();
 
 const uow = new MongoUnitOfWork();
@@ -56,13 +60,20 @@ const walletService = new WalletPaymentService(
 );
 
 const razorpayService = new RazorpayPaymentService(razorpay);
+const realTimeNotifier = new SocketRealTimeNotifier();
+const notificationService = new NotificationService(
+  notificationRepo,
+  idGenerator,
+  realTimeNotifier
+);
 
 const createAppointmentUseCase = new CreateAppointmentUseCase(
   logger,
   doctorRepo,
   doctorShiftRepo,
   appointmentRepo,
-  idGenerator
+  idGenerator,
+  notificationService,
 );
 
 const getAppointment = new GetAppointmentUseCase(

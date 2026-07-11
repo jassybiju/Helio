@@ -20,7 +20,6 @@ import {
 import ViewHistoryDetailModal from "../components/ViewHistoryDetailModal";
 import { socket } from "@/src/libs/socket";
 import { invalidateQuery } from "@/src/libs/queryClient";
-import ViewPDFModal from "@/src/components/ViewPDFModal";
 
 interface LabTest {
   id: string;

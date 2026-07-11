@@ -2,7 +2,6 @@ import type { IPatientRepository } from "@application/ports/repositories/IPatien
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.ts";
-import type { Patient } from "@domain/entities/Patient.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";

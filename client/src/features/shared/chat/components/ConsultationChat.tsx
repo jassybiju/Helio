@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Clock, Paperclip, Send, Smile } from "lucide-react";
+import { Clock,  Send,  } from "lucide-react";
 import { IDoctorGetChat } from "@/src/features/doctor/services/chat.service";
-import { useDoctorSendMessageMutation } from "@/src/features/doctor/dashboard/chat/hooks/useDoctorSendMessageMutation";
 import { SendeeType } from "../types/chat.type";
-import { socket } from "@/src/libs/socket";
-import { toast } from "react-toastify";
 
-interface Message {
-  id: string;
-  sender: "doctor" | "patient";
-  content: string;
-  timestamp: string;
-}
+// interface Message {
+//   id: string;
+//   sender: "doctor" | "patient";
+//   content: string;
+//   timestamp: string;
+// }
 
 interface Props {
   chatId: string | null;

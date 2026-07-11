@@ -8,7 +8,6 @@ import type { IRespondPatientCancelAndRefundAppointment } from "@application/por
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { ConflictError } from "@shared/errors/ConflictError.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { app } from "../../../../../../app.ts";
 import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";

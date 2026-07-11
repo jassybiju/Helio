@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { usePatientGetChatListQuery } from "./usePatientrGetChatListQuery";
 import { usePatientGetChatQuery } from "./usePatientGetChatQuery";
 import { usePatientSendMessageMutation } from "./usePatientSendMessageMutation";

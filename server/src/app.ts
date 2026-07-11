@@ -23,6 +23,9 @@ import { adminSpecialtyRouter } from "./presentation/http/routes/admin/specialty
 import { walletRouter } from "./presentation/http/routes/wallet.routes.ts";
 import { expireAppointmentsUseCase } from "./presentation/http/di/jobs/appointmentExpiry.di.ts";
 import { appointmentExpiryJob } from "@infrastructure/jobs/appointmentExpiry.job.ts";
+import { pdfRouter } from "./presentation/http/routes/pdf.routes.ts";
+import { notificationRouter } from "./presentation/http/routes/notification.routes.ts";
+import { adminDashboardRoutes } from "./presentation/http/routes/admin/dashboard.routes.ts";
 
 export const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -63,12 +66,15 @@ app.use(`${api}auth`, authRouter);
 app.use(`${api}admin/patient`, adminPatientRouter);
 app.use(`${api}admin/specialty`, adminSpecialtyRouter);
 app.use(`${api}admin/doctor`, adminDoctorRouter);
+app.use(`${api}admin/dashboard`, adminDashboardRoutes);
 
 app.use(`${api}doctor`, doctorRouter);
 app.use(`${api}patient`, patientRouter);
 app.get(`${api}specialty`, specialityController.getAll);
 
 app.use(`${api}wallet`, walletRouter);
+app.use(`${api}pdf`, pdfRouter);
+app.use(`${api}notification`, notificationRouter);
 
 app.get("/health", (req, res) => {
   console.log("Api is health");
@@ -77,7 +83,7 @@ app.get("/health", (req, res) => {
 
 appointmentExpiryJob(expireAppointmentsUseCase);
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response, _next: NextFunction) => {
   return res.status(HTTPStatus.NOT_FOUND).json(errorResponse("No Endpoint"));
 });
 

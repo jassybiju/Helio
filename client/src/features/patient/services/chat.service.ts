@@ -1,7 +1,6 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { API_ENDPOINT } from "@/src/types/api-endpoints.constants";
 import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
-import { USER_ROLES } from "@/src/types/user.types";
 import {
   ChatListType,
   ChatType,

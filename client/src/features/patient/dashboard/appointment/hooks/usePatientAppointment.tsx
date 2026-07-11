@@ -5,8 +5,10 @@ import { IGetAllPatientAppointments } from "../../../services/appointment.servic
 import { useGetAllPatientsQuery } from "./useGetAllPatientsQuery";
 import { ColumnType } from "@/src/components/TableComponent";
 import { APPOINTMENT_STATUS } from "@/src/types/appointment.types";
-import { Eye } from "lucide-react";
+import { Download, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { PDF_TYPE } from "@/src/types/pdf.type";
+import { useDownloadPDF } from "@/src/hooks/useDownloadPDF";
 
 const LIMIT = 2;
 export const usePatientAppointment = () => {
@@ -21,15 +23,11 @@ export const usePatientAppointment = () => {
     limit: LIMIT,
     status: statusFilter,
   });
-
+  const {mutate : downloadPDF} = useDownloadPDF()
   const totalPages = Math.ceil((data?.data.totalCount ?? 0) / LIMIT);
-  console.log("tp", totalPages, LIMIT, data?.data.totalCount);
 
-  const appointmentsWithActionRequired = data?.data.appointments.filter(
-    (a) =>
-      a.appointment.status === APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED,
-  )??[];
-  console.log(appointmentsWithActionRequired,12, APPOINTMENT_STATUS.DOCTOR_CANCELLATION_REQUESTED);
+  const appointmentsWithActionRequired =
+    data?.data.cancelledAppointments
   const column: ColumnType<IGetAllPatientAppointments["appointments"][0]> = [
     {
       key: "id",
@@ -132,6 +130,8 @@ export const usePatientAppointment = () => {
           [APPOINTMENT_STATUS.NO_SHOW]: "bg-slate-200 text-slate-700",
 
           [APPOINTMENT_STATUS.EXPIRED]: "bg-slate-200 text-slate-700",
+          [APPOINTMENT_STATUS.PENDING] : '',
+          [APPOINTMENT_STATUS.SKIPPED] : '',
         };
 
         const label =
@@ -143,7 +143,7 @@ export const usePatientAppointment = () => {
           <div className="flex flex-col">
             <span
               className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                styles[status]
+                styles[status as APPOINTMENT_STATUS] 
               }`}
             >
               {label}
@@ -192,6 +192,18 @@ export const usePatientAppointment = () => {
             onClick={() => router.push("/dashboard/appointment/" + row.id)}
           >
             <Eye className="h-4 w-4" />
+          </button>
+          <button
+            className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+            title="View Appointment"
+            onClick={() =>
+              downloadPDF({
+                type: PDF_TYPE.PATIENT_APPOINTMENT,
+                resource_id: row.id,
+              })
+            }
+          >
+            <Download className="h-4 w-4" />
           </button>
         </div>
       ),

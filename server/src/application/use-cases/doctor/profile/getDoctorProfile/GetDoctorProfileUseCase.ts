@@ -1,11 +1,9 @@
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IGetDoctorProfileUseCase } from "@application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { GetDoctorBlockSlotMapper } from "../../slot/getDoctorBlockSlot/GetDoctorBlockSlotMapper.ts";
 import { GetDoctorProfileMapper } from "./GetDoctorProfileMapper.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 

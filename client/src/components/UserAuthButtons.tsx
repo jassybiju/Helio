@@ -7,9 +7,11 @@ import { useLogout } from "../features/auth/hooks/useLogout";
 import { useAuth } from "../features/auth/hooks/useAuth";
 import { Bell, ChevronDown, UserIcon } from "lucide-react";
 import { USER_ROLES } from "../types/user.types";
+import { NotificationComponent } from "./NotificationComponent";
 
 const UserAuthButtons = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false)
   const data = useAuth();
   const { logout } = useLogout();
   if (data.isLoading && !data.user) {
@@ -20,11 +22,17 @@ const UserAuthButtons = () => {
       <div className="flex items-center gap-4">
         {data?.user?.email ? (
           <>
-            {/* Notifications */}
-            <button className="relative p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
+           
+            <div className="relative">
+              <button
+                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Bell className="w-6 h-6" />
+                {/* <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span> */}
+              </button>
+              <NotificationComponent isOpen={notificationsOpen} onClose={() => setNotificationsOpen(false)} />
+            </div>
 
             {/* User Menu */}
             <div className="relative">
@@ -50,12 +58,14 @@ const UserAuthButtons = () => {
                   >
                     Home
                   </Link>
+                  {data.user.role === USER_ROLES.DOCTOR && 
                   <Link
                     href={data.user.role === USER_ROLES.PATIENT ? '/dashboard' : "/"}
                     className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
                   >
                     Dashboard
                   </Link>
+                  }
                   <Link
                     href="/dashboard/appointment"
                     className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"

@@ -17,6 +17,6 @@ export interface IGetDoctorDashboardDTO {
     id: string;
     date: string;
     type: string;
-    descriptions: string;
+    description: string;
   }[];
 }

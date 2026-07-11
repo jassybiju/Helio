@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CreditCard, Plus, Calendar, Download, ArrowUpRight, ArrowDownLeft, MoreVertical, Wallet, Eye, EyeOff, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CreditCard, Plus, Calendar, Download, ArrowUpRight, ArrowDownLeft, MoreVertical, Wallet, Eye, EyeOff,  } from 'lucide-react'
 import { useGetWalletQuery } from '../hooks/useGetWalletQuery'
 import { useModal } from '@/src/hooks/useModal'
 import AddMoneyModal from './AddMoneyModal'
@@ -85,26 +85,26 @@ export default function WalletPage() {
   const {open} = useModal() 
 
 
-  const filteredTransactions = transactions.filter(t => {
-    if (activeFilter === 'income') return t.type === 'credit'
-    if (activeFilter === 'expense') return t.type === 'debit'
-    return true
-  })
+  // const filteredTransactions = transactions.filter(t => {
+  //   if (activeFilter === 'income') return t.type === 'credit'
+  //   if (activeFilter === 'expense') return t.type === 'debit'
+  //   return true
+  // })
 
   const totalPages = Math.ceil((data?.data.totalCount ?? 0 )/ ITEMS_PER_PAGE)
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  // const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
-    }
-  }
+  // const handleNextPage = () => {
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 1)
+  //   }
+  // }
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-    }
-  }
+  // const handlePreviousPage = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1)
+  //   }
+  // }
 
   const handleFilterChange = (filter: 'all' | 'income' | 'expense') => {
     setActiveFilter(filter)

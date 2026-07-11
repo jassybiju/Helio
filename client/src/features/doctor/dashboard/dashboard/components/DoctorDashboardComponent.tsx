@@ -15,22 +15,11 @@ import {
   Clock,
   CheckCircle,
   Users,
-  RotateCw,
   Wallet,
-  Search,
-  Bell,
   Settings,
-  LogOut,
-  Plus,
-  Menu,
-  AlertCircle,
-  TrendingUp,
   Download,
-  Zap,
   FileText,
-  MessageSquare,
   BarChart3,
-  Grid,
   ChevronRight,
 } from "lucide-react";
 import ClayWrapper from "@/src/components/ui/ClayWrapper";
@@ -87,58 +76,58 @@ const kpiCards = [
   },
 ];
 
-const appointmentTrendData = [
-  { date: "Mon", bookings: 12 },
-  { date: "Tue", bookings: 15 },
-  { date: "Wed", bookings: 18 },
-  { date: "Thu", bookings: 14 },
-  { date: "Fri", bookings: 22 },
-  { date: "Sat", bookings: 16 },
-  { date: "Sun", bookings: 10 },
-];
+// const appointmentTrendData = [
+//   { date: "Mon", bookings: 12 },
+//   { date: "Tue", bookings: 15 },
+//   { date: "Wed", bookings: 18 },
+//   { date: "Thu", bookings: 14 },
+//   { date: "Fri", bookings: 22 },
+//   { date: "Sat", bookings: 16 },
+//   { date: "Sun", bookings: 10 },
+// ];
 
-const recentTransactions = [
-  {
-    id: 1,
-    date: "Today 2:30 PM",
-    patientName: "Sarah Johnson",
-    consultation: "Video Consultation",
-    amount: "$45.00",
-    status: "Credited",
-  },
-  {
-    id: 2,
-    date: "Today 1:15 PM",
-    patientName: "Michael Chen",
-    consultation: "Audio Consultation",
-    amount: "$30.00",
-    status: "Credited",
-  },
-  {
-    id: 3,
-    date: "Yesterday 4:20 PM",
-    patientName: "Emily Davis",
-    consultation: "Follow-up Video",
-    amount: "$35.00",
-    status: "Credited",
-  },
-  {
-    id: 4,
-    date: "Yesterday 10:45 AM",
-    patientName: "David Wilson",
-    consultation: "Video Consultation",
-    amount: "-$200.00",
-    status: "Withdrawal",
-  },
-  {
-    id: 5,
-    date: "2 days ago 3:30 PM",
-    patientName: "Lisa Anderson",
-    consultation: "Audio Consultation",
-    amount: "$25.00",
-    status: "Credited",
-  },
-];
+// const recentTransactions = [
+//   {
+//     id: 1,
+//     date: "Today 2:30 PM",
+//     patientName: "Sarah Johnson",
+//     consultation: "Video Consultation",
+//     amount: "$45.00",
+//     status: "Credited",
+//   },
+//   {
+//     id: 2,
+//     date: "Today 1:15 PM",
+//     patientName: "Michael Chen",
+//     consultation: "Audio Consultation",
+//     amount: "$30.00",
+//     status: "Credited",
+//   },
+//   {
+//     id: 3,
+//     date: "Yesterday 4:20 PM",
+//     patientName: "Emily Davis",
+//     consultation: "Follow-up Video",
+//     amount: "$35.00",
+//     status: "Credited",
+//   },
+//   {
+//     id: 4,
+//     date: "Yesterday 10:45 AM",
+//     patientName: "David Wilson",
+//     consultation: "Video Consultation",
+//     amount: "-$200.00",
+//     status: "Withdrawal",
+//   },
+//   {
+//     id: 5,
+//     date: "2 days ago 3:30 PM",
+//     patientName: "Lisa Anderson",
+//     consultation: "Audio Consultation",
+//     amount: "$25.00",
+//     status: "Credited",
+//   },
+// ];
 
 const quickActions = [
   { icon: BarChart3, label: "Manage Availability", color: "blue" },
@@ -185,15 +174,20 @@ const getColorClasses = (color: string) => {
 };
 
 const DoctorDashboardComponent = () => {
-  const { data, isLoading } = useDoctorDashboardQuery();
+  const [selectedPeriod, setSelectedPeriod] = useState("WEEK");
+  const { data, isLoading } = useDoctorDashboardQuery(selectedPeriod);
   console.log(data);
-  const [selectedPeriod, setSelectedPeriod] = useState("7days");
   console.log(data, isLoading, !data && !isLoading, isLoading)
   if(!data && isLoading){
     return null
   }
 
-  const summary = data?.data.summary 
+
+  const appointmentTrendData = data?.data.bookingTrend.values.map((v,i) => ({date : data.data.bookingTrend.labels[i], bookings : v}))
+  const recentTransactions = data?.data.transactions
+  console.log(appointmentTrendData)
+
+  const summary = data?.data.summary!
   return (
     <div className="flex  bg-gray-50">
       {/* Sidebar */}
@@ -240,7 +234,7 @@ const DoctorDashboardComponent = () => {
                         {/* <Clock className="w-5 h-5 text-amber-600" /> */}
                       </div>
                       <p className={`text-4xl font-bold  ${text}`}>
-                        {/* {stats?.upcoming} */} {summary[key]}
+                        {/* {stats?.upcoming} */} {summary[key]!}
                       </p>
                       <p className={`text-xs text-amber-700 ${text}`}>
                         {card.comparison}
@@ -264,9 +258,9 @@ const DoctorDashboardComponent = () => {
                     onChange={(e) => setSelectedPeriod(e.target.value)}
                     className="text-sm border border-gray-300 rounded-lg px-3 py-2 text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:border-blue-500"
                   >
-                    <option value="7days">Last 7 Days</option>
-                    <option value="30days">Last 30 Days</option>
-                    <option value="month">This Month</option>
+                    <option value="WEEK">Last 7 Days</option>
+                    <option value="MONTH">Last 30 Days</option>
+                    <option value="YEAR">This Month</option>
                     <option value="year">This Year</option>
                   </select>
                 </div>

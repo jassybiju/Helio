@@ -11,8 +11,12 @@ const loggerService = PinoLoggerService.getInstance();
 const fileUploadService = new CloudinaryFileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
-
-const getAllDoctorsUseCase = new GetAllDoctorUseCase(loggerService, doctorRepo);
+const fileUpload = new CloudinaryFileUploadService();
+const getAllDoctorsUseCase = new GetAllDoctorUseCase(
+  loggerService,
+  doctorRepo,
+  fileUpload
+);
 const changeDoctorApprovalStatusUseCase = new ChangeDoctorApprovalStatusUseCase(
   loggerService,
   doctorRepo

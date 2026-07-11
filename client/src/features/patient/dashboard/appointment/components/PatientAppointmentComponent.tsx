@@ -18,7 +18,7 @@ const PatientAppointmentComponent = () => {
     setPage,
     appointmentsWithActionRequired,
   } = usePatientAppointment();
-  console.log(appointment);
+  console.log(appointmentsWithActionRequired);
   const router = useRouter();
 
   return (
@@ -52,7 +52,7 @@ const PatientAppointmentComponent = () => {
               className="mt-3 rounded-md bg-amber-600 px-4 py-2 text-white"
               onClick={() =>
                 router.push(
-                  `/dashboard/appointment/${appointmentsWithActionRequired[0].id}`,
+                  `/dashboard/appointment/${appointmentsWithActionRequired[0].appointment._id}`,
                 )
               }
             >

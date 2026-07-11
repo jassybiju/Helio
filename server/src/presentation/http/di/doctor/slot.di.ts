@@ -11,6 +11,9 @@ import { GetDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/ge
 import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
 import { DeleteDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/deleteDoctorBlockSlot/DeleteDoctorBlockSlotUseCase.ts";
 import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
+import { NotificationService } from "@application/service/NotificationService.ts";
+import { NotificationRepository } from "@infrastructure/database/repositories/NotificationRepository.ts";
+import { SocketRealTimeNotifier } from "@infrastructure/services/SocketRealTimeNotifier.ts";
 
 const loggerService = PinoLoggerService.getInstance();
 
@@ -20,7 +23,15 @@ const doctorRepo = new MongoDoctorRepository(loggerService);
 const doctorShiftRepo = new DoctorShiftRepository(loggerService);
 const doctorBlockShiftRepo = new DoctorBlockShiftRepository(loggerService);
 const appointmentRepo = new AppointmentRepository(loggerService);
+const notificationRepo = new NotificationRepository(loggerService);
+const realTimeNotifier = new SocketRealTimeNotifier();
 const uow = new MongoUnitOfWork();
+const notificationService = new NotificationService(
+  notificationRepo,
+  idGenerator,
+  realTimeNotifier
+);
+
 const doctorGetWeeklySlotUseCase = new GetDoctorWeeklySlotsUsecase(
   loggerService,
   doctorRepo,
@@ -35,7 +46,8 @@ const doctorBlockSlotUseCase = new BlockDoctorSlotUseCase(
   idGenerator,
   doctorBlockShiftRepo,
   appointmentRepo,
-  uow
+  uow,
+  notificationService
 );
 
 const getDoctorBlockSlotUseCase = new GetDoctorBlockSlotUseCase(
