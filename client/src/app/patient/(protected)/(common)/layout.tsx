@@ -1,4 +1,5 @@
 import Navbar from "@/src/components/Navbar";
+import AIChatBot from "@/src/features/patient/ai/components/AIChatBot";
 import Script from "next/script";
 import React from "react";
 
@@ -42,7 +43,10 @@ const PatientProtectedCommonLayout = ({
           </a>
         </nav>
       </Navbar>
-      <main className="flex items-center justify-center ">{children}</main>
+      <main className="flex items-center justify-center ">
+        {children}
+        <AIChatBot />
+      </main>
       <footer className="text-center py-8 text-sm text-slate-500">
         © 2024 Helio Telemedicine Inc. All rights reserved.
       </footer>

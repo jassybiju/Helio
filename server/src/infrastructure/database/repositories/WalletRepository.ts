@@ -23,7 +23,10 @@ export class WalletRepository
   }
 
   findAdminWallet(): Promise<Wallet | null> {
-    return super.findOne({user_role : USER_ROLES.ADMIN}, WalletMapper.toDomain)
+    return super.findOne(
+      { user_role: USER_ROLES.ADMIN },
+      WalletMapper.toDomain
+    );
   }
 
   findByUserId(userId: string): Promise<Wallet | null> {

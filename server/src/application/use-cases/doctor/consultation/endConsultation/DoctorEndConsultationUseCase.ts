@@ -133,7 +133,7 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
         walletRepo.update(wallet),
         transactionRepo.create(transaction),
         walletRepo.update(adminWallet),
-        transactionRepo.create(adminTransaction)
+        transactionRepo.create(adminTransaction),
       ];
 
       if (chatSession) {

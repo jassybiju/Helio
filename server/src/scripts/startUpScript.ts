@@ -8,11 +8,11 @@ import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts
 
 await connectDB();
 
-const logger = PinoLoggerService.getInstance()
+const logger = PinoLoggerService.getInstance();
 const adminRepo = new AdminRepository();
 const idGenerator = new NanoidGenerator();
 const passwordService = new BcryptPasswordService();
-const walletRepo = new WalletRepository(logger)
+const walletRepo = new WalletRepository(logger);
 const createAdminUseCase = new CreateAdminUseCase(
   adminRepo,
   idGenerator,
