@@ -1,7 +1,7 @@
 import type { IDoctorViewAllAppointmentDTO } from "@application/use-cases/doctor/appointment/doctorViewAllAppointment/IDoctorViewAllAppointmentDTO.ts";
 import type { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { PaginationResponse } from "@shared/types/Pagination.type.ts";
+import type { PaginationResponse } from "@shared/types/pagination.types.ts";
 
 export type DoctorViewAllInput = {
   search?: string;

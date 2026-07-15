@@ -1,4 +1,7 @@
-import type { IVectorStoreService } from "@application/ports/services/IVectorStoreService.ts";
+import type {
+  IVectorDocument,
+  IVectorStoreService,
+} from "@application/ports/services/IVectorStoreService.ts";
 import { TaskType } from "@google/generative-ai";
 import type { Document } from "@langchain/core/documents";
 import { VectorStore } from "@langchain/core/vectorstores";
@@ -30,7 +33,16 @@ export class LangchainQdrantVectorStoreService implements IVectorStoreService {
     return this._instance;
   }
 
-  async addDocument(documents: Document[]) {
-    await this._vectorStore.addDocuments(documents);
+  async addDocuments(documents: IVectorDocument[]) {
+    return await this._vectorStore.addDocuments(documents);
+  }
+
+  async search(query: string) {
+    const similiaritySearch = await this._vectorStore.similaritySearch(
+      query,
+      2
+    );
+
+    return similiaritySearch as IVectorDocument[];
   }
 }

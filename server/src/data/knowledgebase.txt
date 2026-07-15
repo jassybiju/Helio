@@ -1,0 +1,259 @@
+Helio Knowledge Base
+
+========================
+Platform Overview
+========================
+
+Helio is a healthcare platform that connects patients with licensed doctors for online and offline consultations.
+
+Patients can use Helio to:
+- Find doctors
+- Book consultations
+- Attend online consultations
+- Schedule offline clinic visits
+- Access consultation reports
+- Manage medical history
+- Upload medical documents
+- Communicate with doctors after consultations
+- View and provide doctor reviews
+
+Helio helps patients maintain a continuous healthcare record by organizing consultation information, reports, and medical documents in one place.
+
+
+========================
+Consultation Types
+========================
+
+Helio supports two types of consultations:
+
+1. Online Consultation
+
+Patients can consult doctors remotely using available online consultation methods.
+
+Online consultations may include:
+- Video consultation
+- Voice consultation
+- Chat consultation
+
+Available consultation modes depend on the selected doctor and their supported services.
+
+
+2. Offline Consultation
+
+Patients can book appointments to visit doctors at their clinic or healthcare facility.
+
+Offline consultations allow patients to meet doctors physically at the scheduled location and time.
+
+
+========================
+Doctor Information
+========================
+
+Patients can search and choose doctors based on available information such as:
+
+- Medical specialty
+- Doctor profile
+- Consultation type
+- Experience
+- Ratings and reviews
+- Availability
+
+Patients can view doctor reviews from the appointment booking page before selecting a doctor.
+
+Doctor profiles and availability are provided through Helio's doctor system.
+
+
+========================
+Appointment Booking
+========================
+
+Patients can book consultations by selecting a doctor and choosing an available consultation option.
+
+During booking, patients may provide information such as:
+
+- Patient name
+- Contact information
+- Preferred consultation type
+- Reason for consultation
+- Preferred appointment time
+
+The available appointment options depend on doctor availability and consultation type.
+
+
+========================
+Consultation Process
+========================
+
+During a consultation, patients can discuss their health concerns with the doctor.
+
+After the consultation:
+
+- The doctor provides a consultation report.
+- The patient can view the consultation report through Helio.
+- The consultation information becomes part of the patient's healthcare history.
+
+Patients can use previous consultation information for future healthcare discussions.
+
+
+========================
+Post Consultation Doctor Chat
+========================
+
+After a consultation, patients may continue chatting with the doctor for a limited duration.
+
+The chat availability period is determined by the doctor.
+
+Patients can use this chat period for follow-up communication related to the consultation.
+
+After the doctor-defined chat duration ends, further communication may require another consultation depending on doctor availability and platform options.
+
+
+========================
+Patient Medical History
+========================
+
+Helio helps maintain patient healthcare history.
+
+Doctors can access relevant patient history, including:
+
+- Previous consultation reports
+- Uploaded lab reports
+- Medical documents provided by the patient
+
+Access to patient information is available to authorized healthcare providers involved in patient care.
+
+
+========================
+Lab Reports and Medical Documents
+========================
+
+Patients can upload medical documents and lab reports through Helio.
+
+If a doctor requires a lab report:
+
+1. The doctor requests the required report.
+2. The patient uploads the requested document.
+3. The uploaded report becomes available for the doctor to review.
+4. The doctor can refer to the report during future consultations.
+
+Patients should upload accurate and relevant medical documents for doctor review.
+
+
+========================
+Doctor Reviews and Ratings
+========================
+
+Patients can view doctor reviews before booking an appointment.
+
+Reviews help patients understand other users' experiences with doctors.
+
+After completing a consultation, patients can submit their own review of the doctor.
+
+A patient review can include feedback about their consultation experience.
+
+
+========================
+Consultation Reports
+========================
+
+After completing a consultation, doctors provide consultation reports when applicable.
+
+Consultation reports may contain information related to:
+
+- Consultation details
+- Doctor observations
+- Recommendations provided by the doctor
+- Follow-up information
+
+Patients can access their consultation reports through their Helio account.
+
+
+========================
+Privacy and Security
+========================
+
+Helio protects patient information and healthcare records.
+
+Patient information, including:
+- Consultation reports
+- Lab reports
+- Medical documents
+- Healthcare history
+
+is accessible only to authorized users.
+
+Helio follows applicable healthcare privacy and security practices.
+
+
+========================
+Frequently Asked Questions
+========================
+
+Question:
+Does Helio support online consultations?
+
+Answer:
+Yes. Helio supports online consultations with doctors through available digital consultation methods.
+
+
+Question:
+Does Helio support offline consultations?
+
+Answer:
+Yes. Patients can book offline appointments with doctors when available.
+
+
+Question:
+Will I receive a report after my consultation?
+
+Answer:
+Yes. After consultation, doctors can provide a consultation report that patients can access through Helio.
+
+
+Question:
+Can I chat with my doctor after consultation?
+
+Answer:
+Yes. Patients may chat with the doctor after consultation during the duration set by the doctor.
+
+
+Question:
+Can doctors see my previous medical history?
+
+Answer:
+Yes. Authorized doctors can view relevant patient history, including previous consultation reports and uploaded medical reports.
+
+
+Question:
+How can I share my lab reports with my doctor?
+
+Answer:
+If a doctor requests a lab report, the patient can upload the required document through Helio. The doctor can then review the uploaded report.
+
+
+Question:
+Can doctors see uploaded lab reports in future consultations?
+
+Answer:
+Yes. Uploaded lab reports can become part of the patient's medical history and may be available for doctors during future consultations.
+
+
+Question:
+Can I see doctor reviews before booking?
+
+Answer:
+Yes. Doctor reviews are available on the appointment booking page.
+
+
+Question:
+Can I review my doctor after consultation?
+
+Answer:
+Yes. Patients who complete a consultation can submit a review about their doctor.
+
+
+Question:
+Can Helio diagnose medical conditions?
+
+Answer:
+Helio provides healthcare platform services. Medical diagnosis and treatment decisions are provided by licensed healthcare professionals.
