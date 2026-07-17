@@ -37,6 +37,7 @@ import {
   Download,
   Plus,
 } from "lucide-react";
+import { platform } from "os";
 
 // Mock Data
 // const appointmentData = [
@@ -49,116 +50,116 @@ import {
 //   { date: 'Sun', appointments: 32 },
 // ]
 
-const revenueData = [
-  { week: "Week 1", consultations: 8000, platform: 2000 },
-  { week: "Week 2", consultations: 9500, platform: 2500 },
-  { week: "Week 3", consultations: 8200, platform: 2200 },
-  { week: "Week 4", consultations: 10800, platform: 3000 },
-];
+// const revenueData = [
+//   { week: "Week 1", consultations: 8000, platform: 2000 },
+//   { week: "Week 2", consultations: 9500, platform: 2500 },
+//   { week: "Week 3", consultations: 8200, platform: 2200 },
+//   { week: "Week 4", consultations: 10800, platform: 3000 },
+// ];
 
 
-const recentAppointments = [
-  {
-    id: 1,
-    patient: "Sarah Johnson",
-    doctor: "Dr. Michael Chen",
-    specialty: "Cardiology",
-    date: "2024-07-10",
-    time: "2:00 PM",
-    status: "Completed",
-  },
-  {
-    id: 2,
-    patient: "Emily Davis",
-    doctor: "Dr. Sarah Miller",
-    specialty: "Orthopedics",
-    date: "2024-07-10",
-    time: "3:30 PM",
-    status: "Ongoing",
-  },
-  {
-    id: 3,
-    patient: "John Smith",
-    doctor: "Dr. David Wilson",
-    specialty: "Neurology",
-    date: "2024-07-11",
-    time: "10:00 AM",
-    status: "Confirmed",
-  },
-  {
-    id: 4,
-    patient: "Jessica Brown",
-    doctor: "Dr. Michael Chen",
-    specialty: "Cardiology",
-    date: "2024-07-11",
-    time: "11:30 AM",
-    status: "Confirmed",
-  },
-  {
-    id: 5,
-    patient: "Robert Taylor",
-    doctor: "Dr. Emma White",
-    specialty: "Pediatrics",
-    date: "2024-07-11",
-    time: "1:00 PM",
-    status: "Cancelled",
-  },
-];
+// const recentAppointments = [
+  // {
+  //   id: 1,
+  //   patient: "Sarah Johnson",
+  //   doctor: "Dr. Michael Chen",
+  //   specialty: "Cardiology",
+  //   date: "2024-07-10",
+  //   time: "2:00 PM",
+  //   status: "Completed",
+  // },
+  // {
+  //   id: 2,
+  //   patient: "Emily Davis",
+  //   doctor: "Dr. Sarah Miller",
+  //   specialty: "Orthopedics",
+  //   date: "2024-07-10",
+  //   time: "3:30 PM",
+  //   status: "Ongoing",
+  // },
+  // {
+  //   id: 3,
+  //   patient: "John Smith",
+  //   doctor: "Dr. David Wilson",
+  //   specialty: "Neurology",
+  //   date: "2024-07-11",
+  //   time: "10:00 AM",
+  //   status: "Confirmed",
+  // },
+  // {
+  //   id: 4,
+  //   patient: "Jessica Brown",
+  //   doctor: "Dr. Michael Chen",
+  //   specialty: "Cardiology",
+  //   date: "2024-07-11",
+  //   time: "11:30 AM",
+  //   status: "Confirmed",
+  // },
+  // {
+  //   id: 5,
+  //   patient: "Robert Taylor",
+  //   doctor: "Dr. Emma White",
+  //   specialty: "Pediatrics",
+  //   date: "2024-07-11",
+  //   time: "1:00 PM",
+  //   status: "Cancelled",
+  // },
+// ];
 
-const pendingDoctors = [
-  {
-    id: 1,
-    name: "Dr. Lisa Anderson",
-    specialty: "Dermatology",
-    appliedDate: "2024-07-08",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    name: "Dr. James Martinez",
-    specialty: "Psychiatry",
-    appliedDate: "2024-07-09",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    name: "Dr. Susan Lee",
-    specialty: "Ophthalmology",
-    appliedDate: "2024-07-09",
-    status: "Pending",
-  },
-];
+// const pendingDoctors = [
+//   {
+//     id: 1,
+//     name: "Dr. Lisa Anderson",
+//     specialty: "Dermatology",
+//     appliedDate: "2024-07-08",
+//     status: "Pending",
+//   },
+//   {
+//     id: 2,
+//     name: "Dr. James Martinez",
+//     specialty: "Psychiatry",
+//     appliedDate: "2024-07-09",
+//     status: "Pending",
+//   },
+//   {
+//     id: 3,
+//     name: "Dr. Susan Lee",
+//     specialty: "Ophthalmology",
+//     appliedDate: "2024-07-09",
+//     status: "Pending",
+//   },
+// ];
 
-const transactions = [
-  {
-    id: 1,
-    user: "Dr. Michael Chen",
-    type: "Income",
-    amount: 450,
-    date: "2024-07-10",
-  },
-  {
-    id: 2,
-    user: "Dr. Sarah Miller",
-    type: "Income",
-    amount: 380,
-    date: "2024-07-10",
-  },
-  {
-    id: 3,
-    user: "Patient Refund",
-    type: "Refund",
-    amount: -100,
-    date: "2024-07-09",
-  },
-  {
-    id: 4,
-    user: "Dr. David Wilson",
-    type: "Income",
-    amount: 520,
-    date: "2024-07-09",
-  },
-];
+// const transactions = [
+//   {
+//     id: 1,
+//     user: "Dr. Michael Chen",
+//     type: "Income",
+//     amount: 450,
+//     date: "2024-07-10",
+//   },
+//   {
+//     id: 2,
+//     user: "Dr. Sarah Miller",
+//     type: "Income",
+//     amount: 380,
+//     date: "2024-07-10",
+//   },
+//   {
+//     id: 3,
+//     user: "Patient Refund",
+//     type: "Refund",
+//     amount: -100,
+//     date: "2024-07-09",
+//   },
+//   {
+//     id: 4,
+//     user: "Dr. David Wilson",
+//     type: "Income",
+//     amount: 520,
+//     date: "2024-07-09",
+//   },
+// ];
 
 function AdminDashboardComponent() {
   const [timeFilter, setTimeFilter] = useState<"WEEK" | "MONTH" | "YEAR">(
@@ -184,6 +185,13 @@ function AdminDashboardComponent() {
   ];
 
 const userGrowthData = data?.data.userGrowth.labels.map((x,i)=>({label : x, doctors : data.data.userGrowth.doctors[i], patients : data.data.userGrowth.patients[i]}))
+// const revenueData = [
+//   { week: "Week 1", consultations: 8000, platform: 2000 },
+//   { week: "Week 2", consultations: 9500, platform: 2500 },
+//   { week: "Week 3", consultations: 8200, platform: 2200 },
+//   { week: "Week 4", consultations: 10800, platform: 3000 },
+// ];
+const revenueData = data?.data.revenueAnalytics.labels.map((x,i)=>({label : x, platform: data.data.revenueAnalytics.platformRevenue[i]}))
 //   [
 //   { month: "Jan", doctors: 120, patients: 450 },
 //   { month: "Feb", doctors: 135, patients: 520 },
@@ -375,7 +383,7 @@ const userGrowthData = data?.data.userGrowth.labels.map((x,i)=>({label : x, doct
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={revenueData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="week" stroke="#9ca3af" />
+                  <XAxis dataKey="label" stroke="#9ca3af" />
                   <YAxis stroke="#9ca3af" />
                   <Tooltip
                     contentStyle={{

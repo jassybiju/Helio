@@ -1,3 +1,4 @@
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 import type { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
 import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import type { ClientSession } from "mongoose";
@@ -32,4 +33,9 @@ export interface IWalletTransactionRepository {
   ): Promise<{ transactions: WalletTransaction[]; totalCount: number }>;
 
   findNWithWalletId(walletId: string, n: number): Promise<WalletTransaction[]>;
+
+  getRevenueAnalytics(period: BOOKING_PERIOD): Promise<{
+    labels: string[];
+    platformRevenue: number[];
+  }>;
 }

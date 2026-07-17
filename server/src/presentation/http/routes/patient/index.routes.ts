@@ -6,6 +6,7 @@ import { patientAppointmentRouter } from "./appointment.routes.ts";
 import { patientLabRoutes } from "./lab.routes.ts";
 import { patientChatRouter } from "./chat.routes.ts";
 import { patientReviewRouter } from "./review.routes.ts";
+import { aiRouter } from "./ai.routes.ts";
 
 export const patientRouter = Router();
 
@@ -16,3 +17,4 @@ patientRouter.use("/appointment", patientAppointmentRouter);
 patientRouter.use("/lab", patientLabRoutes);
 patientRouter.use("/chat", patientChatRouter);
 patientRouter.use("/review", patientReviewRouter);
+patientRouter.use("/ai", aiRouter);

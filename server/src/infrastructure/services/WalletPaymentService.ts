@@ -4,7 +4,10 @@ import type { IWalletTransactionRepository } from "@application/ports/repositori
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { IPaymentService } from "@application/ports/services/IPaymentService.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
-import { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
+import {
+  TRANSACTION_STATUS,
+  TRANSACTION_TYPE,
+} from "@domain/common/enums/wallet.enum.ts";
 import type { Appointment } from "@domain/entities/Appointment.ts";
 import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
 import { AppError } from "@shared/errors/AppError.ts";
@@ -62,6 +65,8 @@ export class WalletPaymentService implements IPaymentService {
         type: TRANSACTION_TYPE.DEBIT,
         description: `AMOUNT PAID FOR APPOINTMENT ${appointment.id}`,
       });
+
+      transaction.paymentSuccessful();
 
       await transactionRepo.create(transaction);
 

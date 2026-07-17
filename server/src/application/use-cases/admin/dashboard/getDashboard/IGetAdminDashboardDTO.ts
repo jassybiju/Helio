@@ -17,7 +17,6 @@ export interface IGetAdminDashboardDTO {
   revenueAnalytics: {
     labels: string[];
     platformRevenue: number[];
-    consultationRevenue: number[];
   };
 
   appointmentStatusDistribution: {

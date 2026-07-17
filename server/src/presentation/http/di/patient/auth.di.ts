@@ -21,6 +21,7 @@ import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswor
 import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts";
 import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
 import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
+import { BullMQMessageQueue } from "@infrastructure/services/BullMQMessageQueue.ts";
 
 const loggerService = PinoLoggerService.getInstance();
 const bcryptPasswordService = new BcryptPasswordService();
@@ -31,6 +32,7 @@ const refreshTokenService = new CryptoRefreshTokenService();
 const resetTokenService = new RedisResetTokenService(loggerService);
 const emailService = new EmailService();
 const googleAuthService = new GoogleAuthService();
+const messageQueue = new BullMQMessageQueue(loggerService);
 
 const sessionRepo = new RedisSessionRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
@@ -65,7 +67,7 @@ const resendPatientOTPUseCase = new ResendOTPUseCase(
   loggerService,
   otpRepo,
   otpService,
-  emailService
+  messageQueue
 );
 const loginPatientUseCase = new LoginPatientUseCase(
   loggerService,
@@ -87,7 +89,7 @@ const forgetPasswordUseCase = new ForgetPasswordUseCase(
   patientRepo,
   doctorRepo,
   resetTokenService,
-  emailService
+  messageQueue
 );
 
 const googleLoginUseCase = new GoogleLoginUseCase(

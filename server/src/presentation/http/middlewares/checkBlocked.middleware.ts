@@ -5,6 +5,7 @@ import { MESSAGE } from "@shared/constants/messages.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { removeToken } from "@shared/utils/apiReponse.utils.ts";
+import { logger } from "@shared/utils/logger.utils.ts";
 import type { NextFunction, Request, Response } from "express";
 
 export class CheckBlockMiddleware {
@@ -14,6 +15,7 @@ export class CheckBlockMiddleware {
   ) {}
   handle = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      logger.error("HIIE");
       const { id, role } = req?.user ?? {};
       let user;
       if (role === USER_ROLES.ADMIN) {

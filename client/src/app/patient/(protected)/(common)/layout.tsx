@@ -42,7 +42,9 @@ const PatientProtectedCommonLayout = ({
           </a>
         </nav>
       </Navbar>
-      <main className="flex items-center justify-center ">{children}</main>
+      <main className="flex items-center justify-center ">
+        {children}
+      </main>
       <footer className="text-center py-8 text-sm text-slate-500">
         © 2024 Helio Telemedicine Inc. All rights reserved.
       </footer>

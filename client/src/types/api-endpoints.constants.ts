@@ -52,6 +52,9 @@ export const API_ENDPOINT = {
     }
   },
   PATIENT: {
+    AI : {
+      CHAT : "/patient/ai/chat"
+    },
     PROFILE: {
       I: "/patient/profile/",
       PIC : "/patient/profile/picture"

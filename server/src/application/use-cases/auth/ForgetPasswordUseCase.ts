@@ -2,6 +2,7 @@ import type { IDoctorRepository } from "@application/ports/repositories/IDoctorR
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { IEmailService } from "@application/ports/services/IEmailService.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
 import type { IResetTokenService } from "@application/ports/services/IResetTokenService.ts";
 import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
@@ -13,7 +14,7 @@ export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
     private readonly _patientRepo: IPatientRepository,
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _resetTokenService: IResetTokenService,
-    private readonly _emailService: IEmailService
+    private readonly _messageQueue: IMessageQueue
   ) {}
   async execute({
     email,
@@ -55,7 +56,7 @@ export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
       ttlSeconds
     );
 
-    await this._emailService.sendEmail({
+    await this._messageQueue.addJob(`FORGET_PASSWORD:${user.email}`, {
       to: user.email,
       subject: "Password Reset",
       body: `Click here to reset password : http://${role === USER_ROLES.PATIENT ? "" : "doctor."}helixo.com:3000/reset-password?token=${token}`,

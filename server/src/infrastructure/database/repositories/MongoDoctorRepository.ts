@@ -120,6 +120,31 @@ export class MongoDoctorRepository
     );
   }
 
+  async searchByName(query: string): Promise<Doctor[]> {
+    return super.find(
+      {
+        $or: [
+          {
+            fullName: {
+              $regex: query,
+              $options: "i",
+            },
+            specialization: {
+              $regex: query,
+              $options: "i",
+            },
+          },
+        ],
+        is_blocked: false,
+        verification_status: "approved",
+      },
+      {
+        sort: { fullName: 1 },
+      },
+      DoctorMapper.toDomain
+    );
+  }
+
   async search(
     params: IDoctorSearchQuery
   ): Promise<{ doctors: Doctor[]; totalCount: number }> {

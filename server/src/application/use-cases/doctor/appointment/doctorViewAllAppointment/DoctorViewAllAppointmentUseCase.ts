@@ -2,7 +2,7 @@ import type {
   DoctorViewAllInput,
   IDoctorViewAllAppointmentUseCase,
 } from "@application/ports/use-cases/doctor/appointment/IDoctorViewAllAppointmentUseCase.ts";
-import type { PaginationResponse } from "@shared/types/Pagination.type.ts";
+import type { PaginationResponse } from "@shared/types/pagination.types.ts";
 import type { IDoctorViewAllAppointmentDTO } from "./IDoctorViewAllAppointmentDTO.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";

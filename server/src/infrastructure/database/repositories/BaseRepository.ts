@@ -77,7 +77,6 @@ export abstract class BaseRepository<
       .limit(limit ?? 0)
       .lean()
       .session(this._session);
-    console.log(docs, options, filter);
     return docs.map((x) => map(x));
   }
 
@@ -187,7 +186,7 @@ export abstract class BaseRepository<
     }
 
     const data = await this.aggregate<{
-      _id: string;
+      _id: {year : number, month :number, day : number};
       total: number;
     }>([
       {

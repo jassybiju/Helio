@@ -51,10 +51,7 @@ export class DoctorMapper {
       career_start_year: doctor.careerStartYear,
       bio: doctor.bio,
       verification_status: doctor.verificationStatus as
-        | "pending"
-        | "approved"
-        | "rejected"
-        | "resubmitted",
+        "pending" | "approved" | "rejected" | "resubmitted",
       document_key: doctor.documentKey,
       rejection_reason: doctor.rejectionReason,
       additional_info: doctor.additionalInfo,

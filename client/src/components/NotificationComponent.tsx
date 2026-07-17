@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -24,66 +21,6 @@ interface Notification {
   isRead: boolean;
   icon?: "check" | "alert" | "info" | "clock";
 }
-
-const mockNotifications: Notification[] = [
-  {
-    id: "1",
-    type: "appointment",
-    title: "New Appointment Booking",
-    description:
-      "Sarah Johnson has booked an appointment for tomorrow at 2:00 PM",
-    timestamp: "5 minutes ago",
-    isRead: false,
-    icon: "check",
-  },
-  {
-    id: "2",
-    type: "message",
-    title: "Patient Follow-up Message",
-    description:
-      "Emily Davis sent you a follow-up message regarding her consultation",
-    timestamp: "15 minutes ago",
-    isRead: false,
-    icon: "info",
-  },
-  {
-    id: "3",
-    type: "reminder",
-    title: "Upcoming Appointment Reminder",
-    description: "You have a consultation with Michael Rodriguez in 1 hour",
-    timestamp: "30 minutes ago",
-    isRead: true,
-    icon: "clock",
-  },
-  {
-    id: "4",
-    type: "alert",
-    title: "Appointment Cancelled",
-    description: "John Smith has cancelled his appointment scheduled for today",
-    timestamp: "1 hour ago",
-    isRead: true,
-    icon: "alert",
-  },
-  {
-    id: "5",
-    type: "message",
-    title: "New Patient Registration",
-    description:
-      "Amanda Johnson has registered as a new patient in your clinic",
-    timestamp: "2 hours ago",
-    isRead: true,
-    icon: "info",
-  },
-  {
-    id: "6",
-    type: "reminder",
-    title: "Prescription Refill Request",
-    description: "David Wilson has requested a refill for his medications",
-    timestamp: "3 hours ago",
-    isRead: true,
-    icon: "clock",
-  },
-];
 
 interface NotificationDropdownProps {
   isOpen: boolean;
@@ -165,7 +102,7 @@ export function NotificationComponent({
   };
 
   const getBackgroundColor = (isRead: boolean) => {
-    return isRead ? "bg-white" : "bg-blue-50";
+    return "bg-white";
   };
 
   if (!isOpen) return null;
@@ -245,7 +182,7 @@ export function NotificationComponent({
                     </div>
 
                     {/* Delete Button */}
-                    <button
+                    {/* <button
                       onClick={(e) => {
                         e.stopPropagation();
                         // handleDeleteNotification(notification.id);
@@ -253,7 +190,7 @@ export function NotificationComponent({
                       className="flex-shrink-0 p-1 hover:bg-gray-200 rounded transition-colors opacity-0 group-hover:opacity-100"
                     >
                       <Trash2 className="w-4 h-4 text-gray-400" />
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -268,7 +205,7 @@ export function NotificationComponent({
       </div>
 
       {/* Footer */}
-      {notifications.length > 0 && (
+      {/* {notifications.length > 0 && (
         <div className="border-t border-gray-200 p-3 bg-gray-50 flex gap-2">
           <button
             // onClick={handleClearAll}
@@ -283,7 +220,7 @@ export function NotificationComponent({
             View All
           </a>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
