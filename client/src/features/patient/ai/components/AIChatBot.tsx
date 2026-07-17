@@ -3,6 +3,7 @@
 import { Loader2, MessageCircle } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useSendAIMessage } from "../hooks/useSendAIMessage";
+import { useAuth } from "@/src/features/auth/hooks/useAuth";
 
 const AIChatBot = () => {
   const [openChatBot, setOpenChatBot] = useState(false);
@@ -49,6 +50,11 @@ const AIChatBot = () => {
     );
   };
 
+  const auth = useAuth();
+  if (auth.isLoading && !auth.user) {
+    return null;
+  }
+
   return (
     <>
       <button
@@ -65,7 +71,7 @@ const AIChatBot = () => {
           boxShadow: " 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05)",
           display: !openChatBot ? "none" : "flex",
         }}
-        className="fixed bottom-[calc(4rem+1.5rem)] right-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[634px] flex-col"
+        className="fixed bottom-[calc(4rem+1.5rem)] right-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[500px] flex-col"
       >
         <div className="flex flex-col space-y-1.5 pb-6 shrink-0">
           <h2 className="font-semibold text-lg tracking-tight">Chatbot</h2>

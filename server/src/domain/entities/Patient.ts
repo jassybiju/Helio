@@ -247,6 +247,7 @@ export class Patient {
     return this._proficPicKey;
   }
 
+  // ERROR
   static googleCreate({
     id,
     firstName,

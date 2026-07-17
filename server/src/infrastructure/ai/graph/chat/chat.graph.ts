@@ -37,7 +37,25 @@ export async function createChatGraph(
   tools: (DynamicTool | DynamicStructuredTool)[],
   checkpointer: MemorySaver
 ) {
-  const toolCall = new ToolNode(tools);
+  const debugTools = tools.map((t) => {
+    const original = t.func;
+
+    t.func = async (...args: any[]) => {
+      console.log("\n🛠 TOOL:", t.name);
+
+      console.log("INPUT:", args[0]);
+
+      const result = await original(...args);
+
+      console.log("OUTPUT:", result);
+
+      return result;
+    };
+
+    return t;
+  });
+
+  const toolCall = new ToolNode(debugTools);
   const modelWithTools = model.bindTools!(tools);
 
   const MessagesState = new StateSchema({
@@ -49,22 +67,38 @@ export async function createChatGraph(
 
   // This model is used to call the LLM and decide wheater to call a tool or not
   const llmCall: GraphNode<typeof MessagesState> = async (state) => {
-    console.log(
-      state.messages.map((m) => ({
-        type: m.type,
-        content: m.content,
-      }))
-    );
-    const response = await modelWithTools.invoke([
-      new SystemMessage(CHAT_SYSTEM_PROMPT),
-      ...state.messages,
-    ]);
-    console.log("AI RESPONSE", response);
+    const messages = await trimMessages(state.messages, {
+      maxTokens: 2000,
+      strategy: "last",
+      tokenCounter: model,
+    });
 
-    return {
-      messages: [response],
-      llmCalls: 1,
-    };
+    try {
+      const response = await modelWithTools.invoke([
+        new SystemMessage(CHAT_SYSTEM_PROMPT),
+        ...messages,
+      ]);
+
+      logger.info("TYPE", response.type);
+      return { messages: [response], llmCalls: 1 };
+    } catch (err: any) {
+      logger.error("LLM tool-call generation failed", { error: err?.message });
+
+      // Groq rejected a malformed function call before it reached our ToolNode.
+      // Fall back to a plain response instead of crashing the graph.
+      const fallback = await model.invoke([
+        new SystemMessage(
+          CHAT_SYSTEM_PROMPT +
+            "\n\nNote: your previous attempt to call a tool used invalid " +
+            "parameters. Answer the patient's last message directly in plain " +
+            "text, without calling any tool, unless you are certain of the " +
+            "exact required parameters."
+        ),
+        ...messages,
+      ]);
+
+      return { messages: [fallback], llmCalls: 1 };
+    }
   };
   const graph = new StateGraph(MessagesState)
     .addNode("llmCall", llmCall)

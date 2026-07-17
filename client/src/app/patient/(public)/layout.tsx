@@ -1,4 +1,5 @@
 import Navbar from "@/src/components/Navbar";
+import { useAuth } from "@/src/features/auth/hooks/useAuth";
 import React from "react";
 
 type PatientPublicLayoutProps = {
@@ -6,6 +7,7 @@ type PatientPublicLayoutProps = {
 };
 
 const PatientPublicLayout = ({ children }: PatientPublicLayoutProps) => {
+
   return (
     <>
       <Navbar>
@@ -36,7 +38,9 @@ const PatientPublicLayout = ({ children }: PatientPublicLayoutProps) => {
           </a>
         </nav>
       </Navbar>
-      <main className="flex items-center justify-center ">{children}</main>
+      <main className="flex items-center justify-center ">
+        {children}
+      </main>
       <footer className="text-center py-8 text-sm text-slate-500">
         © 2024 Helio Telemedicine Inc. All rights reserved.
       </footer>

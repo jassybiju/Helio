@@ -11,6 +11,9 @@ import {
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { ClientSession, QueryFilter } from "mongoose";
 import { WalletTransactionMapper } from "../../../mappers/WalletTransactionMapper.ts";
+import { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+import { TRANSACTION_STATUS } from "@domain/common/enums/wallet.enum.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 
 export class WalletTransactionRepository
   extends BaseRepository<WalletTransaction, WalletTransactionDoc>
@@ -113,5 +116,97 @@ export class WalletTransactionRepository
   async delete(id: string): Promise<void> {
     this._logger.info("Deleting Transacction by id ", { id });
     await super.delete(id);
+  }
+
+  async getRevenueAnalytics(period: BOOKING_PERIOD): Promise<{
+    labels: string[];
+    platformRevenue: number[];
+  }> {
+    this._logger.info("Fetching Revenue Analytics");
+
+    const now = new Date();
+    now.setHours(23, 59, 59, 999);
+
+    const startDate = new Date();
+    let groupFormat: string;
+
+    switch (period) {
+      case BOOKING_PERIOD.WEEK:
+        startDate.setDate(now.getDate() - 6);
+        groupFormat = "%Y-%m-%d";
+        break;
+
+      case BOOKING_PERIOD.MONTH:
+        startDate.setDate(now.getDate() - 29);
+        groupFormat = "%Y-%m-%d";
+        break;
+
+      case BOOKING_PERIOD.YEAR:
+        startDate.setMonth(now.getMonth() - 11);
+        startDate.setDate(1);
+        groupFormat = "%Y-%m";
+        break;
+
+      default:
+        throw new Error("Invalid period");
+    }
+
+    const result = await super.aggregate<{
+      _id: { label: string };
+      platformRevenue: number;
+    }>([
+      {
+        $match: {
+          status: TRANSACTION_STATUS.COMPLETED,
+          created_at: {
+            $gte: startDate,
+            $lte: now,
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "walletmodels",
+          localField: "wallet_id",
+          foreignField: "_id",
+          as: "wallet",
+        },
+      },
+      {
+        $unwind: "$wallet",
+      },
+      {
+        $group: {
+          _id: {
+            label: {
+              $dateToString: {
+                format: groupFormat,
+                date: "$created_at",
+              },
+            },
+          },
+
+          platformRevenue: {
+            $sum: {
+              $cond: [
+                { $eq: ["$wallet.user_role", USER_ROLES.ADMIN] },
+                "$amount",
+                0,
+              ],
+            },
+          },
+        },
+      },
+      {
+        $sort: {
+          "_id.label": 1,
+        },
+      },
+    ]);
+    console.log(result, startDate, now);
+    return {
+      labels: result.map((r) => r._id.label),
+      platformRevenue: result.map((r) => r.platformRevenue),
+    };
   }
 }

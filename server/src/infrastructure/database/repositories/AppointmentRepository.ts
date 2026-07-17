@@ -797,18 +797,4 @@ export class AppointmentRepository
       },
     };
   }
-
-  private getISOWeek(date: Date): number {
-    const tmp = new Date(date);
-
-    tmp.setHours(0, 0, 0, 0);
-
-    tmp.setDate(tmp.getDate() + 4 - (tmp.getDay() || 7));
-
-    const yearStart = new Date(tmp.getFullYear(), 0, 1);
-
-    return Math.ceil(
-      ((tmp.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
-    );
-  }
 }

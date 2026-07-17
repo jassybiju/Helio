@@ -18,10 +18,14 @@ export class LangGraphAIAgentService implements IAIAgentService {
   }): Promise<string> {
     const response = await this._chatGraph.invoke(
       { messages: new HumanMessage(input.message) },
-      { configurable: { thread_id: input.conversationId } }
+      {
+        configurable: {
+          thread_id: input.conversationId,
+          patientId: input.patientId,
+        },
+      }
     );
 
-    logger.info("RESPONSE", response);
     for (let message of response.messages) {
       console.log(`[${message.type}]: ${message.content}`);
     }

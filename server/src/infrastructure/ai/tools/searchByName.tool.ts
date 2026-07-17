@@ -2,10 +2,10 @@ import type { IDoctorRepository } from "@application/ports/repositories/IDoctorR
 import { tool } from "@langchain/core/tools";
 import z from "zod";
 
-export function createGetAllDoctorsTool(doctorRepo: IDoctorRepository) {
+export function createSearchByNameTool(doctorRepo: IDoctorRepository) {
   return tool(
-    async () => {
-      const doctors = await doctorRepo.findAllActive();
+    async ({ query }: { query: string }) => {
+      const doctors = await doctorRepo.searchByName(query);
 
       return doctors.map((doc) => ({
         id: doc.id,
@@ -18,10 +18,14 @@ export function createGetAllDoctorsTool(doctorRepo: IDoctorRepository) {
       }));
     },
     {
-      name: "get_all_doctors",
+      name: "search_doctors",
       description:
-        "Returns all doctors with their IDs, names, specialties, and departments.",
-      schema: z.object({}),
+        "Find doctors by name or medical specialization. Example queries: cardiologist, dermatologist, Dr John.",
+      schema: z.object({
+        query: z
+          .string()
+          .describe("Provide Specialization or Name of the doctor to search"),
+      }),
     }
   );
 }

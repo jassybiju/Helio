@@ -126,6 +126,7 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
         type: TRANSACTION_TYPE.CREDIT,
         description: `PAYMENT FOR APPOINTMENT OF ID ${appointment.id}`,
       });
+      adminTransaction.paymentSuccessful();
 
       const operations = [
         consultationRepo.update(consultation),
