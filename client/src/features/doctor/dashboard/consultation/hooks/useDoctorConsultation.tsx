@@ -67,7 +67,6 @@ const useDoctorConsultation = (id: string) => {
 
   useEffect(() => {
     // socket.emit("join-appointment", id);
-    console.log(112);
     socket.on("consultation-started", () => {
       invalidateQuery("appointment");
     });
@@ -77,7 +76,6 @@ const useDoctorConsultation = (id: string) => {
     });
 
     // socket.on("user-joined", (data) => {
-    //   console.log(data);
     // });
     return () => {
       socket.off("consultation-started");

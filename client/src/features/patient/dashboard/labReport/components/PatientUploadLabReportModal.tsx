@@ -72,13 +72,6 @@ const isValidFile = (file: File) => {
     // await new Promise(resolve => setTimeout(resolve, 2000))
     // setIsUploading(false)
     
-    // console.log('[v0] Lab report uploaded:', {
-    //   testName,
-    //   reportId,
-    //   fileName: selectedFile.name,
-    //   fileSize: selectedFile.size,
-    //   notes,
-    // })
 
     upload(selectedFile, {onSuccess(){
       setSelectedFile(null)

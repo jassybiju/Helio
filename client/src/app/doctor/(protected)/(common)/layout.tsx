@@ -8,34 +8,7 @@ type DoctorCommonLayoutType = {
 const DoctorCommonLayout = ({ children }: DoctorCommonLayoutType) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <Navbar>
-        <nav className="hidden md:flex items-center gap-8">
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            Find a Doctors
-          </a>
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            How it Works
-          </a>
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            Pricing
-          </a>
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            FAQ
-          </a>
-        </nav>
-      </Navbar>
+      <Navbar></Navbar>
       <main className="flex items-center justify-center py-12 px-4">
         {children}
       </main>

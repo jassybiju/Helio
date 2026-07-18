@@ -176,8 +176,6 @@ const getColorClasses = (color: string) => {
 const DoctorDashboardComponent = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("WEEK");
   const { data, isLoading } = useDoctorDashboardQuery(selectedPeriod);
-  console.log(data);
-  console.log(data, isLoading, !data && !isLoading, isLoading)
   if(!data && isLoading){
     return null
   }
@@ -185,7 +183,6 @@ const DoctorDashboardComponent = () => {
 
   const appointmentTrendData = data?.data.bookingTrend.values.map((v,i) => ({date : data.data.bookingTrend.labels[i], bookings : v}))
   const recentTransactions = data?.data.transactions
-  console.log(appointmentTrendData)
 
   const summary = data?.data.summary!
   return (
@@ -205,7 +202,6 @@ const DoctorDashboardComponent = () => {
                 const Icon = card.icon;
                 const { bg, text, icon } = getColorClasses(card.color);
                 const key = card.key as keyof typeof summary
-                console.log(key, summary)
                 return (
                   //   <div
                   //     key={card.id}

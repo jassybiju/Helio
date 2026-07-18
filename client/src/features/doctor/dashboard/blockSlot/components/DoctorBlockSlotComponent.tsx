@@ -7,7 +7,6 @@ import { useDoctorBlockSlot } from "../hooks/useDoctorBlockSlot";
 
 const DoctorBlockSlotComponent = () => {
   const { register, errors, onSubmit, column, data } = useDoctorBlockSlot();
-  console.log(errors);
   return (
     <div className="space-y-8">
       {/* Header */}

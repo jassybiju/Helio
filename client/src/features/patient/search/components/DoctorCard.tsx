@@ -2,18 +2,17 @@
 
 import Link from "next/link";
 
-
 interface DoctorCardProps {
-  doctorId : string
+  doctorId: string;
   name: string;
   specialization: string;
   rating: number;
   reviews: number;
   experienceYears: number;
-  fees : {
-    online : number,
-    clinic : number
-  },
+  fees: {
+    online: number;
+    clinic: number;
+  };
   nextAvailableSlot: string;
   profilePic: string;
 }
@@ -25,15 +24,15 @@ export default function DoctorCard({
   experienceYears,
   nextAvailableSlot,
   fees,
-  profilePic
+  profilePic,
 }: DoctorCardProps) {
-  console.log(fees)
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
       <div className="p-6">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="w-8 h-8 bg-blue-600 rounded-full overflow-hidden flex items-center justify-center text-white text-sm font-semibold">
-            {profilePic ? <img src={profilePic} alt="" />:name.charAt(0)}
+        <div className="flex items-start gap-3 mb-4">
+          <div className="w-12 h-12 rounded-full overflow-hidden bg-blue-600 flex items-center justify-center">
+            {" "}
+            {profilePic ? <img src={profilePic} alt="" /> : name.charAt(0)}
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-gray-900">{name}</h3>
@@ -48,7 +47,8 @@ export default function DoctorCard({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {" "}
           <div>
             <p className="text-gray-300 uppercase text-xs font-semibold tracking-wide">
               Experience
@@ -73,11 +73,16 @@ export default function DoctorCard({
             <p className="text-gray-600 uppercase text-xs font-semibold tracking-wide">
               Next Available
             </p>
-            <p className="font-semibold text-green-600">{new Date(nextAvailableSlot).toString()}</p>
+            <p className="font-semibold text-green-600 text-sm break-words">
+              {new Date(nextAvailableSlot).toLocaleString()}
+            </p>
           </div>
         </div>
 
-        <Link href={`/doctor/${doctorId}/booking`} className="px-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
+        <Link
+          href={`/doctor/${doctorId}/booking`}
+          className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
+        >
           Book Appointment
         </Link>
       </div>

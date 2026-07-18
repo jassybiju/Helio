@@ -24,7 +24,6 @@ const LoginByGoogleComponent = ({
       toast.error("Google Login Error")
     }
   };
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
   const handleLoginError = () => {
     console.log("Login Failed");
   };

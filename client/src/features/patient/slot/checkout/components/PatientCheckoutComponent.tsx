@@ -35,7 +35,6 @@ const PatientCheckoutComponent = () => {
       return;
     }
 
-            console.log("_++++++",process.env.NEXT_PUBLIC_RAZORPAY_KEY);
 
 
     mutate("RAZORPAY", {

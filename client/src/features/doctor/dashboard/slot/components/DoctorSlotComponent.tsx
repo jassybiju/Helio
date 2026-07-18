@@ -53,7 +53,6 @@ const DoctorSlotComponent = () => {
       <div className="space-y-10">
         {daysOrder.map((day) => {
           const daySlots = slots[day]!
-          console.log(daySlots)
           if (!daySlots || daySlots?.length === 0) return null
 
           return (

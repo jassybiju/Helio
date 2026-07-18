@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useDoctorAddPrescription } from "../hooks/useDoctorAddPrescriptionMutation";
 
 const AddMedicineModal = ({ close, id }: ModalProps & { id: string }) => {
-  console.log(1234);
 
   const [medicine, setMedicine] = useState<{
     name: string;

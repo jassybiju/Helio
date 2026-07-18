@@ -31,7 +31,6 @@ const AddMoneyModal = ({ close }: ModalProps) => {
           transactionId: string;
         };
 
-        console.log("_++++++", data);
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
           amount: data.amount,

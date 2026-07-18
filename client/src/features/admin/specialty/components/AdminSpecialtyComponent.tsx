@@ -40,7 +40,6 @@ const AdminSpecialtyComponent = () => {
   const handleOpenAddSpecialty = () => {
     open(AddSpecialtyModal);
   };
-  console.log(Math.ceil(specialty?.data.count / LIMIT), page)
   return (
     <div className="space-y-6">
       {/* Header */}

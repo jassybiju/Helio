@@ -22,7 +22,6 @@ const PatientAppointmentCancellationConfirmationModal = ({
     useRescheduleAppointmentMutation(appointmentId);
   const { open } = useModal();
   const appointment = {};
-  console.log(appointmentId);
   const openRescheduleModal = () => {
     open(PatientAppointmentRescheduleModal, {
       appointmentId: appointmentId,

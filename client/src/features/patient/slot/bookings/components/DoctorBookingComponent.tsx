@@ -20,13 +20,11 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
 
   const router = useRouter();
 
-  console.log(resData);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [selectedType, setSelectedType] = useState<
     "in-clinic" | "online" | null
   >(null);
-  console.log(selectedTime, selectedType, selectedDate);
   const firstDate = Object.keys(resData)[0] ?? null;
   const activeDate = selectedDate ?? firstDate;
   if (isError) return null;
@@ -36,7 +34,6 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
   const totalReviews = data?.data.totalCount.reduce((acc,cur)=>acc+cur,0) ?? 0
   const sumReview = data?.data.totalCount.reduce((acc,cur,i)=>acc+(cur * (i+1)),0) ?? 0
   const avgRatings = totalReviews > 0 ? (sumReview/totalReviews) : 0
-  console.log(sumReview , totalReviews)
   const totalPages= Math.ceil(totalReviews! / LIMIT)
   // Generate week days starting from today
   const inClinicSlots = activeDate
@@ -48,7 +45,6 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
     : [];
 
   const handleBooking = () => {
-    console.log(activeDate, selectedTime, selectedType);
     if (!activeDate || !selectedTime || !selectedType) return;
 
     mutate(
@@ -60,7 +56,6 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
       {
         onSuccess: (res) => {
           const appointmentId = res.appointmentId;
-          console.log(res);
           toast.success("Appointment Created");
           // ✅ Redirect to payment page
           router.push(`/appointments/${appointmentId}/checkout`);

@@ -92,11 +92,6 @@ const PatientAppointmentRescheduleModal = ({
   const handleConfirm = () => {
     if (!selectedSlot || !selectedType) return;
 
-    console.log({
-      appointmentId,
-      consultationType: selectedType === "online" ? "ONLINE" : "CLINIC",
-      startTime: selectedSlot.time,
-    });
 
     toast.success("HIHDSOF");
     rescheduleAppointment(
@@ -110,9 +105,7 @@ const PatientAppointmentRescheduleModal = ({
           close();
         },
         onError(error) {
-          console.log(isAxiosError(error));
           if (isAxiosError(error)) {
-            console.log(error.response?.data);
             toast.error(error.response?.data.message);
           }
         },

@@ -17,7 +17,6 @@ export function UpdateProfilePicModal({
   close
 }: ProfilePictureUploadProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(currentImage ?? null);
-  console.log(imageSrc);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<null | Area>(null);
@@ -32,7 +31,6 @@ export function UpdateProfilePicModal({
     if (!file) {
       return;
     }
-    console.log("TYPE", typeof file)
     setImageSrc(URL.createObjectURL(file));
   }
 
@@ -45,9 +43,7 @@ export function UpdateProfilePicModal({
     }
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
     if(croppedImage){
-      console.log(croppedImage,2232)
       onImageSave(croppedImage, ()=>{
-        console.log("123HELLO")
         close()
       })
     }
@@ -122,10 +118,8 @@ export function UpdateProfilePicModal({
   //   if (!imageSrc || !croppedAreaPixels) return;
 
   //   setIsUploading(true);
-  //   console.log(croppedAreaPixels,imageSrc)
   //   try {
   //     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-  //     console.log(croppedImage)
   //     if (croppedImage) {
   //       onImageSave(croppedImage as string);
   //       setShowCropper(false);

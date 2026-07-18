@@ -79,12 +79,10 @@ export function useConsultationChatPage({
       sendMessage(message, {
         // ONSUCCESS MODIFY THE MOCK DATA WITH ACTUAL
         onSuccess(data) {
-          console.log(data);
           queryClient.setQueryData(
             ["chat-data", activeSessionId],
             (old: { data: { chats: ChatType[] } } | undefined) => {
               if (!old) return old;
-              console.log(old, data);
               return {
                 ...old,
                 data: {

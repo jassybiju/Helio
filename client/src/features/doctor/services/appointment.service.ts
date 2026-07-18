@@ -41,7 +41,6 @@ export const doctorAppointmentService = {
     >;
   },
   startConsultation: (appointmentId: string) => {
-    console.log(appointmentId);
     return apiRequest(
       `doctor/appointment/${appointmentId}/start`,
       HTTP_METHOD.POST,

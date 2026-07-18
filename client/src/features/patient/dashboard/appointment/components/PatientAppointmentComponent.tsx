@@ -18,7 +18,6 @@ const PatientAppointmentComponent = () => {
     setPage,
     appointmentsWithActionRequired,
   } = usePatientAppointment();
-  console.log(appointmentsWithActionRequired);
   const router = useRouter();
 
   return (

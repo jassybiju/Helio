@@ -75,7 +75,6 @@ const ProtectedLayout = ({ children, role }: PropType) => {
     toast.success("!@#")
     const handler = () => {
       toast.success("NOTIFICATION")
-      console.log("!@#!@LJDFLDSKFJL")
       queryClient.invalidateQueries({queryKey : ['notification']})
       // queryClient.setQueryData(
       //   ["notification"],

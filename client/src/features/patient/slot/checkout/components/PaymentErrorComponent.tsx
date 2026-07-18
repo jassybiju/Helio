@@ -71,7 +71,6 @@ const PaymentErrorComponent = () => {
       },
     });
   };
-  console.log(data);
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex flex-col">
       {/* Header */}\{/* Main Content */}

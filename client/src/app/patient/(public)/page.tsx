@@ -6,7 +6,6 @@ import Link from "next/link";
 import React from "react";
 
 const page = () => {
-
   return (
     <div className="min-h-screen w-full bg-white">
       {/* Hero Section */}
@@ -171,7 +170,7 @@ const page = () => {
               },
               {
                 name: "Mark Thompson",
-                text: "This is a great app. Stitch Health has been a lifesaver. High-quality specialists are now a tap away.",
+                text: "This is a great app. Helio Health has been a lifesaver. High-quality specialists are now a tap away.",
               },
               {
                 name: "Linda Wu",
@@ -243,90 +242,151 @@ const page = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 px-4">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
-          <div className="space-y-2">
-            <p className="font-bold">STITCH HEALTH</p>
-            <p className="text-sm text-slate-400">
-              Modern healthcare for the digital age. Patient care, redesigned
-              with empathy and technology.
-            </p>
+      <footer className="bg-slate-900 text-slate-300">
+        <div className="max-w-7xl mx-auto px-4 py-16 grid gap-10 md:grid-cols-4">
+          {/* Brand */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-white">Helio Health</h3>
+
+            <h3 className="text-sm text-white leading-6">
+              Modern telemedicine built to make healthcare accessible, secure,
+              and convenient for everyone.
+            </h3>
           </div>
-          {["SERVICES", "SUPPORT", "CONNECT"].map((section) => (
-            <div key={section} className="space-y-2">
-              <p className="font-semibold text-sm uppercase tracking-wide">
-                {section}
-              </p>
-              <ul className="text-sm text-slate-400 space-y-2">
-                {section === "SERVICES" && (
-                  <>
-                    <li>
-                      <a
-                        href="#"
-                        className="hover:text-white transition-colors"
-                      >
-                        Telemedicine
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="hover:text-white transition-colors"
-                      >
-                        Specialists
-                      </a>
-                    </li>
-                  </>
-                )}
-                {section === "SUPPORT" && (
-                  <>
-                    <li>
-                      <a
-                        href="#"
-                        className="hover:text-white transition-colors"
-                      >
-                        Help Center
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="hover:text-white transition-colors"
-                      >
-                        Contact Us
-                      </a>
-                    </li>
-                  </>
-                )}
-                {section === "CONNECT" && (
-                  <>
-                    <li>
-                      <a
-                        href="#"
-                        className="hover:text-white transition-colors"
-                      >
-                        Twitter
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="hover:text-white transition-colors"
-                      >
-                        Email
-                      </a>
-                    </li>
-                  </>
-                )}
-              </ul>
-            </div>
-          ))}
+
+          {/* Services */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Services</h4>
+
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link
+                  href="/patient/doctors"
+                  className="hover:text-white transition-colors"
+                >
+                  Find Doctors
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/patient/dashboard"
+                  className="hover:text-white transition-colors"
+                >
+                  Dashboard
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/appointments"
+                  className="hover:text-white transition-colors"
+                >
+                  Appointments
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Support</h4>
+
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link
+                  href="/faq"
+                  className="hover:text-white transition-colors"
+                >
+                  FAQ
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-white transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/privacy"
+                  className="hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Company</h4>
+
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link
+                  href="/about"
+                  className="hover:text-white transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/terms"
+                  className="hover:text-white transition-colors"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/careers"
+                  className="hover:text-white transition-colors"
+                >
+                  Careers
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm text-slate-400">
-          <p>
-            © 2024 Stitch Health Inc. All rights reserved. Made for the future
-            of care.
-          </p>
+
+        {/* Bottom */}
+        <div className="border-t border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+            <h3>
+              © {new Date().getFullYear()} Helio Health. All rights reserved.
+            </h3>
+
+            <div className="flex gap-6">
+              <Link
+                href="/privacy"
+                className="hover:text-white transition-colors"
+              >
+                Privacy
+              </Link>
+
+              <Link
+                href="/terms"
+                className="hover:text-white transition-colors"
+              >
+                Terms
+              </Link>
+
+              <Link
+                href="/contact"
+                className="hover:text-white transition-colors"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

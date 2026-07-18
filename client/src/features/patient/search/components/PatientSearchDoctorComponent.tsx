@@ -38,36 +38,38 @@ const PatientSearchDoctorComponent = () => {
 
   const { data, isLoading, error } = usePatientSearchDoctor(queryParams);
   const doctors = data?.data?.data;
-  const totalPages = Math.ceil((data?.data?.totalCount ?? 0) / queryParams.limit)
+  const totalPages = Math.ceil(
+    (data?.data?.totalCount ?? 0) / queryParams.limit,
+  );
   if (isLoading) return <div className="p-6">Loading...</div>;
   if (error) return <div className="p-6 text-red-500">Error</div>;
 
   return (
-    <div className="flex gap-8 p-4 w-full">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 p-4 lg:p-6 w-full">
+      {" "}
       <FilterSidebar
         onFiltersChange={(newFilters) => {
           setFilters(newFilters);
           setCurrentPage(1); // ✅ reset pagination
         }}
       />
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
+        {" "}
         <ResultsHeader
-          totalDoctors={data?.data?.total ?? 0}
+          totalDoctors={data?.data?.totalCount ?? 0}
           sortBy={sortBy}
           onSortChange={(val) => {
             setSortBy(val);
             setCurrentPage(1);
           }}
         />
-
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
           {doctors?.length ? (
             doctors.map((doc) => <DoctorCard key={doc.doctorId} {...doc} />)
           ) : (
             <p>No doctors found</p>
           )}
         </div>
-
         <DoctorPagination
           currentPage={currentPage}
           totalPages={totalPages}

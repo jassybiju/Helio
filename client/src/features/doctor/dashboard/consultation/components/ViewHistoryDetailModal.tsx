@@ -32,7 +32,7 @@ const ViewHistoryDetailModal = ({
 
 
       const viewPDF = (file : string) => {
-        console.log(file)
+        (file)
         open(ViewPDFModal, {file : file,title : "Lab Report" })
       }
   return (

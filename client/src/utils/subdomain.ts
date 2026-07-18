@@ -14,6 +14,5 @@ export function getValidSubdomain(host: string): string {
       }
     }
   }
-  console.log(subdomain);
   return subdomain!;
 }

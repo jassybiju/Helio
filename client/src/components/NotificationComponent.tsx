@@ -36,21 +36,14 @@ export function NotificationComponent({
 
   const notifications =
     data?.pages.flatMap((page) => page.data.notifications) ?? [];
-  console.log(
-    data?.pages.map((page, i) => ({
-      page: i + 1,
-      ids: page.data.notifications.map((n) => n.id),
-    })),
-  );
+
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  // console.log(notifications, data);
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(bottomRef.current, 123);
     if (!bottomRef.current || !scrollRef.current) return;
 
     const observer = new IntersectionObserver(
@@ -108,7 +101,33 @@ export function NotificationComponent({
   if (!isOpen) return null;
 
   return (
-    <div className="absolute right-0 top-full mt-2 w-96 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-96 overflow-hidden flex flex-col">
+    <div
+      className="
+    fixed
+    top-16
+    left-2
+    right-2
+    z-50
+
+    sm:absolute
+    sm:top-full
+    sm:right-0
+    sm:left-auto
+    sm:mt-2
+    sm:w-96
+
+    bg-white
+    rounded-xl
+    border
+    border-gray-200
+    shadow-xl
+    max-h-[80vh]
+    overflow-hidden
+    flex
+    flex-col
+  "
+    >
+      {" "}
       {/* Header */}
       <div className="border-b border-gray-200 p-4 flex items-center justify-between bg-gray-50">
         <div className="flex items-center gap-2">
@@ -127,7 +146,6 @@ export function NotificationComponent({
           <X className="w-5 h-5 text-gray-500" />
         </button>
       </div>
-
       {/* Notifications List */}
       <div className="overflow-y-auto flex-1" ref={scrollRef}>
         {notifications.length === 0 ? (
@@ -203,7 +221,6 @@ export function NotificationComponent({
           <div className="p-3 text-center">Loading...</div>
         )}
       </div>
-
       {/* Footer */}
       {/* {notifications.length > 0 && (
         <div className="border-t border-gray-200 p-3 bg-gray-50 flex gap-2">

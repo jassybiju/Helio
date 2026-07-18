@@ -200,7 +200,6 @@ export const appointmentService = {
   uploadLabReport: (reportId: string, data: File) => {
     const formData = new FormData();
     formData.append("document", data);
-    console.log(reportId, API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId));
     return apiRequest(
       API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId),
       HTTP_METHOD.PATCH,

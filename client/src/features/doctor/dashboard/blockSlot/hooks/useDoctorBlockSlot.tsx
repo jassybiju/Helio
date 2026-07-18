@@ -32,12 +32,10 @@ export const useDoctorBlockSlot = () => {
   const {open} = useModal()
 
   const onSubmit = (data: BlockDoctorSlotFormData) => {
-    console.log(123)
     mutate(data,{onError(error){
       if(isAxiosError(error)){
         toast.error(error.response?.data.message)
         if(error.response?.data?.error?.appointments){
-          console.log(error.response.data.error.appointments)
           open(DoctorBlockSlotConflictModal,{appointments : error.response.data.error.appointments, blockDetails : error.response.data.error.blockDetails})
           toast.error(error.response.data.error.reason)
         }

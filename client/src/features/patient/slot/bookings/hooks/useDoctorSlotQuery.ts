@@ -2,7 +2,6 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { patientSearchService } from "../../../services/search.service"
 
 export const useDoctorSlotQuery = (doctorId : string, page : number, limit : number) => {
-  console.log(doctorId)
   return useQuery({
     queryKey : ['doc-slots', {doctorId,page,limit}],
     placeholderData : keepPreviousData,

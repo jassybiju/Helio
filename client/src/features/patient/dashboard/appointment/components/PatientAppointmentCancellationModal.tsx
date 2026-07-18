@@ -15,7 +15,6 @@ const PatientAppointmentCancellationModal = ({close, date, fee, appointmentId}: 
   const {mutate : rescheduleAppointment} = useReschedulePatientAppointmentMutation(appointmentId)
   const {open} = useModal()
   const appointment = {}
-  console.log(appointmentId)
   const openRescheduleModal = () => {
     open(PatientAppointmentRescheduleModal, {appointmentId : appointmentId, rescheduleAppointment})
   }

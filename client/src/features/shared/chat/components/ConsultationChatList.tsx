@@ -28,7 +28,6 @@ export default function ConsultationChatList({
   setActiveId,
 }: Props) {
   const [tab, setTab] = useState<"active" | "expired">("active");
-  console.log(list,baseUrl);
   const chatList = tab === "active" ? list?.chats.active : list?.chats.expired;
   // const filtered = chats.filter((chat) => chat.status === tab);
 

@@ -20,7 +20,6 @@ const PatientVerifyOTP = ({ id, expires }: { id: string; expires: string }) => {
     const res = (await authService.resend_otp({ id })) as {
       data: { invalidAt: string };
     };
-    console.log(res);
     toast.success("OTP Resent Successfully");
 
     router.replace(`/verify-otp?otpId=${id}&expires=${res.data.invalidAt}`);

@@ -57,7 +57,6 @@ const PatientSettingsComponent = () => {
     open(UpdateProfilePicModal, {
       onImageSave: async (image: string, onSuccess : ()=>void) => {
         const file = await fetch(image).then((r) => r.blob());
-        console.log(image, file, "1232d", typeof image);
         updateProfilePic(file, {onSuccess });
       },
       currentImage: URL.createObjectURL(file),

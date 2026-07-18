@@ -81,7 +81,6 @@ export default function WalletPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'income' | 'expense'>('all')
   const [currentPage, setCurrentPage] = useState(1)
   const {data} =useGetWalletQuery({page : currentPage, limit : ITEMS_PER_PAGE, order : 'desc'})
-  console.log(data)
   const {open} = useModal() 
 
 
