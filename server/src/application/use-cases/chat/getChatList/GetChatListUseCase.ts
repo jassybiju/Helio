@@ -40,7 +40,6 @@ export class GetChatListUseCase implements IGetChatListUseCase {
       sender.id,
       userType
     );
-    console.log(chatSessions);
     const result: IGetChatListDTO["chats"] = {
       expired: [],
       active: [],
@@ -66,7 +65,6 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           : remainingMinutes > 60
             ? `${Math.floor(remainingMinutes / 60)} hours`
             : `${remainingMinutes} mins`;
-      console.log("IS EXPIRED", diffMs);
       if (diffMs > 0) {
         result.active.push({
           id: session.id,

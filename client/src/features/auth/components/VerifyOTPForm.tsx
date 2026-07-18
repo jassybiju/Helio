@@ -29,27 +29,26 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
   } = useOTPVerification(id, otp_invalid_at, verifyOTP, resendOTP);
 
   return (
-    <div className="w-full max-w-md">
-      <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+    <div className="w-full max-w-md mx-auto px-4 sm:px-0">
+      {" "}
+      <div className="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-5 sm:p-8 lg:p-12">
+        {" "}
         {/* Header Icon */}
         <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center"></div>
+          <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center"></div>
         </div>
-
         {/* Heading */}
-        <h1 className="text-3xl font-bold text-slate-900 text-center mb-2">
-          Verify Identity
-        </h1>
-        <p className="text-center text-slate-600 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center"> Verify Identity</h1>
+        <p className="text-center text-sm sm:text-base text-slate-600 mb-6">
+          {" "}
           We've sent a verification code to your email.
           <br />
           Please enter the 6-digit code below to continue.
         </p>
-
         {/* Timer */}
         <div className="flex justify-center mb-6">
           <div
-            className={`px-4 py-2 rounded-lg font-mono font-semibold text-lg ${
+            className={`px-3 sm:px-4 py-2 rounded-lg font-mono font-semibold text-sm sm:text-base lg:text-lg text-center ${
               isExpired
                 ? "bg-red-50 text-red-600"
                 : secondsRemaining < 60
@@ -62,7 +61,6 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
               : `Code expires in ${formatTimeRemaining(secondsRemaining)}`}
           </div>
         </div>
-
         {/* Success Message */}
         {submitSuccess && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -71,14 +69,12 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
             </p>
           </div>
         )}
-
         {/* Resend Success Message */}
         {/* {resendSuccess && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
             <p className="text-green-800 font-medium text-center">OTP resent to your email</p>
           </div>
         )} */}
-
         {/* Error Message */}
         {submitError && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -87,7 +83,6 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
             </p>
           </div>
         )}
-
         {/* Form */}
         <form onSubmit={otpFormSubmit} className="space-y-8">
           {/* OTP Input */}
@@ -110,7 +105,7 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
               variant="primary"
               size="lg"
               type="submit"
-              className="w-full flex items-center justify-center gap-2"
+              className="w-full flex items-center justify-center gap-2 py-3 text-sm sm:text-base"
               disabled={
                 otpVerifySubmitting || otpValue.length !== 6 || isExpired
               }
@@ -138,21 +133,19 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
             </ClayButton>
           </div>
         </form>
-
         {/* Divider */}
-        <div className="my-6 flex items-center gap-3">
+        <div className="my-5 sm:my-6 flex items-center gap-2 sm:gap-3">
           <div className="flex-1 border-t border-slate-200"></div>
           <span className="text-slate-500 text-sm">Didn't receive code?</span>
           <div className="flex-1 border-t border-slate-200"></div>
         </div>
-
         {/* Links */}
         <div className="space-y-3 text-center">
           <button
             type="button"
             onClick={handleResendOTP}
             disabled={isResending}
-            className={`font-medium text-sm transition-colors ${
+            className={`font-medium text-sm sm:text-base transition-colors ${
               secondsRemaining > 30
                 ? "text-slate-400 cursor-not-allowed"
                 : "text-blue-600 hover:text-blue-700"
@@ -166,9 +159,8 @@ const VerifyOTPForm = ({ id, otp_invalid_at, verifyOTP, resendOTP }: Props) => {
             {isResending ? "Resending..." : "Resend Code"}
           </button>
         </div>
-
         {/* Footer */}
-        <p className="text-center text-xs text-slate-500 mt-8 uppercase tracking-wide">
+        <p className="text-center text-[10px] sm:text-xs text-slate-500 mt-6 sm:mt-8 uppercase tracking-wide">
           Secure Onboarding Powered By Helio
         </p>
       </div>

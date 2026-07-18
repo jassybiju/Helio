@@ -17,7 +17,6 @@ export const validate =
       query: req.query,
     });
 
-    console.log(parsed, 1121);
     if (!parsed.success) {
       return next(
         new ValidationError(
@@ -40,6 +39,5 @@ export const validate =
         value: { ...parsed.data.query },
       });
     }
-    console.log(req.query);
     next();
   };

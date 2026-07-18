@@ -7,7 +7,6 @@ export class PinoLoggerService implements ILogger {
   private static instance: PinoLoggerService;
   constructor() {
     // const filePath = path.join(process.cwd(), "logs");
-    console.log("ININTAILED");
     this._logger = pino(
       {
         level: process.env.LOG_LEVEL || "debug",
@@ -38,8 +37,6 @@ export class PinoLoggerService implements ILogger {
   }
 
   public static getInstance(): PinoLoggerService {
-    console.log("ININTAILED");
-
     if (!PinoLoggerService.instance) {
       PinoLoggerService.instance = new PinoLoggerService();
     }

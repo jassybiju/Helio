@@ -26,7 +26,6 @@ export const imageUpload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     const allowedMimeTypes = ["image/jpeg", "image/png"];
-    console.log("RANNED");
     if (allowedMimeTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {

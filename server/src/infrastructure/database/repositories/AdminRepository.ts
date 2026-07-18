@@ -9,7 +9,6 @@ export class AdminRepository implements IAdminRepository {
   async findByEmail(email: Email): Promise<Admin | null> {
     try {
       const adminDoc = await AdminModel.findOne({ email: email.value });
-      console.log(adminDoc);
       if (!adminDoc) return null;
       return new Admin(
         adminDoc._id!,
@@ -29,7 +28,6 @@ export class AdminRepository implements IAdminRepository {
         passwordHash: admin.passwordHash,
       });
     } catch (error) {
-      console.log(error);
       throw new AppError("Error Creating Admin,", HTTPStatus.INTERNAL_ERROR);
     }
   }
@@ -37,7 +35,6 @@ export class AdminRepository implements IAdminRepository {
   async findById(id: string): Promise<Admin | null> {
     try {
       const adminDoc = await AdminModel.findOne({ _id: id });
-      console.log(adminDoc);
       if (!adminDoc) return null;
       return new Admin(
         adminDoc._id!,
@@ -45,7 +42,6 @@ export class AdminRepository implements IAdminRepository {
         adminDoc.passwordHash!
       );
     } catch (error) {
-      console.log(error);
       throw new AppError("Error Fidnign Admin,", HTTPStatus.INTERNAL_ERROR);
     }
   }

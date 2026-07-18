@@ -26,8 +26,6 @@ export class AIChatBotUseCase implements IAIChatBotUseCase {
       id = this._idGenerator.generate(process.env.AICONV_PREFIX!);
     }
 
-    // console.log(this._vectorStore.search(message));
-
     const response = await this._aiAgentService.chat({
       conversationId: id,
       patientId,

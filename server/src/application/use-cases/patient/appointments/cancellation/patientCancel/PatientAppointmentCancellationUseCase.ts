@@ -68,7 +68,6 @@ export class PatientAppointmentCancellationUseCase implements IPatientCancellati
 
       const appointmentDate = new Date(appointment.startTime);
       appointmentDate.setHours(0, 0, 0, 0);
-      // console.log(fakeDate, appointmentDate, "HIERF")
       if (appointmentDate <= date) {
         throw new ConflictError("Cant cancel on appointment day");
       }

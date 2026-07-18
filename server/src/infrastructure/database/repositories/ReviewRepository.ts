@@ -65,7 +65,6 @@ export class ReviewRepository
     limit: number
   ): Promise<Review[]> {
     const skip = (page - 1) * limit;
-    console.log(skip);
     return super.find(
       { doctor_id: doctorId },
       { skip, limit },

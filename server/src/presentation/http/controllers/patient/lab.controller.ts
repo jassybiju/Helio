@@ -35,7 +35,6 @@ export class PatientLabReportController {
     try {
       const patientId = req.user?.id as string;
       const { reportId } = req.params;
-      console.log(req.query);
       const response = await this._uploadLabReport.execute(
         patientId,
         reportId as string,

@@ -62,7 +62,8 @@ const OTPInput = ({ value, onChange, length = 6 }: Props) => {
   };
 
   return (
-    <div className="flex gap-3 justify-center">
+    <div className="flex justify-center gap-2 max-w-sm mx-auto">
+      {" "}
       {Array.from({ length }).map((_, index) => (
         <input
           key={index}
@@ -76,7 +77,23 @@ const OTPInput = ({ value, onChange, length = 6 }: Props) => {
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}
           onPaste={handlePaste}
-          className="w-14 h-14 text-center text-2xl font-bold border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 transition-all"
+          className="
+w-10 h-10
+xs:w-11 xs:h-11
+sm:w-12 sm:h-12
+md:w-14 md:h-14
+text-lg sm:text-xl md:text-2xl
+font-bold
+text-center
+border border-slate-200
+rounded-lg
+focus:outline-none
+focus:ring-2
+focus:ring-blue-600
+focus:border-transparent
+bg-slate-50
+transition-all
+"
           aria-label={`OTP digit ${index + 1}`}
         />
       ))}

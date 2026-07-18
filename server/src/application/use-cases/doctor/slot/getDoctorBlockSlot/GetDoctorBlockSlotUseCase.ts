@@ -23,7 +23,6 @@ export class GetDoctorBlockSlotUseCase implements IGetDoctorBlockSlotUseCase {
     }
 
     const blockShifts = await this._doctorBlockShiftRepo.findByDoctor(doctorId);
-    console.log(blockShifts);
     return blockShifts;
   }
 }

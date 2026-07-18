@@ -56,10 +56,6 @@ export class NotificationRepository
     ];
     const docs = await super.aggregate<NotificationRaw>(pipeline);
     // this._logger.debug("docs",{docs,pipeline})
-    console.log(
-      "RAW IDS:",
-      docs.map((d) => d._id)
-    );
     return {
       notifications: docs.slice(0, limit).map(NotificationMapper.toDomain),
       hasMore: docs.length > limit,

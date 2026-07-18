@@ -39,7 +39,6 @@ export class LoginAdminUseCase implements ILoginUseCase {
       password,
       admin.passwordHash
     );
-    console.log(admin.passwordHash, password, isPasswordValid);
     if (!isPasswordValid) {
       throw new AppError("Invalid Email or password", HTTPStatus.BAD_REQUEST);
     }

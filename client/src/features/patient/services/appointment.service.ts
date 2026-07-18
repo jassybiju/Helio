@@ -36,7 +36,7 @@ export interface IGetAllPatientAppointments {
 
     hasLabReports: boolean;
   }[];
-
+  cancelledAppointments: string[]
   totalCount: number;
   page: number;
   limit: number;
@@ -277,7 +277,8 @@ export const appointmentService = {
   ) {
     return apiRequest(
       `/patient/appointment/${appointmentId}/reschedule`,
-      HTTP_METHOD.POST,data
+      HTTP_METHOD.POST,
+      data,
     );
   },
 };

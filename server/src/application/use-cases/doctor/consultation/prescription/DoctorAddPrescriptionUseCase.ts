@@ -65,7 +65,6 @@ export class DoctorAddPrescriptionUseCase implements IAddPrescriptionUseCase {
     );
 
     consultation.addPrescription(prescription);
-    console.log(consultation.prescriptions);
     await this._consultationRepo.update(consultation);
   }
 }

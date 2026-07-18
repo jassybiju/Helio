@@ -10,7 +10,6 @@ export const authorizeMiddleware = (role: USER_ROLES | USER_ROLES[]) => {
     if (!req.user) {
       throw new AppError(MESSAGE.NOT_AUTHENTICATED, HTTPStatus.UNAUTHORIZED);
     }
-    console.log(allowedRoles, req.user.role);
     if (!allowedRoles.includes(req.user.role)) {
       throw new AppError(MESSAGE.NOT_AUTHORIZED, HTTPStatus.FORBIDDEN);
     }

@@ -23,11 +23,10 @@ export const usePatientAppointment = () => {
     limit: LIMIT,
     status: statusFilter,
   });
-  const {mutate : downloadPDF} = useDownloadPDF()
+  const { mutate: downloadPDF } = useDownloadPDF();
   const totalPages = Math.ceil((data?.data.totalCount ?? 0) / LIMIT);
 
-  const appointmentsWithActionRequired =
-    data?.data.cancelledAppointments
+  const appointmentsWithActionRequired = data?.data.cancelledAppointments;
   const column: ColumnType<IGetAllPatientAppointments["appointments"][0]> = [
     {
       key: "id",
@@ -39,8 +38,9 @@ export const usePatientAppointment = () => {
       key: "doctor",
       title: "Doctor",
       render: (_v, row) => (
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
+        <div className="flex items-center gap-2 min-w-[180px]">
+          {" "}
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
             {row.doctor.profilePicture ? (
               <img
                 src={row.doctor.profilePicture}
@@ -53,9 +53,10 @@ export const usePatientAppointment = () => {
               </span>
             )}
           </div>
-
           <div>
-            <p className="font-medium text-slate-900">{row.doctor.name}</p>
+            <p className="font-medium text-sm sm:text-base text-slate-900 whitespace-nowrap">
+              {row.doctor.name}
+            </p>
 
             <p className="text-xs text-slate-500">
               {row.doctor.specialization}
@@ -130,8 +131,8 @@ export const usePatientAppointment = () => {
           [APPOINTMENT_STATUS.NO_SHOW]: "bg-slate-200 text-slate-700",
 
           [APPOINTMENT_STATUS.EXPIRED]: "bg-slate-200 text-slate-700",
-          [APPOINTMENT_STATUS.PENDING] : '',
-          [APPOINTMENT_STATUS.SKIPPED] : '',
+          [APPOINTMENT_STATUS.PENDING]: "",
+          [APPOINTMENT_STATUS.SKIPPED]: "",
         };
 
         const label =
@@ -142,8 +143,8 @@ export const usePatientAppointment = () => {
         return (
           <div className="flex flex-col">
             <span
-              className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                styles[status as APPOINTMENT_STATUS] 
+              className={`inline-flex whitespace-nowrap rounded-full px-2 sm:px-3 py-1 text-xs font-semibold ${
+                styles[status as APPOINTMENT_STATUS]
               }`}
             >
               {label}
@@ -185,9 +186,9 @@ export const usePatientAppointment = () => {
       key: "actions",
       title: "Actions",
       render: (_v, row) => (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center gap-1 sm:gap-2">
           <button
-            className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+            className="rounded-lg p-1.5 sm:p-2 text-slate-600 transition hover:bg-slate-100"
             title="View Appointment"
             onClick={() => router.push("/dashboard/appointment/" + row.id)}
           >

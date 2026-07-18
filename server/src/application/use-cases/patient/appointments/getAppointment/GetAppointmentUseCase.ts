@@ -33,7 +33,6 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
     if (!appointment) {
       throw new AppError("Appointment Not Found", HTTPStatus.NOT_FOUND);
     }
-    console.log(patient.id, appointment.patientId, patientId);
     if (appointment.patientId !== patient.id) {
       throw new AppError(
         "Appointment Not of this user",

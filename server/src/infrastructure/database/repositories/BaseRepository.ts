@@ -186,7 +186,7 @@ export abstract class BaseRepository<
     }
 
     const data = await this.aggregate<{
-      _id: {year : number, month :number, day : number};
+      _id: { year: number; month: number; day: number };
       total: number;
     }>([
       {

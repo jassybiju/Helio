@@ -27,7 +27,6 @@ export class DoctorGetChatListUseCase implements IDoctorGetChatListUseCase {
     const chatSessions = await this._chatSessionRepo.findManyByDoctorId(
       doctor.id
     );
-    console.log(chatSessions);
     const result: IDoctorGetChatListDTO["chats"] = {
       expired: [],
       active: [],

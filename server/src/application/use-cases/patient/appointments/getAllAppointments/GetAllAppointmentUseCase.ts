@@ -32,7 +32,6 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
     if (!patient) {
       throw new NotFoundError(MESSAGE.PATIENT_NOT_FOUND);
     }
-    console.log(patient.id);
     const { appointments, totalCount } =
       await this._appointmentRepo.findManyWithFilters({
         patientId: patient.id,
@@ -95,7 +94,7 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
 
     return {
       appointments: result,
-      cancelledAppointments: cancelledAppointments.appointments,
+      cancelledAppointments: cancelledAppointments.appointments.map(app => app.appointment.id),
       totalCount,
 
       page: query.page,

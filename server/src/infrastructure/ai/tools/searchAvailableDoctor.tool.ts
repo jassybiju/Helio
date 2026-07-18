@@ -30,11 +30,11 @@ export function createSearchAvailableDoctorsTool(
       date: string;
       consultationType: CONSULTATION_TYPE;
     }) => {
-         logger.info("GET DOCTOR SLOTS", {
-              query,
-              date,
-              consultationType,
-            });
+      logger.info("GET DOCTOR SLOTS", {
+        query,
+        date,
+        consultationType,
+      });
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
         return { error: "Invalid date format, expected YYYY-MM-DD" };
       }

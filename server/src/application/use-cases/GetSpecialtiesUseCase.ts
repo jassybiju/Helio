@@ -5,7 +5,6 @@ export class GetSpecialtiesUseCase {
 
   async execute({ page, limit }: { page?: number; limit?: number }) {
     const specialties = await this.specialtyRepo.findMany({ page, limit });
-    console.log(specialties);
     // Optional: format for UI (label/value)
     return {
       specialty: specialties.specialty.map((spec) => ({

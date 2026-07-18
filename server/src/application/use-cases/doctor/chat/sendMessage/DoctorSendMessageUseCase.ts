@@ -57,7 +57,6 @@ export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
       }
 
       const chatSession = await chatSessionRepo.findById(chatSessionId);
-      console.log(chatSessionId);
       if (!chatSession) {
         throw new NotFoundError(MESSAGE.CHAT_SESSION_NOT_FOUND);
       }

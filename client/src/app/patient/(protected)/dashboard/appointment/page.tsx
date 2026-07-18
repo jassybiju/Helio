@@ -9,7 +9,9 @@ const PatientAppointmentPage = () => {
         <h1 className="text-3xl font-bold text-slate-900">Appointments</h1>
         <p className="text-slate-600 mt-1">Manage and track all your appointments in real-time.</p>
       </div>
+      {/* <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8"> */}
     <PatientAppointmentComponent/>
+{/* </div> */}
     </div>
   )
 }

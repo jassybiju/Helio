@@ -79,12 +79,6 @@ export class Consultation {
   }
 
   removePrescription(name: string) {
-    console.log(
-      this._prescriptions.filter(
-        (pres) => pres.name.trim().toLowerCase() === name.trim().toLowerCase()
-      ),
-      "abc"
-    );
     if (
       this._prescriptions.filter(
         (pres) => pres.name.trim().toLowerCase() === name.trim().toLowerCase()
@@ -97,12 +91,6 @@ export class Consultation {
     );
   }
   ensureActive() {
-    console.log(
-      !this.startedAt || this._endedAt,
-      this._startedAt,
-      this._endedAt,
-      this
-    );
     if (!this._startedAt || this._endedAt) {
       throw new ConflictError("Consultation not active");
     }

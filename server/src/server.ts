@@ -16,7 +16,6 @@ const startServer = async () => {
 
     // ,    registerSocketHandlers(io);
     // io.use(socketAuthMiddleware);
-    console.log(3);
 
     server.listen(PORT, () => {
       console.log("Listening to PORT 5000");

@@ -49,7 +49,6 @@ export class GetWalletUseCase implements IGetWalletUseCase {
         toDate,
         order,
       });
-    console.log(wallet.balance);
     return { balance: wallet.balance, transactions, totalCount, limit, page };
   }
 }
