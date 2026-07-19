@@ -10,18 +10,22 @@ import { toast } from "react-toastify";
 const AddMoneyModal = ({ close }: ModalProps) => {
   const { mutate: addMoney } = useAddMoneyMutation();
   const verifyPayment = useAddMoneyVerifyMutation();
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState<string>('');
 
   const handleAddAmount = (value: string) => {
-    if (value === "") {
-      setAmount(0);
-    } else {
-      setAmount(Number(value));
+    if (/^\d*\.?\d*$/.test(value)) {
+      setAmount(value);
     }
   };
 
   const handlePayment = async () => {
-    addMoney(amount, {
+      const paymentAmount = Number(amount);
+
+  if (!paymentAmount || paymentAmount <= 0) {
+    toast.error("Please enter a valid amount");
+    return;
+  }
+    addMoney(paymentAmount, {
       onSuccess: async (response) => {
         const data = response.data as {
           key: string;

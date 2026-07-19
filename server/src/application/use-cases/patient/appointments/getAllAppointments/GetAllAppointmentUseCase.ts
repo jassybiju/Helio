@@ -94,7 +94,9 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
 
     return {
       appointments: result,
-      cancelledAppointments: cancelledAppointments.appointments.map(app => app.appointment.id),
+      cancelledAppointments: cancelledAppointments.appointments.map(
+        (app) => app.appointment.id
+      ),
       totalCount,
 
       page: query.page,

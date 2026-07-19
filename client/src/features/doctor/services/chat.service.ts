@@ -18,7 +18,7 @@ export const doctorChatService = {
     return apiRequest(
       API_ENDPOINT.DOCTOR.CHAT.ID(id),
       HTTP_METHOD.GET,
-    ) as Promise<APIResponse<IDoctorGetChat>>;
+    ) as Promise<APIResponse<ChatType>>;
   },
   sendMessage(id: string, content: string) {
     return apiRequest(API_ENDPOINT.DOCTOR.CHAT.ID(id), HTTP_METHOD.POST, {

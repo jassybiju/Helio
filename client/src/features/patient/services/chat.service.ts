@@ -18,17 +18,12 @@ export const patientChatService = {
     return apiRequest(
       API_ENDPOINT.PATIENT.CHAT.ID(id),
       HTTP_METHOD.GET,
-    ) as Promise<APIResponse<IPatientGetChat>>;
+    ) as Promise<APIResponse<ChatType>>;
   },
   sendMessage(id: string, content: string) {
     return apiRequest(API_ENDPOINT.PATIENT.CHAT.ID(id), HTTP_METHOD.POST, {
       content,
-    });
+    }) as Promise<APIResponse<{id : string,  message : string, sendBy : string}>>
   },
 };
 
-export interface IPatientGetChat {
-  chats: ChatType[];
-  patient: SendeeType;
-  sessionId: string;
-}

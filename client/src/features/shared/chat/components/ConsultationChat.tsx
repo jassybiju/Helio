@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Clock,  Send,  } from "lucide-react";
 import { IDoctorGetChat } from "@/src/features/doctor/services/chat.service";
-import { SendeeType } from "../types/chat.type";
+import { ChatMessageType, ChatType, SendeeType } from "../types/chat.type";
 
 // interface Message {
 //   id: string;
@@ -14,7 +14,7 @@ import { SendeeType } from "../types/chat.type";
 
 interface Props {
   chatId: string | null;
-  chatData: IDoctorGetChat["chats"] | undefined;
+  chatData: ChatMessageType[] | undefined
   sendeeData: SendeeType | undefined;
   userType: "doctor" | "patient";
   consultationStatus: "active" | "expired";

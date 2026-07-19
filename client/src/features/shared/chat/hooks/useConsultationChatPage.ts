@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { USER_ROLES } from "@/src/types/user.types";
 import { useConsultationChat } from "@/src/features/shared/chat/hooks/useConsultationChat";
-import { UseMutationResult, useQueryClient } from "@tanstack/react-query";
-import { ChatListType, ChatType } from "../types/chat.type";
+import {
+  UseMutationResult,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
+import { ChatListType, ChatMessageType, ChatType } from "../types/chat.type";
 import { APIResponse } from "@/src/types/API.types";
 
 export function useConsultationChatPage({
@@ -12,12 +16,17 @@ export function useConsultationChatPage({
   useSendMessageMutation,
 }: {
   userType: USER_ROLES;
-  useChatListQuery: () => { data: unknown };
-  useChatQuery: (id: string | null) => { data: unknown };
+  useChatListQuery: () => UseQueryResult<APIResponse<ChatListType>>;
+  useChatQuery: (
+    id: string | null,
+  ) => UseQueryResult<APIResponse<ChatType>>;
   useSendMessageMutation: (
     id: string | null,
   ) => UseMutationResult<
-    APIResponse<{ id: string; message: string; sendBy: string }>
+    APIResponse<{ id: string; message: string; sendBy: string }>,
+    Error,
+    string,
+    unknown
   >;
 }) {
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
@@ -32,7 +41,7 @@ export function useConsultationChatPage({
 
   const handleSendMessage = (message: string) => {
     const tempId = crypto.randomUUID();
-    let prevMessage : string | null = null
+    let prevMessage: string | null = null;
     // SENDING MESSAGE
     if (message) {
       // UPDATE WITH MOCK DATA
@@ -56,20 +65,20 @@ export function useConsultationChatPage({
         ["chat-list"],
         (old: { data: ChatListType } | undefined) => {
           if (!old) return old;
-          prevMessage = old.data.chats.active.find(chat => chat.id === activeSessionId)?.message!
+          prevMessage = old.data.chats.active.find(
+            (chat) => chat.id === activeSessionId,
+          )?.message!;
           return {
             ...old,
             data: {
               ...old.data,
               chats: {
                 ...old.data.chats,
-                active: 
-                  old.data.chats.active.map((chat) =>
-                    chat.id === activeSessionId
-                      ? { ...chat, message: message }
-                      : chat,
-                  ),
-                
+                active: old.data.chats.active.map((chat) =>
+                  chat.id === activeSessionId
+                    ? { ...chat, message: message }
+                    : chat,
+                ),
               },
             },
           };
@@ -81,7 +90,7 @@ export function useConsultationChatPage({
         onSuccess(data) {
           queryClient.setQueryData(
             ["chat-data", activeSessionId],
-            (old: { data: { chats: ChatType[] } } | undefined) => {
+            (old: { data: { chats: ChatMessageType[] } } | undefined) => {
               if (!old) return old;
               return {
                 ...old,
@@ -99,7 +108,7 @@ export function useConsultationChatPage({
         onError() {
           queryClient.setQueryData(
             ["chat-data", activeSessionId],
-            (old: { data: { chats: ChatType[] } } | undefined) => {
+            (old: { data: { chats: ChatMessageType[] } } | undefined) => {
               if (!old) return old;
               return {
                 ...old,
@@ -111,15 +120,28 @@ export function useConsultationChatPage({
             },
           );
 
-          queryClient.setQueryData(['chat-list'],(old : {data : ChatListType} | undefined)=> {
-            if(!old) return old
-            return {
-              ...old,
-              data : {...old.data,chats : {...old.data.chats, active : old.data.chats.active.map(chat => chat.id === activeSessionId ? {...chat, message : prevMessage} : chat)}}
-            }
-          })
+          queryClient.setQueryData(
+            ["chat-list"],
+            (old: { data: ChatListType } | undefined) => {
+              if (!old) return old;
+              return {
+                ...old,
+                data: {
+                  ...old.data,
+                  chats: {
+                    ...old.data.chats,
+                    active: old.data.chats.active.map((chat) =>
+                      chat.id === activeSessionId
+                        ? { ...chat, message: prevMessage }
+                        : chat,
+                    ),
+                  },
+                },
+              };
+            },
+          );
 
-          prevMessage = null
+          prevMessage = null;
         },
       });
     }
@@ -131,7 +153,7 @@ export function useConsultationChatPage({
     sendeeData: chatRes?.data?.sendee,
     activeSessionId,
     setActiveSessionId,
-    isExpired : chatRes?.data?.isExpired,
+    isExpired: chatRes?.data?.isExpired,
     onSendMessage: handleSendMessage,
   };
 }

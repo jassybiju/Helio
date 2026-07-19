@@ -6,12 +6,12 @@ import { ModalProps } from '@/src/layout/ModalProvider'
 import { useUploadLabReportMutation } from '../hooks/useUploadLabReportMutation'
 import { toast } from 'react-toastify'
 
-interface UploadLabReportModalProps {
+interface UploadLabReportModalProps extends ModalProps {
   testName : string,
   reportId : string
 }
 
- const PatientUploadLabReportModal = ({ close , testName, reportId}: ModalProps & UploadLabReportModalProps)=> {
+ const PatientUploadLabReportModal = ({ close , testName, reportId} : UploadLabReportModalProps)=> {
   const [dragActive, setDragActive] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)

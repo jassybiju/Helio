@@ -1,97 +1,114 @@
 "use client";
 
 import React, { useState } from "react";
-import {  CheckCircle, Eye } from "lucide-react";
+import { CheckCircle, Eye } from "lucide-react";
 import { useGetLabReportQuery } from "../hooks/useGetLabReportQuery";
 import { useModal } from "@/src/hooks/useModal";
-import  PatientUploadLabReportModal  from "./PatientUploadLabReportModal";
+import PatientUploadLabReportModal from "./PatientUploadLabReportModal";
 import ViewPDFModal from "@/src/components/ViewPDFModal";
-
-
 
 const LIMIT = 4;
 const PatientLabReportComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data } = useGetLabReportQuery({ limit: LIMIT, page: currentPage });
-  const {open} = useModal()
+  const { open } = useModal();
 
+  const openViewPDFModal = (file: string, title: string) => {
+    open(ViewPDFModal, { file, title });
+  };
+  const openUploadModal = (testName: string, reportId: string) => {
+    open(PatientUploadLabReportModal, { testName, reportId });
+  };
 
-  const openViewPDFModal = (file : string, title : string) => {
-    open(ViewPDFModal, {file , title  })
-  }
-  const openUploadModal = (testName : string, reportId : string) => {
-    open(PatientUploadLabReportModal, {testName, reportId})
-  }
-  
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 px-4 sm:px-6 lg:px-0">
+      {" "}
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-slate-900">Lab Reports</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+          Lab Reports
+        </h1>
         <p className="text-slate-500">Manage Your Medical Reports</p>
       </div>
-
       {/* Lab Requests Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
             📋 Lab Requests
           </h2>
           {/* <span className="text-sm text-slate-600">3 Pending Requests</span> */}
         </div>
 
         <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50">
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Test Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Requested By
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Status
-                </th>
-              
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data?.data.requested.map((request) => (
-                <tr
-                  key={request.id}
-                  className="border-b border-slate-200 hover:bg-slate-50"
-                >
-                  <td className="px-6 py-4 text-sm font-semibold text-slate-900">
-                    {request.testName}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-slate-600">
-                    {request.instructions}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-slate-600">
-                    {new Date(request.requestedAt).toDateString()}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
-                      REQUESTED
-                    </span>
-                  </td>
-                 
-                  <td className="px-6 py-4">
-                    <button onClick={()=>openUploadModal(request.testName, request.id)} className="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center gap-1">
-                      📄 Upload Report
-                    </button>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="min-w-[700px] w-full">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Test Name
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Requested By
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Date
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Status
+                  </th>
+
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Action
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data?.data.requested && data?.data.requested.length > 0 ? (
+                  data?.data.requested.map((request) => (
+                    <tr
+                      key={request.id}
+                      className="border-b border-slate-200 hover:bg-slate-50"
+                    >
+                      <td className="px-3 sm:px-6 py-3 text-sm font-semibold text-slate-900">
+                        {request.testName}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
+                        {request.instructions}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
+                        {new Date(request.requestedAt).toDateString()}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
+                          REQUESTED
+                        </span>
+                      </td>
+
+                      <td className="px-3 sm:px-6 py-3">
+                        <button
+                          onClick={() =>
+                            openUploadModal(request.testName, request.id)
+                          }
+                          className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs sm:text-sm font-semibold text-blue-600 hover:bg-blue-50"
+                        >
+                          📄 Upload Report
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="py-10 text-center text-slate-500"
+                    >
+                      No lab reports found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Filters */}
@@ -143,7 +160,6 @@ const PatientLabReportComponent = () => {
           </div>
         </div> */}
       </div>
-
       {/* Uploaded Lab Reports Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
@@ -155,70 +171,93 @@ const PatientLabReportComponent = () => {
         </div>
 
         <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50">
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Test Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Upload Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Notes
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data?.data.uploaded.reports.map((report) => (
-                <tr
-                  key={report.id}
-                  className="border-b border-slate-200 hover:bg-slate-50"
-                >
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-red-100 rounded flex items-center justify-center flex-shrink-0">
-                        <span className="text-red-600 text-lg">📄</span>
-                      </div>
-                      <span className="font-semibold text-slate-900">
-                        {report.testName}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-slate-600">
-                    {report.uploadedAt ?new Date(report.uploadedAt).toDateString():"-"}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
-                      UPLOADED
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-slate-500">
-                  </td>
-                  <td className="px-6 py-4 flex items-center gap-2">
-                    <button onClick={()=>openViewPDFModal(report.documentKey!, report.testName)}
-                      className="p-2 hover:bg-slate-100 rounded-lg transition"
-                      title="View"
+          <div className="overflow-x-auto">
+            <table className="min-w-[700px] w-full">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Test Name
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Upload Date
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Status
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Notes
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.data.uploaded.reports &&
+                data?.data.uploaded.reports.length > 0 ? (
+                  data?.data.uploaded.reports.map((report) => (
+                    <tr
+                      key={report.id}
+                      className="border-b border-slate-200 hover:bg-slate-50"
                     >
-                      <Eye className="w-5 h-5 text-slate-600" />
-                    </button>
-                    {/* <button
+                      <td className="px-3 sm:px-6 py-3">
+                        <div className="flex min-w-[180px] items-center gap-2">
+                          {" "}
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-red-100 rounded flex items-center justify-center flex-shrink-0">
+                            <span className="text-red-600 text-lg">📄</span>
+                          </div>
+                          <span className="font-semibold whitespace-nowrap text-sm sm:text-base">
+                            {" "}
+                            {report.testName}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
+                        {report.uploadedAt
+                          ? new Date(report.uploadedAt).toDateString()
+                          : "-"}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3">
+                        <span className="inline-flex whitespace-nowrap rounded-full px-2 sm:px-3 py-1 text-xs font-semibold">
+                          UPLOADED
+                        </span>
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-500"></td>
+                      <td className="px-3 sm:px-6 py-3 flex items-center gap-2">
+                        <button
+                          onClick={() =>
+                            openViewPDFModal(
+                              report.documentKey!,
+                              report.testName,
+                            )
+                          }
+                          className="rounded-lg p-1.5 sm:p-2 hover:bg-slate-100 transition"
+                          title="View"
+                        >
+                          <Eye className="w-5 h-5 text-slate-600" />
+                        </button>
+                        {/* <button
                       className="p-2 hover:bg-slate-100 rounded-lg transition"
                       title="Download"
                     >
                       <Download className="w-5 h-5 text-slate-600" />
                     </button> */}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="py-10 text-center text-slate-500"
+                    >
+                      No lab reports found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Pagination
@@ -227,7 +266,7 @@ const PatientLabReportComponent = () => {
             Showing 1-{Math.min(itemsPerPage, uploadedReports.length)} of{" "}
             {uploadedReports.length} reports
           </p> */}
-          {/* <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
             <button
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
@@ -245,7 +284,7 @@ const PatientLabReportComponent = () => {
               Next
             </button>
           </div>
-        </div> */} 
+        </div> */}
       </div>
     </div>
   );

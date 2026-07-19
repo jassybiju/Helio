@@ -13,6 +13,7 @@ const PatientChatComponent = () => {
     chatData,
     onSendMessage,
     sendeeData,
+    isExpired
   } = usePatientChat();
  
 
@@ -34,7 +35,7 @@ const PatientChatComponent = () => {
           sendeeData={sendeeData}
           chatId={activeSessionId}
           userType="patient"
-          consultationStatus={"active"}
+          consultationStatus={!isExpired ? 'active' : 'expired'}
         />
       )}
     </>
