@@ -7,7 +7,7 @@ import Cropper, { Area } from "react-easy-crop";
 
 interface ProfilePictureUploadProps extends ModalProps {
   currentImage?: string;
-  onImageSave: (image: string, onSuccess : ()=>void) => void;
+  onImageSave: (image: string, onSuccess : ()=>void, onError : ()=>void) => void;
   close : ()=>void
 }
 
@@ -22,7 +22,6 @@ export function UpdateProfilePicModal({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<null | Area>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
-
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
 
   function onFileChange(event: ChangeEvent<HTMLInputElement>) {
@@ -41,11 +40,13 @@ export function UpdateProfilePicModal({
     if (!croppedAreaPixels || !imageSrc) {
       return;
     }
+    setIsUploading(true)
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
     if(croppedImage){
       onImageSave(croppedImage, ()=>{
+
         close()
-      })
+      }, ()=>{setIsUploading(false)})
     }
   }
   async function showCroppedImage() {
@@ -226,6 +227,7 @@ export function UpdateProfilePicModal({
           <div className="flex gap-3 pt-4">
             <button
               // onClick={handleCancel}
+              onClick={close}
               className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
             >
               <X className="h-4 w-4" />

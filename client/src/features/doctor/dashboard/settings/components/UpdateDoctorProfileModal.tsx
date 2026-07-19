@@ -11,10 +11,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/src/components/ui/Input";
 import ClayButton from "@/src/components/ui/ClayButton";
 import { X } from "lucide-react";
+import { useSpecialtyQuery } from "@/src/hooks/useSpecialtyQuery";
 
 const UpdateDoctorProfileModal = ({ close }: ModalProps) => {
   // const [submitError, setSubmitError] = useState<string | null>(null);
   // const [submitSuccess, setSubmitSuccess] = useState(false);
+  const { data: specialization } = useSpecialtyQuery();
+
   const { data } = useGetDoctorQuery();
   const { mutate: updateProfile, isPending: isSubmitting } =
     useUpdateDoctorMutation(close);
@@ -72,7 +75,7 @@ const UpdateDoctorProfileModal = ({ close }: ModalProps) => {
         )} */}
 
         {/* First Name & Last name */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid  gap-4">
           <div>
             <label className="block text-sm font-semibold text-slate-900 mb-2">
               Full Name
@@ -93,19 +96,24 @@ const UpdateDoctorProfileModal = ({ close }: ModalProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid  gap-4">
           <div>
             <label className="block text-sm font-semibold text-slate-900 mb-2">
               Specialization
             </label>
-            <Input
-              type="text"
-              placeholder="Dr. Jane Doe"
+            <select
               {...register("specialization")}
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              className={`w-full px-4 py-3 border text-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
                 errors.specialization ? "border-red-500" : "border-slate-200"
               }`}
-            />
+            >
+              <option value="">Select Specialization</option>
+              {specialization?.data?.map((x) => (
+                <option key={x.value} value={x.value}>
+                  {x.label}
+                </option>
+              ))}
+            </select>
             {errors.specialization && (
               <p className="text-red-600 text-sm mt-1">
                 {errors.specialization.message}
@@ -114,7 +122,7 @@ const UpdateDoctorProfileModal = ({ close }: ModalProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid  gap-4">
           <div>
             <label className="block text-sm font-semibold text-slate-900 mb-2">
               Bio
