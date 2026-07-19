@@ -32,7 +32,8 @@ export default function ConsultationChatList({
   // const filtered = chats.filter((chat) => chat.status === tab);
 
   return (
-    <div className="w-[340px] border-r border-slate-200 bg-white flex flex-col">
+    <div className="flex h-full w-full flex-col border-r border-slate-200 bg-white lg:w-[340px]">
+      {" "}
       <div className="border-b border-slate-200 p-4">
         <div className="flex items-center gap-2">
           <MessageSquare className="h-5 w-5 text-blue-600" />
@@ -41,7 +42,6 @@ export default function ConsultationChatList({
           </h2>
         </div>
       </div>
-
       <div className="border-b border-slate-200 p-3">
         <div className="flex rounded-lg bg-slate-100 p-1">
           <button
@@ -67,7 +67,6 @@ export default function ConsultationChatList({
           </button>
         </div>
       </div>
-
       <div className="flex-1 overflow-y-auto">
         {chatList?.map((chat) => {
           const selected = chat.id === activeId;
@@ -86,7 +85,7 @@ export default function ConsultationChatList({
                 }`}
               >
                 <div className="flex gap-3">
-                  <div className="h-11 w-11 flex-shrink-0 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
+                  <div className="h-10 w-10 sm:h-11 sm:w-11  flex-shrink-0 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
                     {chat.profilePic ? (
                       <img src={chat.profilePic} />
                     ) : (
