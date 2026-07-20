@@ -98,6 +98,8 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         date: trans.createdAt.toDateString(),
         type: trans.type,
         description: trans.description ?? "",
+        amount: trans.amount,
+        status: trans.status,
       })),
     };
   }

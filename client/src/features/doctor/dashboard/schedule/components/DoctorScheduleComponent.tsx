@@ -15,6 +15,7 @@ import { IGetDoctorScheduleDTO } from "../../../services/schedule.service";
 import { useDeleteScheduleMutation } from "../hooks/useDeleteScheduleMutation";
 import { useModal } from "@/src/hooks/useModal";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
+import ClayWrapper from "@/src/components/ui/ClayWrapper";
 
 const DoctorScheduleComponent = () => {
   const { mutate: setSchedule } = useSetScheduleMutation();
@@ -44,8 +45,17 @@ const DoctorScheduleComponent = () => {
   const watchType = useWatch({ control, name: "consultationType" });
   const watchDuration = useWatch({ control, name: "slotIntervalInMinutes" });
 
-  const selectedDays = useWatch({control, name : "dayOfWeek"});
+  const selectedDays = useWatch({ control, name: "dayOfWeek" });
+  const groupedSchedules = Object.values(DAY_OF_WEEK).reduce(
+    (acc, day) => {
+      acc[day] =
+        schedulesData?.data.filter((schedule) => schedule.dayOfWeek === day) ||
+        [];
 
+      return acc;
+    },
+    {} as Record<DAY_OF_WEEK, IGetDoctorScheduleDTO[]>,
+  );
   const toggleDay = (day: DAY_OF_WEEK) => {
     if (selectedDays.includes(day)) {
       setValue(
@@ -145,18 +155,24 @@ const DoctorScheduleComponent = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
+        {" "}
         <Calendar className="w-6 h-6 text-blue-600" />
-        <h1 className="text-3xl font-bold text-slate-900">Weekly Summary</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+          Weekly Summary
+        </h1>
       </div>
 
       {/* Main Content */}
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
+        {" "}
         {/* Add New Slot Form */}
-        <div className="bg-white col-span-1 rounded-lg border border-slate-200 p-8 space-y-6">
+        <div className="bg-white xl:col-span-1 rounded-xl border border-slate-200 p-4 sm:p-6 lg:p-8 space-y-6">
           <div className="flex items-center gap-2">
             <span className="text-2xl">➕</span>
-            <h2 className="text-2xl font-bold text-slate-900">Add New Slot</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+              Add New Slot
+            </h2>
           </div>
 
           <div className="space-y-4">
@@ -175,32 +191,37 @@ const DoctorScheduleComponent = () => {
                   </option>
                 ))}
               </select> */}
+              <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                {" "}
+                {Object.values(DAY_OF_WEEK).map((day) => {
+                  const isSelected = selectedDays.includes(day);
 
-              {Object.values(DAY_OF_WEEK).map((day) => {
-                const isSelected = selectedDays.includes(day);
-
-                return (
-                  <button
-                    type="button"
-                    key={day}
-                    onClick={() => toggleDay(day)}
-                    style={{
-                      padding: "8px 12px",
-                      borderRadius: "8px",
-                      border: "1px solid",
-                      cursor: "pointer",
-                      backgroundColor: isSelected ? "#4f46e5" : "#fff",
-                      color: isSelected ? "#fff" : "#000",
-                    }}
-                  >
-                    {day.slice(0, 3)}
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      key={day}
+                      type="button"
+                      onClick={() => toggleDay(day)}
+                      className={` h-12 rounded-xl border text-sm
+font-semibold
+transition-all
+duration-200
+${
+  isSelected
+    ? "bg-blue-600 text-white border-blue-600 shadow-md"
+    : "bg-white text-slate-700 border-slate-200 hover:bg-blue-50"
+}
+`}
+                    >
+                      <div className="text-base">{day.slice(0, 3)}</div>
+                      <div className="text-[10px] opacity-80"></div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Start and End Time */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-semibold text-slate-900 mb-2 block">
                   Start Time
@@ -238,7 +259,7 @@ const DoctorScheduleComponent = () => {
               <label className="text-sm font-semibold text-slate-900 mb-3 block">
                 Consultation Type
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => setValue("consultationType", "ONLINE")}
@@ -269,7 +290,7 @@ const DoctorScheduleComponent = () => {
               <label className="text-sm font-semibold text-slate-900 mb-3 block">
                 Slot Duration (min)
               </label>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[15, 30, 45, 60].map((duration) => (
                   <button
                     type="button"
@@ -285,7 +306,7 @@ const DoctorScheduleComponent = () => {
                   </button>
                 ))}
               </div>
-              <div className="mt-2 flex items-center gap-2">
+              <div className="mt-2 flex flex-col sm:flex-row items-start sm:items-center gap-2">
                 <input
                   min={5}
                   placeholder="Custom"
@@ -351,83 +372,132 @@ const DoctorScheduleComponent = () => {
             <button
               type="button"
               onClick={handleSubmit(onSubmit)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg mt-6 flex items-center justify-center gap-2 transition-colors"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg mt-6 flex items-center justify-center gap-2 transition-colors"
             >
               <span>+</span> Create Time Slot
             </button>
           </div>
         </div>
-
         {/* Existing Schedule */}
-        <div className="space-y-6 col-span-2">
-          <h2 className="text-2xl font-bold text-slate-900">
+        <div className="space-y-6 xl:col-span-2 min-w-0">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
             Existing Schedule
           </h2>
 
-          <div className="overflow-x-auto">
-            {/* <table className="w-full">
-              <thead>
-                <tr className="border-b border-slate-200">
-                  {["Day", "Time Window", "Type", "Location", "Actions"].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        className="text-left py-3 px-4 text-xs font-semibold text-slate-600 uppercase"
-                      >
-                        {h}
-                      </th>
-                    )
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {slots.map((slot) => (
-                  <tr
-                    key={slot.id}
-                    className="border-b border-slate-100 hover:bg-slate-50"
+          <div className="w-full max-h-[75vh] overflow-y-auto rounded-xl border border-slate-200 p-3 sm:p-5">
+            <div className="space-y-6 ">
+              {Object.values(DAY_OF_WEEK).map((day) => {
+                const schedules = groupedSchedules[day];
+
+                return (
+                  <ClayWrapper
+                    variant="secondary"
+                    key={day}
+                    className="bg-white rounded-xl border border-slate-200 overflow-hidden p-0!"
                   >
-                    <td className="py-3 px-4 font-semibold text-slate-900">
-                      {slot.day}
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-900">
-                        {slot.startTime} - {slot.endTime}
+                    {/* Day Header */}
+                    <div className="flex items-center justify-between px-5 py-4 bg-slate-50 border-b">
+                      <div>
+                        <h3 className="font-bold text-lg text-slate-900">
+                          {day}
+                        </h3>
+
+                        <p className="text-sm text-slate-500">
+                          {schedules.length === 0
+                            ? "No schedules"
+                            : `${schedules.length} time slot${
+                                schedules.length > 1 ? "s" : ""
+                              }`}
+                        </p>
                       </div>
-                      <div className="text-xs text-slate-500">
-                        {slot.duration} min intervals
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${
-                          slot.type === "ONLINE"
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-purple-100 text-purple-700"
-                        }`}
-                      >
-                        {slot.type === "ONLINE" ? "📹" : "🏥"} {slot.type}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-slate-600">
-                      {slot.location}
-                    </td>
-                    <td className="py-3 px-4">
-                      <button
-                        onClick={() => handleDeleteSlot(slot.id)}
-                        className="text-red-600 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table> */}
-            <TableComponent columns={column} data={schedulesData?.data} />
+                    </div>
+
+                    {/* Slots */}
+                    <div className="p-5 space-y-3">
+                      {schedules.length === 0 ? (
+                        <div className="text-sm text-slate-400 italic py-3">
+                          No availability added
+                        </div>
+                      ) : (
+                        schedules.map((slot) => (
+                          <div
+                            key={slot.id}
+                            className="
+ rounded-xl
+ border
+ border-slate-200
+ p-4
+ sm:p-5
+ space-y-4
+ hover:shadow-md
+ transition
+ "
+                          >
+                            {/* Time */}
+                            <div className="flex items-start justify-between">
+                              <div>
+                                <p className="font-semibold text-slate-900 text-base sm:text-lg">
+                                  {slot.startTime} - {slot.endTime}
+                                </p>
+
+                                <p className="text-sm text-slate-500">
+                                  ⏱ {slot.slotIntervalInMinutes} min intervals
+                                </p>
+                              </div>
+
+                              <button
+                                onClick={() => handleDeleteSlot(slot.id)}
+                                className="p-2 rounded-lg text-red-600 hover:bg-red-50"
+                              >
+                                <Trash2 className="w-5 h-5" />
+                              </button>
+                            </div>
+
+                            {/* Details */}
+                            <div className="flex flex-wrap gap-2 w-full">
+                              {" "}
+                              <span
+                                className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                  slot.consultationType === "ONLINE"
+                                    ? "bg-blue-100 text-blue-700"
+                                    : "bg-purple-100 text-purple-700"
+                                }`}
+                              >
+                                {slot.consultationType === "ONLINE"
+                                  ? "📹 Online"
+                                  : "🏥 Clinic"}
+                              </span>
+                              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                👥 {slot.capacityPerSlot}/slot
+                              </span>
+                              {slot.location && (
+                                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+                                  📍 {slot.location}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Delete */}
+                            <button
+                              onClick={() => handleDeleteSlot(slot.id)}
+                              className="self-end sm:self-center p-2 rounded-lg text-red-600 hover:bg-red-50 transition"
+                            >
+                              <Trash2 className="w-5 h-5" />
+                            </button>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </ClayWrapper>
+                );
+              })}
+            </div>
+            {/* <TableComponent columns={column} data={schedulesData?.data} /> */}
           </div>
 
           {/* Pro Tip */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3">
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row gap-3">
+            {" "}
             <Lightbulb className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
               <p className="font-semibold text-slate-900">Pro Tip</p>

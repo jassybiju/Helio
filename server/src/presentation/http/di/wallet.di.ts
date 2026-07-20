@@ -30,7 +30,7 @@ const addMoneyUseCase = new AddMoneyUseCase(
   uow
 );
 
-const verifyAddMoney = new AddMoneyVeUseCase(
+const verifyAddMoney = new AddMoneyVerifyUseCase(
   logger,
   walletRepo,
   transactionRepo

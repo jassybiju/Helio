@@ -33,7 +33,7 @@ export class LangchainQdrantVectorStoreService implements IVectorStoreService {
     return this._instance;
   }
 
-  async addDocuments(documents: IVectorDocument[]) {
+  async addDocuments(documents: Document[]) {
     return await this._vectorStore.addDocuments(documents);
   }
 
