@@ -147,7 +147,7 @@ export const doctorConsultationService = {
     data: {
       clinicalObservations: string | null;
       quickNote: string | null;
-      medicationPeriod: number | null;
+      medicationDuration: number | null;
       generalAdvice: string | null;
       primaryDiagnosis: string | null;
     },

@@ -6,14 +6,14 @@ import { useSpecialtyQuery } from "../hooks/useSpecialtyQuery";
 import { useModal } from "@/src/hooks/useModal";
 import AddSpecialtyModal from "./AddSpecialtyModal";
 import ClayButton from "@/src/components/ui/ClayButton";
-import {  Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useDeleteSpecialtyMutation } from "../hooks/useDeleteSpecialty";
 import Pagination from "@/src/components/Pagination";
 
-const LIMIT = 5
+const LIMIT = 5;
 const AdminSpecialtyComponent = () => {
-  const [page, setPage] = useState(1)
-  const { data } = useSpecialtyQuery({page});
+  const [page, setPage] = useState(1);
+  const { data } = useSpecialtyQuery({ page });
   const { mutate: deleteSpecialty } = useDeleteSpecialtyMutation();
   const { open } = useModal();
   const specialty = data;
@@ -31,12 +31,20 @@ const AdminSpecialtyComponent = () => {
     {
       key: "_id",
       title: "SPecialyt",
-      render: (x) =><div onClick={()=>handleDelete(x)} className=" flex text-center justify-center"> <Trash2 color="red"/></div>,
+      render: (x) => (
+        <div
+          onClick={() => handleDelete(x)}
+          className=" flex text-center justify-center"
+        >
+          {" "}
+          <Trash2 color="red" />
+        </div>
+      ),
     },
   ];
-  const handleDelete = (id : string) => {
-    deleteSpecialty(id)
-  }
+  const handleDelete = (id: string) => {
+    deleteSpecialty(id);
+  };
   const handleOpenAddSpecialty = () => {
     open(AddSpecialtyModal);
   };
@@ -52,7 +60,11 @@ const AdminSpecialtyComponent = () => {
       <ClayButton onClick={handleOpenAddSpecialty}>Add Specialty</ClayButton>
 
       <TableComponent data={specialty?.data.specialty} columns={columns} />
-      <Pagination currentPage={page} totalPages={Math.ceil(specialty?.data.count/LIMIT)} onPageChange={(page)=>setPage(page)}/>
+      <Pagination
+        currentPage={page}
+        totalPages={Math.ceil(specialty?.data.count / LIMIT)}
+        onPageChange={(page) => setPage(page)}
+      />
     </div>
   );
 };

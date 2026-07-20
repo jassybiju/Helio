@@ -445,7 +445,7 @@ const ViewHistoryDetailModal = ({
               </h3>
 
               <button
-                onClick={()=>viewPDF(labData.documentKey)}
+                onClick={()=>viewPDF(labData?.documentKey ?? '')}
                 rel="noreferrer"
                 className="font-medium text-blue-600 underline"
               >

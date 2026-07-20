@@ -1,40 +1,40 @@
-'use client'
+"use client";
 
-import {  Calendar, Clock } from 'lucide-react'
-import { useDoctorSlotQuery } from '../hooks/useDoctorSlotQuery'
-
-
+import { Calendar, Clock } from "lucide-react";
+import { useDoctorSlotQuery } from "../hooks/useDoctorSlotQuery";
 
 const DoctorSlotComponent = () => {
-
-  const {data , isLoading : loading} = useDoctorSlotQuery()
-  const slots = data?.data.slots
+  const { data, isLoading: loading } = useDoctorSlotQuery();
+  const slots = data?.data.slots;
 
   const daysOrder = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ]
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'AVAILABLE':
-        return 'text-green-600'
-      case 'BOOKED':
-        return 'text-blue-600'
-      case 'CANCELLED':
-        return 'text-red-600'
+      case "AVAILABLE":
+        return "text-green-600";
+      case "BOOKED":
+        return "text-blue-600";
+      case "CANCELLED":
+        return "text-red-600";
       default:
-        return 'text-slate-600'
+        return "text-slate-600";
     }
-  }
+  };
 
   if (loading) {
-    return <p className="text-center py-10">Loading slots...</p>
+    return <p className="text-center py-10">Loading slots...</p>;
+  }
+  if (!slots) {
+    return null;
   }
 
   return (
@@ -44,16 +44,14 @@ const DoctorSlotComponent = () => {
         <h1 className="text-3xl font-bold text-slate-900">
           All Consultation Slots
         </h1>
-        <p className="text-slate-600 mt-2">
-          View your weekly schedule
-        </p>
+        <p className="text-slate-600 mt-2">View your weekly schedule</p>
       </div>
 
       {/* Days */}
       <div className="space-y-10">
         {daysOrder.map((day) => {
-          const daySlots = slots[day]!
-          if (!daySlots || daySlots?.length === 0) return null
+          const daySlots = slots[day]!;
+          if (!daySlots || daySlots?.length === 0) return null;
 
           return (
             <div key={day}>
@@ -61,7 +59,7 @@ const DoctorSlotComponent = () => {
               <div className="flex text-black items-center gap-2 mb-4">
                 <Calendar className="w-5 h-5 text-slate-600" />
                 <h2>
-                  {day} {new Date(daySlots?.startTime).toLocaleDateString()}
+                  {day} {new Date(daySlots[0]?.startTime).toLocaleDateString()}
                 </h2>
               </div>
 
@@ -82,33 +80,26 @@ const DoctorSlotComponent = () => {
                       </div>
 
                       <p className="text-lg font-semibold">
-                        {new Date(group.startTime).toLocaleTimeString(
-                          'en-IN',
-                          {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            timeZone: 'Asia/Kolkata',
-                          }
-                        )}{' '}
-                        -{' '}
-                        {new Date(group.endTime).toLocaleTimeString(
-                          'en-IN',
-                          {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            timeZone: 'Asia/Kolkata',
-                          }
-                        )}
+                        {new Date(group.startTime).toLocaleTimeString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          timeZone: "Asia/Kolkata",
+                        })}{" "}
+                        -{" "}
+                        {new Date(group.endTime).toLocaleTimeString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          timeZone: "Asia/Kolkata",
+                        })}
                       </p>
                     </div>
 
                     {/* Shift ID */}
-                  
 
                     {/* Slot count */}
                     <div className="mb-3">
                       <span className="px-2 py-1 text-xs bg-slate-100 text-black rounded">
-                        {group?.length} slots
+                        {group?.slots.length} slots
                       </span>
                     </div>
 
@@ -119,13 +110,11 @@ const DoctorSlotComponent = () => {
                           key={i}
                           className="flex justify-between text-sm border-b pb-1"
                         >
-                          <span className="text-slate-700">
-                            {i + 1}
-                          </span>
+                          <span className="text-slate-700">{i + 1}</span>
 
                           <span
                             className={`text-xs font-medium ${getStatusColor(
-                              slot
+                              slot,
                             )}`}
                           >
                             {slot}
@@ -137,7 +126,7 @@ const DoctorSlotComponent = () => {
                 ))}
               </div>
             </div>
-          )
+          );
         })}
       </div>
 
@@ -148,7 +137,7 @@ const DoctorSlotComponent = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default DoctorSlotComponent
+export default DoctorSlotComponent;

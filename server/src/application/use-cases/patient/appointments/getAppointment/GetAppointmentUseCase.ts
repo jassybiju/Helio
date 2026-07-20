@@ -49,7 +49,7 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
     const consultation = await this._consultationRepo.findByAppointmentId(
       appointment.id
     );
-    let consultationDTO = null;
+    let consultationDTO : IGetAppointmentDTO['consultation'] = null;
     if (consultation) {
       consultationDTO = {
         primaryDiagnosis: consultation.primaryDiagnosis,

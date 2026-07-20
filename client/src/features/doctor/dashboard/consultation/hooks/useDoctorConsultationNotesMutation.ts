@@ -8,7 +8,7 @@ export const useDoctorConsultationNotesMutation = (id: string) => {
     mutationFn: (data: {
       clinicalObservations: string | null;
       quickNote: string | null;
-      medicationPeriod: number | null; 
+      medicationDuration: number | null; 
       generalAdvice: string | null;
       primaryDiagnosis: string | null; 
     }) => doctorConsultationService.updateNotes(id, data),

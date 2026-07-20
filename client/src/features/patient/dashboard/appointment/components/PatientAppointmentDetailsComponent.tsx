@@ -123,7 +123,10 @@ export default function PatientAppointmentDetailsComponent() {
     });
   };
 
-  const statusConfig: Record<Partial<APPOINTMENT_STATUS>, object> = {
+  const statusConfig: Record<
+    Partial<APPOINTMENT_STATUS>,
+    { color: string; textColor: string; badge: string }
+  > = {
     PENDING: {
       color: "bg-blue-100",
       textColor: "text-blue-700",
@@ -139,13 +142,36 @@ export default function PatientAppointmentDetailsComponent() {
       textColor: "text-red-700",
       badge: "Cancelled",
     },
-    ONGOING: {},
-    NO_SHOW: {},
-    CONFIRMED: {},
-    EXPIRED: {},
+    ONGOING: {
+      badge: "Ongoing",
+      color: "bg-green-100",
+      textColor: "bg-green-700",
+    },
+    NO_SHOW: { badge: "No Show", color: "bg-red-100", textColor: "bg-red-700" },
+    CONFIRMED: {
+      badge: "Confirmed",
+      color: "bg-green-100",
+      textColor: "bg-green-700",
+    },
+    CANCELLED_BY_PATIENT: {
+      badge: "Cancelled By Patient",
+      color: "bg-red-100",
+      textColor: "bg-red-700",
+    },
+    SKIPPED: { badge: "Skipped", color: "bg-red-100", textColor: "bg-red-700" },
+    DOCTOR_CANCELLATION_REQUESTED: {
+      badge: "Doctor Requested Cancellation",
+      color: "bg-red-100",
+      textColor: "bg-red-700",
+    },
+    EXPIRED: {
+      badge: "Expired",
+      color: "bg-gray-100",
+      textColor: "bg-gray-700",
+    },
   };
 
-  const config = statusConfig[appointment.appointment.status] ?? {};
+  const config = statusConfig[appointment.appointment.status];
   const fakeDate = new Date();
   fakeDate.setDate(new Date().getDate() + 1);
   fakeDate.setHours(0, 0, 0, 0);
@@ -169,16 +195,7 @@ export default function PatientAppointmentDetailsComponent() {
                 Appointment Cancelled by Doctor
               </h2>
               <p className="text-red-800 mb-3">
-                {appointment.cancellationReason}
-              </p>
-              <p className="text-sm text-red-700">
-                Cancelled on{" "}
-                {new Date(
-                  appointment.cancellationDate || "",
-                ).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                Cancellation Reason : {appointment.cancellationReason}
               </p>
             </div>
           </div>
@@ -205,7 +222,7 @@ export default function PatientAppointmentDetailsComponent() {
           <span
             className={`self-start sm:self-auto px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold ${config?.color} ${config.textColor}`}
           >
-            {config.badge}
+            {config?.badge ?? "UNKOWN"}
           </span>
         </div>
         {appointment.appointment.status}sdd
@@ -408,11 +425,11 @@ export default function PatientAppointmentDetailsComponent() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
               <VitalCard
                 label="Blood Pressure"
-                value={appointment?.consultation?.vitals.bloodPressure}
+                value={appointment?.consultation?.vitals?.bloodPressure}
               />
               <VitalCard
                 label="Oxygen Level"
-                value={appointment.consultation.oxygenLevel}
+                value={appointment.consultation.vitals?.oxygenLevel}
               />
               <VitalCard
                 label="Heart Rate"
@@ -467,7 +484,7 @@ export default function PatientAppointmentDetailsComponent() {
             {appointment.consultation.prescriptions?.length > 0 ? (
               <div className="space-y-2">
                 {appointment.consultation.prescriptions.map(
-                  (p: unknown, idx: number) => {
+                  (p, idx: number) => {
                     const timingList = [];
 
                     if (p.timings?.morning) timingList.push("Morning");
@@ -528,7 +545,8 @@ export default function PatientAppointmentDetailsComponent() {
               </>
             )}
 
-            {appointment.status === "completed" && (
+            {appointment.appointment.status ===
+              APPOINTMENT_STATUS.COMPLETED && (
               <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
                 <Download className="w-5 h-5" />
                 Download Prescription

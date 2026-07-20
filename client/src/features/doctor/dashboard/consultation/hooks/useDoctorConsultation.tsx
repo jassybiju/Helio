@@ -334,7 +334,7 @@ const useDoctorConsultation = (id: string) => {
    */
 
   const handleCompleteConsultation = () => {
-    endConsultaiton(null, {
+    endConsultaiton(undefined, {
       onSuccess() {
         router.push("/appointment/today");
       },

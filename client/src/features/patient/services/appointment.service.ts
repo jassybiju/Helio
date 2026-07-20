@@ -70,6 +70,25 @@ export interface IGetPatientAppointment {
     generalAdvice: string | null;
     quickNote: string | null;
     clinicalObservation: string | null;
+      prescriptions: {
+      name: string;
+      timings: {
+        morning: boolean;
+        afternoon: boolean;
+        night: boolean;
+      };
+      durationInDays: number;
+      foodTiming: number;
+      instruction: string | null | undefined;
+    }[];
+    vitals: {
+      bloodPressure: string | null | undefined;
+      oxygenLevel: number | null | undefined;
+      heartRate: number | null | undefined;
+      temperature: number | null | undefined;
+      weight: number | null | undefined;
+      height: number | null | undefined;
+    };
   };
 
   payment: {

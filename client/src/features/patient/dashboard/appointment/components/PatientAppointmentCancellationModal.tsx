@@ -118,7 +118,7 @@ const PatientAppointmentCancellationModal = ({
                   </h4>
                   <p className="text-sm text-slate-600 mt-1">
                     Book a new appointment at no extra cost with{" "}
-                    {appointment.doctorName}. You have 7 days to reschedule.
+                    . You have 7 days to reschedule.
                   </p>
                 </div>
               </div>
@@ -148,7 +148,7 @@ const PatientAppointmentCancellationModal = ({
                 <div className="flex-1">
                   <h4 className="font-bold text-slate-900">Accept Refund</h4>
                   <p className="text-sm text-slate-600 mt-1">
-                    Receive a full refund of ${appointment.fee} to your original
+                    Receive a full refund of ${fee} to your original
                     payment method within 5-7 business days.
                   </p>
                 </div>
