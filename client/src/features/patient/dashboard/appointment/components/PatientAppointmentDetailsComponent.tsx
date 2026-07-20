@@ -91,22 +91,6 @@ export default function PatientAppointmentDetailsComponent() {
   //   return () => clearInterval(interval);
   // }, [queue]);
 
-  const openCancellatonConfirmationModal = () => {
-    open(PatientAppointmentCancellationConfirmationModal, {
-      date: appointment?.appointment.startTime,
-      fee: appointment?.appointment.consultationFee,
-      appointmentId: appointment?.appointment.id,
-    });
-  };
-
-  const handleCancelAppointment = () => {
-    open(PatientAppointmentCancellationModal, {
-      date: appointment?.appointment.startTime,
-      fee: appointment?.appointment.consultationFee,
-      appointmentId: appointment?.appointment.id,
-    });
-  };
-
   if (!appointment) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -122,6 +106,22 @@ export default function PatientAppointmentDetailsComponent() {
       </div>
     );
   }
+
+  const openCancellatonConfirmationModal = () => {
+    open(PatientAppointmentCancellationConfirmationModal, {
+      date: appointment?.appointment.startTime,
+      fee: appointment?.appointment.consultationFee,
+      appointmentId: appointment?.appointment.id,
+    });
+  };
+
+  const handleCancelAppointment = () => {
+    open(PatientAppointmentCancellationModal, {
+      date: appointment?.appointment.startTime ?? null,
+      fee: appointment?.appointment.consultationFee ?? null,
+      appointmentId: appointment?.appointment.id ?? null,
+    });
+  };
 
   const statusConfig: Record<Partial<APPOINTMENT_STATUS>, object> = {
     PENDING: {
