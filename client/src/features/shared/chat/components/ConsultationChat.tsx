@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Clock,  Send,  } from "lucide-react";
+import { ArrowLeft, Clock, Send } from "lucide-react";
 import { IDoctorGetChat } from "@/src/features/doctor/services/chat.service";
-import { SendeeType } from "../types/chat.type";
-
+import { ChatMessageType, ChatType, SendeeType } from "../types/chat.type";
 // interface Message {
 //   id: string;
 //   sender: "doctor" | "patient";
@@ -14,11 +13,12 @@ import { SendeeType } from "../types/chat.type";
 
 interface Props {
   chatId: string | null;
-  chatData: IDoctorGetChat["chats"] | undefined;
+  chatData: ChatMessageType[] | undefined;
   sendeeData: SendeeType | undefined;
   userType: "doctor" | "patient";
   consultationStatus: "active" | "expired";
   onSendMessage: (message: string) => void;
+  onBack?: () => void;
 }
 
 export default function ConsultationChat({
@@ -28,6 +28,7 @@ export default function ConsultationChat({
   chatData,
   consultationStatus,
   onSendMessage,
+  onBack,
 }: Props) {
   const [message, setMessage] = useState("");
 
@@ -50,11 +51,17 @@ export default function ConsultationChat({
     return null;
   }
   return (
-    <div className="flex flex-1 flex-col bg-white">
-      <div className="flex h-16 items-center justify-between border-b bg-white px-6">
-        {" "}
+    <div className="flex flex-1 h-full  flex-col bg-white overflow-y-scroll">
+      <div className="flex h-16 items-center justify-between border-b bg-white px-4 lg:px-6">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 flex justify-center items-center shrink-0 overflow-hidden rounded-full bg-blue-100">
+          <button
+            onClick={onBack}
+            className="mr-1 rounded-md p-1 hover:bg-slate-100 lg:hidden"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+
+          <div className="h-9 w-9 sm:h-10 sm:w-10 overflow-hidden rounded-full bg-blue-100 flex items-center justify-center">
             {sendeeData?.profilePic ? (
               <img
                 src={sendeeData.profilePic}
@@ -78,15 +85,16 @@ export default function ConsultationChat({
         </button> */}
       </div>
 
-      <div className="border-b border-blue-100 bg-blue-50 px-6 py-3">
-<div className="border-b bg-slate-50 px-6 py-2 text-xs text-slate-500">
+      {/* <div className="border-b border-blue-100 bg-blue-50 px-6 py-3">
+        <div className="border-b bg-slate-50 px-6 py-2 text-xs text-slate-500">
           <Clock className="h-4 w-4" />
           {/* <span>Active follow-up period • 7 days remaining</span> */}
-        </div>
-      </div>
+        {/* </div> */}
+      {/* </div> */} 
 
-      <div className="flex-1 overflow-y-auto  bg-slate-100 px-8 py-6">
-        <div className="mx-auto max-w-3xl space-y-6">
+      <div className="flex-1 overflow-y-auto bg-slate-100 px-3 py-3 sm:px-5 lg:px-8">
+        {" "}
+        <div className="mx-auto w-full  space-y-4 sm:space-y-6">
           {" "}
           {chatData?.map((msg) => {
             const mine = msg.sendBy === userType;
@@ -119,7 +127,7 @@ export default function ConsultationChat({
                   </div>
                 )}
                 <div
-                  className={`max-w-[70%] rounded-2xl px-4 py-3 ${
+                  className={`max-w-[85%] sm:max-w-[75%] lg:max-w-[70%] rounded-2xl px-4 py-3 ${
                     mine
                       ? "rounded-br-md bg-blue-600 text-white"
                       : "rounded-bl-md border border-slate-200 bg-white text-slate-900 shadow-sm"
@@ -137,7 +145,7 @@ export default function ConsultationChat({
                       minute: "2-digit",
                     })}
                   </div>
-                  <p>{msg.status && "SENDING"}s</p>
+                  {/* <p>{msg.status && "SENDING"}s</p> */}
                 </div>
               </div>
             );
@@ -147,8 +155,9 @@ export default function ConsultationChat({
       </div>
 
       {consultationStatus === "active" && (
-        <div className="border-t border-slate-200 bg-white p-4">
-          <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+        <div className="border-t border-slate-200 bg-white p-3 sm:p-4">
+          {" "}
+          <div className="flex items-center gap-2 sm:gap-3 rounded-2xl border border-slate-200 bg-white px-3 sm:px-4 py-2 sm:py-3 shadow-sm">
             {" "}
             {/* <Paperclip className="h-5 w-5 text-slate-400" /> */}
             <input

@@ -1,6 +1,6 @@
 import { USER_ROLES } from "@/src/types/user.types";
 
-export interface ChatType {
+export interface ChatMessageType {
   id: string;
   message: string;
   sendBy: USER_ROLES;
@@ -30,4 +30,12 @@ export interface ChatListType {
       expiresIn: string;
     }[];
   };
+}
+
+export interface ChatType {
+
+  chats: ChatMessageType[];
+  sendee: SendeeType;
+  sessionId: string;
+  isExpired : boolean
 }

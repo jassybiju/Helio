@@ -66,7 +66,6 @@ export class SendMessageUseCase implements ISendMessageUseCase {
         throw new NotFoundError(MESSAGE.CHAT_SESSION_NOT_FOUND);
       }
 
-      console.log("CHAT SESSION EXPIRED OR NOT", chatSession.isExpired());
       if (chatSession.isExpired()) {
         throw new ConflictError("CHAT SESSION EXXPIRED");
       }

@@ -12,18 +12,11 @@ export class RazorpayPaymentService implements IPaymentService {
     { success: true } | { orderId: string; amount: number; currency: "INR" }
   > {
     try {
-      console.log("Creating order...", {
-        amount: data.amount,
-        receipt: data.appointment.id,
-      });
-      console.log(process.env.RAZORPAY_KEY, process.env.RAZORPAY_SECRET, data);
       const order = await this._razorpay.orders.create({
         amount: Math.round(data.amount * 100),
         currency: "INR",
         receipt: data.appointment.id,
       });
-
-      console.log(order);
 
       return {
         orderId: order.id,

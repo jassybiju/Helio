@@ -31,7 +31,6 @@ export const usePatientCompleteProfile = () => {
       toast.success("Patient Profile Completed");
       router.replace("/dashboard");
     } catch (error) {
-      console.log(error);
       if (axios.isAxiosError(error)) {
         setError("root", {
           message: error.response?.data?.message || "Complete Profile Failed",

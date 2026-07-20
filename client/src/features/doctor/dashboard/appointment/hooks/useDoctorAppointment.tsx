@@ -139,7 +139,7 @@ const useDoctorAppointment = (date?: string) => {
         <span
           className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(r.status)}`}
         >
-          {r.status === "no-show"
+          {r.status === APPOINTMENT_STATUS.NO_SHOW
             ? "No-Show"
             : r.status.charAt(0).toUpperCase() + r.status.slice(1)}
         </span>

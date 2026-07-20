@@ -6,6 +6,7 @@ import { setIO } from "@config/socket.instance.ts";
 import { ChatHandler } from "../../presentation/socket/handlers/ChatHandler.ts";
 import { ChatSessionRepository } from "@infrastructure/database/repositories/ChatSessionRepository.ts";
 import { logger } from "@shared/utils/logger.utils.ts";
+import { log } from "console";
 export class SocketServer {
   private _io!: Server;
 
@@ -23,7 +24,6 @@ export class SocketServer {
         credentials: true,
       },
     });
-    console.log("INTIALIZEDdd");
 
     setIO(this._io);
     this._io.use(socketAuthMiddleware);
@@ -34,8 +34,6 @@ export class SocketServer {
       new ChatSessionRepository(logger)
     );
     this._io.on("connection", (socket) => {
-      console.log("Connected", socket.id);
-
       socket.join(`user:${socket.data.user.role}:${socket.data.user.id}`);
 
       logger.info(
@@ -46,7 +44,7 @@ export class SocketServer {
       signalingHandler.register(socket);
       chatHandler.register(socket);
       socket.on("disconnect", () => {
-        console.log("Disconnected", socket.id);
+        logger.info("Disconnected", socket.id);
       });
     });
   }

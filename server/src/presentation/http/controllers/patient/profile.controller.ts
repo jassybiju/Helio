@@ -43,7 +43,6 @@ export class PatientProfileController {
   ) => {
     try {
       const userId = req.user?.id;
-      console.log(req.file);
       if (!userId) {
         throw new NotFoundError(MESSAGE.PATIENT_NOT_FOUND);
       }

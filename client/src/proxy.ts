@@ -19,7 +19,6 @@ export function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL("/unauthorized", req.url));
   }
 
-  console.log(subdomain, host);
   if (subdomain === "") subdomain = "patient";
 
 

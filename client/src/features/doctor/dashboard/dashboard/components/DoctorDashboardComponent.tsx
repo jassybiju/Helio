@@ -25,8 +25,6 @@ import {
 import ClayWrapper from "@/src/components/ui/ClayWrapper";
 import { useDoctorDashboardQuery } from "../hooks/useDoctorDashboardQuery";
 
-
-
 // Mock Data
 const kpiCards = [
   {
@@ -36,7 +34,7 @@ const kpiCards = [
     value: "8",
     comparison: "+2 from yesterday",
     color: "blue",
-    key : 'todayAppointments'
+    key: "todayAppointments",
   },
   {
     id: 2,
@@ -45,7 +43,7 @@ const kpiCards = [
     value: "3",
     comparison: "2 new this hour",
     color: "amber",
-    key : "upcomingAppointments"
+    key: "upcomingAppointments",
   },
   {
     id: 3,
@@ -54,7 +52,7 @@ const kpiCards = [
     value: "5",
     comparison: "62% completion rate",
     color: "green",
-    key : "totalAppointmentsCompleted"
+    key: "totalAppointmentsCompleted",
   },
   {
     id: 4,
@@ -63,7 +61,7 @@ const kpiCards = [
     value: "287",
     comparison: "+8 this month",
     color: "purple",
-    key : "todaysCompletedAppointments"
+    key: "todaysCompletedAppointments",
   },
   {
     id: 6,
@@ -72,62 +70,9 @@ const kpiCards = [
     value: "$2,450",
     comparison: "+12% from last week",
     color: "emerald",
-    key : 'walletBalance'
+    key: "walletBalance",
   },
 ];
-
-// const appointmentTrendData = [
-//   { date: "Mon", bookings: 12 },
-//   { date: "Tue", bookings: 15 },
-//   { date: "Wed", bookings: 18 },
-//   { date: "Thu", bookings: 14 },
-//   { date: "Fri", bookings: 22 },
-//   { date: "Sat", bookings: 16 },
-//   { date: "Sun", bookings: 10 },
-// ];
-
-// const recentTransactions = [
-//   {
-//     id: 1,
-//     date: "Today 2:30 PM",
-//     patientName: "Sarah Johnson",
-//     consultation: "Video Consultation",
-//     amount: "$45.00",
-//     status: "Credited",
-//   },
-//   {
-//     id: 2,
-//     date: "Today 1:15 PM",
-//     patientName: "Michael Chen",
-//     consultation: "Audio Consultation",
-//     amount: "$30.00",
-//     status: "Credited",
-//   },
-//   {
-//     id: 3,
-//     date: "Yesterday 4:20 PM",
-//     patientName: "Emily Davis",
-//     consultation: "Follow-up Video",
-//     amount: "$35.00",
-//     status: "Credited",
-//   },
-//   {
-//     id: 4,
-//     date: "Yesterday 10:45 AM",
-//     patientName: "David Wilson",
-//     consultation: "Video Consultation",
-//     amount: "-$200.00",
-//     status: "Withdrawal",
-//   },
-//   {
-//     id: 5,
-//     date: "2 days ago 3:30 PM",
-//     patientName: "Lisa Anderson",
-//     consultation: "Audio Consultation",
-//     amount: "$25.00",
-//     status: "Credited",
-//   },
-// ];
 
 const quickActions = [
   { icon: BarChart3, label: "Manage Availability", color: "blue" },
@@ -176,18 +121,17 @@ const getColorClasses = (color: string) => {
 const DoctorDashboardComponent = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("WEEK");
   const { data, isLoading } = useDoctorDashboardQuery(selectedPeriod);
-  console.log(data);
-  console.log(data, isLoading, !data && !isLoading, isLoading)
-  if(!data && isLoading){
-    return null
+  if (!data && isLoading) {
+    return null;
   }
 
+  const appointmentTrendData = data?.data.bookingTrend.values.map((v, i) => ({
+    date: data.data.bookingTrend.labels[i],
+    bookings: v,
+  }));
+  const recentTransactions = data?.data.transactions;
 
-  const appointmentTrendData = data?.data.bookingTrend.values.map((v,i) => ({date : data.data.bookingTrend.labels[i], bookings : v}))
-  const recentTransactions = data?.data.transactions
-  console.log(appointmentTrendData)
-
-  const summary = data?.data.summary!
+  const summary = data?.data.summary!;
   return (
     <div className="flex  bg-gray-50">
       {/* Sidebar */}
@@ -198,14 +142,13 @@ const DoctorDashboardComponent = () => {
 
         {/* Dashboard Content */}
         <div className="flex-1 overflow-y-auto">
-          <div className="p-8 space-y-8">
+          <div className="space-y-6 p-4 sm:p-6 lg:p-8">
             {/* KPI Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {kpiCards.map((card) => {
                 const Icon = card.icon;
                 const { bg, text, icon } = getColorClasses(card.color);
-                const key = card.key as keyof typeof summary
-                console.log(key, summary)
+                const key = card.key as keyof typeof summary;
                 return (
                   //   <div
                   //     key={card.id}
@@ -221,7 +164,8 @@ const DoctorDashboardComponent = () => {
                   //     <p className={`text-xs mt-3 ${text}`}>{card.comparison}</p>
                   //   </div>
                   <ClayWrapper key={card.id} variant="secondary">
-                    <div className="bg-gradient-to-br  rounded-xl p-2 space-y-2">
+                    <div className="space-y-2 rounded-xl p-4">
+                      {" "}
                       <div className="flex items-center justify-between">
                         <p className="text-sm font-semibold text-amber-900 uppercase tracking-wide">
                           {card.label}{" "}
@@ -233,7 +177,7 @@ const DoctorDashboardComponent = () => {
                         </div>
                         {/* <Clock className="w-5 h-5 text-amber-600" /> */}
                       </div>
-                      <p className={`text-4xl font-bold  ${text}`}>
+                      <p className={`text-3xl font-bold sm:text-4xl  ${text}`}>
                         {/* {stats?.upcoming} */} {summary[key]!}
                       </p>
                       <p className={`text-xs text-amber-700 ${text}`}>
@@ -246,17 +190,17 @@ const DoctorDashboardComponent = () => {
             </div>
 
             {/* Charts and Transactions Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
               {/* Appointment Booking Trend */}
-              <div className="lg:col-span-2 bg-white rounded-16 border border-gray-200 p-6">
-                <div className="flex items-center justify-between mb-6">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 xl:col-span-2">
+                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <h3 className="text-lg font-bold text-gray-900">
                     Appointment Booking Trend
                   </h3>
                   <select
                     value={selectedPeriod}
                     onChange={(e) => setSelectedPeriod(e.target.value)}
-                    className="text-sm border border-gray-300 rounded-lg px-3 py-2 text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:border-blue-500"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm sm:w-auto border-gray-300 rounded-lg px-3 py-2 text-gray-700 bg-white hover:border-gray-400 focus:outline-none focus:border-blue-500"
                   >
                     <option value="WEEK">Last 7 Days</option>
                     <option value="MONTH">Last 30 Days</option>
@@ -265,36 +209,38 @@ const DoctorDashboardComponent = () => {
                   </select>
                 </div>
 
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart
-                    data={appointmentTrendData}
-                    margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                    <XAxis dataKey="date" stroke="#6b7280" />
-                    <YAxis stroke="#6b7280" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "#ffffff",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "8px",
-                      }}
-                      cursor={{ stroke: "#e5e7eb" }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="bookings"
-                      stroke="#2563eb"
-                      strokeWidth={3}
-                      dot={{ fill: "#2563eb", r: 5 }}
-                      activeDot={{ r: 7 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+                <div className="h-[240px] sm:h-[300px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={appointmentTrendData}
+                      margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                      <XAxis dataKey="date" stroke="#6b7280" />
+                      <YAxis stroke="#6b7280" />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#ffffff",
+                          border: "1px solid #e5e7eb",
+                          borderRadius: "8px",
+                        }}
+                        cursor={{ stroke: "#e5e7eb" }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="bookings"
+                        stroke="#2563eb"
+                        strokeWidth={3}
+                        dot={{ fill: "#2563eb", r: 5 }}
+                        activeDot={{ r: 7 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
 
               {/* Quick Actions */}
-              <div className="bg-white rounded-16 border border-gray-200 p-6">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">
                   Quick Actions
                 </h3>
@@ -320,15 +266,15 @@ const DoctorDashboardComponent = () => {
             </div>
 
             {/* Wallet & Transactions */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-white rounded-16 border border-gray-200 p-6">
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 xl:col-span-2">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">
                   Recent Transactions
                 </h3>
 
                 {/* Table */}
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
+                <div className="-mx-4 overflow-x-auto sm:mx-0">
+                  <table className="min-w-[700px] w-full text-sm">
                     <thead>
                       <tr className="border-b border-gray-200">
                         <th className="text-left py-3 px-4 text-gray-500 font-medium">
@@ -349,7 +295,7 @@ const DoctorDashboardComponent = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {recentTransactions.map((transaction) => (
+                      {recentTransactions?.map((transaction) => (
                         <tr
                           key={transaction.id}
                           className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
@@ -358,10 +304,10 @@ const DoctorDashboardComponent = () => {
                             {transaction.date}
                           </td>
                           <td className="py-3 px-4 text-gray-900 font-medium">
-                            {transaction.patientName}
+                            {transaction.id}
                           </td>
                           <td className="py-3 px-4 text-gray-600">
-                            {transaction.consultation}
+                            {transaction.description}
                           </td>
                           <td className="py-3 px-4 font-semibold text-gray-900">
                             {transaction.amount}
@@ -369,12 +315,12 @@ const DoctorDashboardComponent = () => {
                           <td className="py-3 px-4">
                             <span
                               className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                                transaction.status === "Credited"
+                                transaction.type === "CREDIT"
                                   ? "bg-green-100 text-green-700"
                                   : "bg-orange-100 text-orange-700"
                               }`}
                             >
-                              {transaction.status}
+                              {transaction.type}
                             </span>
                           </td>
                         </tr>
@@ -389,29 +335,7 @@ const DoctorDashboardComponent = () => {
               </div>
 
               {/* Wallet Card */}
-              <ClayWrapper>
-                <div className="rounded-16 p-6 text-white">
-                  <p className="text-sm font-medium text-blue-100 mb-2">
-                    Wallet Balance
-                  </p>
-                  <h2 className="text-4xl font-bold mb-8">$2,450.00</h2>
-
-                  <button className="w-full bg-white text-blue-600 font-semibold py-3 rounded-lg hover:bg-blue-50 transition-colors mb-4">
-                    Withdraw Funds
-                  </button>
-
-                  <div className="space-y-3 pt-4 border-t border-blue-400">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-blue-100">This Month Earnings</span>
-                      <span className="font-semibold">$8,250</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-blue-100">Pending Amount</span>
-                      <span className="font-semibold">$450</span>
-                    </div>
-                  </div>
-                </div>
-              </ClayWrapper>
+           
             </div>
           </div>
         </div>

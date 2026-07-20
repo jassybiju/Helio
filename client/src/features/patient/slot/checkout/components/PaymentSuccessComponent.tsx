@@ -12,8 +12,11 @@ const PaymentSuccessComponent = () => {
   const { id } = useParams();
   const { data } = usePatientCheckoutQuery(id as string);
   const {mutate : downloadPDF} = useDownloadPDF()
+  if(!data){
+    return null
+  }
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex flex-col">
+    <div className="min-h-screen w-full bg-gradient-to-b from-slate-50 to-white flex flex-col">
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-2xl space-y-8">
@@ -40,7 +43,7 @@ const PaymentSuccessComponent = () => {
           {/* Payment Details Card */}
           <div className="bg-white rounded-2xl border border-slate-200 p-8 space-y-6">
             {/* Transaction Header */}
-            <div className="flex items-start justify-between pb-6 border-b border-slate-200">
+            <div className="flex flex-col sm:flex-row gap-2 items-start justify-between pb-6 border-b border-slate-200">
               <div>
                 {/* <p className="text-sm font-semibold text-blue-600 uppercase mb-2">Transaction ID: #PAY-2024-8847</p> */}
                 <h2 className="text-2xl font-bold text-slate-900">
@@ -69,6 +72,7 @@ const PaymentSuccessComponent = () => {
                 <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
                   Payment Date
                 </p>
+                
                 <p className="text-lg font-semibold text-slate-900">
                   {new Date(data?.data.createdAt).toLocaleString()}
                 </p>
@@ -112,7 +116,7 @@ const PaymentSuccessComponent = () => {
           {/* Additional Info */}
           <div className="text-center space-y-4">
             <Link
-              href="/patient/dashboard"
+              href="/dashboard/appointment"
               className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
             >
               <ArrowLeft className="w-4 h-4" />

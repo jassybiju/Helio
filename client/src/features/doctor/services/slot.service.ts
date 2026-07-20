@@ -16,21 +16,25 @@ export const slotService = {
       API_ENDPOINT.DOCTOR.SLOT.BASE,
       HTTP_METHOD.GET,
     ) as Promise<
-      APIResponse<
-        Record<
+      APIResponse<{
+        slots: Record<
           string,
           {
             shiftId: string;
             startTime: string;
             endTime: string;
-            slots: Array<{ appointmentId: string; status: string; id: string }>;
+            slots: Array<string>;
           }[]
-        >
-      >
+        >;
+      }>
     >;
   },
   blockSlot: (data: BlockDoctorSlotFormData) => {
-    return apiRequest(API_ENDPOINT.DOCTOR.SLOT.BLOCK.BASE, HTTP_METHOD.POST, data);
+    return apiRequest(
+      API_ENDPOINT.DOCTOR.SLOT.BLOCK.BASE,
+      HTTP_METHOD.POST,
+      data,
+    );
   },
   getBlockSlot: () => {
     return apiRequest(
@@ -38,7 +42,10 @@ export const slotService = {
       HTTP_METHOD.GET,
     ) as Promise<APIResponse<IGetDoctorBlockSlotDTO[]>>;
   },
-  deleteBlockSlot : (id : string) => {
-    return apiRequest(API_ENDPOINT.DOCTOR.SLOT.BLOCK.ID(id),HTTP_METHOD.DELETE,)
-  }
+  deleteBlockSlot: (id: string) => {
+    return apiRequest(
+      API_ENDPOINT.DOCTOR.SLOT.BLOCK.ID(id),
+      HTTP_METHOD.DELETE,
+    );
+  },
 };

@@ -9,7 +9,6 @@ export class SocketRealTimeNotifier implements IRealTimeNotifier {
     event: string,
     payload: unknown
   ): Promise<void> {
-    console.log(`EVENT SEND to ${room}`);
     getIO().to(room).emit(event, payload);
   }
 }

@@ -61,7 +61,6 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
       doctor.id,
       period
     );
-    console.log(bookingTrend);
     const totalCompletedAppointments =
       await this._appointmentRepo.findAllWithFilters({
         status: APPOINTMENT_STATUS.COMPLETED,
@@ -75,7 +74,6 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
       wallet.id,
       5
     );
-    console.log(transactions, wallet);
     return {
       summary: {
         todayAppointments: appointments.length,
@@ -100,6 +98,8 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         date: trans.createdAt.toDateString(),
         type: trans.type,
         description: trans.description ?? "",
+        amount: trans.amount,
+        status: trans.status,
       })),
     };
   }

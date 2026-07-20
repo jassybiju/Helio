@@ -11,11 +11,7 @@ export const useDownloadPDF = () =>
     }) => apiClient.post("pdf", data, { responseType: "blob", }),
 
     onSuccess(blob, variables) {
-      console.log(blob)
-      console.log(blob.headers['Content-Disposition']);
-      console.log(blob.headers["content-type"]);
       const url = URL.createObjectURL(blob.data);
-      console.log(url);
       const a = document.createElement("a");
       a.href = url;
       a.download = `${variables.type}-${variables.resource_id}.pdf`;

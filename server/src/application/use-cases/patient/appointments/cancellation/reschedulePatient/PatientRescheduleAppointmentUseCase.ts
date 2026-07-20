@@ -66,7 +66,6 @@ export class PatientRescheduleAppointmentUseCase implements IPatientRescheduleUs
 
       const doctor = await doctorRepo.findById(appointment.doctorId);
       if (!doctor) {
-        console.log("ERROR DOCTOR ID", appointment.doctorId, doctor);
         throw new NotFoundError(MESSAGE.DOCTOR_NOT_FOUND);
       }
 
@@ -86,7 +85,7 @@ export class PatientRescheduleAppointmentUseCase implements IPatientRescheduleUs
 
       const appointmentDate = new Date(appointment.startTime);
       appointmentDate.setHours(0, 0, 0, 0);
-      // console.log(fakeDate, appointmentDate, "HIERF")
+      
       if (appointmentDate <= date) {
         throw new ConflictError("Cant cancel on appointment day");
       }

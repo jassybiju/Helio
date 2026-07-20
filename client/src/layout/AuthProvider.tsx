@@ -16,7 +16,6 @@ type PropType = {
 
 const AuthProvider = ({ children }: PropType) => {
   const { data, isLoading, isError } = useMe();
-  console.log(data, "DATAAA");
   return (
     <AuthContext.Provider value={{ user: data?.data, isLoading, isError }}>
       {children}

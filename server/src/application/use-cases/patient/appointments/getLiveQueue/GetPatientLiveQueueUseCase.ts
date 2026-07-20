@@ -73,7 +73,6 @@ export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
         );
 
       referenceAppointment = completeAppointment[0];
-      console.log(completeAppointment, referenceAppointment);
       if (!referenceAppointment) {
         throw new AppError(
           "Doctor Is Started Consultation",
@@ -116,12 +115,6 @@ export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
 
       timeLeftSeconds = slotDurationSeconds * positionDifference;
       if (timeLeftSeconds < 0) timeLeftSeconds = 0;
-      console.log(
-        positionDifference,
-        slotDurationSeconds,
-        timeLeftSeconds,
-        nowMs
-      );
     }
 
     return {

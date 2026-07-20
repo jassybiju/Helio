@@ -49,7 +49,6 @@ export class GoogleLoginUseCase implements IGoogleLoginUseCase {
     let wallet: Wallet | null = null;
     const WALLET_PREFIX = process.env.WALLET_PREFIX!;
     let walletId = this._idGenerator.generate(WALLET_PREFIX);
-    console.log(walletId, 123, WALLET_PREFIX);
     // if role === DOCTOR
     if (role === USER_ROLES.DOCTOR) {
       let isNew = false;

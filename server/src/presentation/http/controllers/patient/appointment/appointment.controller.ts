@@ -294,7 +294,6 @@ export class PatientAppointmentController {
         patientId as string,
         type as PAYMENT_TYPE
       );
-      console.log("success", "1231223");
       return apiResponse(
         res,
         HTTPStatus.OK,

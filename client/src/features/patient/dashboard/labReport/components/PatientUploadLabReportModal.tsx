@@ -6,12 +6,12 @@ import { ModalProps } from '@/src/layout/ModalProvider'
 import { useUploadLabReportMutation } from '../hooks/useUploadLabReportMutation'
 import { toast } from 'react-toastify'
 
-interface UploadLabReportModalProps {
+interface UploadLabReportModalProps extends ModalProps {
   testName : string,
   reportId : string
 }
 
- const PatientUploadLabReportModal = ({ close , testName, reportId}: ModalProps & UploadLabReportModalProps)=> {
+ const PatientUploadLabReportModal = ({ close , testName, reportId} : UploadLabReportModalProps)=> {
   const [dragActive, setDragActive] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -72,13 +72,6 @@ const isValidFile = (file: File) => {
     // await new Promise(resolve => setTimeout(resolve, 2000))
     // setIsUploading(false)
     
-    // console.log('[v0] Lab report uploaded:', {
-    //   testName,
-    //   reportId,
-    //   fileName: selectedFile.name,
-    //   fileSize: selectedFile.size,
-    //   notes,
-    // })
 
     upload(selectedFile, {onSuccess(){
       setSelectedFile(null)

@@ -203,7 +203,6 @@ export class WalletTransactionRepository
         },
       },
     ]);
-    console.log(result, startDate, now);
     return {
       labels: result.map((r) => r._id.label),
       platformRevenue: result.map((r) => r.platformRevenue),

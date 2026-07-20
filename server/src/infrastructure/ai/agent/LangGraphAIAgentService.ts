@@ -4,9 +4,11 @@ import type { CompiledGraph, CompiledStateGraph } from "@langchain/langgraph";
 import { HumanMessage } from "@langchain/core/messages";
 import type { ICompiledGraph } from "@shared/types/graph.types.ts";
 import { logger } from "@shared/utils/logger.utils.ts";
+import type { ILogger } from "@application/ports/services/ILogger.ts";
 
 export class LangGraphAIAgentService implements IAIAgentService {
   constructor(
+    private readonly _logger: ILogger,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private readonly _chatGraph: CompiledStateGraph<any, any, any, any, any>
   ) {}
@@ -27,7 +29,7 @@ export class LangGraphAIAgentService implements IAIAgentService {
     );
 
     for (let message of response.messages) {
-      console.log(`[${message.type}]: ${message.content}`);
+      this._logger.debug(`[${message.type}]: ${message.content}`);
     }
     return response.messages.at(-1)?.content as string;
   }

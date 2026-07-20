@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { ChatListType, ChatType } from "../types/chat.type";
+import { ChatListType, ChatMessageType, ChatType } from "../types/chat.type";
 import { socket } from "@/src/libs/socket";
 import { USER_ROLES } from "@/src/types/user.types";
 import { useQueryClient } from "@tanstack/react-query";
 
-type IncomingMessage = ChatType & { chatSessionId: string };
+type IncomingMessage = ChatMessageType & { chatSessionId: string };
 
 export const useConsultationChat = ({
   activeSessionId,

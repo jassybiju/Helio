@@ -4,7 +4,6 @@ export const socketAuthMiddleware: Parameters<Server["use"]>[0] = (
   socket,
   next
 ) => {
-  console.log("++++++++++ASB");
   try {
     const cookieHeader = socket.handshake.headers.cookie;
 

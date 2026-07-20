@@ -22,4 +22,4 @@ const createAdminUseCase = new CreateAdminUseCase(
 
 await createAdminUseCase.execute("admin@email.com", "secret");
 
-console.log("CREATED ADMIN");
+logger.info("CREATED ADMIN");

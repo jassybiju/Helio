@@ -1,7 +1,8 @@
+import { logger } from "@shared/utils/logger.utils.ts";
 import { Job, Worker } from "bullmq";
 import nodemailer from "nodemailer";
 
-console.log("WORKER STARTED ....");
+logger.info("WORKER STARTED ....");
 interface EmailJob {
   to: string;
   subject: string;
@@ -20,7 +21,7 @@ const transport = nodemailer.createTransport({
 const worker = new Worker<EmailJob>(
   "email-queue",
   async (job: Job<EmailJob>) => {
-    console.log(`Email request recieved for job ${job.id}`);
+    logger.info(`Email request recieved for job ${job.id}`);
 
     await transport.sendMail({
       from: process.env.SMTP_FROM,
@@ -28,7 +29,7 @@ const worker = new Worker<EmailJob>(
       subject: job.data.subject!,
       text: job.data.body!,
     });
-    console.log(`Email sent successfully for job ${job.id}`);
+    logger.info(`Email sent successfully for job ${job.id}`);
   },
   {
     connection: {
@@ -39,7 +40,7 @@ const worker = new Worker<EmailJob>(
 );
 
 worker.on("completed", (job) => {
-  console.log(`Email sent successfully for job ${job.id}`);
+  logger.info(`Email sent successfully for job ${job.id}`);
 });
 
 worker.on("failed", (job, err) => {

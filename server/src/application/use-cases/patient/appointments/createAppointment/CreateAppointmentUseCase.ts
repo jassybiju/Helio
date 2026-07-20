@@ -70,7 +70,6 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
         break;
       }
     }
-    console.log(matchedShift, shifts);
     if (!matchedShift) {
       throw new AppError("Invlaid Slot selected", HTTPStatus.BAD_REQUEST);
     }
@@ -108,7 +107,6 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
     }
 
     const PLATFORM_FEE = Number(process.env.PLATFORM_FEE)!;
-    console.log(PLATFORM_FEE, 123);
     let consultationFee =
       doctor[
         data.consultationType === CONSULTATION_TYPE.CLINIC
@@ -118,7 +116,6 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
 
     // const confirmedConsultation =
     //   await this._appointmentRepo.countAllAppointmentbyDoctorId(doctor.id);
-    // console.log(confirmedConsultation);
     // if (confirmedConsultation > 2) {
     //   consultationFee = consultationFee + 10;
     // }
@@ -142,7 +139,6 @@ export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
       queueNumber: count,
       platformFee: PLATFORM_FEE,
     });
-    console.log(PLATFORM_FEE, appointment, 123);
 
     await this._appointmentRepo.create(appointment);
 

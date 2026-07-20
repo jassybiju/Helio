@@ -14,33 +14,8 @@ const PatientProtectedCommonLayout = ({
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="afterInteractive"
       />
-      <Navbar>
-        <nav className="hidden md:flex items-center gap-8">
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            Find a Doctor
-          </a>
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            How it Works
-          </a>
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            Pricing
-          </a>
-          <a
-            href="#"
-            className="text-slate-700 hover:text-slate-900 font-medium text-sm"
-          >
-            FAQ
-          </a>
-        </nav>
+      <Navbar isPatient>
+     
       </Navbar>
       <main className="flex items-center justify-center ">
         {children}

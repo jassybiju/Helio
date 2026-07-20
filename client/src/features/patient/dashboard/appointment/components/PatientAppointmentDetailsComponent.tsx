@@ -13,7 +13,7 @@ import {
   User,
   AlertTriangle,
 } from "lucide-react";
-import { useState,  } from "react";
+import { useState } from "react";
 import { useGetPatientsAppointmentQuery } from "../hooks/useGetPatientsAppointmentQuery";
 import { APPOINTMENT_STATUS } from "@/src/types/appointment.types";
 import { useGetPatientLiveQueueQuery } from "../hooks/useGetPatientLiveQueueQuery";
@@ -62,7 +62,7 @@ export default function PatientAppointmentDetailsComponent() {
   const { data: data } = useGetPatientsAppointmentQuery(appointmentId);
   const { data: liveData } = useGetPatientLiveQueueQuery(appointmentId);
   const { open } = useModal();
- 
+
   const [doctorOnline, _setDoctorOnline] = useState<boolean>(false);
 
   const appointment = data?.data;
@@ -91,22 +91,6 @@ export default function PatientAppointmentDetailsComponent() {
   //   return () => clearInterval(interval);
   // }, [queue]);
 
-  const openCancellatonConfirmationModal = () => {
-    open(PatientAppointmentCancellationConfirmationModal, {
-      date: appointment?.appointment.startTime,
-      fee: appointment?.appointment.consultationFee,
-      appointmentId: appointment?.appointment.id,
-    });
-  };
-
-  const handleCancelAppointment = () => {
-    open(PatientAppointmentCancellationModal, {
-      date: appointment?.appointment.startTime,
-      fee: appointment?.appointment.consultationFee,
-      appointmentId: appointment?.appointment.id,
-    });
-  };
-
   if (!appointment) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -123,7 +107,26 @@ export default function PatientAppointmentDetailsComponent() {
     );
   }
 
-  const statusConfig: Record<Partial<APPOINTMENT_STATUS>, object> = {
+  const openCancellatonConfirmationModal = () => {
+    open(PatientAppointmentCancellationConfirmationModal, {
+      date: appointment?.appointment.startTime,
+      fee: appointment?.appointment.consultationFee,
+      appointmentId: appointment?.appointment.id,
+    });
+  };
+
+  const handleCancelAppointment = () => {
+    open(PatientAppointmentCancellationModal, {
+      date: appointment?.appointment.startTime ?? null,
+      fee: appointment?.appointment.consultationFee ?? null,
+      appointmentId: appointment?.appointment.id ?? null,
+    });
+  };
+
+  const statusConfig: Record<
+    Partial<APPOINTMENT_STATUS>,
+    { color: string; textColor: string; badge: string }
+  > = {
     PENDING: {
       color: "bg-blue-100",
       textColor: "text-blue-700",
@@ -139,22 +142,45 @@ export default function PatientAppointmentDetailsComponent() {
       textColor: "text-red-700",
       badge: "Cancelled",
     },
-    ONGOING: {},
-    NO_SHOW: {},
-    CONFIRMED: {},
-    EXPIRED: {},
+    ONGOING: {
+      badge: "Ongoing",
+      color: "bg-green-100",
+      textColor: "bg-green-700",
+    },
+    NO_SHOW: { badge: "No Show", color: "bg-red-100", textColor: "bg-red-700" },
+    CONFIRMED: {
+      badge: "Confirmed",
+      color: "bg-green-100",
+      textColor: "bg-green-700",
+    },
+    CANCELLED_BY_PATIENT: {
+      badge: "Cancelled By Patient",
+      color: "bg-red-100",
+      textColor: "bg-red-700",
+    },
+    SKIPPED: { badge: "Skipped", color: "bg-red-100", textColor: "bg-red-700" },
+    DOCTOR_CANCELLATION_REQUESTED: {
+      badge: "Doctor Requested Cancellation",
+      color: "bg-red-100",
+      textColor: "bg-red-700",
+    },
+    EXPIRED: {
+      badge: "Expired",
+      color: "bg-gray-100",
+      textColor: "bg-gray-700",
+    },
   };
 
-  const config = statusConfig[appointment.appointment.status] ?? {};
+  const config = statusConfig[appointment.appointment.status];
   const fakeDate = new Date();
   fakeDate.setDate(new Date().getDate() + 1);
   fakeDate.setHours(0, 0, 0, 0);
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Back Button */}
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+        className="inline-flex items-center gap-2 text-sm sm:text-base text-blue-600 hover:text-blue-700 font-medium"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Appointmentsds
@@ -169,13 +195,7 @@ export default function PatientAppointmentDetailsComponent() {
                 Appointment Cancelled by Doctor
               </h2>
               <p className="text-red-800 mb-3">
-                {appointment.cancellationReason}
-              </p>
-              <p className="text-sm text-red-700">
-                Cancelled on{" "}
-                {new Date(
-                  appointment.cancellationDate || "",
-                ).toLocaleDateString()}
+                Cancellation Reason : {appointment.cancellationReason}
               </p>
             </div>
           </div>
@@ -188,10 +208,11 @@ export default function PatientAppointmentDetailsComponent() {
         </div>
       )}
       {/* Header */}
-      <div className="bg-white rounded-lg border border-slate-200 p-6">
-        <div className="flex items-start justify-between mb-6">
+      <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              {" "}
               {appointment.doctor.name}
             </h1>
             <p className="text-slate-600">
@@ -199,21 +220,27 @@ export default function PatientAppointmentDetailsComponent() {
             </p>
           </div>
           <span
-            className={`px-4 py-2 rounded-full text-sm font-semibold ${config?.color} ${config.textColor}`}
+            className={`self-start sm:self-auto px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold ${config?.color} ${config.textColor}`}
           >
-            {config.badge}
+            {config?.badge ?? "UNKOWN"}
           </span>
         </div>
         {appointment.appointment.status}sdd
         {/* Appointment Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <div className="border-l-4 border-blue-600 pl-4">
             <p className="text-xs font-semibold text-slate-600 uppercase mb-1">
               Date
             </p>
             <p className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <Calendar className="w-5 h-5 text-blue-600" />
-              {new Date(appointment.appointment.startTime).toLocaleDateString()}
+              {new Date(appointment.appointment.startTime).toLocaleTimeString(
+                [],
+                {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                },
+              )}
             </p>
           </div>
 
@@ -223,7 +250,13 @@ export default function PatientAppointmentDetailsComponent() {
             </p>
             <p className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <Clock className="w-5 h-5 text-blue-600" />
-              {new Date(appointment.appointment.startTime).toLocaleTimeString()}
+              {new Date(appointment.appointment.startTime).toLocaleTimeString(
+                [],
+                {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                },
+              )}
             </p>
           </div>
 
@@ -250,7 +283,7 @@ export default function PatientAppointmentDetailsComponent() {
             <p className="text-xs font-semibold text-slate-600 uppercase mb-1">
               Consultation Fees
             </p>
-            <p className="text-lg font-bold text-slate-900">
+            <p className="text-lg font-bold text-slate-900 whitespace-nowrap">
               ${appointment.appointment.totalAmount}
             </p>
           </div>
@@ -269,14 +302,13 @@ export default function PatientAppointmentDetailsComponent() {
         [APPOINTMENT_STATUS.CONFIRMED, APPOINTMENT_STATUS.ONGOING].includes(
           appointment.appointment.status,
         ) && (
-           <VideoCall
-             patientName={appointment.doctor.name}
-             appointmentId={appointment.appointmentId}
-           />
-        )} 
-          
-{/* Doctor Information */}      
-      <div className="bg-white rounded-lg border border-slate-200 p-6">
+          <VideoCall
+            patientName={appointment.doctor.name}
+            appointmentId={appointment.appointmentId}
+          />
+        )}
+      {/* Doctor Information */}
+      <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
         <h2 className="text-lg font-bold text-slate-900 mb-4">
           Doctor Information {doctorOnline ? "ONLINE" : "OFFLINE"}
         </h2>
@@ -321,12 +353,12 @@ export default function PatientAppointmentDetailsComponent() {
             Live Queue Status
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
                 Your Queue Number
               </p>
-              <p className="text-4xl font-bold text-blue-600">
+              <p className="text-3xl sm:text-4xl font-bold text-blue-600">
                 #{liveData.data.queueNumber}
               </p>
             </div>
@@ -335,7 +367,7 @@ export default function PatientAppointmentDetailsComponent() {
               <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
                 Currently Serving
               </p>
-              <p className="text-4xl font-bold text-slate-900">
+              <p className="text-3xl sm:text-4xl font-bold text-slate-900">
                 #{liveData.data.queueNumberOfOngoingAppointment}
               </p>
             </div>
@@ -344,7 +376,7 @@ export default function PatientAppointmentDetailsComponent() {
               <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
                 Estimated Wait Time
               </p>
-              <p className="text-4xl font-bold text-slate-900">
+              <p className="text-3xl sm:text-4xl font-bold text-slate-900">
                 {liveData.data.timeLeftSeconds}{" "}
                 <span className="text-sm">min</span>
               </p>
@@ -390,14 +422,14 @@ export default function PatientAppointmentDetailsComponent() {
               Vitals
             </h3>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
               <VitalCard
                 label="Blood Pressure"
-                value={appointment.consultation.vitals.bloodPressure}
+                value={appointment?.consultation?.vitals?.bloodPressure}
               />
               <VitalCard
                 label="Oxygen Level"
-                value={appointment.consultation.oxygenLevel}
+                value={appointment.consultation.vitals?.oxygenLevel}
               />
               <VitalCard
                 label="Heart Rate"
@@ -425,19 +457,19 @@ export default function PatientAppointmentDetailsComponent() {
             </h3>
 
             <div className="space-y-2 text-sm text-slate-700">
-              <p>
+              <p className="break-words">
                 <span className="font-semibold">Primary Diagnosis:</span>{" "}
                 {appointment.consultation.primaryDiagnosis || "-"}
               </p>
-              <p>
+              <p className="break-words">
                 <span className="font-semibold">Clinical Observation:</span>{" "}
                 {appointment.consultation.clinicalObservation || "-"}
               </p>
-              <p>
+              <p className="break-words">
                 <span className="font-semibold">General Advice:</span>{" "}
                 {appointment.consultation.generalAdvice || "-"}
               </p>
-              <p>
+              <p className="break-words">
                 <span className="font-semibold">Quick Note:</span>{" "}
                 {appointment.consultation.quickNote || "-"}
               </p>
@@ -452,7 +484,7 @@ export default function PatientAppointmentDetailsComponent() {
             {appointment.consultation.prescriptions?.length > 0 ? (
               <div className="space-y-2">
                 {appointment.consultation.prescriptions.map(
-                  (p: unknown, idx: number) => {
+                  (p, idx: number) => {
                     const timingList = [];
 
                     if (p.timings?.morning) timingList.push("Morning");
@@ -462,7 +494,7 @@ export default function PatientAppointmentDetailsComponent() {
                     return (
                       <div
                         key={idx}
-                        className="p-3 border rounded-lg bg-slate-50 text-sm"
+                        className="p-3 border rounded-lg bg-slate-50 text-sm break-words"
                       >
                         <p className="font-semibold">{p.name}</p>
 
@@ -497,40 +529,43 @@ export default function PatientAppointmentDetailsComponent() {
         </div>
       )}
       {/* Action Buttons */}
-      <div className="bg-white rounded-lg border border-slate-200 p-6 flex gap-3">
-        <div className="w-full">
-          {appointment.appointment.status === "ONGOING" && (
-            <>
-              <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
-                <Video className="w-5 h-5" />
-                Join Consultation
-              </button>
-              <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-                <MessageSquare className="w-5 h-5" />
-                Message Doctor
-              </button>
-            </>
-          )}
+      <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="w-full">
+            {appointment.appointment.status === "ONGOING" && (
+              <>
+                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+                  <Video className="w-5 h-5" />
+                  Join Consultation
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+                  <MessageSquare className="w-5 h-5" />
+                  Message Doctor
+                </button>
+              </>
+            )}
 
-          {appointment.status === "completed" && (
-            <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
-              <Download className="w-5 h-5" />
-              Download Prescription
+            {appointment.appointment.status ===
+              APPOINTMENT_STATUS.COMPLETED && (
+              <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+                <Download className="w-5 h-5" />
+                Download Prescription
+              </button>
+            )}
+
+            <button className="w-full sm:w-auto px-4 sm:px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+              View Notes
+            </button>
+          </div>
+          {appointment.appointment.status === APPOINTMENT_STATUS.CONFIRMED && (
+            <button
+              onClick={handleCancelAppointment}
+              className="w-full sm:w-auto px-4 sm:px-6 py-3 text-nowrap  border bg-red-300 border-slate-200 text-red-700 hover:bg-slate-50 font-semibold rounded-lg transition"
+            >
+              Cancel Appointment
             </button>
           )}
-
-          <button className="px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-            View Notes
-          </button>
         </div>
-        {appointment.appointment.status === APPOINTMENT_STATUS.CONFIRMED && (
-          <button
-            onClick={handleCancelAppointment}
-            className="px-6 py-3 text-nowrap  border bg-red-300 border-slate-200 text-red-700 hover:bg-slate-50 font-semibold rounded-lg transition"
-          >
-            Cancel Appointment
-          </button>
-        )}
       </div>
     </div>
   );

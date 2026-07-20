@@ -22,175 +22,287 @@ const DoctorTodaysAppointment = () => {
     useDoctorTodayAppointment();
 
   return (
-    <>
-      <div className="space-y-6">
-        {/* Header */}
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">
-            Today&apos;s Appointments
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+            Today's Appointments
           </h1>
-          <p className="text-slate-600 mt-1">
-            View and manage all appointments for today.
+          <p className="text-sm text-slate-500 mt-1">
+            Manage your consultations and patient flow
           </p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Total Appointments */}
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 p-6 space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-blue-900 uppercase tracking-wide">
-                Total Appointments
-              </p>
-              <Calendar className="w-5 h-5 text-blue-600" />
-            </div>
-            <p className="text-4xl font-bold text-blue-900">{stats?.total}</p>
-            <p className="text-xs text-blue-700">
-              Today's scheduled consultations
-            </p>
-          </div>
-
-          {/* Completed */}
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 p-6 space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-green-900 uppercase tracking-wide">
-                Completed
-              </p>
-              <Heart className="w-5 h-5 text-green-600" />
-            </div>
-            <p className="text-4xl font-bold text-green-900">
-              {stats?.completed}
-            </p>
-            <p className="text-xs text-green-700">Finished consultations</p>
-          </div>
-
-          {/* Upcoming */}
-          <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl border border-amber-200 p-6 space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-amber-900 uppercase tracking-wide">
-                Upcoming
-              </p>
-              <Clock className="w-5 h-5 text-amber-600" />
-            </div>
-            <p className="text-4xl font-bold text-amber-900">
-              {stats?.upcoming}
-            </p>
-            <p className="text-xs text-amber-700">Waiting to be seen</p>
-          </div>
-
-          {/* Skipped */}
-          <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200 p-6 space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-red-900 uppercase tracking-wide">
-                Skipped
-              </p>
-              <XCircle className="w-5 h-5 text-red-600" />
-            </div>
-            <p className="text-4xl font-bold text-red-900">{stats?.skipped}</p>
-            <p className="text-xs text-red-700">Missed appointments</p>
-          </div>
-
-          {/* No Shows */}
-          {/* <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200 p-6 space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-slate-900 uppercase tracking-wide">
-                No Shows
-              </p>
-              <Users className="w-5 h-5 text-slate-600" />
-            </div>
-            <p className="text-4xl font-bold text-slate-900">{stats?.noShows}</p>
-            <p className="text-xs text-slate-600">Did not arrive</p>
-          </div> */}
-
-          {/* Shift Time */}
-          {/* <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl border border-indigo-200 p-6 space-y-3">
-            <p className="text-sm font-semibold text-indigo-900 uppercase tracking-wide">
-              Your Shift
-            </p>
-            <div className="space-y-2">
-              <div>
-                <p className="text-xs text-indigo-700 font-semibold mb-1">
-                  Start Time
-                </p>
-                <p className="text-2xl font-bold text-indigo-900">9:00 AM</p>
-              </div>
-              <div className="h-px bg-indigo-300"></div>
-              <div>
-                <p className="text-xs text-indigo-700 font-semibold mb-1">
-                  End Time
-                </p>
-                <p className="text-2xl font-bold text-indigo-900">6:00 PM</p>
-              </div>
-            </div>
-          </div> */}
+        <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold">
+          {new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "short",
+            day: "numeric",
+          })}
         </div>
+      </div>
 
-        {/* Ongoing Section */}
-        {ongoingAppointments.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-5 bg-amber-600 rounded-full"></div>
-              <h2 className="text-base font-bold text-slate-900">Ongoing</h2>
-              <span className="text-xs font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
-                {ongoingAppointments.length}
+      {/* Stats */}
+      <div
+        className="
+      grid 
+      grid-cols-2 
+      xl:grid-cols-4 
+      gap-3 
+      sm:gap-5
+    "
+      >
+        <StatCard
+          title="Total"
+          value={stats?.total}
+          icon={<Calendar />}
+          color="blue"
+          subtitle="Scheduled"
+        />
+
+        <StatCard
+          title="Completed"
+          value={stats?.completed}
+          icon={<Heart />}
+          color="green"
+          subtitle="Finished"
+        />
+
+        <StatCard
+          title="Upcoming"
+          value={stats?.upcoming}
+          icon={<Clock />}
+          color="amber"
+          subtitle="Waiting"
+        />
+
+        <StatCard
+          title="Skipped"
+          value={stats?.skipped}
+          icon={<XCircle />}
+          color="red"
+          subtitle="Missed"
+        />
+      </div>
+
+      {/* Ongoing */}
+      <AppointmentSection
+        title="Ongoing"
+        count={ongoingAppointments.length}
+        color="amber"
+      >
+        {ongoingAppointments.length ? (
+          <div
+            className="
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          xl:grid-cols-3
+          gap-4
+        "
+          >
+            {ongoingAppointments.map((apt) => (
+              <AppointmentCard key={apt.id} appointment={apt} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState text="No ongoing appointments" />
+        )}
+      </AppointmentSection>
+
+      {/* Upcoming */}
+      <AppointmentSection title="Next Appointment" color="blue">
+        {next ? (
+          <div
+            className="
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          xl:grid-cols-3
+        "
+          >
+            <AppointmentCard appointment={next} />
+          </div>
+        ) : (
+          <EmptyState text="No upcoming appointments" />
+        )}
+      </AppointmentSection>
+
+      {/* Skipped */}
+      {skippedAppointments.length > 0 && (
+        <div className="rounded-xl border border-slate-200 overflow-hidden">
+          <button
+            onClick={() => setExpandedSkippedSection(!expandedSkippedSection)}
+            className="
+            w-full
+            flex
+            justify-between
+            items-center
+            p-4
+            bg-slate-50
+            hover:bg-slate-100
+            transition
+          "
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="
+              w-2
+              h-8
+              bg-slate-400
+              rounded-full
+            "
+              />
+
+              <div className="text-left">
+                <h2 className="font-bold text-slate-900">
+                  Skipped Appointments
+                </h2>
+
+                <p className="text-xs text-slate-500">
+                  Review missed consultations
+                </p>
+              </div>
+
+              <span
+                className="
+              px-2
+              py-1
+              rounded-full
+              text-xs
+              font-bold
+              bg-slate-200
+              text-slate-700
+            "
+              >
+                {skippedAppointments.length}
               </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {ongoingAppointments.map((apt) => (
+
+            <span className="text-xl">
+              {expandedSkippedSection ? "−" : "+"}
+            </span>
+          </button>
+
+          {expandedSkippedSection && (
+            <div
+              className="
+            p-4
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            xl:grid-cols-3
+            gap-4
+          "
+            >
+              {skippedAppointments.map((apt) => (
                 <AppointmentCard key={apt.id} appointment={apt} />
               ))}
             </div>
-          </div>
-        )}
-
-        {/* Upcoming Section */}
-        {next ? (
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
-              <h2 className="text-base font-bold text-slate-900">Upcoming</h2>
-              <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-                {/* {next.length} */}
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              <AppointmentCard appointment={next} />
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        {/* Skipped Section */}
-        {skippedAppointments.length > 0 && (
-          <div className="space-y-2">
-            <button
-              onClick={() => setExpandedSkippedSection(!expandedSkippedSection)}
-              className="w-full flex items-center justify-between gap-2 p-2 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-1 h-5 bg-slate-400 rounded-full"></div>
-                <h2 className="text-base font-bold text-slate-900">Skipped</h2>
-                <span className="text-xs font-semibold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full">
-                  {skippedAppointments.length}
-                </span>
-              </div>
-              <span className="text-slate-600 font-semibold">
-                {expandedSkippedSection ? "−" : "+"}
-              </span>
-            </button>
-
-            {expandedSkippedSection && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                {skippedAppointments.map((apt) => (
-                  <AppointmentCard key={apt.id} appointment={apt} />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
 export default DoctorTodaysAppointment;
+
+const StatCard = ({ title, value, subtitle, icon, color }: any) => {
+  const styles: any = {
+    blue: "bg-blue-50 border-blue-200 text-blue-700",
+    green: "bg-green-50 border-green-200 text-green-700",
+    amber: "bg-amber-50 border-amber-200 text-amber-700",
+    red: "bg-red-50 border-red-200 text-red-700",
+  };
+
+  return (
+    <div
+      className={`
+rounded-2xl
+border
+p-4
+sm:p-6
+${styles[color]}
+`}
+    >
+      <div
+        className="
+flex
+justify-between
+items-center
+"
+      >
+        <p className="text-xs sm:text-sm font-bold uppercase">{title}</p>
+
+        {React.cloneElement(icon, {
+          className: "w-5 h-5",
+        })}
+      </div>
+
+      <p
+        className="
+text-3xl
+sm:text-4xl
+font-black
+mt-3
+"
+      >
+        {value ?? 0}
+      </p>
+
+      <p className="text-xs opacity-80">{subtitle}</p>
+    </div>
+  );
+};
+
+const AppointmentSection = ({ title, count, children, color }: any) => (
+  <section className="space-y-4">
+    <div className="flex items-center gap-3">
+      <div
+        className={`
+w-1.5
+h-6
+rounded-full
+${color === "blue" ? "bg-blue-600" : "bg-amber-500"}
+`}
+      />
+
+      <h2 className="font-bold text-lg text-slate-900">{title}</h2>
+
+      {count && (
+        <span
+          className="
+bg-slate-100
+px-2
+py-1
+rounded-full
+text-xs
+font-bold
+"
+        >
+          {count}
+        </span>
+      )}
+    </div>
+
+    {children}
+  </section>
+);
+
+const EmptyState = ({ text }: { text: string }) => (
+  <div
+    className="
+border
+border-dashed
+rounded-xl
+p-8
+text-center
+text-slate-400
+text-sm
+"
+  >
+    {text}
+  </div>
+);

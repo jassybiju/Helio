@@ -55,10 +55,13 @@ const PatientSettingsComponent = () => {
     }
 
     open(UpdateProfilePicModal, {
-      onImageSave: async (image: string, onSuccess : ()=>void) => {
+      onImageSave: async (
+        image: string,
+        onSuccess: () => void,
+        onError: () => void,
+      ) => {
         const file = await fetch(image).then((r) => r.blob());
-        console.log(image, file, "1232d", typeof image);
-        updateProfilePic(file, {onSuccess });
+        updateProfilePic(file, { onSuccess, onError });
       },
       currentImage: URL.createObjectURL(file),
     });
@@ -108,55 +111,54 @@ const PatientSettingsComponent = () => {
   };
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="mx-auto max-w-4xl space-y-6 px-4 py-4 sm:space-y-8 sm:px-6">
+      {" "}
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-slate-900">Account Settings</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl text-slate-900">
+          Account Settings
+        </h1>
         <p className="text-slate-600">
           Manage your health profile and portal security preferences.
         </p>
       </div>
-
       {/* Personal Information */}
-      <div className="bg-white rounded-lg border border-slate-200 p-8 space-y-8">
-        <div className="flex items-start gap-6">
+      <div className="rounded-lg border border-slate-200 bg-white p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+        <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-start">
+          {" "}
           {/* Profile Photo */}
           <div className="space-y-2 text-center">
-            <div className="w-24 h-24 overflow-hidden bg-blue-100 rounded-full flex items-center justify-center relative group">
+            <label
+              htmlFor="doctor-profile-upload"
+              className="block relative group h-20 w-20 sm:h-24 sm:w-24 overflow-hidden bg-blue-100 rounded-full flex items-center justify-center relative group"
+            >
               {PERSON?.profilePic ? (
                 <img className="w-full h-full" src={PERSON?.profilePic} />
               ) : (
                 <svg
-                  className="w-16 h-16"
+                  className="h-12 w-12 sm:h-16 sm:w-16"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
                 </svg>
               )}{" "}
-               <label
-                // onClick={handleUpdateProfilePic}
-                className={`absolute w-full h-full bg-gray-50/50 justify-between items-center  rounded-full px-2 py-1 text-black group-hover:flex hidden`}
-              >
-                Upload Image
-                <input
-                  type="file"
-                  ref={imageUploadRef}
-                  onChange={handleUpdateProfilePic}
-                  id=""
-                  className="hidden w-full h-full"
-                />
-              </label>
               <button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full text-white flex items-center justify-center text-sm">
                 ✓
               </button>
-            </div>
+            </label>
+            <input
+              type="file"
+              ref={imageUploadRef}
+              onChange={handleUpdateProfilePic}
+              id="doctor-profile-upload"
+              className="hidden w-full h-full"
+            />
             <p className="text-xs text-slate-600">PROFILE PHOTO</p>
             <p className="text-xs text-slate-500">JPG, PNG up to 5MB</p>
           </div>
-
           {/* Form Fields */}
-          <div className="flex-1 grid grid-cols-2 gap-6">
+          <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
             <div>
               <label className="text-xs font-semibold text-slate-600 uppercase">
                 First Name
@@ -213,7 +215,7 @@ const PatientSettingsComponent = () => {
                 className="mt-2 w-full px-4 py-2 border border-slate-00 rounded-lg"
               ></input>
             </div>
-            {/* <div className="col-span-2">
+            {/* <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-slate-600 uppercase">
                 Location
               </label>
@@ -229,7 +231,7 @@ const PatientSettingsComponent = () => {
                 />
               </div> */}
             {/* </div> */}
-            <div className="col-span-2">
+            <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-slate-600 uppercase">
                 Email Address
               </label>
@@ -240,7 +242,7 @@ const PatientSettingsComponent = () => {
                 className="mt-2 w-full px-4 py-2 border border-slate-200 rounded-lg"
               />
             </div>
-            <div className="col-span-2">
+            <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-slate-600 uppercase">
                 Phone Number
               </label>
@@ -256,17 +258,16 @@ const PatientSettingsComponent = () => {
 
         <button
           onClick={handleUpdateModel}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full"
+          className="w-full rounded-full bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 sm:w-auto sm:px-8"
         >
           Update Profile
         </button>
       </div>
-
       {/* Medical Preferences */}
       <div className="bg-white rounded-lg border border-slate-200 p-8 space-y-6">
         <div className="flex items-center gap-2">
           <Heart className="w-5 h-5 text-blue-600" />
-          <h2 className="text-xl font-bold text-slate-900">
+          <h2 className="text-lg font-bold sm:text-xl text-slate-900">
             Medical Preferences
           </h2>
         </div>
@@ -288,7 +289,7 @@ const PatientSettingsComponent = () => {
               </button>
             ))}
           </div>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <input
               type="text"
               value={allergyInput}
@@ -299,7 +300,7 @@ const PatientSettingsComponent = () => {
             />
             <button
               onClick={handleAddAllergy}
-              className="px-4 py-2 text-blue-600 font-medium hover:text-blue-700"
+              className="rounded-lg border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 sm:w-auto font-medium hover:text-blue-700"
             >
               Add
             </button>
@@ -323,7 +324,7 @@ const PatientSettingsComponent = () => {
               </button>
             ))}
           </div>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <input
               type="text"
               value={conditionInput}
@@ -334,22 +335,23 @@ const PatientSettingsComponent = () => {
             />
             <button
               onClick={handleAddCondition}
-              className="px-4 py-2 text-blue-600 font-medium hover:text-blue-700"
+              className="rounded-lg border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 sm:w-auto font-medium hover:text-blue-700"
             >
               Add
             </button>
           </div>
         </div>
       </div>
-
       {/* Change Password */}
       <div className="bg-white rounded-lg border border-slate-200 p-8 space-y-6">
         <div className="flex items-center gap-2">
           <Lock className="w-5 h-5 text-blue-600" />
-          <h2 className="text-xl font-bold text-slate-900">Change Password</h2>
+          <h2 className="text-lg font-bold sm:text-xl text-slate-900">
+            Change Password
+          </h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div>
             <label className="text-xs font-semibold text-slate-600 uppercase">
               Old Password
@@ -486,7 +488,7 @@ const PatientSettingsComponent = () => {
 
         <button
           onClick={handleChangePassword}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full"
+          className="w-full rounded-full bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 sm:w-auto sm:px-8"
         >
           Update Password
         </button>

@@ -52,7 +52,7 @@ const chatGraph = await createChatGraph(
   [retrieveTool, searchDoctorByQuery, searchAvailableDoctor, getDoctorSlotTool],
   checkpointer
 );
-const aiAgent = new LangGraphAIAgentService(chatGraph);
+const aiAgent = new LangGraphAIAgentService(logger, chatGraph);
 const aiChatBotUseCase = new AIChatBotUseCase(
   logger,
   idGenerator,

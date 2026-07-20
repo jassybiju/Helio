@@ -66,11 +66,6 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
         const appointment = await this._appointmentRepo.findById(
           consultation.appointmentId
         );
-        console.log(
-          "consultation",
-          consultation.appointmentId,
-          consultation.id
-        );
 
         const doctor = await this._doctorRepo.findById(consultation.doctorId);
         if (!doctor) {

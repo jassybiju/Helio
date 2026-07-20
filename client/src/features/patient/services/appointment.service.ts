@@ -36,7 +36,7 @@ export interface IGetAllPatientAppointments {
 
     hasLabReports: boolean;
   }[];
-
+  cancelledAppointments: string[]
   totalCount: number;
   page: number;
   limit: number;
@@ -70,6 +70,25 @@ export interface IGetPatientAppointment {
     generalAdvice: string | null;
     quickNote: string | null;
     clinicalObservation: string | null;
+      prescriptions: {
+      name: string;
+      timings: {
+        morning: boolean;
+        afternoon: boolean;
+        night: boolean;
+      };
+      durationInDays: number;
+      foodTiming: number;
+      instruction: string | null | undefined;
+    }[];
+    vitals: {
+      bloodPressure: string | null | undefined;
+      oxygenLevel: number | null | undefined;
+      heartRate: number | null | undefined;
+      temperature: number | null | undefined;
+      weight: number | null | undefined;
+      height: number | null | undefined;
+    };
   };
 
   payment: {
@@ -200,7 +219,6 @@ export const appointmentService = {
   uploadLabReport: (reportId: string, data: File) => {
     const formData = new FormData();
     formData.append("document", data);
-    console.log(reportId, API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId));
     return apiRequest(
       API_ENDPOINT.PATIENT.LAB.UPLOAD(reportId),
       HTTP_METHOD.PATCH,
@@ -278,7 +296,8 @@ export const appointmentService = {
   ) {
     return apiRequest(
       `/patient/appointment/${appointmentId}/reschedule`,
-      HTTP_METHOD.POST,data
+      HTTP_METHOD.POST,
+      data,
     );
   },
 };

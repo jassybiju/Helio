@@ -19,7 +19,6 @@ export class ChatHandler {
           socket.emit("chat:error", {
             message: "Invalid chat session",
           });
-          console.log("CHAT ERROP");
           return;
         }
 

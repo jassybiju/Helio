@@ -10,7 +10,7 @@ import { useLogout } from "@/src/features/auth/hooks/useLogout";
 
 const menuItems = [
   // { label: "Dashboard", href: "/dashboard", icon: LayoutGrid },
-  { label: "appointment", href: "/dashboard/appointment", icon: LayoutGrid },
+  { label: "Appointment", href: "/dashboard/appointment", icon: LayoutGrid },
   { label: "Lab Report", href: "/dashboard/lab-report", icon: LayoutGrid },
   { label: "Wallet", href: "/dashboard/wallet", icon: LayoutGrid },
   { label: "Chat", href: "/dashboard/chat", icon: MessageCircle },

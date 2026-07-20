@@ -93,7 +93,6 @@ export const ModalStack = ({
   close: (id: string) => void;
 }) => {
   if (!stack.length) return null;
-  console.log(stack)
   return createPortal(
     <div
       // onClick={() => close(stack[stack.length - 1].id)}

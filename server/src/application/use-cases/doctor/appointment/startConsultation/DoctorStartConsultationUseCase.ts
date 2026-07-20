@@ -72,14 +72,12 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
       const fakeDate = new Date();
       fakeDate.setDate(fakeDate.getDate() + 1);
       // const date = new Date()
-      console.log("FAKEDATE", fakeDate, new Date());
 
       this._logger.error(
         "For Debug I set date + 2 in start consultation change on prod"
       );
       const nextQueueAppointment =
         await appointmentRepo.findNextQueueAppointment(doctorId, fakeDate);
-      console.log(nextQueueAppointment);
       this._logger.debug("Next Queue", nextQueueAppointment);
       if (!nextQueueAppointment) {
         throw new ConflictError("No appointment available in queue");
@@ -104,12 +102,6 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
           }
         }
       }
-      console.log(
-        startable,
-        startable.find((appt) => appt.id == appointment.id),
-        appointment.id,
-        "START123"
-      );
       // validating if the order is correct
       if (!startable.find((appt) => appt.id == appointment.id)) {
         throw new ConflictError("Previous queue consultation not completed");
@@ -118,7 +110,6 @@ export class DoctorStartConsultationUseCase implements IDoctorStartConsultationU
       // if (fakeDate < appointment.startTime) {
       //   throw new ConflictError("Appointment can't start before given time");
       // }
-      console.log(process.env.CONSULT_PREFIX);
       const CONSULTATION_ID = this._idGenerator.generate(
         process.env.CONSULT_PREFIX!
       );

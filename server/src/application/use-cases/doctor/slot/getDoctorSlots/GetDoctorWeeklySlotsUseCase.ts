@@ -77,7 +77,6 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
       }
       slotMap.get(key)!.push(appt);
     }
-    console.log(slotMap, 223);
     let result: Record<string, SlotWithUnits[]> = {};
 
     for (const slot of slots) {
@@ -89,7 +88,6 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
         weekday: "long",
       });
       const appts = slotMap.get(slotKey) || [];
-      console.log(appts, key, 2234);
       const shift = shifts.find((s) => slot.shiftId === s.shiftId);
 
       const capacity = shift?.capacityPerSlot ?? 1;

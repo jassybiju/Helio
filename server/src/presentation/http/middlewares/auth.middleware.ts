@@ -21,7 +21,6 @@ export const authMiddleware = (
       email: string;
     };
     req.user = payload;
-    console.log(123, req.body, req.params, req.query);
     next();
   } catch {
     throw new AppError("Invalid Token", HTTPStatus.UNAUTHORIZED);

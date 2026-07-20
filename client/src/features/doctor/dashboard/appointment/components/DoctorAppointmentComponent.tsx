@@ -1,6 +1,6 @@
 "use client";
 
-import { Search,  } from "lucide-react";
+import { Search } from "lucide-react";
 import TableComponent from "@/src/components/TableComponent";
 import Pagination from "@/src/components/Pagination";
 import {
@@ -8,7 +8,6 @@ import {
   CONSULTATION_TYPE,
 } from "@/src/types/appointment.types";
 import useDoctorAppointment from "../hooks/useDoctorAppointment";
-
 
 // type CONSULTATION_TYPE = "all" | "online" | "in-person";
 const DoctorAppointmentComponent = () => {
@@ -33,7 +32,8 @@ const DoctorAppointmentComponent = () => {
   }
   return (
     <>
-      <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 space-y-4">
+        {" "}
         {/* Search Bar */}
         <div className="relative">
           <Search className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
@@ -45,13 +45,12 @@ const DoctorAppointmentComponent = () => {
               setSearchQuery(e.target.value);
               setPage(1);
             }}
-            className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-3 text-sm sm:text-base border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-
         {/* Filter Controls */}
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="text-sm font-semibold text-slate-600 uppercase">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-stretch lg:items-center gap-3">
+          <span className="text-xs sm:text-sm font-semibold text-slate-600 uppercase">
             Filters
           </span>
 
@@ -62,7 +61,7 @@ const DoctorAppointmentComponent = () => {
               setDateFilter(e.target.value);
               setPage(1);
             }}
-            className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
           <select
@@ -75,7 +74,7 @@ const DoctorAppointmentComponent = () => {
               setStatusFilter(e.target.value as APPOINTMENT_STATUS);
               setPage(1);
             }}
-            className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value={""}>All Status</option>
             <option value="CONFIRMED">Confirmed</option>
@@ -94,7 +93,7 @@ const DoctorAppointmentComponent = () => {
               setTypeFilter(e.target.value as CONSULTATION_TYPE);
               setPage(1);
             }}
-            className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Types</option>
             <option value="ONLINE">Online</option>
@@ -109,7 +108,7 @@ const DoctorAppointmentComponent = () => {
               setDateFilter("");
               setPage(1);
             }}
-            className="px-4 py-2 text-blue-600 font-medium text-sm hover:bg-blue-50 rounded-lg transition"
+            className="w-full sm:w-auto px-4 py-3 text-blue-600 font-medium text-sm hover:bg-blue-50 rounded-lg transition border border-transparent hover:border-blue-100"
           >
             Clear Filters
           </button>
@@ -117,9 +116,14 @@ const DoctorAppointmentComponent = () => {
       </div>
 
       {/* Appointments Table */}
-      <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
-          <TableComponent columns={column} data={appointments} />
+          <div className="min-w-[900px]">
+            {" "}
+            <TableComponent columns={column} data={appointments} />
+          </div>
+        </div>
+        <div className="border-t border-slate-200 px-4 sm:px-6 py-4">
           <Pagination
             currentPage={page}
             totalPages={totalPages}
@@ -130,7 +134,8 @@ const DoctorAppointmentComponent = () => {
         </div>
 
         {appointments.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-10 sm:py-12 px-4">
+            {" "}
             <p className="text-slate-600">No appointments found</p>
           </div>
         )}

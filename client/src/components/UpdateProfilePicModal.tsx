@@ -7,7 +7,7 @@ import Cropper, { Area } from "react-easy-crop";
 
 interface ProfilePictureUploadProps extends ModalProps {
   currentImage?: string;
-  onImageSave: (image: string, onSuccess : ()=>void) => void;
+  onImageSave: (image: string, onSuccess : ()=>void, onError : ()=>void) => void;
   close : ()=>void
 }
 
@@ -17,13 +17,11 @@ export function UpdateProfilePicModal({
   close
 }: ProfilePictureUploadProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(currentImage ?? null);
-  console.log(imageSrc);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<null | Area>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
-
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
 
   function onFileChange(event: ChangeEvent<HTMLInputElement>) {
@@ -32,7 +30,6 @@ export function UpdateProfilePicModal({
     if (!file) {
       return;
     }
-    console.log("TYPE", typeof file)
     setImageSrc(URL.createObjectURL(file));
   }
 
@@ -43,13 +40,13 @@ export function UpdateProfilePicModal({
     if (!croppedAreaPixels || !imageSrc) {
       return;
     }
+    setIsUploading(true)
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels)
     if(croppedImage){
-      console.log(croppedImage,2232)
       onImageSave(croppedImage, ()=>{
-        console.log("123HELLO")
+
         close()
-      })
+      }, ()=>{setIsUploading(false)})
     }
   }
   async function showCroppedImage() {
@@ -122,10 +119,8 @@ export function UpdateProfilePicModal({
   //   if (!imageSrc || !croppedAreaPixels) return;
 
   //   setIsUploading(true);
-  //   console.log(croppedAreaPixels,imageSrc)
   //   try {
   //     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-  //     console.log(croppedImage)
   //     if (croppedImage) {
   //       onImageSave(croppedImage as string);
   //       setShowCropper(false);
@@ -232,6 +227,7 @@ export function UpdateProfilePicModal({
           <div className="flex gap-3 pt-4">
             <button
               // onClick={handleCancel}
+              onClick={close}
               className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
             >
               <X className="h-4 w-4" />

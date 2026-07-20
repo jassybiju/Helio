@@ -13,7 +13,6 @@ const DoctorBlockSlotConflictModal = ({
   appointments,
   blockDetails,
 }: ModalProps & DoctorBlockSlotConflictType) => {
-  console.log(appointments);
   // const [overlapModal, setOverlapModal] = useState({
   //   isOpen: true,
   //   conflicts: [
@@ -31,7 +30,6 @@ const DoctorBlockSlotConflictModal = ({
   //     reason: ";fkasdfl",
   //   },
   // });
-  console.log(appointments,blockDetails )
   const { mutate } = useDoctorBlockSlotMutation();
 
   const handleSubmit = () => {
@@ -47,7 +45,6 @@ const DoctorBlockSlotConflictModal = ({
           if (isAxiosError(error)) {
             toast.error(error.response?.data.message);
             if (error.response?.data.error.appointments) {
-              console.log(error.response.data.error.appointments);
               toast.error(error.response.data.error.reason);
             }
           }

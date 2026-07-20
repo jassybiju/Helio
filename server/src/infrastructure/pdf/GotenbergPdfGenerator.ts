@@ -9,13 +9,11 @@ export class GotenbergPdfGenerator implements IPDFGeneratorService {
     form.append("outputFilename", "ABC");
 
     form.append("files", new Blob([html], { type: "text/html" }), "index.html");
-    console.log(`${this._gotenbergUrl}/forms/chromium/convert/html`);
 
     const response = await fetch(
       `${this._gotenbergUrl}/forms/chromium/convert/html`,
       { method: "POST", body: form }
     );
-    console.log(response);
 
     if (!response.ok) {
       throw new Error(

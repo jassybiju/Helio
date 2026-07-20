@@ -43,7 +43,6 @@ export class DoctorViewAllAppointmentUseCase implements IDoctorViewAllAppointmen
       endDate = new Date(date);
       endDate.setHours(23, 59, 59, 999);
     }
-    console.log(page);
     const { appointments, totalCount } =
       await this._appointmentRepo.findManyWithFilters({
         doctorId,

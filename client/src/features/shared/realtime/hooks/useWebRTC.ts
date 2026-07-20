@@ -46,7 +46,6 @@ export const useWebRTC = (appointmentId: string) => {
         // peerInstance.on("stream", (remoteStream) => {
         //   setRemoteMediaStream(remoteStream);
         // });
-        console.log("USER JOINED WAITING FOR OFFER", incomingSocketId)
       });
       socket.on("webrtc:existing-users", (existingSocketIds: string[]) => {
         existingSocketIds.forEach((socketId) => {
@@ -60,11 +59,9 @@ export const useWebRTC = (appointmentId: string) => {
       });
 
       socket.on("webrtc:signal", ({ signal, from }) => {
-        console.log("SINGAL RECIEVED", {type : signal.type,peerRef : peerRef.current})
         if (peerRef.current) {
           peerRef.current.signal(signal);
         } else {
-          console.log("SENT ANSWER", peerRef.current);
           const peerInstance = initPeer(from, false, stream, appointmentId);
           peerRef.current = peerInstance;
           peerInstance.on("stream", (remoteStream) => {
@@ -82,7 +79,6 @@ export const useWebRTC = (appointmentId: string) => {
 
       setIsJoined(true);
     } catch (err) {
-      console.log("ERROR ACCESSING MEDIA DEVICES", err);
     }
   };
 

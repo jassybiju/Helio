@@ -7,7 +7,6 @@ import path from "path";
 const vectorStore = await LangchainQdrantVectorStoreService.create();
 
 const filePath = path.join(process.cwd(), "src", "data", "knowledgebase.txt");
-console.log(filePath, process.cwd());
 const file = await fs.readFile(filePath);
 // Loading TextLoader
 const loader = new TextLoader(filePath);
@@ -22,5 +21,3 @@ const chunks = await splitter.splitDocuments(docs);
 
 // embedding
 await vectorStore.addDocuments(chunks);
-
-console.log(`Stored ${chunks.length} chunks.`);

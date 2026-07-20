@@ -22,20 +22,28 @@ export const patientSearchService = {
       HTTP_METHOD.GET,
       null,
       params,
-    ) as Promise<
-      APIResponse<{ data: Doctor[]; totalCount: number; }>
-    >;
+    ) as Promise<APIResponse<{ data: Doctor[]; totalCount: number }>>;
   },
-  getSlots(doctorId: string, page: number, limit : number) {
+  getSlots(doctorId: string, page: number, limit: number) {
     return apiRequest(
       API_ENDPOINT.PATIENT.DOCTOR.ID(doctorId),
       HTTP_METHOD.GET,
       null,
-      {page, limit}
-
+      { page, limit },
     ) as Promise<
       APIResponse<{
-        doctor: Doctor;
+        doctor: {
+          doctorId: string;
+          fullName: string;
+          speciality: string;
+          yearsOfExperience: number;
+          onlineFee: number;
+          clinicFee: number;
+          rating: number;
+          reviews: number;
+          nextAvailableSlot: string;
+          profilePic: string;
+        };
         slots: Record<
           string,
           {
@@ -46,15 +54,15 @@ export const patientSearchService = {
             online: { slots: { time: string; status: string }[] };
           }
         >;
-        reviews : {
-          id : string,
-          patientName : string,
-          createdAt : string,
-          ratings : number,
-          comments : string,
-          profilePic: string
-        }[],
-        totalCount : number[]
+        reviews: {
+          id: string;
+          patientName: string;
+          createdAt: string;
+          ratings: number;
+          comments: string;
+          profilePic: string;
+        }[];
+        totalCount: number[];
       }>
     >;
   },

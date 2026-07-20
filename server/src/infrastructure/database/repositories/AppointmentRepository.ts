@@ -132,7 +132,6 @@ export class AppointmentRepository
         },
       },
     ]);
-    console.log(groupFormat, startDate, now, doctorId, result);
     return result.map((item) => ({
       label: item._id,
       count: item.count,

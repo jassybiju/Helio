@@ -33,7 +33,8 @@ export default function DoctorPagination({
   const pages = getPageNumbers();
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-12">
+    <div className="flex flex-wrap items-center justify-center gap-2 mt-8 lg:mt-12">
+      {" "}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -42,7 +43,6 @@ export default function DoctorPagination({
       >
         ‹
       </button>
-
       {pages.map((page, idx) => {
         if (page === "...") {
           return (
@@ -59,7 +59,7 @@ export default function DoctorPagination({
           <button
             key={pageNum}
             onClick={() => onPageChange(pageNum)}
-            className={`w-10 h-10 rounded-lg font-medium transition ${
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg ${
               isActive
                 ? "bg-blue-600 text-white"
                 : "text-gray-700 hover:bg-gray-100"
@@ -69,7 +69,6 @@ export default function DoctorPagination({
           </button>
         );
       })}
-
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}

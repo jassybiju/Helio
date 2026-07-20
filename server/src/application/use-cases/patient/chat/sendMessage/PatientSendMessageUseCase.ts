@@ -6,7 +6,8 @@ import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IRealTimeNotifier } from "@application/ports/services/IRealTimeNotifier.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
 import type { IPatientSendMessageUseCase } from "@application/ports/use-cases/patient/chat/IPatientSendMessageUseCase.ts";
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { ChatMessage } from "@domain/entities/ChatMessage.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 
@@ -56,7 +57,6 @@ export class PaitentSendMessageUseCase implements IPatientSendMessageUseCase {
       }
 
       const chatSession = await chatSessionRepo.findById(chatSessionId);
-      console.log(chatSessionId);
       if (!chatSession) {
         throw new NotFoundError(MESSAGE.CHAT_SESSION_NOT_FOUND);
       }

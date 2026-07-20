@@ -9,7 +9,6 @@ export const socket = io(process.env.NEXT_PUBLIC_BACKEND_WSURL, {
 //   reconnection: true,
 // });
 socket.on("connect_error", (error: Error) => {
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
   console.log(error.message);
   // console.log(error.description);
   // console.log(error.context);
@@ -21,6 +20,3 @@ socket.on('connect',()=>{
 socket.on('disconnect',(reason)=>{
   console.log("Disconnected", reason)
 })
-socket.on("connected123", () => {
-  console.log("hi");
-});

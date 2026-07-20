@@ -33,7 +33,6 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
     if (!appointment) {
       throw new AppError("Appointment Not Found", HTTPStatus.NOT_FOUND);
     }
-    console.log(patient.id, appointment.patientId, patientId);
     if (appointment.patientId !== patient.id) {
       throw new AppError(
         "Appointment Not of this user",
@@ -50,7 +49,7 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
     const consultation = await this._consultationRepo.findByAppointmentId(
       appointment.id
     );
-    let consultationDTO = null;
+    let consultationDTO : IGetAppointmentDTO['consultation'] = null;
     if (consultation) {
       consultationDTO = {
         primaryDiagnosis: consultation.primaryDiagnosis,

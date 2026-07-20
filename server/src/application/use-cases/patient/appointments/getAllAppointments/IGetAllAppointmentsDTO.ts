@@ -29,6 +29,7 @@ export interface IGetAllAppointmentsDTO {
     hasLabReports: boolean;
   }[];
 
+  cancelledAppointments: string[];
   totalCount: number;
   page: number;
   limit: number;

@@ -7,7 +7,6 @@ export class GeneratePDFController {
   generate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { type, resource_id, from, to } = req.body;
-      console.log(req.body, req.params, req.query);
       let pdfStream = await this._pdfDispatcher.execute({
         type,
         resource_id,
