@@ -14,7 +14,7 @@ const logger = PinoLoggerService.getInstance();
 const walletRepo = new WalletRepository(logger);
 const transactionRepo = new WalletTransactionRepository(logger);
 const idGenerator = new NanoidGenerator();
-const uow = new MongoUnitOfWork()
+const uow = new MongoUnitOfWork();
 
 const getWalletUseCase = new GetWalletUseCase(
   logger,
@@ -30,7 +30,7 @@ const addMoneyUseCase = new AddMoneyUseCase(
   uow
 );
 
-const verifyAddMoney = new AddMoneyVerifyUseCase(
+const verifyAddMoney = new AddMoneyVeUseCase(
   logger,
   walletRepo,
   transactionRepo

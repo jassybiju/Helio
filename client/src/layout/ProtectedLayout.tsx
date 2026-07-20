@@ -72,7 +72,6 @@ const ProtectedLayout = ({ children, role }: PropType) => {
   const queryClient = useQueryClient()
   useEffect(() => {
     if (!user) return;
-    toast.success("!@#")
     const handler = () => {
       toast.success("NOTIFICATION")
       queryClient.invalidateQueries({queryKey : ['notification']})

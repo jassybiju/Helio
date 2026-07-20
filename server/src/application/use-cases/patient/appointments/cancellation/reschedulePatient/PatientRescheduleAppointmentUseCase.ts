@@ -85,7 +85,7 @@ export class PatientRescheduleAppointmentUseCase implements IPatientRescheduleUs
 
       const appointmentDate = new Date(appointment.startTime);
       appointmentDate.setHours(0, 0, 0, 0);
-      if (appointmentDate <= date) {
+      if (appointmentDate == date) {
         throw new ConflictError("Cant cancel on appointment day");
       }
 

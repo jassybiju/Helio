@@ -1,4 +1,7 @@
-import { TRANSACTION_STATUS, TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
+import {
+  TRANSACTION_STATUS,
+  TRANSACTION_TYPE,
+} from "@domain/common/enums/wallet.enum.ts";
 import z from "zod";
 
 export const getWalletSchema = z.object({

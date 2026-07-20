@@ -286,7 +286,6 @@ const PatientAppointmentRescheduleModal = ({
           </div>
         )}
       </div>
-<AddReview doctorId={doctor?.id}/>
       {/* Footer */}
       <div className="flex justify-end gap-3 border-t p-6">
         <button

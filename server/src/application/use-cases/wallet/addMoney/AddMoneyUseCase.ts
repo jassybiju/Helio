@@ -32,8 +32,8 @@ export class AddMoneyUseCase implements IAddMoneyUseCase {
 
     this._logger.info("Add money attempt", { userId, amount });
     return this._uow.execute(async (session) => {
-      const walletRepo = this._walletRepo.withSession(session)
-      const transactionRepo = this._transactionRepo.withSession(session)
+      const walletRepo = this._walletRepo.withSession(session);
+      const transactionRepo = this._transactionRepo.withSession(session);
 
       const wallet = await walletRepo.findByUserId(userId);
 
