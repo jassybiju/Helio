@@ -1,3 +1,4 @@
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 import type { Doctor } from "@domain/entities/Doctor.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
 import type { ClientSession } from "mongoose";
@@ -12,6 +13,17 @@ export interface IDoctorFilters {
   createdTo?: Date | undefined;
   sort: "createdAt" | "first_name";
   order: "asc" | "desc";
+}
+
+export interface IDoctorSearchQuery {
+  name?: string | undefined;
+  specialization?: string | undefined;
+  minFee?: number | undefined;
+  maxFee?: number | undefined;
+  minExperienceYears?: number | undefined;
+
+  page?: number | undefined;
+  limit?: number | undefined;
 }
 
 export interface IDoctorRepository {
@@ -30,4 +42,24 @@ export interface IDoctorRepository {
   countDoctors(speciailziation: string): Promise<number>;
 
   withSession(session: ClientSession): IDoctorRepository;
+
+  /**
+   * Search the doctor using params
+   * @param params IDoctorSearchQuery
+   */
+  search(
+    params: IDoctorSearchQuery
+  ): Promise<{ doctors: Doctor[]; totalCount: number }>;
+
+  searchByName(query: string): Promise<Doctor[]>;
+  getRegistrationAnalytics(
+    period: BOOKING_PERIOD
+  ): Promise<IRegistrationAnalytics>;
+
+  count(): Promise<number>;
+}
+
+export interface IRegistrationAnalytics {
+  labels: string[];
+  count: number[];
 }

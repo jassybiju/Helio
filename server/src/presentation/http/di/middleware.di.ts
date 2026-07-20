@@ -3,7 +3,7 @@ import { CheckBlockMiddleware } from "../middlewares/checkBlocked.middleware.ts"
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 
-const logger = new PinoLoggerService();
+const logger = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(logger);
 const doctorRepo = new MongoDoctorRepository(logger);
 

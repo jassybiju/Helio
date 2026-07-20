@@ -2,7 +2,10 @@ import type { Patient } from "@domain/entities/Patient.ts";
 import type { IGetPatientProfileDTO } from "./IGetPatientProfileDTO.ts";
 
 export class GetPatientProfileMapper {
-  static toDto(patient: Patient): IGetPatientProfileDTO {
+  static toDto(
+    patient: Patient,
+    profilePic: string | null
+  ): IGetPatientProfileDTO {
     return {
       id: patient.id,
       email: patient.email,
@@ -14,6 +17,7 @@ export class GetPatientProfileMapper {
       phone: patient.phone,
       allergens: patient.allergens,
       conditions: patient.conditions,
+      profilePic,
     };
   }
 }

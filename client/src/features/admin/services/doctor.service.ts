@@ -51,7 +51,6 @@ export type DoctorView = {
 
 export const adminDoctorService = {
   async getDoctors(params?: DoctorQueryParams) {
-    console.log(params);
     return (await apiRequest(
       API_ENDPOINT.ADMIN.DOCTOR.GET_ALL,
       HTTP_METHOD.GET,

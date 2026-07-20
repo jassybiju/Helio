@@ -19,6 +19,8 @@ export class Patient {
     private _dob: Date | null,
     private _bloodGroup: BLOOD_GROUP | null,
 
+    private _proficPicKey: string | null,
+
     private _phone: string | null,
 
     private _isVerified: boolean,
@@ -144,6 +146,28 @@ export class Patient {
     this._googleId = googleId;
   }
 
+  updateProfilePic(key: string) {
+    this._proficPicKey = key;
+  }
+
+  get age() {
+    if (!this._dob) return null;
+    const today = new Date();
+    const birthDate = this._dob;
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // Adjust if birthday hasn't happened yet this year
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  }
+
   get hasGoogleId() {
     return !!this._googleId;
   }
@@ -219,6 +243,11 @@ export class Patient {
     return this._conditions;
   }
 
+  get profilePicKey() {
+    return this._proficPicKey;
+  }
+
+  // ERROR
   static googleCreate({
     id,
     firstName,
@@ -244,7 +273,8 @@ export class Patient {
       null,
       null,
       null,
-      false,
+      null,
+      true,
       false,
       [],
       [],

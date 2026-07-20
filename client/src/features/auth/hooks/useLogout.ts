@@ -12,7 +12,6 @@ export const useLogout = () => {
       queryClient.setQueriesData({ queryKey: ["me"] }, null);
       queryClient.removeQueries({ queryKey: ["me"] });
 
-      console.log("REMVOED CACHE");
       router.push("/login");
     } catch {
       alert("Failed to logout");

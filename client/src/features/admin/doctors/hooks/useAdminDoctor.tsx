@@ -23,11 +23,9 @@ export const useAdminDoctor = () => {
 
   const doctors = data?.data.doctors ?? [];
   const totalCount = data?.data.totalCount;
-  console.log(totalCount! / limit);
   const totalPages = Math.ceil(totalCount! / limit);
 
   const handleToggleBlock = (row: Doctor) => {
-    console.log("hi");
     open(ConfirmModal, {
       patientName: row.fullName,
       currentStatus: row.status as "active" | "blocked",
@@ -43,8 +41,8 @@ export const useAdminDoctor = () => {
       title: "Doctor",
       render: (_value, row) => (
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-            {row.fullName?.[0]}
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 overflow-hidden to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+            {row.profilePic ? <img className="w-full h-full object-cover " src={row.profilePic}/> : row.fullName?.[0]}
           </div>
           <div>
             <p className="text-sm font-medium text-slate-900">{row.fullName}</p>

@@ -4,6 +4,7 @@ export type USER_DATA = {
   role: USER_ROLES;
   status?: DOCTOR_STATUS;
   isProfileComplete: boolean;
+  profilePic? : string
 };
 
 export enum USER_ROLES {

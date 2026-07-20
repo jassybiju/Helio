@@ -1,33 +1,69 @@
 import { DoctorSlotController } from "../../controllers/doctor/slot.controller.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { DoctorSlotRepository } from "@infrastructure/database/repositories/DoctorSlotRepository.ts";
 import { GetDoctorWeeklySlotsUsecase } from "@application/use-cases/doctor/slot/getDoctorSlots/GetDoctorWeeklySlotsUseCase.ts";
-import { GenerateFutureSlotsUseCase } from "@application/use-cases/doctor/slot/generateFutureSlots/GenerateFutureSlotsUseCase.ts";
 import { DoctorShiftRepository } from "@infrastructure/database/repositories/DoctorShiftRepository.ts";
 import { SlotGenerator } from "@application/service/SlotGenerator.ts";
+import { BlockDoctorSlotUseCase } from "@application/use-cases/doctor/slot/blockDoctorSlot/BlockDoctorSlotUseCase.ts";
 import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
+import { DoctorBlockShiftRepository } from "@infrastructure/database/repositories/DoctorBlockShiftRepository.ts";
+import { GetDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotUseCase.ts";
+import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
+import { DeleteDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/deleteDoctorBlockSlot/DeleteDoctorBlockSlotUseCase.ts";
+import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
+import { NotificationService } from "@application/service/NotificationService.ts";
+import { NotificationRepository } from "@infrastructure/database/repositories/NotificationRepository.ts";
+import { SocketRealTimeNotifier } from "@infrastructure/services/SocketRealTimeNotifier.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
+
+const idGenerator = new NanoidGenerator();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
-const doctorSlotRepo = new DoctorSlotRepository(loggerService);
 const doctorShiftRepo = new DoctorShiftRepository(loggerService);
-const idGenerator = new NanoidGenerator();
+const doctorBlockShiftRepo = new DoctorBlockShiftRepository(loggerService);
+const appointmentRepo = new AppointmentRepository(loggerService);
+const notificationRepo = new NotificationRepository(loggerService);
+const realTimeNotifier = new SocketRealTimeNotifier();
+const uow = new MongoUnitOfWork();
+const notificationService = new NotificationService(
+  notificationRepo,
+  idGenerator,
+  realTimeNotifier
+);
+
 const doctorGetWeeklySlotUseCase = new GetDoctorWeeklySlotsUsecase(
   loggerService,
   doctorRepo,
-  doctorSlotRepo
+  doctorShiftRepo,
+  new SlotGenerator(),
+  doctorBlockShiftRepo,
+  appointmentRepo
 );
 
-export const generateFutureSlotUseCase = new GenerateFutureSlotsUseCase(
+const doctorBlockSlotUseCase = new BlockDoctorSlotUseCase(
+  loggerService,
+  idGenerator,
+  doctorBlockShiftRepo,
+  appointmentRepo,
+  uow,
+  notificationService
+);
+
+const getDoctorBlockSlotUseCase = new GetDoctorBlockSlotUseCase(
   loggerService,
   doctorRepo,
-  doctorShiftRepo,
-  doctorSlotRepo,
-  new SlotGenerator(idGenerator)
+  doctorBlockShiftRepo
 );
 
+const deleteDoctorBlockSlotUseCase = new DeleteDoctorBlockSlotUseCase(
+  loggerService,
+  doctorBlockShiftRepo,
+  doctorRepo
+);
 export const doctorSlotController = new DoctorSlotController(
-  doctorGetWeeklySlotUseCase
+  doctorGetWeeklySlotUseCase,
+  doctorBlockSlotUseCase,
+  getDoctorBlockSlotUseCase,
+  deleteDoctorBlockSlotUseCase
 );

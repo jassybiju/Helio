@@ -27,10 +27,10 @@ export type IWeeklySlotsResponseDTO = Record<
     startTime: string;
     endTime: string;
 
-    slots: Array<{
-      id: string;
-      appointmentId: string | null;
-      status: string;
-    }>;
+    // slots: Array<{
+    //   id: string;
+    //   appointmentId: string | null;
+    //   status: string;
+    // }>;
   }[]
 >;

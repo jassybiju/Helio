@@ -21,7 +21,6 @@ export const useForgetPassword = ({
   } = useForm({
     resolver: zodResolver(forgetPasswordSchema),
   });
-  console.log(forgetPassword);
   const onSubmit = async (data: ForgetPasswordData) => {
     try {
       const res = await forgetPassword(data);
@@ -34,7 +33,6 @@ export const useForgetPassword = ({
           message: error.response?.data.message || "Something went wrong",
         });
       } else {
-        console.log(error);
         setError("root", { message: "An Error occured. Please try again" });
       }
     }

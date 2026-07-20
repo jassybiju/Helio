@@ -9,7 +9,7 @@ export type PatientProfileType = {
   email: string;
   firstName: string;
   lastName: string;
-
+  profilePic : string| null;
   gender: "male" | "female" | "other" | null;
   dob: string | null;
   bloodGroup: string | null;
@@ -70,4 +70,9 @@ export const patientProfileService = {
   updatePatient: (data: UpdatePatientFormData) => {
     return apiRequest(API_ENDPOINT.PATIENT.PROFILE.I, HTTP_METHOD.PUT, data);
   },
+  updateProfilePic : (file : Blob) => {
+        const formData = new FormData()
+    formData.append('avatar', file)
+    return apiRequest(API_ENDPOINT.PATIENT.PROFILE.PIC, HTTP_METHOD.PATCH, formData)
+  }
 };

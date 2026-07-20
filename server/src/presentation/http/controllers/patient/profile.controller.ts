@@ -11,7 +11,6 @@ import {
   successResponse,
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { GetPatientProfileMapper } from "@application/use-cases/patient/profile/getPatientProfile/GetPatientProfileMapper.ts";
 import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.ts";
 import type { IAddPatientAllergenUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientAllergenUseCase.ts";
 import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
@@ -20,6 +19,9 @@ import type { IAddPatientConditionUseCase } from "@application/ports/use-cases/p
 import type { IRemovePatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IRemovePatientConditionUseCase.ts";
 import type { IChangePatientPasswordUseCase } from "@application/ports/use-cases/patient/profile/IChangePatientPasswordUseCase.ts";
 import type { IUpdatePatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
+import type { IPatientUpdateProfilePictureUseCase } from "@application/ports/use-cases/patient/profile/IUpdateProfilePictureUseCase.ts";
+import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import { ValidationError } from "@shared/errors/ValidationError.ts";
 
 export class PatientProfileController {
   constructor(
@@ -30,8 +32,34 @@ export class PatientProfileController {
     private readonly _addPatientCondition: IAddPatientConditionUseCase,
     private readonly _removePatientCondition: IRemovePatientConditionUseCase,
     private readonly _changePassword: IChangePatientPasswordUseCase,
-    private readonly _updatePatientProfile: IUpdatePatientProfileUseCase
+    private readonly _updatePatientProfile: IUpdatePatientProfileUseCase,
+    private readonly _updatePatientProfilePic: IPatientUpdateProfilePictureUseCase
   ) {}
+
+  updateProfilePic = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        throw new NotFoundError(MESSAGE.PATIENT_NOT_FOUND);
+      }
+      if (!req.file) {
+        throw new ValidationError("FILE is required");
+      }
+      await this._updatePatientProfilePic.execute(userId, req.file!);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(null, "PROFILE PIC UPDATED")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 
   completeProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -43,7 +71,6 @@ export class PatientProfileController {
           HTTPStatus.UNPROCESSBLE_ENTITY
         );
       }
-      console.log(req.file);
       const response = await this._completeProfile.execute(userId, {
         ...parsed.data,
       });
@@ -65,9 +92,7 @@ export class PatientProfileController {
         throw new AppError(MESSAGE.INTERNAL_ERROR, HTTPStatus.INTERNAL_ERROR);
       }
 
-      const patient = await this._getPatientProfile.execute(userId);
-
-      const response = GetPatientProfileMapper.toDto(patient);
+      const response = await this._getPatientProfile.execute(userId);
 
       return apiResponse(
         res,

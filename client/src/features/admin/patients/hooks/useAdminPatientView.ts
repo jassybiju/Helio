@@ -23,7 +23,6 @@ export const useAdminPatientView = (id: string) => {
     });
   };
 
-  console.log(data?.data);
   return {
     patient: data?.data as PatientView,
     isLoading,

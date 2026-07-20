@@ -19,7 +19,6 @@ export const authService = {
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
-      console.log(key, typeof value);
       if (value instanceof FileList) {
         formData.append(key, value[0]);
       } else {

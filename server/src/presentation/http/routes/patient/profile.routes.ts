@@ -4,6 +4,7 @@ import { authMiddleware } from "../../middlewares/auth.middleware.ts";
 import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
 import { checkBlockMiddleware } from "../../di/middleware.di.ts";
+import { imageUpload } from "@config/multer.config.ts";
 
 export const patientProfileRouter = Router();
 
@@ -34,3 +35,8 @@ patientProfileRouter.patch(
   patientProfileController.changePassword
 );
 patientProfileRouter.put("/", patientProfileController.updateProfile);
+patientProfileRouter.patch(
+  "/picture",
+  imageUpload.single("avatar"),
+  patientProfileController.updateProfilePic
+);

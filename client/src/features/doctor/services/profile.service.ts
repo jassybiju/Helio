@@ -14,6 +14,7 @@ type DoctorProfileType = {
   yearsOfExperience: number | null;
   onlineFee: number | null;
   clinicFee: number | null;
+  profilePic : string | null
 };
 
 export const doctorProfileService = {
@@ -56,4 +57,10 @@ export const doctorProfileService = {
       oldPassword,
     });
   },
+  updateProfilePic : (data : Blob) => {
+    const formData = new FormData()
+    formData.append('avatar', data)
+
+    return apiRequest('/doctor/profile/picture',HTTP_METHOD.PATCH, formData)
+  }
 };

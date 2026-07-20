@@ -10,8 +10,8 @@ export const patientRegisterSchema = z.object({
     .max(11, "Phone number must be less than 11 characters"),
   password: z.string().min(8, "Password must be atleast 8 characters"),
   gender: z.enum(
-    ["male", "female", "other"],
-    "Gender must be male , female or other"
+    ["Male", "Female", "Other"],
+    "Gender must be Male , Female or Other"
   ),
   dob: z
     .string()

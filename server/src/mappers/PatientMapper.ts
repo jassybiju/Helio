@@ -10,8 +10,6 @@ import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.t
 
 export class PatientMapper {
   static toPersistance(t: Patient): PatientRawDoc {
-    console.log(t, 12345);
-
     return {
       _id: t.id,
       email: t.email,
@@ -21,6 +19,7 @@ export class PatientMapper {
       dob: t.dob,
       gender: t.gender,
       phone: t.phone,
+      profile_pic_key: t.profilePicKey,
       blood_group: t.bloodGroup,
       is_blocked: t.isBlocked,
       is_verified: t.isVerified,
@@ -39,7 +38,6 @@ export class PatientMapper {
   }
 
   static toDomain(raw: PatientDoc): Patient {
-    console.log(raw, 1234);
     return new Patient(
       raw._id,
       new Email(raw.email),
@@ -49,6 +47,7 @@ export class PatientMapper {
       raw.gender as GENDER,
       raw.dob as Date,
       raw.blood_group as BLOOD_GROUP,
+      raw?.profile_pic_key ?? null,
       raw.phone as string,
       raw.is_verified,
       raw.is_blocked,

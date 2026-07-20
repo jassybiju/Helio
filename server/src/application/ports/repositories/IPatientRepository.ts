@@ -1,5 +1,7 @@
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 import type { Patient } from "@domain/entities/Patient.ts";
 import type { Email } from "@domain/value-objects/Email.ts";
+import type { ClientSession } from "mongoose";
 
 export interface IPatientFilters {
   search?: string | undefined;
@@ -14,6 +16,7 @@ export interface IPatientFilters {
 }
 
 export interface IPatientRepository {
+  withSession(session: ClientSession): IPatientRepository;
   findByEmail(email: Email): Promise<Patient | null>;
   findById(id: string): Promise<Patient | null>;
   create(patient: Patient): Promise<void>;
@@ -21,4 +24,16 @@ export interface IPatientRepository {
   findAllWithFilters(
     params: IPatientFilters
   ): Promise<{ patients: Patient[]; totalCount: number }>;
+
+  findByIds(ids: string[]): Promise<Patient[]>;
+  getRegistrationAnalytics(
+    period: BOOKING_PERIOD
+  ): Promise<IRegistrationAnalytics>;
+
+  count(): Promise<number>;
+}
+
+export interface IRegistrationAnalytics {
+  labels: string[];
+  count: number[];
 }

@@ -14,6 +14,8 @@ export class Doctor {
     private _fullName: string,
     private _gender: GENDER | null,
 
+    private _profilePicKey: string | null,
+
     private _specialization: string | null,
     private _careerStartYear: number | null,
     private _bio: string | null,
@@ -51,6 +53,10 @@ export class Doctor {
         HTTPStatus.UNPROCESSBLE_ENTITY
       );
     }
+  }
+
+  updateProfilePic(profilePicKey: string) {
+    this._profilePicKey = profilePicKey;
   }
 
   private static readonly _validTransistions: Record<
@@ -136,15 +142,6 @@ export class Doctor {
   }
 
   isProfileComplete(): boolean {
-    console.log(
-      this._fullName,
-      this._gender,
-      this._specialization,
-      this._careerStartYear,
-      this._documentKey,
-      this._isVerified,
-      "abc"
-    );
     return !!(
       this._fullName &&
       this._gender &&
@@ -194,13 +191,13 @@ export class Doctor {
     createdAt: Date;
     updatedAt: Date;
   }) {
-    console.log(passwordHash);
     return new Doctor(
       id,
       email,
       passwordHash,
       full_name,
       gender,
+      null,
       specialization,
       career_start_year,
       null,
@@ -246,6 +243,7 @@ export class Doctor {
       email,
       null,
       fullName,
+      null,
       null,
       null,
       null,
@@ -299,10 +297,14 @@ export class Doctor {
     ];
   }
 
+  get profilePicKey() {
+    return this._profilePicKey;
+  }
   get yearsOfExperience() {
     if (this._careerStartYear) {
       return new Date().getFullYear() - this._careerStartYear;
     }
+    return null;
   }
 
   get verificationHistory() {

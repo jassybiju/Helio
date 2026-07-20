@@ -23,8 +23,7 @@ const DoctorLoginForm = () => {
   const handleGoogleLogin: GoogleLoginFn = async (credential: string) => {
     const response = await authService.googleLogin({ credential: credential! });
     invalidateQuery("me");
-    console.log(response.data.data.isProfileComplete);
-    if (!response.data.data.isProfileComplete) {
+    if (!response.data.isProfileComplete) {
       router.replace("/profile-complete");
     } else {
       router.replace("/");

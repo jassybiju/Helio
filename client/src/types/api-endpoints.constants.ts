@@ -13,6 +13,9 @@ export const API_ENDPOINT = {
       TOGGLE: (id: string) => `/admin/doctor/${id}/status`,
       APPROVAL: (id: string) => `/admin/doctor/${id}/approval-status`,
     },
+    DASHBOARD : {
+      BASE : '/admin/dashboard/'
+    }
   },
   DOCTOR: {
     AUTH: {
@@ -31,12 +34,51 @@ export const API_ENDPOINT = {
     },
     SCHEDULE: {
       BASE: "/doctor/schedule",
-      ID : (id : string)=>'/doctor/schedule/'+id
+      ID: (id: string) => "/doctor/schedule/" + id,
     },
+    SLOT: {
+      BASE: "/doctor/slot",
+      BLOCK: {
+        BASE: "/doctor/slot/block",
+        ID: (id: string) => `/doctor/slot/block/${id}`,
+      },
+    },
+    CHAT: {
+      BASE: "/doctor/chat",
+      ID: (id: string) => `/doctor/chat/${id}`,
+    },
+    DASHBOARD : {
+      BASE : '/doctor/dashboard/'
+    }
   },
   PATIENT: {
+    AI : {
+      CHAT : "/patient/ai/chat"
+    },
     PROFILE: {
       I: "/patient/profile/",
+      PIC : "/patient/profile/picture"
     },
+    DOCTOR: {
+      BASE: "/patient/doctors/",
+      ID: (id: string) => `/patient/doctors/${id}`,
+    },
+    APPOINTMENT: {
+      BASE: `/patient/appointment`,
+      ID: {
+        BASE: (id: string) => `/patient/appointment/${id}`,
+        CHECKOUT: (id: string) => `/patient/appointment/${id}/checkout`,
+        VERIFY: (id: string) => `/patient/appointment/${id}/verify`,
+      },
+    },
+    LAB: {
+      BASE: `/patient/lab`,
+      UPLOAD: (id: string) => `/patient/lab/${id}/upload`,
+    },
+    CHAT: {
+      BASE: "/patient/chat",
+      ID: (id: string) => `/patient/chat/${id}`,
+    },
+    REVIEW : (doctorId : string) => `/patient/review/${doctorId}`
   },
 } as const;

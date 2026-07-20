@@ -16,8 +16,6 @@ import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 import { Doctor } from "@domain/entities/Doctor.ts";
 import { OTP } from "@domain/entities/OTP.ts";
 import { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 
 export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
   constructor(
@@ -46,7 +44,6 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
       password,
       document,
     } = input;
-    console.log(input, "hello");
     // checking if doctor already exists with isVerified true
     const existingDoctor =
       await this._doctorValidator.ensureEmailAvailable(email);
@@ -54,7 +51,6 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     const isNew = !existingDoctor;
 
     // saving documnets to bucket
-    console.log(document);
     const documentKey = await this._fileUpload.upload(document);
 
     // creating new doctor ( if unverified doctor exists keep the id and changes data )

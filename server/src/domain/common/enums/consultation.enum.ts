@@ -1,0 +1,4 @@
+export enum FOOD_TIMING {
+  BEFORE_FOOD,
+  AFTER_FOOD,
+}

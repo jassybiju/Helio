@@ -18,15 +18,16 @@ import { ForgetPasswordUseCase } from "@application/use-cases/auth/ForgetPasswor
 import { RedisResetTokenService } from "@infrastructure/services/RedisResetTokenService.ts";
 import { EmailService } from "@infrastructure/services/EmailService.ts";
 import { ResetPasswordUseCase } from "@application/use-cases/auth/ResetPasswordUseCase.ts";
-import { LocalFileUploadService } from "@infrastructure/services/LocalFileUploadService.ts";
 import { GoogleLoginUseCase } from "@application/use-cases/auth/googleLogin/GoogleLoginUseCase.ts";
 import { GoogleAuthService } from "@infrastructure/services/GoogleAuthService.ts";
+import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const bcryptPasswordService = new BcryptPasswordService();
 const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();
-const localUploadService = new LocalFileUploadService();
+const fileUploadService = new CloudinaryFileUploadService();
 const accessTokenService = new JWTAccessTokenService();
 const refreshTokenService = new CryptoRefreshTokenService();
 const resetTokenService = new RedisResetTokenService(loggerService);
@@ -37,6 +38,7 @@ const doctorRepo = new MongoDoctorRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
 const otpRepo = new RedisOTPRepository(loggerService);
 const refreshTokenRepo = new RedisSessionRepository(loggerService);
+const walletRepo = new WalletRepository(loggerService);
 
 const doctorValidator = new DoctorValidator(doctorRepo, bcryptPasswordService);
 
@@ -45,7 +47,7 @@ const registerUsecase = new RegisterDoctorUseCase(
   doctorValidator,
   nanoidGenerator,
   bcryptPasswordService,
-  localUploadService,
+  fileUploadService,
   doctorRepo,
   otpRepo,
   otpService,
@@ -56,7 +58,9 @@ const verifyDoctorUseCase = new VerifyOTPUseCase(
   loggerService,
   otpRepo,
   patientRepo,
-  doctorRepo
+  doctorRepo,
+  walletRepo,
+  nanoidGenerator
 );
 
 const resendDoctorOTPUseCase = new ResendOTPUseCase(
@@ -99,7 +103,8 @@ const googleLoginUseCase = new GoogleLoginUseCase(
   nanoidGenerator,
   accessTokenService,
   refreshTokenService,
-  refreshTokenRepo
+  refreshTokenRepo,
+  walletRepo
 );
 
 export const doctorAuthController = new DoctorAuthController(

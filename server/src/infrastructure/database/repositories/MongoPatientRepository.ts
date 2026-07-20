@@ -3,7 +3,7 @@ import type {
   IPatientRepository,
 } from "@application/ports/repositories/IPatientRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { QueryFilter } from "mongoose";
+import type { ClientSession, QueryFilter } from "mongoose";
 import { Patient } from "@domain/entities/Patient.ts";
 import { Email } from "@domain/value-objects/Email.ts";
 import { AppError } from "@shared/errors/AppError.ts";
@@ -11,13 +11,25 @@ import { PatientMapper } from "../../../mappers/PatientMapper.ts";
 import { patientModel, type PatientDoc } from "../model/PatientModel.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { BaseRepository } from "./BaseRepository.ts";
+import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
 
 export class PatientRepository
   extends BaseRepository<Patient, PatientDoc>
   implements IPatientRepository
 {
-  constructor(private readonly _loggerService: ILogger) {
-    super(patientModel);
+  constructor(
+    private readonly _loggerService: ILogger,
+    session?: ClientSession
+  ) {
+    super(patientModel, session);
+  }
+
+  withSession(session: ClientSession) {
+    return new PatientRepository(this._loggerService, session);
+  }
+
+  findByIds(ids: string[]): Promise<Patient[]> {
+    return super.find({ _id: { $in: ids } }, {}, PatientMapper.toDomain);
   }
 
   /**
@@ -145,5 +157,13 @@ export class PatientRepository
       this._loggerService.error("Failed to fetch patients", error as Error);
       throw new AppError("Failed to fetch patients", HTTPStatus.INTERNAL_ERROR);
     }
+  }
+
+  async getRegistrationAnalytics(period: BOOKING_PERIOD) {
+    return super.getRegistrationAnalytics(period);
+  }
+
+  async count() {
+    return super.count({});
   }
 }

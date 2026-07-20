@@ -29,7 +29,6 @@ const PatientLoginForm = () => {
         credential: credential!,
       });
       invalidateQuery("me");
-      console.log(response.data.isProfileComplete);
       if (!response.data.isProfileComplete) {
         router.replace("/profile-complete");
       } else {

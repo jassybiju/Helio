@@ -1,6 +1,6 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
-import { DoctorVerificationFormData } from "../schema/verification.schema";
+import { DoctorVerificationFormData } from "../auth/schema/verification.schema";
 
 type VerificationDetails = {
   verification_status: string;

@@ -12,7 +12,6 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import type { IChangeDoctorApprovalStatusUseCase } from "@application/ports/use-cases/admin/doctor/IChangeDoctorApprovalStatusUseCase.ts";
-import { GetAllDoctorMapper } from "@application/use-cases/admin/doctor/getAllDoctors/GetAllDoctorMapper.ts";
 import type { IGetDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IGetDoctorUseCase.ts";
 import { GetDoctorMapper } from "@application/use-cases/admin/doctor/getDoctor/GetDoctorMapper.ts";
 import type { IToggleBlockDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IToggleBlockDoctorUseCase.ts";
@@ -69,7 +68,7 @@ export class AdminDoctorController {
         await this._getAllDoctorUseCase.execute(parsed.data);
 
       const response = {
-        doctors: GetAllDoctorMapper.toDto(doctors),
+        doctors,
         limit,
         page,
         totalCount,

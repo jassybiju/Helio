@@ -13,13 +13,15 @@ import {
 } from "@shared/utils/apiReponse.utils.ts";
 import type { IGetDoctorProfileUseCase } from "@application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
-import { GetDoctorProfileMapper } from "@application/use-cases/doctor/profile/getDoctorProfile/GetDoctorProfileMapper.ts";
 import type { IUpdateDoctorFeeUseCase } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorFeeUseCase.ts";
 import type {
   IUpdateDoctorInput,
   IUpdateDoctorProfileUseCase,
 } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.ts";
 import type { IChangeDoctorPasswordUseCase } from "@application/ports/use-cases/doctor/profile/IChangeDoctorPasswordUseCase.ts";
+import type { IDoctorUpdateProfilePictureUseCase } from "@application/ports/use-cases/doctor/profile/IUpdateProfilePictureUseCase.ts";
+import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import { ValidationError } from "@shared/errors/ValidationError.ts";
 
 export class DoctorProfileController {
   constructor(
@@ -27,8 +29,34 @@ export class DoctorProfileController {
     private readonly _getDoctorProfile: IGetDoctorProfileUseCase,
     private readonly _updateDoctorFee: IUpdateDoctorFeeUseCase,
     private readonly _updateDoctorProfile: IUpdateDoctorProfileUseCase,
-    private readonly _changePassword: IChangeDoctorPasswordUseCase
+    private readonly _changePassword: IChangeDoctorPasswordUseCase,
+    private readonly _updateProfilePic: IDoctorUpdateProfilePictureUseCase
   ) {}
+
+  updateProfilePic = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        throw new NotFoundError(MESSAGE.DOCTOR_NOT_FOUND);
+      }
+      if (!req.file) {
+        throw new ValidationError("FILE is required");
+      }
+      await this._updateProfilePic.execute(userId, req.file!);
+
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(null, "PROFILE PIC UPDATED")
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 
   completeProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -40,7 +68,6 @@ export class DoctorProfileController {
           HTTPStatus.UNPROCESSBLE_ENTITY
         );
       }
-      console.log(req.file);
       const response = await this._completeProfile.execute(userId, {
         ...parsed.data,
         document: req.file!,
@@ -64,8 +91,7 @@ export class DoctorProfileController {
         throw new AppError(MESSAGE.INTERNAL_ERROR, HTTPStatus.INTERNAL_ERROR);
       }
 
-      const doctor = await this._getDoctorProfile.execute(userId);
-      const response = GetDoctorProfileMapper.toDto(doctor);
+      const response = await this._getDoctorProfile.execute(userId);
 
       return apiResponse(
         res,

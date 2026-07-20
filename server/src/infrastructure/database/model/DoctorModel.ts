@@ -1,4 +1,3 @@
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const doctorSchema = new Schema(
@@ -23,6 +22,10 @@ const doctorSchema = new Schema(
     gender: {
       type: String,
       enum: ["Male", "Female", "Other"],
+    },
+    profile_pic_key: {
+      type: String,
+      default: null,
     },
     specialization: {
       type: String,

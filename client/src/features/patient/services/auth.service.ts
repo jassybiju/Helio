@@ -1,6 +1,6 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { PatientRegistrationFormData } from "../auth/schemas/auth.schema";
-import { HTTP_METHOD } from "@/src/types/API.types";
+import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
 import { LoginResponse } from "@/src/features/auth/types/auth.types";
 
 interface RegisterPayload {
@@ -75,7 +75,7 @@ export const authService = {
     );
     return response;
   },
-  googleLogin({ credential }: { credential: string }): Promise<LoginResponse> {
+  googleLogin({ credential }: { credential: string }): Promise<APIResponse<LoginResponse>> {
     return apiRequest("/patient/auth/google", HTTP_METHOD.POST, { credential });
   },
 };

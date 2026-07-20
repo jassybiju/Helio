@@ -1,5 +1,5 @@
-import type { DAY_OF_WEEK } from "@domain/common/enums/doctorShift.enum.ts";
-import type { DoctorSlot } from "@domain/entities/DoctorSlot.ts";
+import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
 import type { ClientSession } from "mongoose";
 
 export interface IDoctorSlotFilters {
@@ -42,5 +42,11 @@ export interface IDoctorSlotRepository {
    * @param doctorId string
    * @param date Date
    */
-  findAllByDoctorAndDay(doctorId : string, date : Date) : Promise<DoctorSlot[]>
+  findAllByDoctorAndDay(doctorId: string, date: Date): Promise<DoctorSlot[]>;
+
+  findNextAvailableSlots(
+    doctorIds: string[],
+    date?: Date,
+    consultationType?: CONSULTATION_TYPE
+  ): Promise<Map<string, Date>>;
 }

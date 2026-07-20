@@ -1,11 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { usePatientRegistration } from "../hooks/usePatientRegisteration";
 import Input from "@/src/components/ui/Input";
 import DOBPicker from "@/src/components/ui/DOBPicker";
 import ClayButton from "@/src/components/ui/ClayButton";
+import { Eye, EyeOff } from "lucide-react";
 
 const PatientRegistrationForm = () => {
+  const [showPasswords, setShowPasswords] = useState({
+    current: false,
+    new: false,
+  });
   const {
     register,
     onSubmit,
@@ -90,9 +95,9 @@ const PatientRegistrationForm = () => {
               }`}
             >
               <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
             {errors.gender && (
               <p className="text-red-600 text-sm mt-1">
@@ -152,23 +157,37 @@ const PatientRegistrationForm = () => {
 
         {/* Password Fields */}
         <div className="grid grid-cols-2 gap-4">
-          <div>
+          <div className="relative mt-2">
             <label className="block text-sm font-semibold text-slate-900 mb-2">
-              Password
+               Password
             </label>
+            <div className="relative">
             <Input
-              type="password"
-              placeholder="••••••••"
               {...register("password")}
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
+              type={showPasswords.current ? "text" : "password"}
+              placeholder="••••••••"
+              className={`w-full px-4 py-3 border rounded-lg ${
                 errors.password ? "border-red-500" : "border-slate-200"
               }`}
             />
-            {errors.password && (
-              <p className="text-red-600 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
+
+            <button
+              type="button"
+              onClick={() =>
+                setShowPasswords((prev) => ({
+                  ...prev,
+                  current: !prev.current,
+                }))
+              }
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"
+            >
+              {showPasswords.current ? (
+                <EyeOff className="w-5 h-5" />
+              ) : (
+                <Eye className="w-5 h-5" />
+              )}
+            </button>
+            </div>
           </div>
           <div>
             <label className="block text-sm font-semibold text-slate-900 mb-2">

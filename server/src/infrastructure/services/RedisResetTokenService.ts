@@ -24,7 +24,6 @@ export class RedisResetTokenService
     ttlSeconds: number
   ): Promise<string> {
     try {
-      console.log(userId, role, ttlSeconds);
       const token = crypto.randomBytes(32).toString("hex");
       await super.set(
         this._key(token),

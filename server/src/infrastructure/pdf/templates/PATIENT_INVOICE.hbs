@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Consultation Invoice</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      padding: 40px;
+      color: #1f2937;
+      background: #ffffff;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 0 auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .header {
+      background: #16a34a;
+      color: white;
+      padding: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #6b7280;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .doctor-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .doctor-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .specialization {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .details {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .details tr {
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .details td {
+      padding: 14px 0;
+    }
+
+    .details td:first-child {
+      color: #6b7280;
+      width: 40%;
+    }
+
+    .details td:last-child {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .amount {
+      font-size: 34px;
+      font-weight: bold;
+      color: #16a34a;
+    }
+
+    .footer {
+      padding: 25px 30px;
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .invoice-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .invoice-meta div {
+      font-size: 14px;
+    }
+
+    .invoice-label {
+      color: #6b7280;
+      display: block;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+
+    <div class="header">
+      <h1>Payment Receipt</h1>
+      <p>Your payment has been successfully processed and confirmed.</p>
+    </div>
+
+    <div class="content">
+
+      <div class="invoice-meta">
+        <div>
+          <span class="invoice-label">Appointment ID</span>
+          <strong>{{appointmentId}}</strong>
+        </div>
+
+        {{!-- <div>
+          <span class="invoice-label">Payment Date</span>
+          <strong>{{paymentDate}}</strong> --}}
+        {{!-- </div> --}}
+      </div>
+
+      <div class="section">
+        <div class="section-title">Consultation Details</div>
+
+        <div class="doctor-card">
+          <div class="doctor-name">{{doctorName}}</div>
+          <div class="specialization">{{specialization}}</div>
+
+          <div class="status">
+            {{status}}
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Payment Information</div>
+
+        <table class="details">
+          <tr>
+            <td>Patient Name</td>
+            <td>{{patientName}}</td>
+          </tr>
+
+          <tr>
+            <td>Appointment Date</td>
+            <td>{{appointmentDate}}</td>
+          </tr>
+
+          <tr>
+            <td>Consultation Type</td>
+            <td>{{consultationType}}</td>
+          </tr>
+
+          {{!-- <tr>
+            <td>Payment Method</td>
+            <td>{{paymentMethod}}</td>
+          </tr> --}}
+
+          {{!-- <tr>
+            <td>Transaction ID</td>
+            <td>{{transactionId}}</td>
+          </tr> --}}
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Amount Paid</div>
+
+        <div class="amount">
+          ${{amount}}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      This receipt serves as proof of payment for your consultation booking.
+      <br />
+      Generated on {{generatedAt}}
+    </div>
+
+  </div>
+</body>
+</html>

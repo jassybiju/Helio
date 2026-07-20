@@ -19,8 +19,16 @@ export function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL("/unauthorized", req.url));
   }
 
-  console.log(subdomain, host);
   if (subdomain === "") subdomain = "patient";
+
+
+  // JUST CHANGED 
+  // if (
+  //   url.pathname === `/${subdomain}` ||
+  //   url.pathname.startsWith(`/${subdomain}/`)
+  // ) {
+  //   return NextResponse.next();
+  // }
 
   // redirecting path based on subdomain
   if (subdomain) {
@@ -29,7 +37,6 @@ export function proxy(req: NextRequest) {
     );
     url.pathname = `/${subdomain}${url.pathname}`;
   }
-
   if (url.pathname.startsWith("/")) return NextResponse.rewrite(url);
 }
 

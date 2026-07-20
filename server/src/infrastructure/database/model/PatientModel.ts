@@ -1,10 +1,4 @@
-import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
-import {
-  model,
-  Schema,
-  type InferRawDocType,
-  type InferSchemaType,
-} from "mongoose";
+import { model, Schema, type InferSchemaType } from "mongoose";
 
 const allergenSchema = new Schema({
   _id: { type: String, required: true },
@@ -51,6 +45,10 @@ const patientSchema = new Schema(
     },
     password_hash: {
       type: String,
+    },
+    profile_pic_key: {
+      type: String,
+      default: null,
     },
     gender: {
       type: String,

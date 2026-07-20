@@ -47,7 +47,6 @@ export class LoginPatientUseCase implements ILoginUseCase {
     }
 
     // verify patient password
-    console.log(patient, password);
     await this._patientValidator.validatePatientPassword(patient, password);
 
     // create refresh and access token

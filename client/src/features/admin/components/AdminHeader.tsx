@@ -25,7 +25,7 @@ const AdminHeader = () => {
           <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
             A
           </div>
-          <div className="text-left hidden sm:block">
+          <div className="text-left hidden sm:block"> 
             <p className="text-sm font-medium text-slate-900">ADMIN</p>
             <p className="text-xs text-slate-500">Admin</p>
           </div>

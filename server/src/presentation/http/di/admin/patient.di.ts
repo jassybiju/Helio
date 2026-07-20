@@ -5,7 +5,7 @@ import { PatientRepository } from "@infrastructure/database/repositories/MongoPa
 import { ToggleBlockPatientUseCase } from "@application/use-cases/admin/patient/toggleBlock/ToggleBlockPatientUseCase.ts";
 import { GetPatientUseCase } from "@application/use-cases/admin/patient/getPatient/GetPatientUseCase.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 
 const getAllPatientsUseCase = new GetAllPatientsUseCase(

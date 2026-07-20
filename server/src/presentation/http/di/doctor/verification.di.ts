@@ -2,12 +2,12 @@ import { GetVerificationDetailsUseCase } from "@application/use-cases/doctor/ver
 import { DoctorVerificationController } from "../../controllers/doctor/verification.controller.ts";
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { LocalFileUploadService } from "@infrastructure/services/LocalFileUploadService.ts";
 import { ResubmitVerificationUseCase } from "@application/use-cases/doctor/verification/resubmitVerification/ResubmitVerificationUseCase.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(loggerService);
-const fileService = new LocalFileUploadService();
+const fileService = new CloudinaryFileUploadService();
 
 const getVerificationDetailsUseCase = new GetVerificationDetailsUseCase(
   loggerService,

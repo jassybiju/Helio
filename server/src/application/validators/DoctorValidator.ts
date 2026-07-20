@@ -23,7 +23,6 @@ export class DoctorValidator {
   }
 
   async validateDoctorPassword(doctor: Doctor, password: string) {
-    console.log(doctor, password);
     if (!doctor.passwordHash) {
       throw new AppError("Invalid Email or Password", HTTPStatus.BAD_REQUEST);
     }

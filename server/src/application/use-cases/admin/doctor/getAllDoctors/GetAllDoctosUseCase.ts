@@ -8,11 +8,14 @@ import type {
   IGetAllDoctorsRequestDTO,
   IGetAllDoctorsResponseDTO,
 } from "./IGetAllDoctorsDTO.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import { GetAllDoctorMapper } from "./GetAllDoctorMapper.ts";
 
 export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
   constructor(
     private readonly _logger: ILogger,
-    private readonly _doctorRepo: IDoctorRepository
+    private readonly _doctorRepo: IDoctorRepository,
+    private readonly _fileUpload: IFileUpload
   ) {}
 
   async execute(
@@ -47,6 +50,11 @@ export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
     const { doctors, totalCount } =
       await this._doctorRepo.findAllWithFilters(filter);
 
-    return { doctors, totalCount, page, limit };
+    return {
+      doctors: GetAllDoctorMapper.toDto(doctors, this._fileUpload.getFileUrl),
+      totalCount,
+      page,
+      limit,
+    };
   }
 }

@@ -1,6 +1,6 @@
 export enum DAY_OF_WEEK {
-  "MON" = "MON",
-  "TUE" = "TUE",
+  MON = "MON",
+  TUE = "TUE",
   WED = "WED",
   THU = "THU",
   FRI = "FRI",
@@ -17,4 +17,10 @@ export enum SLOT_STATUS {
   AVAILABLE = "AVAILABLE",
   BOOKED = "BOOKED",
   CANCELLED = "CANCELLED",
+  BLOCKED = "BLOCKED",
+}
+
+export enum LAB_REPORT_STATUS {
+  REQUESTED = "REQUESTED",
+  UPLOADED = "UPLOADED",
 }

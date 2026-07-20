@@ -1,6 +1,6 @@
 "use client";
 
-  import { ModalProps } from "@/src/layout/ModalProvider";
+import { ModalProps } from "@/src/layout/ModalProvider";
 
 interface ConfirmModalProps extends ModalProps {
   title: string;
@@ -14,7 +14,6 @@ export function ConfirmModal({
   message,
   onConfirm,
 }: ConfirmModalProps) {
-  console.log(onConfirm);
   const handleConfirm = () => {
     onConfirm();
     close();

@@ -1,5 +1,3 @@
-import type { Doctor } from "@domain/entities/Doctor.ts";
-
 export type IGetAllDoctorsRequestDTO = {
   search?: string | undefined;
   isBlocked?: boolean | undefined;
@@ -13,7 +11,19 @@ export type IGetAllDoctorsRequestDTO = {
 };
 
 export type IGetAllDoctorsResponseDTO = {
-  doctors: Doctor[];
+  doctors: {
+    id: string;
+    fullName: string;
+    email: string;
+    status: string;
+    verificationStatus: string;
+    isVerified: boolean;
+    createdAt: string;
+    specialization: string | null;
+    career_start_year: string;
+    gender: string | null;
+    profilePic: string | null;
+  }[];
   totalCount: number;
   page: number;
   limit: number;

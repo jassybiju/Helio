@@ -53,4 +53,26 @@ export enum MESSAGE {
 
   //admin doctor
   DOCTOR_FETCH_SUCCESS = "Doctor Fetched Successfully",
+
+  //<===============  ERROR ==============>
+
+  // appointemnt
+  APPOINTMENT_NOT_FOUND = "Appointment Not Found",
+  APPOINTMENT_NOT_ACCESS = "Unauthrized Appointment Access",
+  APPOINTMENT_ALREADY_PAID = "Appointment ALready paid",
+
+  // consultation
+  CONSULTATION_NOT_FOUND = "Consultation Not Found",
+  CONSULTATION_NOT_ACCESS = "Unauthrized Consultation Access",
+
+  // block
+  BLOCK_NOT_FOUND = "Doctor Block not found",
+
+  // chat session
+  CHAT_SESSION_NOT_FOUND = "CHat session not found",
+  CHAT_SESSION_NOT_ACCESS = "CAN'T Access Caht",
+  USER_NOT_FOUND = "User not found",
+
+  //wallet
+  WALLET_NOT_FOUND = "WALLET NOT FOUND",
 }

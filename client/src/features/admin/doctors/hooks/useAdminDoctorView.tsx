@@ -23,7 +23,6 @@ export const useAdminDoctorView = (id: string) => {
   }, [isError, router]);
 
   const handleToggleBlock = () => {
-    console.log("hi");
     open(ConfirmModal, {
       onConfirm: () => toggleDoctorStatus(id),
       message: `Are you sure you want to ${!data?.data.isBlocked ? "block" : "unblock"} doctor`,

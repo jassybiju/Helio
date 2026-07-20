@@ -32,7 +32,6 @@ export const useLogin = ({ login }: { login: LoginFn }) => {
           message: error.response?.data.message || "Something went wrong",
         });
       } else {
-        console.log(error);
         setError("root", { message: "An Error occured. Please try again" });
       }
     }

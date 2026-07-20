@@ -3,10 +3,11 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { invalidateQuery } from "./queryClient";
 
 const isServer = typeof window === "undefined";
 
-const apiClient = axios.create({
+export const apiClient = axios.create({
   baseURL: isServer
     ? process.env.SERVER_BACKEND_URL
     : process.env.NEXT_PUBLIC_BACKEND_URL,
@@ -19,7 +20,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 
 //response interceptors : Handle 401 and Retry
 
-let isRefreshing = false;
+let isRefreshing = false;  
 let failedQueue: {
   resolve: (value?: unknown) => void;
   reject: (reason?: unknown) => void;
@@ -37,20 +38,11 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
-    console.log(
-      "FIRST",
-      originalRequest.url,
-      error.response?.status,
-      originalRequest._retry,
-      originalRequest,
-      error.response,
-    );
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
       originalRequest.url !== "/auth/refresh"
     ) {
-      console.log("SECOND");
       originalRequest._retry = true;
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
@@ -61,32 +53,27 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => Promise.reject(err));
       }
-      console.log("THIRD");
 
       isRefreshing = true;
       try {
-        console.log("FORTH");
 
         // refresh token request using cookies
         await apiClient.post("/auth/refresh");
-        console.log("FIFTH");
 
         isRefreshing = false;
         processQueue(null);
         return apiClient(originalRequest);
       } catch (refreshError) {
-        console.log("SIXTh");
 
         isRefreshing = false;
         processQueue(refreshError);
+        invalidateQuery('me')
         return Promise.reject(refreshError);
       } finally {
-        console.log("SEVEN");
 
         isRefreshing = false;
       }
     }
-    console.log("eIGTH");
 
     return Promise.reject(error);
   },

@@ -8,6 +8,7 @@ import {
 } from "../schema/auth.schema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSpecialtyQuery } from "@/src/hooks/useSpecialtyQuery";
 
 type IRegisterResponse = {
   message: string;
@@ -20,6 +21,7 @@ type IRegisterResponse = {
 export const useDoctorRegistration = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const {data : specialization} = useSpecialtyQuery()
 
   const {
     register,
@@ -57,6 +59,7 @@ export const useDoctorRegistration = () => {
   return {
     register,
     handleSubmit,
+    specialization,
     setValue,
     errors,
     isSubmitting,

@@ -21,9 +21,7 @@ export class AdminPatientController {
 
   getAllPatients = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.query);
       const parsed = getAllPatientsSchema.safeParse(req.query);
-      console.log(parsed, req.query);
       if (!parsed.success) {
         throw new AppError(
           parsed.error.issues[0]?.message || "Validation Error",
@@ -46,7 +44,6 @@ export class AdminPatientController {
   getPatient = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.patientId as string;
-      console.log(id);
       if (!id) {
         throw new AppError(
           "Doctor Id Required",
@@ -55,7 +52,6 @@ export class AdminPatientController {
       }
 
       const patient = await this._getPatientUseCase.execute(id);
-      console.log(patient);
       const response = GetPatientMapper.toDto(patient);
       return apiResponse(
         res,

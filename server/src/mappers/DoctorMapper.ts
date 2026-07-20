@@ -9,13 +9,13 @@ import type {
 
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {
-    console.log(raw);
     return new Doctor(
       raw._id,
       new Email(raw.email),
       raw.password_hash as string,
       raw.full_name,
       raw.gender as GENDER,
+      raw.profile_pic_key as string,
       raw.specialization as string,
       raw.career_start_year as number,
       raw.bio as string,
@@ -28,7 +28,7 @@ export class DoctorMapper {
       raw.google_id as string,
       raw.is_verified,
       raw.is_blocked,
-      raw.createdAt,
+      new Date(raw.createdAt),
       raw.updatedAt,
       raw.verification_history?.map((x) => ({
         status: x.status as DOCTOR_VERIFICATION_STATUS,
@@ -39,22 +39,19 @@ export class DoctorMapper {
     );
   }
 
-  static toPersistance(doctor: Doctor): Partial<DoctorDoc> {
-    console.log(doctor.id);
+  static toPersistance(doctor: Doctor): Partial<DoctorRawDoc> {
     return {
       _id: doctor.id,
       email: doctor.email,
       full_name: doctor.fullName,
       password_hash: doctor.passwordHash,
       gender: doctor.gender,
+      profile_pic_key: doctor.profilePicKey,
       specialization: doctor.specialization,
       career_start_year: doctor.careerStartYear,
       bio: doctor.bio,
       verification_status: doctor.verificationStatus as
-        | "pending"
-        | "approved"
-        | "rejected"
-        | "resubmitted",
+        "pending" | "approved" | "rejected" | "resubmitted",
       document_key: doctor.documentKey,
       rejection_reason: doctor.rejectionReason,
       additional_info: doctor.additionalInfo,

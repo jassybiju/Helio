@@ -4,9 +4,13 @@ import type { IGetMeHandler } from "@application/ports/use-cases/auth/IGetMeHand
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 
 export class PatientGetMeHandler implements IGetMeHandler {
-  constructor(private readonly _patientRepo: IPatientRepository) {}
+  constructor(
+    private readonly _patientRepo: IPatientRepository,
+    private readonly _fileUpload: IFileUpload
+  ) {}
 
   supports(role: USER_ROLES): boolean {
     return role === USER_ROLES.PATIENT;
@@ -23,11 +27,16 @@ export class PatientGetMeHandler implements IGetMeHandler {
       throw new AppError("User is Blocked", HTTPStatus.FORBIDDEN);
     }
 
+    const profilePic = patient.profilePicKey
+      ? this._fileUpload.getFileUrl(patient.profilePicKey)
+      : null;
+
     return {
       id: patient.id,
       email: patient.email,
       role: USER_ROLES.PATIENT,
       isProfileComplete: patient.isProfileComplete(),
+      profilePic,
     };
   }
 }

@@ -1,5 +1,5 @@
-import type { Patient } from "@domain/entities/Patient.ts";
+import type { IGetPatientProfileDTO } from "@application/use-cases/patient/profile/getPatientProfile/IGetPatientProfileDTO.ts";
 
 export interface IGetPatientProfileUseCase {
-  execute(patientId: string): Promise<Patient>;
+  execute(patientId: string): Promise<IGetPatientProfileDTO>;
 }

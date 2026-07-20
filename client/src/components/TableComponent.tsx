@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 export type ColumnType<T> = {
   key: keyof T | string;
   title: string | React.ReactNode;
-  render?: (value: T[keyof T], row: T, data: T[]) => ReactNode;
+  render?: (value: T[keyof T], row: T, data: T[], index: number) => ReactNode;
 }[];
 
 type Props<T> = {
@@ -14,14 +14,14 @@ type Props<T> = {
 const TableComponent = <T,>({ data = [], columns }: Props<T>) => {
   return (
     <div className="bg-white rounded-lg border text-black border-slate-200 overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full">
+      <div className="w-full overflow-x-auto">
+        <table className="min-w-[900px] w-full">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50">
               {columns.map((x, i) => (
                 <th
                   key={i}
-                  className="px-6 py-4 text-center text-xs font-semibold text-slate-700 uppercase tracking-wider"
+                  className="px-3 sm:px-6 py-3 text-center text-[11px] sm:text-xs font-semibold text-slate-700 uppercase tracking-wider"
                 >
                   {x.title}
                 </th>
@@ -37,12 +37,12 @@ const TableComponent = <T,>({ data = [], columns }: Props<T>) => {
                 >
                   {columns.map((col, i2) => {
                     const value = col.render ? (
-                      col.render(row[col.key as keyof T], row, data)
+                      col.render(row[col.key as keyof T], row, data, i)
                     ) : (
                       <p>(row[col.key as keyof T])</p>
                     );
                     return (
-                      <td key={i2} className="px-6 py-4">
+                      <td key={i2} className="px-3 sm:px-6 py-3">
                         {value}
                       </td>
                     );

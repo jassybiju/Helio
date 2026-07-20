@@ -51,6 +51,7 @@ export class RegisterPatientUseCase implements IRegisterPatientUseCase {
       gender as GENDER,
       new Date(dob),
       null,
+      null,
       phone,
       false,
       false,

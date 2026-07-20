@@ -35,7 +35,6 @@ export const useOTPVerification = (
       const now = new Date().getTime();
       const expiryTime = new Date(Number(otpInvalidAt)).getTime();
       const remaining = Math.max(0, Math.floor((expiryTime - now) / 1000));
-      console.log(otpInvalidAt);
       setSecondsRemaining(remaining);
       return remaining;
     };
@@ -65,7 +64,6 @@ export const useOTPVerification = (
       reset();
       return response;
     } catch (error) {
-      console.log(error, axios.isAxiosError(error));
 
       if (axios.isAxiosError(error)) {
         setSubmitError(error.response?.data?.message || "Registration failed");

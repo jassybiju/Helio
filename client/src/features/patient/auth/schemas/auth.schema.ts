@@ -7,16 +7,15 @@ export const patientRegisterSchema = z
     email: z.email("Invalid email address"),
     phone: z
       .string()
-      .min(10, "Phone number must be 10 character")
-      .max(11, "Phone number must be less than 11 characters"),
+      .regex(/^\d{10,11}$/, "Phone number must contain 10 or 11 digits"),
     password: z.string().min(8, "Password must be atleast 8 characters"),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
     gender: z.enum(
-      ["male", "female", "other"],
-      "Gender must be male , female or other",
+      ["Male", "Female", "Other"],
+      "Gender must be Male , Female or Other",
     ),
     dob: z
-      .string()
+      .string("Dob is required")
       .refine(
         (date) => !isNaN(Date.parse(date)),
         "Date of birth must be a valid date string",

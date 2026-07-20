@@ -10,3 +10,6 @@ doctorSlotRouter.use(authMiddleware);
 doctorSlotRouter.use(authorizeMiddleware(USER_ROLES.DOCTOR));
 
 doctorSlotRouter.get("/", doctorSlotController.getSlots);
+doctorSlotRouter.post("/block/", doctorSlotController.blockSlots);
+doctorSlotRouter.get("/block/", doctorSlotController.getBlockSlot);
+doctorSlotRouter.delete("/block/:blockId", doctorSlotController.deleteBlock);

@@ -13,11 +13,14 @@ import { ChangePasswordUseCase } from "@application/use-cases/patient/profile/ch
 import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
 import { PatientValidator } from "@application/validators/PatientValidator.ts";
 import { UpdatePatientProfileUseCase } from "@application/use-cases/patient/profile/updatePatientProfile/UpdatePatientProfileUseCase.ts";
+import { PatientUpdateProfilePictureUseCase } from "@application/use-cases/patient/updateProfilePic/PatientUpdateProfilePictureUseCase.ts";
+import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
 
-const loggerService = new PinoLoggerService();
+const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 const idGenerator = new NanoidGenerator();
 const bcryptPasswordService = new BcryptPasswordService();
+const fileUpload = new CloudinaryFileUploadService();
 
 const patientProfileCompleteUseCase = new CompletePatientProfileUseCase(
   loggerService,
@@ -25,7 +28,8 @@ const patientProfileCompleteUseCase = new CompletePatientProfileUseCase(
 );
 const patientGetProfileUseCase = new GetPatientProfileUseCase(
   loggerService,
-  patientRepo
+  patientRepo,
+  fileUpload
 );
 const patientAddAllergenUseCase = new AddPatientAllergenUseCase(
   loggerService,
@@ -55,6 +59,12 @@ const patientUpdateProfileUseCase = new UpdatePatientProfileUseCase(
   logger,
   patientRepo
 );
+const patientUpdateProfilePicUseCase = new PatientUpdateProfilePictureUseCase(
+  logger,
+  patientRepo,
+  fileUpload
+);
+
 export const patientProfileController = new PatientProfileController(
   patientProfileCompleteUseCase,
   patientGetProfileUseCase,
@@ -63,5 +73,6 @@ export const patientProfileController = new PatientProfileController(
   patientAddConditionUseCase,
   patientRemoveConditionUseCase,
   patientChangePasswordUseCase,
-  patientUpdateProfileUseCase
+  patientUpdateProfileUseCase,
+  patientUpdateProfilePicUseCase
 );

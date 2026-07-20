@@ -33,18 +33,14 @@ export class ResetPasswordUseCase implements IResetPasswordUseCase {
     }
 
     const { userId, role } = data;
-    console.log(userId, role, USER_ROLES.DOCTOR, typeof data);
 
     let user;
     if (role === USER_ROLES.PATIENT) {
       user = await this._patientRepo.findById(userId);
     }
     if (role === USER_ROLES.DOCTOR) {
-      console.log("h");
       user = await this._doctorRepo.findById(userId);
-      console.log(user);
     }
-    console.log(user, role, userId, data);
     if (!user) throw new AppError("User not found", HTTPStatus.NOT_FOUND);
 
     user.updatePassword(await this._passwordService.hash(newPassword));

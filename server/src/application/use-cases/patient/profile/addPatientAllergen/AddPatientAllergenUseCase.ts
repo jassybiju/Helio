@@ -25,7 +25,6 @@ export class AddPatientAllergenUseCase implements IAddPatientAllergenUseCase {
     if (!patient) {
       throw new AppError(MESSAGE.PATIENT_NOT_FOUND, HTTPStatus.NOT_FOUND);
     }
-    console.log(process.env.ALLERGEN_PREFIX);
     patient.addAllergen({
       _id: this._idGenerator.generate(process.env.ALLERGEN_PREFIX!),
       allergen,
