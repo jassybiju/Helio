@@ -47,7 +47,7 @@ export class GetPatientLabReportUseCase implements IGetPatientLabReportUseCase {
           .map((report) => ({
             id: report.id,
             testName: report.testName,
-            documentKey: this._fileUpload.getFileUrl(report.documentKey ?? ""),
+            documentKey: this._fileUpload.getFileUrl(report.documentKey ?? "", true),
             remarks: report.remarks,
             requestedAt: report.requestedAt,
             uploadedAt: report.uploadedAt,

@@ -22,7 +22,7 @@ export class GetVerificationDetailsUseCase implements IGetVerificationDetailsUse
     }
 
     let document_url: string = doctor.documentKey
-      ? this._fileUpload.getFileUrl(doctor.documentKey)
+      ? this._fileUpload.getFileUrl(doctor.documentKey, true)
       : "";
 
     return {
@@ -34,7 +34,7 @@ export class GetVerificationDetailsUseCase implements IGetVerificationDetailsUse
         rejection_reason: doc.reason ?? "",
         actedAt: doc.actedAt.toLocaleString(),
         document_url: doc.documentKey
-          ? this._fileUpload.getFileUrl(doc.documentKey)
+          ? this._fileUpload.getFileUrl(doc.documentKey,true)
           : "",
       })),
       userId: doctor.id,

@@ -34,7 +34,7 @@ export class CompleteDoctorProfileUseCase implements ICompleteDoctorProfileUseCa
       throw new AppError("Profile is already complete", HTTPStatus.BAD_REQUEST);
     }
 
-    const documentKey = await this._fileUpload.upload(document);
+    const documentKey = await this._fileUpload.upload(document, true);
 
     doctor.completeProfile({
       gender: gender as GENDER,

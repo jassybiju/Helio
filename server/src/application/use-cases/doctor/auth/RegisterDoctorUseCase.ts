@@ -51,7 +51,7 @@ export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
     const isNew = !existingDoctor;
 
     // saving documnets to bucket
-    const documentKey = await this._fileUpload.upload(document);
+    const documentKey = await this._fileUpload.upload(document, true);
 
     // creating new doctor ( if unverified doctor exists keep the id and changes data )
     const doctor = Doctor.create({

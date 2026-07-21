@@ -21,6 +21,7 @@ import {
   AIMessage,
   HumanMessage,
   SystemMessage,
+  ToolMessage,
   trimMessages,
 } from "@langchain/core/messages";
 import { CHAT_SYSTEM_PROMPT } from "./chat.prompt.ts";
@@ -37,25 +38,29 @@ export async function createChatGraph(
   tools: (DynamicTool | DynamicStructuredTool)[],
   checkpointer: MemorySaver
 ) {
-  const debugTools = tools.map((t) => {
-    const original = t.func;
-
-    t.func = async (input: any, runManager?: any, config?: any) => {
-      logger.info("\n🛠 TOOL:", t.name);
-      logger.info("INPUT:", input);
-
-      const result = await original(input, runManager, config);
-
-      logger.info("OUTPUT:", result);
-
-      return result;
-    };
-
-    return t;
-  });
-
-  const toolCall = new ToolNode(debugTools);
+  // const toolCall = new ToolNode(debugTools);
   const modelWithTools = model.bindTools!(tools);
+
+  const toolsByName = Object.fromEntries(
+    tools.map((tool) => [tool.name, tool])
+  ) as Record<string, DynamicTool | DynamicStructuredTool>;
+
+  const toolCall: GraphNode<typeof MessagesState> = async (state) => {
+    const lastMessage = state.messages.at(-1);
+
+    if (lastMessage == null || !AIMessage.isInstance(lastMessage)) {
+      return { messages: [] };
+    }
+
+    const result: ToolMessage[] = [];
+    for (const toolCall of lastMessage.tool_calls ?? []) {
+      const tool = toolsByName[toolCall.name];
+      const observation = await tool?.invoke(toolCall);
+      result.push(observation);
+    }
+
+    return { messages: result };
+  };
 
   const MessagesState = new StateSchema({
     messages: MessagesValue,

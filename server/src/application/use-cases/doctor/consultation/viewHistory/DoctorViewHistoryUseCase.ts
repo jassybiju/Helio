@@ -126,7 +126,7 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
       instructions: report.instructions,
       requestedAt: report.requestedAt,
       uploadedAt: report.uploadedAt,
-      documentKey: this._fileUpload.getFileUrl(report.documentKey ?? ""),
+      documentKey: this._fileUpload.getFileUrl(report.documentKey ?? "", true),
       status: report.status,
     }));
 

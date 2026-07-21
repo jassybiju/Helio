@@ -3,7 +3,7 @@ export interface IFileUpload {
     buffer: Buffer;
     mimetype: string;
     originalname: string;
-  }): Promise<string>;
+  }, secured? : boolean): Promise<string>;
 
-  getFileUrl(filename: string): string;
+  getFileUrl(filename: string, signed?: boolean): string;
 }

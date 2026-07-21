@@ -45,7 +45,7 @@ export class UploadPatientLabReportUseCase implements IUploadPatientLabReportUse
       throw new ConflictError("Already Uploaded");
     }
 
-    const documentKey = await this._fileUpload.upload(document);
+    const documentKey = await this._fileUpload.upload(document, true);
 
     labReport.uploadDocument(documentKey);
 
