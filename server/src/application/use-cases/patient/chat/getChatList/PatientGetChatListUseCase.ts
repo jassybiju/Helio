@@ -1,5 +1,4 @@
 import type { IDoctorGetChatListUseCase } from "@application/ports/use-cases/doctor/chat/IDoctorGetChatListUseCase.ts";
-import type { IDoctorGetChatListDTO } from "./IPatientGetChatListDTO.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
@@ -7,6 +6,7 @@ import type { IChatSessionRepository } from "@application/ports/repositories/ICh
 import type { IChatMessageRepository } from "@application/ports/repositories/IChatMessageRepository.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
+import type { IDoctorGetChatListDTO } from "@application/use-cases/doctor/chat/getChatList/IDoctorGetChatListDTO.ts";
 
 export class DoctorGetChatListUseCase implements IDoctorGetChatListUseCase {
   constructor(

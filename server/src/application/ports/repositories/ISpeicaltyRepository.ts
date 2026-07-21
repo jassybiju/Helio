@@ -14,6 +14,9 @@ export interface ISpecialityRepository {
   findMany(filters: {
     page?: number | undefined;
     limit?: number | undefined;
-  }): Promise<unknown>;
+  }): Promise<{
+    specialty: { id: string; name: string }[];
+    totalCount: number;
+  }>;
   delete(id: string): Promise<void>;
 }

@@ -14,7 +14,7 @@ import {
   Eye,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import useDoctorConsultation from "../hooks/useDoctorConsultation";
+import useDoctorConsultation, { TAB_TYPES } from "../hooks/useDoctorConsultation";
 import { CONSULTATION_TYPE } from "@/src/types/appointment.types";
 import VideoCall from "@/src/components/VideoCall";
 
@@ -78,7 +78,7 @@ const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
         </div>
 
         {consultationData.consultationType === CONSULTATION_TYPE.ONLINE && (
-          <VideoCall appointmentId={consultationData?.appointment?.id}/>
+          <VideoCall patientName={consultationData.patient.name} appointmentId={consultationData?.appointment?.id}/>
         )}
 
         {/* Tabs Navigation */}
@@ -485,7 +485,7 @@ const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
                           className="border-b border-slate-200 hover:bg-slate-50"
                         >
                           <td className="px-6 py-4 text-sm text-slate-900">
-                            {new Date(new Date(h.uploadedAt)).toDateString()}
+                            {new Date(new Date(h.uploadedAt ?? '')).toDateString()}
                           </td>
                           <td className="px-6 py-4">
                             <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
@@ -788,7 +788,7 @@ const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
                         Notes for Lab
                       </label>
                       <textarea
-                        value={test.instructions}
+                        value={test.instructions ?? ''}
                         readOnly
                         className="w-full px-4 py-3 border border-slate-200 rounded-lg bg-slate-50 text-slate-900"
                         rows={2}

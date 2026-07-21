@@ -94,7 +94,8 @@ export class GetDoctorWeeklySlotsUsecase implements IGetDoctorWeeklySlotsUseCase
 
       const activeAppointments = appts.filter(
         (appt) =>
-          appt.status !== APPOINTMENT_STATUS.CANCELLED &&
+          appt.status !== APPOINTMENT_STATUS.CANCELLED_BY_DOCTOR &&
+          appt.status !== APPOINTMENT_STATUS.CANCELLED_BY_PATIENT &&
           appt.status !== APPOINTMENT_STATUS.EXPIRED
       );
 

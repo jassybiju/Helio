@@ -2,7 +2,7 @@ export interface IBlockDoctorInput {
   startTime: Date;
   endTime: Date;
   reason: string;
-  force?: boolean;
+  force?: boolean | undefined;
 }
 
 export interface IBlockDoctorSlotUseCase {

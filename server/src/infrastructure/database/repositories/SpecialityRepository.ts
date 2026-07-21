@@ -51,7 +51,10 @@ export class SpecialtyRepository implements ISpecialityRepository {
     await SpecialtyModel.deleteOne({ _id: id });
   }
 
-  async findMany(filters: { page?: number; limit?: number }) {
+  async findMany(filters: { page?: number; limit?: number }): Promise<{
+    specialty: { id: string; name: string }[];
+    totalCount: number;
+  }> {
     const query: Record<string, unknown> = {};
 
     query.isActive = true;
@@ -77,7 +80,7 @@ export class SpecialtyRepository implements ISpecialityRepository {
     const result = await SpecialtyModel.aggregate(pipeline);
 
     return {
-      specialty: result[0].data,
+      specialty: result[0].data as { id: string; name: string }[],
       totalCount: result[0].totalCount[0]?.count ?? 0,
     };
   }

@@ -1,9 +1,11 @@
 import type { IAddReview } from "@application/ports/use-cases/patient/review/IAddReview.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { apiResponse } from "@shared/utils/apiReponse.utils.ts";
+import {
+  apiResponse,
+  successResponse,
+} from "@shared/utils/apiReponse.utils.ts";
 import type { NextFunction, Request, Response } from "express";
-import { success } from "zod";
 
 export class PatientReviewController {
   constructor(private readonly _addReview: IAddReview) {}
@@ -24,7 +26,11 @@ export class PatientReviewController {
         body
       );
 
-      return apiResponse(res, HTTPStatus.OK, success(response, "Review Added"));
+      return apiResponse(
+        res,
+        HTTPStatus.OK,
+        successResponse(response, "Review Added")
+      );
     } catch (error) {
       next(error);
     }

@@ -117,6 +117,7 @@ export class DoctorViewConsultationUseCase implements IDoctorViewConsultationUse
         instructions: pres.instruction ?? null,
       })),
       labTest: labReport.map((lab) => ({
+        id: lab.id,
         testName: lab.testName,
         instructions: lab.instructions,
       })),

@@ -1,6 +1,7 @@
 import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
+import type { IGetSpecialityUsecase } from "@application/ports/use-cases/IGetSpecialityUsecase.ts";
 
-export class GetSpecialtiesUseCase {
+export class GetSpecialtiesUseCase implements IGetSpecialityUsecase {
   constructor(private specialtyRepo: ISpecialityRepository) {}
 
   async execute({ page, limit }: { page?: number; limit?: number }) {

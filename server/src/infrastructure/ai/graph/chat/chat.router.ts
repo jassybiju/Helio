@@ -12,7 +12,11 @@ import {
   type Messages,
 } from "@langchain/langgraph";
 
-export function chatRouter(state: StateSchema) {
+type ChatState = {
+  messages: BaseMessage[];
+};
+
+export function chatRouter(state: ChatState) {
   const lastMessage = state.messages.at(-1);
 
   if (lastMessage instanceof AIMessage && lastMessage.tool_calls?.length) {

@@ -40,12 +40,11 @@ export async function createChatGraph(
   const debugTools = tools.map((t) => {
     const original = t.func;
 
-    t.func = async (...args: unknown[]) => {
+    t.func = async (input: any, runManager?: any, config?: any) => {
       logger.info("\n🛠 TOOL:", t.name);
+      logger.info("INPUT:", input);
 
-      logger.info("INPUT:", args[0]);
-
-      const result = await original(...args);
+      const result = await original(input, runManager, config);
 
       logger.info("OUTPUT:", result);
 
@@ -82,7 +81,9 @@ export async function createChatGraph(
       logger.info("TYPE", response.type);
       return { messages: [response], llmCalls: 1 };
     } catch (err) {
-      logger.error("LLM tool-call generation failed", { error: err?.message });
+      logger.error("LLM tool-call generation failed", {
+        error: err instanceof Error ? err.message : String(err),
+      });
 
       // Groq rejected a malformed function call before it reached our ToolNode.
       // Fall back to a plain response instead of crashing the graph.

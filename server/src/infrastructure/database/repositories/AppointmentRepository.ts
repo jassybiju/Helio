@@ -744,6 +744,24 @@ export class AppointmentRepository
       },
     ]);
 
+    if (result === undefined) {
+      return {
+        totalAppointments: 0,
+        completedAppointments: 0,
+        upcomingAppointments: 0,
+        todayAppointments: 0,
+        appointmentAnalytics: [{ label: "", count: 0 }],
+        appointmentStatusDistribution: {
+          confirmed: 0,
+          ongoing: 0,
+          completed: 0,
+          cancelled: 0,
+          noShow: 0,
+          expired: 0,
+        },
+      };
+    }
+
     const statusMap = Object.fromEntries(
       result.appointmentStatusDistribution.map((x) => [x._id, x.count])
     );

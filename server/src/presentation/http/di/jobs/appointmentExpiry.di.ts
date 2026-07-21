@@ -3,9 +3,8 @@ import { AppointmentRepository } from "@infrastructure/database/repositories/App
 
 import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
 
-const appointmentRepository = new AppointmentRepository();
-
 const logger = PinoLoggerService.getInstance();
+const appointmentRepository = new AppointmentRepository(logger);
 
 export const expireAppointmentsUseCase = new ExpiryAppointmentsUseCase(
   logger,

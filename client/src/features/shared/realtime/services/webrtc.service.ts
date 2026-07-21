@@ -27,6 +27,11 @@ export const addPeer = (
   return peer;
 };
 
+
+type PeerWithPC = Peer.Instance & {
+  _pc: RTCPeerConnection;
+};
+
 export const initPeer = (
   targetSocketId: string,
   isInitator: boolean,
@@ -37,7 +42,7 @@ export const initPeer = (
     initiator: isInitator,
     trickle: false,
     stream,
-  });
+  }) as PeerWithPC;
 
   peer.on("signal", (signal) => {
     socket.emit("webrtc:signal", { appointmentId, to: targetSocketId, signal });

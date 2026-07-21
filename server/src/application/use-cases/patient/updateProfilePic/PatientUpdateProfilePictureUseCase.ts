@@ -1,7 +1,7 @@
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPatientUpdateProfilePictureUseCase } from "@application/ports/use-cases/Patient/profile/IUpdateProfilePictureUseCase.ts";
+import type { IPatientUpdateProfilePictureUseCase } from "@application/ports/use-cases/patient/profile/IUpdateProfilePictureUseCase.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { NotFoundError } from "@shared/errors/NotFoundError.ts";
 

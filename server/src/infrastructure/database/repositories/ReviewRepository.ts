@@ -57,7 +57,7 @@ export class ReviewRepository
       },
     ]);
 
-    return response[0]?.counts;
+    return response[0]?.counts ?? [0];
   }
   findManyByDoctorIdPaginated(
     doctorId: string,

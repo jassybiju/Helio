@@ -20,6 +20,8 @@ import {
 import ViewHistoryDetailModal from "../components/ViewHistoryDetailModal";
 import { socket } from "@/src/libs/socket";
 import { invalidateQuery } from "@/src/libs/queryClient";
+import { ConfirmModal } from "@/src/components/ConfirmModal";
+import useDoctorRemoveTestMutation from "./useDoctorRemoveTestMutation";
 
 interface LabTest {
   id: string;
@@ -38,7 +40,7 @@ interface RecordedVital {
   height: string;
 }
 
-type TAB_TYPES = "overview" | "history" | "prescription" | "labtest";
+export type TAB_TYPES = "overview" | "history" | "prescription" | "labtest";
 
 type ConsultationForm = {
   bloodPressure: string | null;
@@ -94,6 +96,7 @@ const useDoctorConsultation = (id: string) => {
 
   const { mutate: updateNotes } = useDoctorConsultationNotesMutation(id);
   const { mutate: removeMedicine } = useDoctorRemovePrescription(id);
+  const { mutate: removeTest } = useDoctorRemoveTestMutation(id);
   const { data: history } = useDoctorViewHistoryQuery(id);
   const { mutate: endConsultaiton } = useDoctorCompleteConsultationMutation(id);
   const consultationData = data?.data;
@@ -271,7 +274,11 @@ const useDoctorConsultation = (id: string) => {
   };
 
   const handleRemoveLabTest = (id: string) => {
-    setLabTests((prev) => prev.filter((t) => t.id !== id));
+    open(ConfirmModal, {
+      onConfirm: () => removeTest(id),
+      title: "Are you sure remove Test Request?",
+      message: "Are you sure remove Test Request?",
+    });
   };
 
   /**

@@ -23,6 +23,7 @@ export class AdminGetMeHandler implements IGetMeHandler {
       email: admin.email.value,
       role: USER_ROLES.ADMIN,
       isProfileComplete: true,
+      profilePic: null,
     };
   }
 }

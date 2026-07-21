@@ -183,7 +183,7 @@ export default function ViewDoctorAppointmentModal({
               />
               <NoteRow
                 label="Medication Duration"
-                value={consultation?.medicationDuration}
+                // value={consultation?.medicationDuration}
               />
             </div>
           </section>

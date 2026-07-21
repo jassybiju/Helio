@@ -20,5 +20,7 @@ export interface ISearchDoctorsInput {
 }
 
 export interface ISearchDoctorUseCase {
-  execute(input: ISearchDoctorsInput): Promise<{ data: ISearchDoctorsDTO[] }>;
+  execute(
+    input: ISearchDoctorsInput
+  ): Promise<{ data: ISearchDoctorsDTO[]; totalCount: number }>;
 }

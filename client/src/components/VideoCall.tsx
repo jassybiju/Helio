@@ -26,7 +26,7 @@ const VideoCall = ({
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
 
-  const remoteVideoRef = useRef(null);
+  const remoteVideoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     if (remoteVideoRef.current && remoteMediaStream) {

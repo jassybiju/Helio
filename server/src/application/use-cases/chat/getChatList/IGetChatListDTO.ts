@@ -3,7 +3,7 @@ export interface IGetChatListDTO {
     expired: {
       id: string;
       name: string;
-      profilePic: string;
+      profilePic: string | null;
       message: string;
       expiresIn: string;
     }[];

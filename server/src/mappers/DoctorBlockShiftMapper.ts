@@ -21,6 +21,7 @@ export class DoctorBlockShiftMapper {
       end_time: blockShift.endTime,
       reason: blockShift.reason,
       created_at: blockShift.createdAt,
+      is_deleted: false,
     };
   }
 }

@@ -3,58 +3,58 @@ import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
 export type ConsultationHistoryDetail = {
   type: string;
 
-    data: {
-      consultationId: string;
+  data: {
+    consultationId: string;
 
-      doctor: {
-        id: string;
-        name: string;
-      };
-
-      appointment: {
-        date: string;
-        startTime: string;
-        endTime: string;
-        consultationType: string;
-        status: string;
-      };
-
-      diagnosis: {
-        primaryDiagnosis: string | null;
-        clinicalObservation: string | null;
-        generalAdvice: string | null;
-        quickNote: string | null;
-      };
-
-      vitals: {
-        bloodPressure?: string | null;
-        pulse?: number | null;
-        temperature?: number | null;
-        spo2?: number | null;
-        height?: number | null;
-        weight?: number | null;
-      } | null;
-
-      prescriptions: {
-        name: string;
-        dosage: string;
-        frequency: string;
-        durationInDays: number;
-        instruction?: string | null;
-      }[];
-
-      followUp: {
-        medicationPeriod: number | null;
-        freeFollowUpValidUntil: string | null;
-        freeFollowUpUsed: boolean;
-      };
-
-      timestamps: {
-        startedAt: string;
-        endedAt: string | null;
-        createdAt: string;
-      };
+    doctor: {
+      id: string;
+      name: string;
     };
+
+    appointment: {
+      date: string;
+      startTime: string;
+      endTime: string;
+      consultationType: string;
+      status: string;
+    };
+
+    diagnosis: {
+      primaryDiagnosis: string | null;
+      clinicalObservation: string | null;
+      generalAdvice: string | null;
+      quickNote: string | null;
+    };
+
+    vitals: {
+      bloodPressure?: string | null;
+      pulse?: number | null;
+      temperature?: number | null;
+      spo2?: number | null;
+      height?: number | null;
+      weight?: number | null;
+    } | null;
+
+    prescriptions: {
+      name: string;
+      dosage: string;
+      frequency: string;
+      durationInDays: number;
+      instruction?: string | null;
+    }[];
+
+    followUp: {
+      medicationPeriod: number | null;
+      freeFollowUpValidUntil: string | null;
+      freeFollowUpUsed: boolean;
+    };
+
+    timestamps: {
+      startedAt: string;
+      endedAt: string | null;
+      createdAt: string;
+    };
+  };
 };
 
 export type LabHistoryDetail = {
@@ -84,6 +84,11 @@ export interface IDOCTOR_VIEW_CONSULTATION {
     condition: string[];
     allergens: string[];
   };
+  appointment: {
+    id: string;
+    startTime: Date;
+    endTime: Date;
+  };
   previousVitals: {
     bloodPressure: string | null;
     oxygenLevel: number | null;
@@ -112,6 +117,7 @@ export interface IDOCTOR_VIEW_CONSULTATION {
     durationInDays: number;
     instruction: string | null;
   }[];
+  labTest: { testName: string; instructions: string | null, id : string }[];
 
   medicationPeriod: number | null;
 }
@@ -199,8 +205,8 @@ export const doctorConsultationService = {
       HTTP_METHOD.GET,
     ) as Promise<
       APIResponse<{
-        consultation: ConsultationHistoryDetail['data'][];
-        labReport: LabHistoryDetail['data'][];
+        consultation: ConsultationHistoryDetail["data"][];
+        labReport: LabHistoryDetail["data"][];
       }>
     >;
   },

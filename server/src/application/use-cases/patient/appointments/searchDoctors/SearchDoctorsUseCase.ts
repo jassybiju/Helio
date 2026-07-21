@@ -20,13 +20,13 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
 
   async execute(
     input: ISearchDoctorsInput
-  ): Promise<{ data: ISearchDoctorsDTO[] }> {
+  ): Promise<{ data: ISearchDoctorsDTO[]; totalCount: number }> {
     this._logger.info("Search Doctors started", input);
 
     // get all doctors based on query (name , speciality, doctorFee , experience)
     const { doctors, totalCount } = await this._doctorRepo.search(input);
 
-    if (!doctors.length) return { data: [] };
+    if (!doctors.length) return { data: [], totalCount: 0 };
 
     const doctorIds = doctors.map((doc) => doc.id);
     const shifts = await this._shiftRepo.findByDoctorIds(doctorIds);

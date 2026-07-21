@@ -1,6 +1,7 @@
 import AdminHeader from "@/src/features/admin/components/AdminHeader";
 import AdminSidebar from "@/src/features/admin/components/AdminSidebar";
 import ProtectedLayout from "@/src/layout/ProtectedLayout";
+import { USER_ROLES } from "@/src/types/user.types";
 import React from "react";
 
 type PropType = {
@@ -9,7 +10,7 @@ type PropType = {
 
 const AdminProtectedLayout = ({ children }: PropType) => {
   return (
-    <ProtectedLayout role="admin">
+    <ProtectedLayout role={USER_ROLES.ADMIN}>
       <div className="flex min-h-screen bg-slate-50">
         {/* Sidebar */}
         <AdminSidebar />

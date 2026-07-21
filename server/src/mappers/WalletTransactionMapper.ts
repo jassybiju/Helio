@@ -29,6 +29,7 @@ export class WalletTransactionMapper {
       reference_id: tx.referenceId,
       description: tx.description,
       created_at: tx.createdAt,
+      is_deleted: false,
     };
   }
 }

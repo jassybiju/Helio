@@ -10,7 +10,7 @@ import { GoogleLoginFn, LoginFn } from "../types/auth.types";
 
 type PropType = {
   login: LoginFn;
-  googleLogin: GoogleLoginFn;
+  googleLogin?: GoogleLoginFn;
 };
 
 const LoginForm = ({ login, googleLogin }: PropType) => {
@@ -100,9 +100,11 @@ const LoginForm = ({ login, googleLogin }: PropType) => {
         <div className="relative flex justify-center text-sm">
           <span className="px-2 bg-white text-slate-500">Or join with</span>
         </div>
-        <LoginByGoogleComponent
-          googleLogin={googleLogin}
-        ></LoginByGoogleComponent>
+        {googleLogin && (
+          <LoginByGoogleComponent
+            googleLogin={googleLogin}
+          ></LoginByGoogleComponent>
+        )}
       </div>
 
       {/* Social Login Icons */}

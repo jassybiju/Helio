@@ -15,6 +15,7 @@ export type Doctor = {
   specialization: string;
   career_start_year: string;
   gender: string;
+  profilePic : string| null
 };
 
 export type DoctorView = {

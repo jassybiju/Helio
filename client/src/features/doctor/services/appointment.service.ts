@@ -141,7 +141,7 @@ export type ITodayAppointmentCardDTO = {
   queue : number;
   type: CONSULTATION_TYPE;
   status: APPOINTMENT_STATUS;
-  time: Date;
+  time: string;
 };
 
 export interface IDoctorTodayAppointment {

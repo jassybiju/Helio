@@ -1,5 +1,5 @@
 import type { IFetchByStartingCharacterUseCase } from "@application/ports/use-cases/admin/IFetchByStartingCharacterUseCase.ts";
-import type { NextFunction, Request } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { fetchPatientSchema } from "../../schemas/admin/fetchPatient.schema.ts";
 import { AppError } from "@shared/errors/AppError.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
@@ -11,7 +11,7 @@ export class FetchPatientController {
 
   fetchPatientByStartingChar = async (
     req: Request,
-    res: Resoonse,
+    res: Response,
     next: NextFunction
   ) => {
     try {

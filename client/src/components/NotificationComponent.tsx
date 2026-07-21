@@ -172,7 +172,7 @@ export function NotificationComponent({
                   <div className="flex gap-3">
                     {/* Icon */}
                     <div className="flex-shrink-0 mt-1">
-                      {getIconComponent(notification)}
+                      <Info className="w-5 h-5 text-blue-500" />;{" "}
                     </div>
 
                     {/* Content */}
@@ -195,7 +195,7 @@ export function NotificationComponent({
                         {notification.message}
                       </p>
                       <p className="text-xs text-gray-400 mt-1">
-                        {notification.timestamp}
+                        {notification.createdAt}
                       </p>
                     </div>
 

@@ -22,6 +22,11 @@ export interface IDoctorViewConsultationDTO {
     weight: number | null;
     height: number | null;
   };
+  appointment: {
+    id: string;
+    startTime: Date;
+    endTime: Date;
+  };
   currentVitals: {
     bloodPressure: string | null;
     oxygenLevel: number | null;
@@ -42,7 +47,7 @@ export interface IDoctorViewConsultationDTO {
     durationInDays: number;
     instructions: string | null;
   }[];
-  labTest: { testName: string; instructions: string | null }[];
+  labTest: { id: string; testName: string; instructions: string | null }[];
 
   medicationPeriod: number | null;
 }

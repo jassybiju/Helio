@@ -147,7 +147,7 @@ const useDoctorAppointment = (date?: string) => {
     },
     {
       key: "status",
-      title: "Actions",
+      title: "Action",
       render: (v, r) => (
         <div className="flex items-center gap-2">
           <button
@@ -188,7 +188,7 @@ const useDoctorAppointment = (date?: string) => {
             {r.patientInitials}
           </div> */}
           <span className="font-medium text-slate-900">{r.patientName}</span>
-          {r.queueNumber}
+          {/* {r.queueNumber} */}
         </div>
       ),
     },

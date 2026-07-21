@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 export const useAddSpecialtyMutation = () => {
   return useMutation({
-    mutationFn: (data) => apiRequest("admin/specialty", HTTP_METHOD.POST, data),
+    mutationFn: (data : {name : string}) => apiRequest("admin/specialty", HTTP_METHOD.POST, data),
     onSuccess() {
       invalidateQuery("specialty");
       toast.success("Specialty Saved Successfulyy")

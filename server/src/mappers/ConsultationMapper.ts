@@ -78,7 +78,6 @@ export class ConsultationMapper {
       ended_at: consultation.endedAt,
       created_at: consultation.createdAt,
       medication_period: consultation.medicationPeriod,
-      is_deleted: false,
       vitals: vitals
         ? {
             blood_pressure: vitals?.bloodPressure,
@@ -89,6 +88,8 @@ export class ConsultationMapper {
             height: vitals?.height,
           }
         : null,
+      is_deleted: false,
+      free_follow_up_used: false,
     };
   }
 }

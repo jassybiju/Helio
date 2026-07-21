@@ -3,13 +3,7 @@ import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts
 
 export interface IDoctorViewAllAppointmentDTO {
   id: string;
-  patient: {
-    id: string;
-    name: string;
-    profilePicture?: string | null;
-    age?: number | null;
-    gender?: string | null;
-  };
+  patientName: string;
   queueNumber: number;
   type: CONSULTATION_TYPE;
   status: APPOINTMENT_STATUS;
