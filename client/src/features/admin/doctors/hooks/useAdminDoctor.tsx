@@ -8,16 +8,18 @@ import { ConfirmModal } from "@/src/components/ConfirmModal";
 import { useModal } from "@/src/hooks/useModal";
 import { useToggleBlockDoctor } from "./useToggleBlockDoctor";
 import Image from "next/image";
+import { useDebounce } from "@/src/hooks/useDebounce";
 
 export const useAdminDoctor = () => {
-  const limit = 5;
+  const limit = 2;
   const [filter, setFilter] = useState<DoctorQueryParams>({
     page: 1,
     limit,
     isVerified: null,
   });
+  const debouncedSearch = useDebounce(filter)
   const { open } = useModal();
-  const { data } = useDoctorsQuery(filter);
+  const { data } = useDoctorsQuery(debouncedSearch);
   const { mutate } = useToggleBlockDoctor();
   const router = useRouter();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);

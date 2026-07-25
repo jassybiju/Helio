@@ -7,6 +7,7 @@ import { useToggleBlockPatient } from "./useToggleBlockPatient";
 import { useModal } from "@/src/hooks/useModal";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import Link from "next/link";
+import { useDebounce } from "@/src/hooks/useDebounce";
 
 export const useAdminPatient = () => {
   const limit = 2;
@@ -15,8 +16,9 @@ export const useAdminPatient = () => {
     limit,
     isVerified: null,
   });
+  const debouncedSearch = useDebounce(filter)
   const { open } = useModal();
-  const { data } = usePatientsQuery(filter);
+  const { data } = usePatientsQuery(debouncedSearch);
   const { mutate } = useToggleBlockPatient();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
