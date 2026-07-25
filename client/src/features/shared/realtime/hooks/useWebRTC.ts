@@ -1,13 +1,13 @@
 // 'use client'
 
 import { socket } from "@/src/libs/socket";
-import { useEffect, useRef, useState } from "react";
-import {  initPeer } from "../services/webrtc.service";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { initPeer } from "../services/webrtc.service";
 import type Peer from "simple-peer";
 
 export const useWebRTC = (appointmentId: string) => {
-  const [peer, setPeer] = useState<Peer.Instance>();
-  const [remoteMediaStream, setRemoteMediaStream] = useState<MediaStream | null>();
+  const [remoteMediaStream, setRemoteMediaStream] =
+    useState<MediaStream | null>();
   // const [isMicOn, setIsMicOn] = useState(true);
   // const [isCameraOn, setIsCameraOn] = useState(true);
   const userVideoRef = useRef<HTMLVideoElement>(null);
@@ -28,21 +28,18 @@ export const useWebRTC = (appointmentId: string) => {
       if (userVideoRef.current) {
         userVideoRef.current.srcObject = stream;
       }
-
+      console.log(streamRef);
       socket.emit("webrtc:join-room", { appointmentId });
 
-      socket.on("webrtc:user-joined", (incomingSocketId) => {
+      socket.on("webrtc:user-joined", (_incomingSocketId) => {
         // if (peerRef.current) return;
-
         // const peerInstance = initPeer(
         //   incomingSocketId,
         //   true,
         //   stream,
         //   appointmentId,
         // );
-
         // peerRef.current = peerInstance;
-
         // peerInstance.on("stream", (remoteStream) => {
         //   setRemoteMediaStream(remoteStream);
         // });
@@ -67,7 +64,7 @@ export const useWebRTC = (appointmentId: string) => {
           peerInstance.on("stream", (remoteStream) => {
             setRemoteMediaStream(remoteStream);
           });
-          peerInstance.signal(signal)
+          peerInstance.signal(signal);
         }
       });
 
@@ -79,10 +76,11 @@ export const useWebRTC = (appointmentId: string) => {
 
       setIsJoined(true);
     } catch (err) {
+      console.log('ERROR JOINIGN', err)
     }
   };
 
-  const leave = () => {
+  const leave = useCallback(() => {
     socket.emit("webrtc:leave-room", { appointmentId });
     socket.off("webrtc:user-joined");
     socket.off("webrtc:signal");
@@ -98,7 +96,7 @@ export const useWebRTC = (appointmentId: string) => {
     if (userVideoRef.current) userVideoRef.current.srcObject = null;
     setRemoteMediaStream(null);
     setIsJoined(false);
-  };
+  }, [appointmentId]);
   useEffect(() => {
     return () => {
       leave();

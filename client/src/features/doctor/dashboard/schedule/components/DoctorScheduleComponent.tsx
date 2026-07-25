@@ -1,7 +1,6 @@
 "use client";
 import { Trash2, Calendar, Lightbulb } from "lucide-react";
 import React from "react";
-import TableComponent, { ColumnType } from "@/src/components/TableComponent";
 import { useSetScheduleMutation } from "../hooks/useSetScheduleMutation";
 import {
   DAY_OF_WEEK,
@@ -93,64 +92,64 @@ const DoctorScheduleComponent = () => {
     });
   };
 
-  const column: ColumnType<IGetDoctorScheduleDTO> = [
-    {
-      key: "dayOfWeek",
-      title: "Day",
-      render: (value) => value,
-    },
-    {
-      key: "startTime",
-      title: "Time Window",
-      render: (_value, row) => (
-        <div>
-          <div className="font-semibold text-slate-900">
-            {row.startTime} - {row.endTime}
-          </div>
-          <div className="text-xs text-slate-500">
-            {row.slotIntervalInMinutes} min intervals
-          </div>
-        </div>
-      ),
-    },
-    {
-      key: "consultationType",
-      title: "Type",
-      render: (_value, row) => (
-        <span
-          className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${
-            row.consultationType === "ONLINE"
-              ? "bg-blue-100 text-blue-700"
-              : "bg-purple-100 text-purple-700"
-          }`}
-        >
-          {row.consultationType === "ONLINE" ? "📹" : "🏥"}{" "}
-          {row.consultationType}
-        </span>
-      ),
-    },
-    {
-      key: "location",
-      title: "Location",
-      render: (_value, row) => (
-        <span className="text-slate-600">
-          {row.location !== "" ? row.location : "—"}
-        </span>
-      ),
-    },
-    {
-      key: "id",
-      title: "Actions",
-      render: (_value, row) => (
-        <button
-          onClick={() => handleDeleteSlot(row.id)}
-          className="text-red-600 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
-        >
-          <Trash2 className="w-5 h-5" />
-        </button>
-      ),
-    },
-  ];
+  // const column: ColumnType<IGetDoctorScheduleDTO> = [
+  //   {
+  //     key: "dayOfWeek",
+  //     title: "Day",
+  //     render: (value) => value,
+  //   },
+  //   {
+  //     key: "startTime",
+  //     title: "Time Window",
+  //     render: (_value, row) => (
+  //       <div>
+  //         <div className="font-semibold text-slate-900">
+  //           {row.startTime} - {row.endTime}
+  //         </div>
+  //         <div className="text-xs text-slate-500">
+  //           {row.slotIntervalInMinutes} min intervals
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     key: "consultationType",
+  //     title: "Type",
+  //     render: (_value, row) => (
+  //       <span
+  //         className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${
+  //           row.consultationType === "ONLINE"
+  //             ? "bg-blue-100 text-blue-700"
+  //             : "bg-purple-100 text-purple-700"
+  //         }`}
+  //       >
+  //         {row.consultationType === "ONLINE" ? "📹" : "🏥"}{" "}
+  //         {row.consultationType}
+  //       </span>
+  //     ),
+  //   },
+  //   {
+  //     key: "location",
+  //     title: "Location",
+  //     render: (_value, row) => (
+  //       <span className="text-slate-600">
+  //         {row.location !== "" ? row.location : "—"}
+  //       </span>
+  //     ),
+  //   },
+  //   {
+  //     key: "id",
+  //     title: "Actions",
+  //     render: (_value, row) => (
+  //       <button
+  //         onClick={() => handleDeleteSlot(row.id)}
+  //         className="text-red-600 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+  //       >
+  //         <Trash2 className="w-5 h-5" />
+  //       </button>
+  //     ),
+  //   },
+  // ];
 
   return (
     <div className="space-y-8">

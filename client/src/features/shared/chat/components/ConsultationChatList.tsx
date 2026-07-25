@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MessageSquare } from "lucide-react";
 import { ChatListType } from "../types/chat.type";
+import Image from "next/image";
 
 // interface Chat {
 //   id: string;
@@ -30,7 +31,7 @@ export default function ConsultationChatList({
   const [tab, setTab] = useState<"active" | "expired">("active");
   const chatList = tab === "active" ? list?.chats.active : list?.chats.expired;
   // const filtered = chats.filter((chat) => chat.status === tab);
-
+  console.log(baseUrl);
   return (
     <div className="flex h-full w-full flex-col border-r border-slate-200 bg-white lg:w-[340px]">
       {" "}
@@ -85,9 +86,15 @@ export default function ConsultationChatList({
                 }`}
               >
                 <div className="flex gap-3">
-                  <div className="h-10 w-10 sm:h-11 sm:w-11  flex-shrink-0 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
+                  <div className="relative h-10 w-10 sm:h-11 sm:w-11  flex-shrink-0 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-semibold">
                     {chat.profilePic ? (
-                      <img src={chat.profilePic} />
+                      <Image
+                        fill
+                        style={{ objectFit: "cover" }} // Options: 'cover', 'contain', 'fill', 'none'
+                        sizes="100vw" // Helps browser choose optimal image size
+                        src={chat.profilePic}
+                        alt="Profile Pic"
+                      />
                     ) : (
                       chat?.name?.[0]
                     )}

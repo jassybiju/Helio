@@ -31,7 +31,6 @@ import { CloudinaryFileUploadService } from "@infrastructure/services/Cloudinary
 import { SocketRealTimeNotifier } from "@infrastructure/services/SocketRealTimeNotifier.ts";
 import { NotificationService } from "@application/service/NotificationService.ts";
 import { NotificationRepository } from "@infrastructure/database/repositories/NotificationRepository.ts";
-import { ReviewRepository } from "@infrastructure/database/repositories/ReviewRepository.ts";
 
 const logger = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();

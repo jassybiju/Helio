@@ -83,7 +83,7 @@ const useDoctorConsultation = (id: string) => {
       socket.off("consultation-started");
       socket.off("consultation-ended");
     };
-  }, [socket]);
+  }, []);
   /**
    * -----------------------------------
    * API
@@ -191,7 +191,7 @@ const useDoctorConsultation = (id: string) => {
    * -----------------------------------
    */
 
-  const [labTests, setLabTests] = useState<LabTest[]>([
+  const [labTests, _setLabTests] = useState<LabTest[]>([
     {
       id: "1",
       name: "Blood Sugar Test",

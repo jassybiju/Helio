@@ -5,7 +5,7 @@ import useDoctorAddTestMutation from "../hooks/useDoctorAddTestMutation";
 
 export const AddLabReportModal = ({close ,id} : ModalProps & {id : string}) => {
   const [test, setTest] = useState({ name: "", instructions: "" });
-  const [error, setError] = useState();
+  // const [error, setError] = useState();
   const {mutate} = useDoctorAddTestMutation(id)
   const handleAddTest = () => {
     mutate({testName : test.name, instructions : test.instructions})
@@ -27,7 +27,7 @@ export const AddLabReportModal = ({close ,id} : ModalProps & {id : string}) => {
             <X className="w-4 h-4" />
           </button>
         </div>
-        {error && <p className="text-red-500">{error}</p>}
+        {/* {error && <p className="text-red-500">{error}</p>} */}
         <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 space-y-4">
           <h2 className="text-xl font-bold text-slate-900">Add Medicine</h2>
 

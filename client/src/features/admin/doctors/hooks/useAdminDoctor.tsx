@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import { useModal } from "@/src/hooks/useModal";
 import { useToggleBlockDoctor } from "./useToggleBlockDoctor";
+import Image from "next/image";
 
 export const useAdminDoctor = () => {
   const limit = 5;
@@ -41,8 +42,19 @@ export const useAdminDoctor = () => {
       title: "Doctor",
       render: (_value, row) => (
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 overflow-hidden to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-            {row.profilePic ? <img className="w-full h-full object-cover " src={row.profilePic}/> : row.fullName?.[0]}
+          <div className="relative w-10 h-10 bg-gradient-to-br from-blue-400 overflow-hidden to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+            {row.profilePic ? (
+              <Image
+              alt=""
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="100vw"
+                className="w-full h-full object-cover "
+                src={row.profilePic}
+              />
+            ) : (
+              row.fullName?.[0]
+            )}
           </div>
           <div>
             <p className="text-sm font-medium text-slate-900">{row.fullName}</p>

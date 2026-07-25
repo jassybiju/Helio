@@ -34,7 +34,7 @@ export class GetVerificationDetailsUseCase implements IGetVerificationDetailsUse
         rejection_reason: doc.reason ?? "",
         actedAt: doc.actedAt.toLocaleString(),
         document_url: doc.documentKey
-          ? this._fileUpload.getFileUrl(doc.documentKey,true)
+          ? this._fileUpload.getFileUrl(doc.documentKey, true)
           : "",
       })),
       userId: doctor.id,

@@ -8,7 +8,7 @@ export class BcryptPasswordService implements IPasswordService {
       const salt = process.env.BCRYPT_SALT || 10;
       const hashedPassword = await bcrypt.hash(password, Number(salt));
       return hashedPassword;
-    } catch (error) {
+    } catch {
       throw new AppError("Error is hashing password", 500);
     }
   }

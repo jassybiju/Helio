@@ -51,6 +51,10 @@ export interface IDoctorRepository {
     params: IDoctorSearchQuery
   ): Promise<{ doctors: Doctor[]; totalCount: number }>;
 
+  /**
+   *
+   * @param query name or specialty
+   */
   searchByName(query: string): Promise<Doctor[]>;
   getRegistrationAnalytics(
     period: BOOKING_PERIOD

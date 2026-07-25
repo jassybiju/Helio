@@ -8,6 +8,7 @@ import { useAuth } from "../features/auth/hooks/useAuth";
 import { Bell, ChevronDown, UserIcon } from "lucide-react";
 import { USER_ROLES } from "../types/user.types";
 import { NotificationComponent } from "./NotificationComponent";
+import Image from "next/image";
 
 const UserAuthButtons = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -42,9 +43,12 @@ const UserAuthButtons = () => {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex items-center gap-2 rounded-lg px-2 py-2 transition hover:bg-slate-100 sm:px-3"
             >
-              <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-blue-600 text-white sm:h-9 sm:w-9">
+              <div className="flex relative h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-blue-600 text-white sm:h-9 sm:w-9">
                 {data.user?.profilePic ? (
-                  <img
+                  <Image
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="100vw"
                     src={data.user?.profilePic}
                     alt="Profile"
                     className="h-full w-full object-cover"

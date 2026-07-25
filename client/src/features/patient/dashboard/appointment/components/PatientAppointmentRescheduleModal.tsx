@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { isAxiosError } from "axios";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { APIResponse } from "@/src/types/API.types";
-import { AddReview } from "../../../slot/bookings/components/AddReview";
 
 const PatientAppointmentRescheduleModal = ({
   close,
@@ -22,7 +21,10 @@ const PatientAppointmentRescheduleModal = ({
   const { data, isLoading } = useGetPatientRescheduleSlotsQuery(appointmentId);
 
   const doctor = data?.data?.doctor;
-  const slotsData = data?.data?.slots ?? {};
+  const slotsData = useMemo(
+  () => data?.data.slots ?? [],
+  [data?.data.slots]
+);
 
   const [selectedType, setSelectedType] = useState<"online" | "clinic" | null>(
     null,

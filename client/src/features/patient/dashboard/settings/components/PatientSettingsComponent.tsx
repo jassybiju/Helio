@@ -17,6 +17,7 @@ import { useModal } from "@/src/hooks/useModal";
 import UpdatePatientProfileModal from "./UpdatePatientProfileModal";
 import { UpdateProfilePicModal } from "@/src/components/UpdateProfilePicModal";
 import { useUpdatePatientProfilePicMutation } from "../hooks/useUpdatePatientProfilePicMutation";
+import Image from "next/image";
 
 const PatientSettingsComponent = () => {
   const { data, isLoading } = useGetPatientQuery();
@@ -133,7 +134,7 @@ const PatientSettingsComponent = () => {
               className="block relative group h-20 w-20 sm:h-24 sm:w-24 overflow-hidden bg-blue-100 rounded-full flex items-center justify-center relative group"
             >
               {PERSON?.profilePic ? (
-                <img className="w-full h-full" src={PERSON?.profilePic} />
+                   <Image fill style={{objectFit :'cover'}} sizes="100vw" alt="Profile Pic" className="w-full h-full" src={PERSON?.profilePic} />
               ) : (
                 <svg
                   className="h-12 w-12 sm:h-16 sm:w-16"
@@ -143,9 +144,9 @@ const PatientSettingsComponent = () => {
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
                 </svg>
               )}{" "}
-              <button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full text-white flex items-center justify-center text-sm">
+              {/* <button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 rounded-full text-white flex items-center justify-center text-sm">
                 ✓
-              </button>
+              </button> */}
             </label>
             <input
               type="file"

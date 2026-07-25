@@ -1,6 +1,5 @@
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IEmailService } from "@application/ports/services/IEmailService.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
 import type { IResetTokenService } from "@application/ports/services/IResetTokenService.ts";

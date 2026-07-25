@@ -1,92 +1,87 @@
 "use client";
 
-import { act, useState } from "react";
+import {  useState } from "react";
 import {
-  CreditCard,
   Plus,
   Calendar,
-  Download,
   ArrowUpRight,
   ArrowDownLeft,
-  MoreVertical,
   Wallet,
   Eye,
   EyeOff,
-  PersonStandingIcon,
   AlertCircleIcon,
-  IndianRupee,
 } from "lucide-react";
 import { useGetWalletQuery } from "../hooks/useGetWalletQuery";
 import { useModal } from "@/src/hooks/useModal";
 import AddMoneyModal from "./AddMoneyModal";
 import Pagination from "@/src/components/Pagination";
 
-interface Transaction {
-  id: string;
-  type: "debit" | "credit";
-  description: string;
-  amount: number;
-  date: string;
-  status: "completed" | "pending";
-  category: string;
-}
+// interface Transaction {
+//   id: string;
+//   type: "debit" | "credit";
+//   description: string;
+//   amount: number;
+//   date: string;
+//   status: "completed" | "pending";
+//   category: string;
+// }
 
-const transactions: Transaction[] = [
-  {
-    id: "1",
-    type: "debit",
-    description: "Consultation with Dr. Sarah Johnson",
-    amount: 99,
-    date: "2024-03-15",
-    status: "completed",
-    category: "consultation",
-  },
-  {
-    id: "2",
-    type: "credit",
-    description: "Referral bonus",
-    amount: 50,
-    date: "2024-03-10",
-    status: "completed",
-    category: "bonus",
-  },
-  {
-    id: "3",
-    type: "debit",
-    description: "Consultation with Dr. Michael Chen",
-    amount: 79,
-    date: "2024-03-05",
-    status: "completed",
-    category: "consultation",
-  },
-  {
-    id: "4",
-    type: "credit",
-    description: "Insurance reimbursement",
-    amount: 199,
-    date: "2024-02-28",
-    status: "completed",
-    category: "reimbursement",
-  },
-  {
-    id: "5",
-    type: "debit",
-    description: "Lab test charges",
-    amount: 120,
-    date: "2024-02-20",
-    status: "pending",
-    category: "test",
-  },
-  {
-    id: "6",
-    type: "debit",
-    description: "Prescription refill",
-    amount: 45,
-    date: "2024-02-15",
-    status: "completed",
-    category: "prescription",
-  },
-];
+// const transactions: Transaction[] = [
+//   {
+//     id: "1",
+//     type: "debit",
+//     description: "Consultation with Dr. Sarah Johnson",
+//     amount: 99,
+//     date: "2024-03-15",
+//     status: "completed",
+//     category: "consultation",
+//   },
+//   {
+//     id: "2",
+//     type: "credit",
+//     description: "Referral bonus",
+//     amount: 50,
+//     date: "2024-03-10",
+//     status: "completed",
+//     category: "bonus",
+//   },
+//   {
+//     id: "3",
+//     type: "debit",
+//     description: "Consultation with Dr. Michael Chen",
+//     amount: 79,
+//     date: "2024-03-05",
+//     status: "completed",
+//     category: "consultation",
+//   },
+//   {
+//     id: "4",
+//     type: "credit",
+//     description: "Insurance reimbursement",
+//     amount: 199,
+//     date: "2024-02-28",
+//     status: "completed",
+//     category: "reimbursement",
+//   },
+//   {
+//     id: "5",
+//     type: "debit",
+//     description: "Lab test charges",
+//     amount: 120,
+//     date: "2024-02-20",
+//     status: "pending",
+//     category: "test",
+//   },
+//   {
+//     id: "6",
+//     type: "debit",
+//     description: "Prescription refill",
+//     amount: 45,
+//     date: "2024-02-15",
+//     status: "completed",
+//     category: "prescription",
+//   },
+// ];
 
 const ITEMS_PER_PAGE = 5;
 
@@ -222,7 +217,6 @@ export default function WalletPage() {
                 CREDIT: <ArrowUpRight className={`w-6 h-6 text-green-600`} />,
                 pending: <AlertCircleIcon className={`w-6 h-6 text-red-600`} />,
               };
-              console.log(transaction.type);
               return (
                 <div
                   key={transaction.id}

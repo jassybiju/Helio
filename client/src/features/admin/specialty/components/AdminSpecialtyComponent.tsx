@@ -17,7 +17,6 @@ const AdminSpecialtyComponent = () => {
   const { mutate: deleteSpecialty } = useDeleteSpecialtyMutation();
   const { open } = useModal();
   const specialty = data;
-  console.log((specialty?.data.count ?? 0 )/ LIMIT, LIMIT,specialty?.data.count ?? 0 )
   const columns: ColumnType<{ _id: string; label: string }> = [
     {
       key: "",

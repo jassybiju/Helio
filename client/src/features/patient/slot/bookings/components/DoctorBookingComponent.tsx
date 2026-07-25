@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { isAxiosError } from "axios";
 import { ReviewsSection } from "./ReviewsSection";
 import { AddReview } from "./AddReview";
+import Image from "next/image";
 
 const DoctorBookingComponent = ({ id }: { id: string }) => {
   const [page, setPage] = useState(1);
@@ -88,9 +89,9 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
               {" "}
               {/* Doctor Image */}
               <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 mx-auto  mb-4  bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-3xl sm:text-4xl relative">
-                <div className="w-full h-full overflow-hidden rounded-full flex items-center justify-center">
+                <div className=" relative w-full h-full overflow-hidden rounded-full flex items-center justify-center">
                   {doctor?.profilePic ? (
-                    <img
+                       <Image fill style={{objectFit :'cover'}} sizes="100vw"
                       className="w-full h-full"
                       src={doctor.profilePic}
                       alt=""

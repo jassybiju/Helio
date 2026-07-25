@@ -11,6 +11,7 @@ export default function ResultsHeader({
   sortBy,
   onSortChange,
 }: ResultsHeaderProps) {
+  console.log(sortBy, onSortChange)
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
       {" "}

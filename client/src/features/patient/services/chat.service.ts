@@ -4,7 +4,6 @@ import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
 import {
   ChatListType,
   ChatType,
-  SendeeType,
 } from "../../shared/chat/types/chat.type";
 
 export const patientChatService = {

@@ -13,57 +13,55 @@ import {
   User,
   AlertTriangle,
 } from "lucide-react";
-import { useState } from "react";
 import { useGetPatientsAppointmentQuery } from "../hooks/useGetPatientsAppointmentQuery";
 import { APPOINTMENT_STATUS } from "@/src/types/appointment.types";
 import { useGetPatientLiveQueueQuery } from "../hooks/useGetPatientLiveQueueQuery";
 import { useModal } from "@/src/hooks/useModal";
 import PatientAppointmentCancellationConfirmationModal from "./PatientAppointmentCancellationConfirmationModal";
 import VideoCall from "@/src/components/VideoCall";
-import { useCancelPatientAppointmentMutation } from "../hooks/useCancelPatientAppointment";
 import PatientAppointmentCancellationModal from "./PatientAppointmentCancellationModal";
 
-interface Appointment {
-  id: string;
-  doctorName: string;
-  specialty: string;
-  date: string;
-  time: string;
-  type: "video" | "in-person";
-  status: "upcoming" | "completed" | "cancelled";
-  fee: number;
-}
+// interface Appointment {
+//   id: string;
+//   doctorName: string;
+//   specialty: string;
+//   date: string;
+//   time: string;
+//   type: "video" | "in-person";
+//   status: "upcoming" | "completed" | "cancelled";
+//   fee: number;
+// }
 
-interface QueueInfo {
-  appointmentId: string;
-  patientQueueNumber: number;
-  currentQueueNumber: number;
-  estimatedWaitTime: number;
-  totalPatientsInQueue: number;
-}
+// interface QueueInfo {
+//   appointmentId: string;
+//   patientQueueNumber: number;
+//   currentQueueNumber: number;
+//   estimatedWaitTime: number;
+//   totalPatientsInQueue: number;
+// }
 
-const queueDataMap: Record<string, QueueInfo> = {
-  "1": {
-    appointmentId: "1",
-    patientQueueNumber: 8,
-    currentQueueNumber: 5,
-    estimatedWaitTime: 18,
-    totalPatientsInQueue: 12,
-  },
-};
+// const queueDataMap: Record<string, QueueInfo> = {
+//   "1": {
+//     appointmentId: "1",
+//     patientQueueNumber: 8,
+//     currentQueueNumber: 5,
+//     estimatedWaitTime: 18,
+//     totalPatientsInQueue: 12,
+//   },
+// };
 
 export default function PatientAppointmentDetailsComponent() {
   const router = useRouter();
   const params = useParams();
   const appointmentId = params.id as string;
 
-  const { mutate: cancelAppointment } =
-    useCancelPatientAppointmentMutation(appointmentId);
+  // const { mutate: cancelAppointment } =
+  //   useCancelPatientAppointmentMutation(appointmentId);
   const { data: data } = useGetPatientsAppointmentQuery(appointmentId);
   const { data: liveData } = useGetPatientLiveQueueQuery(appointmentId);
   const { open } = useModal();
 
-  const [doctorOnline, _setDoctorOnline] = useState<boolean>(false);
+  // const [doctorOnline, _setDoctorOnline] = useState<boolean>(false);
 
   const appointment = data?.data;
 
@@ -310,7 +308,7 @@ export default function PatientAppointmentDetailsComponent() {
       {/* Doctor Information */}
       <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
         <h2 className="text-lg font-bold text-slate-900 mb-4">
-          Doctor Information {doctorOnline ? "ONLINE" : "OFFLINE"}
+          Doctor Information 
         </h2>
         <div className="space-y-3">
           <div className="flex items-center gap-3 pb-3 border-b border-slate-200">
@@ -372,7 +370,7 @@ export default function PatientAppointmentDetailsComponent() {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg p-4 border border-blue-100">
+            {/* <div className="bg-white rounded-lg p-4 border border-blue-100">
               <p className="text-xs font-semibold text-slate-600 uppercase mb-2">
                 Estimated Wait Time
               </p>
@@ -380,7 +378,7 @@ export default function PatientAppointmentDetailsComponent() {
                 {liveData.data.timeLeftSeconds}{" "}
                 <span className="text-sm">min</span>
               </p>
-            </div>
+            </div> */}
           </div>
 
           <div className="bg-white rounded-lg p-4 border border-blue-100 space-y-3">

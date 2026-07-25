@@ -12,7 +12,7 @@ const AIChatBot = () => {
   >([]);
   const [message, setMessage] = useState("");
   const [conversationId, setConversationId] = useState<null | string>(null);
-  const { mutate: sendMessage, data, isPending } = useSendAIMessage();
+  const { mutate: sendMessage, isPending } = useSendAIMessage();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

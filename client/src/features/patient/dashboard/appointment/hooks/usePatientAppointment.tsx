@@ -9,6 +9,7 @@ import { Download, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { PDF_TYPE } from "@/src/types/pdf.type";
 import { useDownloadPDF } from "@/src/hooks/useDownloadPDF";
+import Image from "next/image";
 
 const LIMIT = 2;
 export const usePatientAppointment = () => {
@@ -40,9 +41,12 @@ export const usePatientAppointment = () => {
       render: (_v, row) => (
         <div className="flex items-center gap-2 min-w-[180px]">
           {" "}
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
+          <div className="w-8 relative h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
             {row.doctor.profilePicture ? (
-              <img
+              <Image
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="100vw"
                 src={row.doctor.profilePicture}
                 alt={row.doctor.name}
                 className="w-full h-full object-cover"

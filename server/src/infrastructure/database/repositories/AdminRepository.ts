@@ -27,7 +27,7 @@ export class AdminRepository implements IAdminRepository {
         _id: admin.id,
         passwordHash: admin.passwordHash,
       });
-    } catch (error) {
+    } catch {
       throw new AppError("Error Creating Admin,", HTTPStatus.INTERNAL_ERROR);
     }
   }
@@ -41,7 +41,7 @@ export class AdminRepository implements IAdminRepository {
         new Email(adminDoc.email!),
         adminDoc.passwordHash!
       );
-    } catch (error) {
+    } catch {
       throw new AppError("Error Fidnign Admin,", HTTPStatus.INTERNAL_ERROR);
     }
   }

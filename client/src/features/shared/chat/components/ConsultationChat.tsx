@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Clock, Send } from "lucide-react";
-import { IDoctorGetChat } from "@/src/features/doctor/services/chat.service";
-import { ChatMessageType, ChatType, SendeeType } from "../types/chat.type";
+import { ArrowLeft, Send } from "lucide-react";
+import { ChatMessageType, SendeeType } from "../types/chat.type";
+import Image from "next/image";
 // interface Message {
 //   id: string;
 //   sender: "doctor" | "patient";
@@ -61,9 +61,13 @@ export default function ConsultationChat({
             <ArrowLeft className="h-5 w-5" />
           </button>
 
-          <div className="h-9 w-9 sm:h-10 sm:w-10 overflow-hidden rounded-full bg-blue-100 flex items-center justify-center">
+          <div className="relative h-9 w-9 sm:h-10 sm:w-10 overflow-hidden rounded-full bg-blue-100 flex items-center justify-center">
             {sendeeData?.profilePic ? (
-              <img
+              <Image
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="100vw"
+                alt="Profile Pic"
                 src={sendeeData.profilePic}
                 className="h-full w-full object-cover"
               />
@@ -89,8 +93,8 @@ export default function ConsultationChat({
         <div className="border-b bg-slate-50 px-6 py-2 text-xs text-slate-500">
           <Clock className="h-4 w-4" />
           {/* <span>Active follow-up period • 7 days remaining</span> */}
-        {/* </div> */}
-      {/* </div> */} 
+      {/* </div> */}
+      {/* </div> */}
 
       <div className="flex-1 overflow-y-auto bg-slate-100 px-3 py-3 sm:px-5 lg:px-8">
         {" "}
@@ -114,9 +118,13 @@ export default function ConsultationChat({
                         : "border border-slate-200 bg-white text-slate-900 shadow-sm"
                     }`}
                   >
-                    <div className="h-7 w-7 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-semibold">
+                    <div className="relative h-7 w-7 overflow-hidden rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-semibold">
                       {sendeeData?.profilePic ? (
-                        <img
+                        <Image
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="100vw"
+                          alt="Profile Pic"
                           className="w-full h-full"
                           src={sendeeData.profilePic}
                         />

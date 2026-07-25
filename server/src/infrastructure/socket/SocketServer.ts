@@ -6,7 +6,6 @@ import { setIO } from "@config/socket.instance.ts";
 import { ChatHandler } from "../../presentation/socket/handlers/ChatHandler.ts";
 import { ChatSessionRepository } from "@infrastructure/database/repositories/ChatSessionRepository.ts";
 import { logger } from "@shared/utils/logger.utils.ts";
-import { log } from "console";
 export class SocketServer {
   private _io!: Server;
 

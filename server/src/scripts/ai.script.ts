@@ -1,13 +1,10 @@
 import { LangchainQdrantVectorStoreService } from "@infrastructure/ai/vectorStore/LangchainQdrantVectorStoreService.ts";
 import { TextLoader } from "@langchain/classic/document_loaders/fs/text";
-import { Document } from "@langchain/core/documents";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-import fs from "fs/promises";
 import path from "path";
 const vectorStore = await LangchainQdrantVectorStoreService.create();
 
 const filePath = path.join(process.cwd(), "src", "data", "knowledgebase.txt");
-const file = await fs.readFile(filePath);
 // Loading TextLoader
 const loader = new TextLoader(filePath);
 const docs = await loader.load();

@@ -3,7 +3,6 @@ import type {
   IResendOTPResponseDTO,
 } from "@application/dto/auth/IOTPDTO.ts";
 import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
-import type { IEmailService } from "@application/ports/services/IEmailService.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
 import type { IOTPService } from "@application/ports/services/IOTPService.ts";

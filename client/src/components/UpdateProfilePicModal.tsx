@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, ChangeEvent } from "react";
-import { Camera, X, Check } from "lucide-react";
+import {  X, Check } from "lucide-react";
 import { ModalProps } from "@/src/layout/ModalProvider";
 import Cropper, { Area } from "react-easy-crop";
 

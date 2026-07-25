@@ -125,10 +125,12 @@ export class MongoDoctorRepository
       {
         $or: [
           {
-            fullName: {
+            full_name: {
               $regex: query,
               $options: "i",
             },
+          },
+          {
             specialization: {
               $regex: query,
               $options: "i",

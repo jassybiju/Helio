@@ -1,4 +1,3 @@
-import React from 'react'
 import { useGetDoctorTodaysAppointmentQuery } from './useGetDoctorTodaysAppointmentQuery'
 import { useStartDoctorConsultation } from './useStartDoctorConsultation'
 import { useSkipAppointmentMutation } from './useSkipAppointmentMutation'

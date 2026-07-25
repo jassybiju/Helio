@@ -4,7 +4,6 @@ import type {
 } from "@application/ports/services/IVectorStoreService.ts";
 import { TaskType } from "@google/generative-ai";
 import type { Document } from "@langchain/core/documents";
-import { VectorStore } from "@langchain/core/vectorstores";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import { QdrantVectorStore } from "@langchain/qdrant";
 

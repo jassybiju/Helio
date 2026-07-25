@@ -46,7 +46,6 @@ const PatientCheckoutComponent = () => {
           orderId: string;
         };
 
-        console.log("_++++++", data,process.env.NEXT_PUBLIC_RAZORPAY_KEY);
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
           amount: data.amount,
@@ -95,7 +94,6 @@ const PatientCheckoutComponent = () => {
   };
 
   useEffect(() => {
-    console.log(123, router, isError);
     if (isError) {
       router.back();
     }

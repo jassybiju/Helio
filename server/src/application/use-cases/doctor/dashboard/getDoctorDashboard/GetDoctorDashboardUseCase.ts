@@ -64,6 +64,7 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
     const totalCompletedAppointments =
       await this._appointmentRepo.findAllWithFilters({
         status: APPOINTMENT_STATUS.COMPLETED,
+        doctorId: doctor.id,
       });
 
     const wallet = await this._walletRepo.findByUserId(doctor.id);

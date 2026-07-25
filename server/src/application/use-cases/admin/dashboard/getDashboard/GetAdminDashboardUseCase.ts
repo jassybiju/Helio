@@ -6,6 +6,7 @@ import type { IAppointmentRepository } from "@application/ports/repositories/IAp
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
 import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
+import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
 
 export class GetAdminDashboardUseCase implements IGetAdminDashboardUseCase {
   constructor(
@@ -13,7 +14,8 @@ export class GetAdminDashboardUseCase implements IGetAdminDashboardUseCase {
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _patientRepo: IPatientRepository,
-    private readonly _transactionRepo: IWalletTransactionRepository
+    private readonly _transactionRepo: IWalletTransactionRepository,
+    private readonly _walletRepo: IWalletRepository
   ) {}
   async execute(period: BOOKING_PERIOD): Promise<IGetAdminDashboardDTO> {
     this._logger.info("GET ADMIN DASHBOARD", { period });
@@ -24,6 +26,7 @@ export class GetAdminDashboardUseCase implements IGetAdminDashboardUseCase {
       totalDoctors,
       totalPatients,
       revenueAnalytics,
+      wallet,
     ] = await Promise.all([
       this._appointmentRepo.getDashboardStatistics(period),
       this._doctorRepo.getRegistrationAnalytics(period),
@@ -31,6 +34,7 @@ export class GetAdminDashboardUseCase implements IGetAdminDashboardUseCase {
       this._doctorRepo.count(),
       this._patientRepo.count(),
       this._transactionRepo.getRevenueAnalytics(period),
+      this._walletRepo.findAdminWallet(),
     ]);
     return {
       statistics: {
@@ -38,7 +42,7 @@ export class GetAdminDashboardUseCase implements IGetAdminDashboardUseCase {
         completedAppointments: appointments.completedAppointments,
         upcomingAppointments: appointments.upcomingAppointments,
         totalAppointments: appointments.totalAppointments,
-        totalRevenue: 0,
+        totalRevenue: wallet?.balance ?? 0,
 
         totalDoctors,
         totalPatients,

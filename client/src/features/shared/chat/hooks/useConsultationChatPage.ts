@@ -67,7 +67,7 @@ export function useConsultationChatPage({
           if (!old) return old;
           prevMessage = old.data.chats.active.find(
             (chat) => chat.id === activeSessionId,
-          )?.message!;
+          )?.message ?? '';
           return {
             ...old,
             data: {

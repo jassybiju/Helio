@@ -57,7 +57,7 @@ export const initPeer = (
     peer.send("Hello From custom room peer");
   });
 
-  peer.on("data", (data) => {
+  peer.on("data", (_data) => {
   });
 
   peer.on("error", (err) => {

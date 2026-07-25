@@ -10,18 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import {
-  Calendar,
-  Clock,
-  CheckCircle,
-  Users,
-  Wallet,
-  Settings,
-  Download,
-  FileText,
-  BarChart3,
-  ChevronRight,
-} from "lucide-react";
+import { Calendar, Clock, CheckCircle, Users, Wallet } from "lucide-react";
 import ClayWrapper from "@/src/components/ui/ClayWrapper";
 import { useDoctorDashboardQuery } from "../hooks/useDoctorDashboardQuery";
 
@@ -74,14 +63,14 @@ const kpiCards = [
   },
 ];
 
-const quickActions = [
-  { icon: BarChart3, label: "Manage Availability", color: "blue" },
-  { icon: Calendar, label: "View Appointments", color: "emerald" },
-  { icon: Users, label: "View Patients", color: "purple" },
-  { icon: FileText, label: "Create Prescription", color: "pink" },
-  { icon: Download, label: "Withdraw Earnings", color: "orange" },
-  { icon: Settings, label: "Edit Profile", color: "gray" },
-];
+// const quickActions = [
+//   { icon: BarChart3, label: "Manage Availability", color: "blue" },
+//   { icon: Calendar, label: "View Appointments", color: "emerald" },
+//   { icon: Users, label: "View Patients", color: "purple" },
+//   { icon: FileText, label: "Create Prescription", color: "pink" },
+//   { icon: Download, label: "Withdraw Earnings", color: "orange" },
+//   { icon: Settings, label: "Edit Profile", color: "gray" },
+// ];
 
 const getColorClasses = (color: string) => {
   const colors: { [key: string]: { bg: string; text: string; icon: string } } =
@@ -131,7 +120,13 @@ const DoctorDashboardComponent = () => {
   }));
   const recentTransactions = data?.data.transactions;
 
-  const summary = data?.data.summary!;
+  const summary = data?.data.summary ?? {
+    todayAppointments: 0,
+    todaysCompletedAppointments: 0,
+    upcomingAppointments: 0,
+    totalAppointmentsCompleted: 0,
+    walletBalance: 0,
+  };
   return (
     <div className="flex  bg-gray-50">
       {/* Sidebar */}
@@ -181,7 +176,7 @@ const DoctorDashboardComponent = () => {
                         {/* {stats?.upcoming} */} {summary[key]!}
                       </p>
                       <p className={`text-xs text-amber-700 ${text}`}>
-                        {card.comparison}
+                        {/* {card.comparison} */}
                       </p>
                     </div>
                   </ClayWrapper>
@@ -240,7 +235,7 @@ const DoctorDashboardComponent = () => {
               </div>
 
               {/* Quick Actions */}
-              <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6">
+              {/* <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">
                   Quick Actions
                 </h3>
@@ -262,7 +257,7 @@ const DoctorDashboardComponent = () => {
                     );
                   })}
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Wallet & Transactions */}
@@ -335,7 +330,6 @@ const DoctorDashboardComponent = () => {
               </div>
 
               {/* Wallet Card */}
-           
             </div>
           </div>
         </div>

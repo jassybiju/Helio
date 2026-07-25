@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { CheckCircle, Eye } from "lucide-react";
 import { useGetLabReportQuery } from "../hooks/useGetLabReportQuery";
 import { useModal } from "@/src/hooks/useModal";
@@ -9,10 +9,11 @@ import ViewPDFModal from "@/src/components/ViewPDFModal";
 
 const LIMIT = 4;
 const PatientLabReportComponent = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, _setCurrentPage] = useState(1);
+  const currentPage = 1
   const { data } = useGetLabReportQuery({ limit: LIMIT, page: currentPage });
   const { open } = useModal();
-
+  
   const openViewPDFModal = (file: string, title: string) => {
     open(ViewPDFModal, { file, title });
   };

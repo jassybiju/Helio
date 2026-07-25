@@ -2,7 +2,6 @@ import type { IAppointmentRepository } from "@application/ports/repositories/IAp
 import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
 import type { INotificationService } from "@application/ports/services/INotificationService.ts";
 import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
 import type {

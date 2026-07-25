@@ -17,27 +17,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  ComposedChart,
 } from "recharts";
-import {
-  Bell,
-  Settings,
-  Menu,
-  ChevronDown,
-  TrendingUp,
-  TrendingDown,
-  Users,
-  Calendar,
-  DollarSign,
-  CheckCircle,
-  Clock,
-  AlertCircle,
-  Eye,
-  Trash2,
-  Download,
-  Plus,
-} from "lucide-react";
-import { platform } from "os";
 
 // Mock Data
 // const appointmentData = [
@@ -264,7 +244,7 @@ const revenueData = data?.data.revenueAnalytics.labels.map((x,i)=>({label : x, p
               },
               {
                 title: "Platform Revenue",
-                value: "$45.8K",
+                value: stats?.totalRevenue ?? 0,
                 trend: "+22%",
                 icon: "💰",
                 color: "from-green-50 to-green-100",

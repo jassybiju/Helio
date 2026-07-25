@@ -19,9 +19,9 @@ export class SignalingHandler {
         .fetchSockets();
       socket.join(this._room(appointmentId));
 
-      const otherSocket = sockets
-        .filter((s) => s.id !== socket.id)
-        .map((s) => s.id);
+      // const otherSocket = sockets
+      //   .filter((s) => s.id !== socket.id)
+      //   .map((s) => s.id);
       // if (otherSocket.length > 0) {
       // socket.emit("webrtc:participant-exists", { socketId: socket.id });
       // }

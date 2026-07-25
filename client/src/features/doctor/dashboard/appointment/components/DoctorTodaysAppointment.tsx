@@ -1,21 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import useDoctorAppointment from "../hooks/useDoctorAppointment";
-import { Calendar, Clock, Heart, Search, Users, XCircle } from "lucide-react";
-import {
-  APPOINTMENT_STATUS,
-  CONSULTATION_TYPE,
-} from "@/src/types/appointment.types";
-import TableComponent from "@/src/components/TableComponent";
-import Pagination from "@/src/components/Pagination";
+import React, { ReactNode, useState } from "react";
+import { Calendar, Clock, Heart, XCircle } from "lucide-react";
+
 import AppointmentCard from "./AppointmentCard";
 import useDoctorTodayAppointment from "../hooks/useDoctorTodayAppointment";
 
 const DoctorTodaysAppointment = () => {
   const fakeToday = new Date();
   fakeToday.setDate(fakeToday.getDate() + 1);
-  const today = fakeToday.toISOString().split("T")[0];
+  // const today = fakeToday.toISOString().split("T")[0];
 
   const [expandedSkippedSection, setExpandedSkippedSection] = useState(false);
   const { stats, ongoingAppointments, skippedAppointments, next } =
@@ -23,26 +17,6 @@ const DoctorTodaysAppointment = () => {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
-            Today's Appointments
-          </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            Manage your consultations and patient flow
-          </p>
-        </div>
-
-        <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold">
-          {new Date().toLocaleDateString("en-US", {
-            weekday: "long",
-            month: "short",
-            day: "numeric",
-          })}
-        </div>
-      </div>
-
       {/* Stats */}
       <div
         className="
@@ -55,7 +29,7 @@ const DoctorTodaysAppointment = () => {
       >
         <StatCard
           title="Total"
-          value={stats?.total}
+          value={stats?.total??0}
           icon={<Calendar />}
           color="blue"
           subtitle="Scheduled"
@@ -63,7 +37,7 @@ const DoctorTodaysAppointment = () => {
 
         <StatCard
           title="Completed"
-          value={stats?.completed}
+          value={stats?.completed??0}
           icon={<Heart />}
           color="green"
           subtitle="Finished"
@@ -71,7 +45,7 @@ const DoctorTodaysAppointment = () => {
 
         <StatCard
           title="Upcoming"
-          value={stats?.upcoming}
+          value={stats?.upcoming ??0}
           icon={<Clock />}
           color="amber"
           subtitle="Waiting"
@@ -79,7 +53,7 @@ const DoctorTodaysAppointment = () => {
 
         <StatCard
           title="Skipped"
-          value={stats?.skipped}
+          value={stats?.skipped ??0}
           icon={<XCircle />}
           color="red"
           subtitle="Missed"
@@ -112,7 +86,7 @@ const DoctorTodaysAppointment = () => {
       </AppointmentSection>
 
       {/* Upcoming */}
-      <AppointmentSection title="Next Appointment" color="blue">
+      <AppointmentSection count={0} title="Next Appointment" color="blue">
         {next ? (
           <div
             className="
@@ -209,8 +183,8 @@ const DoctorTodaysAppointment = () => {
 
 export default DoctorTodaysAppointment;
 
-const StatCard = ({ title, value, subtitle, icon, color }: any) => {
-  const styles: any = {
+const StatCard = ({ title, value, subtitle, icon, color }: {title : string, subtitle : string,value :number , icon : ReactNode, color : string}) => {
+  const styles : Record<string,string> = {
     blue: "bg-blue-50 border-blue-200 text-blue-700",
     green: "bg-green-50 border-green-200 text-green-700",
     amber: "bg-amber-50 border-amber-200 text-amber-700",
@@ -236,9 +210,10 @@ items-center
       >
         <p className="text-xs sm:text-sm font-bold uppercase">{title}</p>
 
-        {React.cloneElement(icon, {
+        {/* {React.cloneElement(icon, {
           className: "w-5 h-5",
-        })}
+        })} */}
+        {icon}
       </div>
 
       <p
@@ -257,7 +232,17 @@ mt-3
   );
 };
 
-const AppointmentSection = ({ title, count, children, color }: any) => (
+const AppointmentSection = ({
+  title,
+  count,
+  children,
+  color,
+}: {
+  title: string;
+  count: number;
+  children: ReactNode;
+  color: string;
+}) => (
   <section className="space-y-4">
     <div className="flex items-center gap-3">
       <div

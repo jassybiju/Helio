@@ -1,9 +1,12 @@
 export interface IFileUpload {
-  upload(document: {
-    buffer: Buffer;
-    mimetype: string;
-    originalname: string;
-  }, secured? : boolean): Promise<string>;
+  upload(
+    document: {
+      buffer: Buffer;
+      mimetype: string;
+      originalname: string;
+    },
+    secured?: boolean
+  ): Promise<string>;
 
   getFileUrl(filename: string, signed?: boolean): string;
 }

@@ -55,10 +55,10 @@ const PatientViewAppointmentModal = ({
           {/* DOCTOR */}
           <div className="mt-7 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <img
+              {/* <img
                 alt=""
                 className="h-16 w-16 rounded-full object-cover"
-              />
+              /> */}
 
               <div>
                 <h3 className="text-2xl font-semibold text-[#101828]">

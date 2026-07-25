@@ -1,6 +1,6 @@
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import { v2 as cloudinary } from "cloudinary";
-import { randomUUID, sign } from "crypto";
+import { randomUUID } from "crypto";
 import streamifier from "streamifier";
 export class CloudinaryFileUploadService implements IFileUpload {
   constructor() {
@@ -11,11 +11,14 @@ export class CloudinaryFileUploadService implements IFileUpload {
     });
   }
 
-  async upload(document: {
-    buffer: Buffer;
-    mimetype: string;
-    originalname: string;
-  },secured : boolean =false): Promise<string> {
+  async upload(
+    document: {
+      buffer: Buffer;
+      mimetype: string;
+      originalname: string;
+    },
+    secured: boolean = false
+  ): Promise<string> {
     // const extension = path.extname(document.originalname);
     // const format = extension.replace(".", "");
     const publicId = randomUUID();
@@ -23,7 +26,11 @@ export class CloudinaryFileUploadService implements IFileUpload {
     // const uniqueFileName = `${randomUUID()}${extension}`;
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { resource_type: "image", public_id: publicId, type :secured ? "authenticated" : 'upload' },
+        {
+          resource_type: "image",
+          public_id: publicId,
+          type: secured ? "authenticated" : "upload",
+        },
         (error, result) => {
           if (error) {
             return reject(error);
@@ -45,7 +52,7 @@ export class CloudinaryFileUploadService implements IFileUpload {
       secure: true,
       resource_type: "image",
       sign_url: secured,
-      type: secured ?'authenticated':"upload",
+      type: secured ? "authenticated" : "upload",
     });
   }
 }

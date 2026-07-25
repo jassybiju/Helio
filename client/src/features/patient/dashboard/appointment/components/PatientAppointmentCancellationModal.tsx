@@ -21,7 +21,6 @@ const PatientAppointmentCancellationModal = ({
   const { mutate: rescheduleAppointment } =
     useReschedulePatientAppointmentMutation(appointmentId);
   const { open } = useModal();
-  const appointment = {};
   const openRescheduleModal = () => {
     open(PatientAppointmentRescheduleModal, {
       appointmentId: appointmentId,

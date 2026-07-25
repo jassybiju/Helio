@@ -15,7 +15,6 @@ export class CheckBlockMiddleware {
   ) {}
   handle = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      logger.error("HIIE");
       const { id, role } = req?.user ?? {};
       let user;
       if (role === USER_ROLES.ADMIN) {

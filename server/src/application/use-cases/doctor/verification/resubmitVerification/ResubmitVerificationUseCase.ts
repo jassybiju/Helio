@@ -33,7 +33,7 @@ export class ResubmitVerificationUseCase implements IResubmitVerificationUseCase
       throw new AppError(MESSAGE.DOCTOR_NOT_FOUND, HTTPStatus.NOT_FOUND);
     }
 
-    const documentKey = await this._fileUpload.upload(document,true);
+    const documentKey = await this._fileUpload.upload(document, true);
 
     if (
       Doctor.isValidTransistion(

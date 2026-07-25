@@ -1,7 +1,6 @@
 import {
   Clock,
   ExternalLink,
-  Eye,
   LogOut,
   Play,
   Users,
@@ -14,7 +13,6 @@ import {
   APPOINTMENT_STATUS,
   CONSULTATION_TYPE,
 } from "@/src/types/appointment.types";
-import Link from "next/link";
 import useDoctorTodayAppointment from "../hooks/useDoctorTodayAppointment";
 import { useRouter } from "next/navigation";
 

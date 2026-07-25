@@ -1,5 +1,4 @@
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
 import type {
   IUpdateDoctorInput,

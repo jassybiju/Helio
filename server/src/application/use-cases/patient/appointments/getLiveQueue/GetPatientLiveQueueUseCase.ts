@@ -111,7 +111,7 @@ export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
 
     let timeLeftSeconds = 0;
     if (positionDifference > 0) {
-      const nowMs = new Date().getTime();
+      // const nowMs = new Date().getTime();
 
       timeLeftSeconds = slotDurationSeconds * positionDifference;
       if (timeLeftSeconds < 0) timeLeftSeconds = 0;

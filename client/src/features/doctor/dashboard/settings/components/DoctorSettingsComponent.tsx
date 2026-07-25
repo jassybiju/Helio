@@ -11,6 +11,7 @@ import { useChangePasswordMutation } from "../hooks/useChangePasswordMutation";
 import { useForm } from "react-hook-form";
 import { UpdateProfilePicModal } from "../../../../../components/UpdateProfilePicModal";
 import { useUpdateDoctorProfilePicMutation } from "../hooks/useUpdateDoctorProfilePicMutation";
+import Image from "next/image";
 
 type FeeFormData = {
   clinicFee: string;
@@ -28,7 +29,6 @@ const DoctorSettingsComponent = () => {
       onlineFee: data?.data.onlineFee?.toString() || "",
     },
   });
-  const [profilePic, setProfilePic] = useState<null | string>(null);
   const { open } = useModal();
   const DOCTOR = data?.data;
   const [passwordData, setPasswordData] = useState({
@@ -114,7 +114,7 @@ const DoctorSettingsComponent = () => {
               className="group relative block h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 bg-teal-500 rounded-full overflow-hidden flex items-center  justify-center text-white"
             >
               {DOCTOR?.profilePic ? (
-                <img className="w-full h-full" src={DOCTOR?.profilePic} />
+              <Image fill style={{objectFit :'cover'}} sizes="100vw" alt='profilePic' className="w-full h-full" src={DOCTOR?.profilePic} />
               ) : (
                 <svg
                   className="h-12 w-12 sm:h-16 sm:w-16"

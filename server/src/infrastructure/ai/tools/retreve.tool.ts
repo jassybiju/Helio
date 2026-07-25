@@ -14,13 +14,38 @@ export function createRetrieveTool(vectorStore: IVectorStoreService) {
           )
           .join("\n");
         return [serialized || "No Releavant Information Found.", retreivedDocs];
-      } catch (error) {
+      } catch {
         return ["Error retrieving docs", []];
       }
     },
     {
       name: "retrieve",
-      description: "Retrieve information related to a query",
+      description: `
+Retrieve information ONLY about the Helio platform.
+
+Use this tool for:
+- Helio features
+- How Helio works
+- Account related questions
+- Privacy policies
+- Consultation process
+- Medical record management
+- Platform FAQs
+
+DO NOT use this tool for:
+- Patient symptoms
+- Medical conditions
+- Disease information
+- Diagnosis
+- Treatment advice
+- Selecting doctor specialties
+- Finding doctors
+- Appointment availability
+
+If a patient describes symptoms or a health problem:
+DO NOT retrieve information.
+Use the symptom-based doctor discovery workflow instead.
+      `,
       schema: z.object({ query: z.string() }),
       responseFormat: "content_and_artifact",
     }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 interface DoctorCardProps {
@@ -30,9 +31,19 @@ export default function DoctorCard({
     <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
       <div className="p-6">
         <div className="flex items-start gap-3 mb-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden bg-blue-600 flex items-center justify-center">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden bg-blue-600 flex items-center justify-center">
             {" "}
-            {profilePic ? <img src={profilePic} alt="" /> : name.charAt(0)}
+            {profilePic ? (
+              <Image
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="100vw"
+                src={profilePic}
+                alt=""
+              />
+            ) : (
+              name.charAt(0)
+            )}
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-gray-900">{name}</h3>

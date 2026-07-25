@@ -1,5 +1,4 @@
 import type { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import type { FOOD_TIMING } from "@domain/common/enums/consultation.enum.ts";
 import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 
 export interface IGetAppointmentDTO {

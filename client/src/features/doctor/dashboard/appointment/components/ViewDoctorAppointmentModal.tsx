@@ -4,7 +4,6 @@ import {
   CalendarDays,
   ClipboardList,
   Activity,
-  FlaskConical,
   MessageCircle,
   Download,
   Printer,
@@ -64,11 +63,11 @@ export default function ViewDoctorAppointmentModal({
           {/* Doctor Row */}
           <div className="mt-7 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <img
+              {/* <img
                 // src="https://i.pravatar.cc/100?img=12"
                 alt=""
                 className="h-16 w-16 rounded-full object-cover"
-              />
+              /> */}
 
               <div>
                 <h3 className="text-2xl font-semibold text-[#101828]">

@@ -11,13 +11,11 @@ import type { IAppointmentRepository } from "@application/ports/repositories/IAp
 import { AppError } from "@shared/errors/AppError.ts";
 import { MESSAGE } from "@shared/constants/messages.ts";
 import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { istToUtc, jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
+import { jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
 import { Appointment } from "@domain/entities/Appointment.ts";
 import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
 import type { INotificationService } from "@application/ports/services/INotificationService.ts";
 import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { IReviewRepository } from "@application/ports/repositories/IReviewRepository.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
 
 export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
   constructor(
