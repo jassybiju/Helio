@@ -6,10 +6,11 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Lock, Shield, Unlock } from "lucide-react";
 import DoctorViewSkelton from "../../doctors/components/DoctorViewSkelton";
+import TableComponent from "@/src/components/TableComponent";
 
 const AdminPatientViewComponent = () => {
   const params = useParams<{ id: string }>();
-  const { patient, isLoading, handleToggleBlock } = useAdminPatientView(
+  const { patient, isLoading, handleToggleBlock, column , appointments } = useAdminPatientView(
     params.id,
   );
   if (isLoading) {
@@ -111,68 +112,15 @@ const AdminPatientViewComponent = () => {
               </div>
             </div>
 
-            {/* Professional Information */}
-
-            {/* Documents Section */}
-            {/* {!!patient.documentUrl && (
             <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-              <h2 className="text-lg font-bold text-slate-900">
-                Uploaded Documents
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-blue-600" />
+                Appointment Details
               </h2>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-blue-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
-                        <path
-                          fillRule="evenodd"
-                          d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-slate-900">
-                      document
-                    </span>
-                  </div>
-                  <button onClick={()=>showDocumentModal(patient.documentUrl as string)} className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                    View
-                  </button>
-                </div>
+              <div className=" gap-6">
+                <TableComponent columns={column} data={appointments}/>
               </div>
             </div>
-                      )} */}
-
-            {/* Account Information */}
-            {/* <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-              <h2 className="text-lg font-bold text-slate-900">
-                Account Information
-              </h2>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-slate-600 mb-1">Created At</p>
-                  <p className="font-semibold text-slate-900">
-                    {patient.createdAt}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-slate-600 mb-1">
-                    Verification Status
-                  </p>
-                  <p className="font-semibold text-slate-900">
-                    {patient.verificationStatus === "approved"
-                      ? "Verified"
-                      : "Pending Verification"}
-                  </p>
-                </div>
-              </div>
-            </div> */}
-            {/* Verification History */}
           </div>
           {/* Sidebar Actions */}
           <div className="space-y-4">

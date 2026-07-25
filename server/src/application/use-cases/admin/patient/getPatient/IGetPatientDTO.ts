@@ -1,6 +1,8 @@
+import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
 import type { GENDER } from "@domain/common/enums/gender.enum.ts";
 
 export type IGetPatientResponseDTO = {
+  patient : {
   id: string;
   email: string;
   fullName: string;
@@ -15,4 +17,15 @@ export type IGetPatientResponseDTO = {
 
   createdAt: string;
   updatedAt: string;
+  },
+  appointments : {
+    id : string,
+    doctorName : string,
+    dateTime : string,
+    consultationType : CONSULTATION_TYPE,
+    status : string,
+    paymentStatus : string,
+    createdAt : string
+  }[],
+  totalAppointments : number
 };

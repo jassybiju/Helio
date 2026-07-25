@@ -67,7 +67,7 @@ export const useAdminPatient = () => {
       title: "Dob / Gender",
       render: (_value, row) => (
         <div className="text-sm">
-          <p className="text-slate-900">{row.dob}</p>
+          <p className="text-slate-900">{new Date(row.dob).toDateString()}</p>
           <p className="text-xs text-slate-500 uppercase">{row.gender}</p>
         </div>
       ),

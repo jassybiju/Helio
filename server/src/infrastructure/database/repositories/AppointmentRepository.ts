@@ -344,7 +344,7 @@ export class AppointmentRepository
         $sort: {
           status_priority: 1,
           appointment_priority: 1,
-          start_time: 1,
+          start_time: filters?.order === 'desc' ? -1 : 1,
           queue_number: 1,
         },
       },

@@ -51,8 +51,7 @@ export class AdminPatientController {
         );
       }
 
-      const patient = await this._getPatientUseCase.execute(id);
-      const response = GetPatientMapper.toDto(patient);
+      const response = await this._getPatientUseCase.execute(id);
       return apiResponse(
         res,
         HTTPStatus.OK,

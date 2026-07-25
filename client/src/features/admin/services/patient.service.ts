@@ -16,11 +16,12 @@ export type Patients = {
 };
 
 export type PatientView = {
+  patient : {
   id: string;
   email: string;
   fullName: string;
 
-  gender: "male" | "female" | "other" | null;
+  gender: string | null;
   dob: string | null;
   bloodGroup: string | null;
   phone: string | null;
@@ -30,6 +31,18 @@ export type PatientView = {
 
   createdAt: string;
   updatedAt: string;
+  },
+  appointments : {
+    id : string,
+    doctorName : string,
+    dateTime : string,
+    consultationType : string,
+    status : string,
+    paymentStatus : string,
+    createdAt : string
+  }[],
+  totalAppointments : number
+
 };
 export const adminPatientService = {
   async getPatients(params?: PatientQueryParams) {
