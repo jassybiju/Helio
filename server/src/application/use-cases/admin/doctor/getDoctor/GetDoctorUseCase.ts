@@ -1,3 +1,4 @@
+import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
 import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
 import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 import type { ILogger } from "@application/ports/services/ILogger.ts";
@@ -12,7 +13,8 @@ export class GetDoctorUseCase implements IGetDoctorUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _doctorRepo: IDoctorRepository,
-    private readonly _fileUpload: IFileUpload
+    private readonly _fileUpload: IFileUpload,
+    private readonly _appointmentRepo: IAppointmentRepository
   ) {}
 
   async execute(doctorId: string): Promise<GetDoctorUseCaseResult> {
@@ -37,6 +39,17 @@ export class GetDoctorUseCase implements IGetDoctorUseCase {
       actedAt: his.actedAt.toISOString(),
     }));
 
-    return { doctor, documentUrl, verificationHistory };
+    const { totalAppointments, appointmentStatusDistribution } =
+      await this._appointmentRepo.getDoctorAppointmentStatusDistribution(
+        doctor.id
+      );
+
+    return {
+      doctor,
+      documentUrl,
+      verificationHistory,
+      totalAppointments,
+      appointmentStatusDistribution,
+    };
   }
 }

@@ -35,13 +35,20 @@ export class AdminDoctorController {
         );
       }
 
-      const { doctor, verificationHistory, documentUrl } =
-        await this._getDoctorUseCase.execute(id);
+      const {
+        doctor,
+        verificationHistory,
+        documentUrl,
+        totalAppointments,
+        appointmentStatusDistribution,
+      } = await this._getDoctorUseCase.execute(id);
 
       const response = GetDoctorMapper.toDto(
         doctor,
         documentUrl,
-        verificationHistory
+        verificationHistory,
+        totalAppointments,
+        appointmentStatusDistribution
       );
 
       return apiResponse(

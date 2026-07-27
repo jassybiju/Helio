@@ -10,7 +10,7 @@ import { CloudinaryFileUploadService } from "@infrastructure/services/Cloudinary
 const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 const appointmentRepo = new AppointmentRepository(loggerService);
-const fileUpload = new CloudinaryFileUploadService()
+const fileUpload = new CloudinaryFileUploadService();
 
 const getAllPatientsUseCase = new GetAllPatientsUseCase(
   loggerService,

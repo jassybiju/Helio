@@ -814,4 +814,77 @@ export class AppointmentRepository
       },
     };
   }
+
+  async getDoctorAppointmentStatusDistribution(doctorId: string): Promise<{
+    totalAppointments: number;
+    appointmentStatusDistribution: {
+      confirmed: number;
+      ongoing: number;
+      completed: number;
+      cancelled: number;
+      noShow: number;
+      expired: number;
+    };
+  }> {
+    const [result] = await super.aggregate<{
+      totalAppointments: { count: number }[];
+      appointmentStatusDistribution: {
+        _id: string;
+        count: number;
+      }[];
+    }>([
+      {
+        $match: {
+          doctor_id: doctorId,
+          is_deleted: false,
+        },
+      },
+      {
+        $facet: {
+          totalAppointments: [{ $count: "count" }],
+
+          appointmentStatusDistribution: [
+            {
+              $group: {
+                _id: "$status",
+                count: { $sum: 1 },
+              },
+            },
+          ],
+        },
+      },
+    ]);
+
+    if (!result) {
+      return {
+        totalAppointments: 0,
+        appointmentStatusDistribution: {
+          confirmed: 0,
+          ongoing: 0,
+          completed: 0,
+          cancelled: 0,
+          noShow: 0,
+          expired: 0,
+        },
+      };
+    }
+
+    const statusMap = Object.fromEntries(
+      result.appointmentStatusDistribution.map((x) => [x._id, x.count])
+    );
+
+    return {
+      totalAppointments: result.totalAppointments[0]?.count ?? 0,
+      appointmentStatusDistribution: {
+        confirmed: statusMap.CONFIRMED ?? 0,
+        ongoing: statusMap.ONGOING ?? 0,
+        completed: statusMap.COMPLETED ?? 0,
+        cancelled:
+          (statusMap.CANCELLED_BY_DOCTOR ?? 0) +
+          (statusMap.CANCELLED_BY_PATIENT ?? 0),
+        noShow: statusMap.NO_SHOW ?? 0,
+        expired: statusMap.EXPIRED ?? 0,
+      },
+    };
+  }
 }

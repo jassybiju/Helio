@@ -15,39 +15,50 @@ export type Doctor = {
   specialization: string;
   career_start_year: string;
   gender: string;
-  profilePic : string| null
+  profilePic: string | null;
 };
 
 export type DoctorView = {
-  id: string;
-  email: string;
-  fullName: string;
+  doctor: {
+    id: string;
+    email: string;
+    fullName: string;
 
-  gender: "male" | "female" | "other" | null;
-  specialization: string | null;
-  careerStartYear: number | null;
-  bio: string | null;
+    gender: "male" | "female" | "other" | null;
+    specialization: string | null;
+    careerStartYear: number | null;
+    bio: string | null;
 
-  verificationStatus: DOCTOR_STATUS;
-  rejectionReason: string | null;
+    verificationStatus: DOCTOR_STATUS;
+    rejectionReason: string | null;
 
-  documentUrl: string | null;
-  additionalInfo: string | null;
-  verificationHistory: {
-    status: DOCTOR_STATUS;
-    reason: string | null;
     documentUrl: string | null;
-    actedAt: string;
-  }[];
+    additionalInfo: string | null;
+    verificationHistory: {
+      status: DOCTOR_STATUS;
+      reason: string | null;
+      documentUrl: string | null;
+      actedAt: string;
+    }[];
 
-  onlineFee: number | null;
-  clinicFee: number | null;
+    onlineFee: number | null;
+    clinicFee: number | null;
 
-  isVerified: boolean;
-  isBlocked: boolean;
+    isVerified: boolean;
+    isBlocked: boolean;
 
-  createdAt: string;
-  updatedAt: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  totalAppointments: number;
+  appointmentStatusDistribution: {
+    confirmed: number;
+    ongoing: number;
+    completed: number;
+    cancelled: number;
+    noShow: number;
+    expired: number;
+  };
 };
 
 export const adminDoctorService = {

@@ -6,12 +6,14 @@ import { ChangeDoctorApprovalStatusUseCase } from "@application/use-cases/admin/
 import { GetDoctorUseCase } from "@application/use-cases/admin/doctor/getDoctor/GetDoctorUseCase.ts";
 import { ToggleBlockDoctorUseCase } from "@application/use-cases/admin/doctor/toggleBlock/ToggleBlockDoctorUseCase.ts";
 import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
 
 const loggerService = PinoLoggerService.getInstance();
 const fileUploadService = new CloudinaryFileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const fileUpload = new CloudinaryFileUploadService();
+const appointmentRepo = new AppointmentRepository(loggerService);
 const getAllDoctorsUseCase = new GetAllDoctorUseCase(
   loggerService,
   doctorRepo,
@@ -24,7 +26,8 @@ const changeDoctorApprovalStatusUseCase = new ChangeDoctorApprovalStatusUseCase(
 const getDoctorUseCase = new GetDoctorUseCase(
   loggerService,
   doctorRepo,
-  fileUploadService
+  fileUploadService,
+  appointmentRepo
 );
 const toggleBlockDoctorUseCase = new ToggleBlockDoctorUseCase(
   loggerService,

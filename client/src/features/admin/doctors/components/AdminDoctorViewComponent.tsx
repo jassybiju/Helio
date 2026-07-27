@@ -18,10 +18,14 @@ import ClayButton from "@/src/components/ui/ClayButton";
 import DoctorViewSkelton from "./DoctorViewSkelton";
 import { DOCTOR_STATUS } from "@/src/types/user.types";
 
+import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+
 const AdminDoctorViewComponent = () => {
   const params = useParams<{ id: string }>();
   const {
     doctor,
+    appointmentStatusData,
+    totalAppointments,
     isLoading,
     expandedHistory,
     setExpandedHistory,
@@ -144,6 +148,30 @@ const AdminDoctorViewComponent = () => {
                 </div>
               </div>
             </div>
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all">
+              <h2 className="text-lg font-bold text-gray-900 mb-6">
+                Appointment Status Distribution
+              </h2>
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={appointmentStatusData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, value }) => `${name} ${value}%`}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {appointmentStatusData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              Total {totalAppointments ?? 0} appointments
+            </div>
 
             {/* Documents Section */}
             {!!doctor.documentUrl && (
@@ -194,7 +222,7 @@ const AdminDoctorViewComponent = () => {
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Created At</p>
                   <p className="font-semibold text-slate-900">
-                    {doctor.createdAt}
+                    {new Date(doctor.createdAt).toDateString()}
                   </p>
                 </div>
                 <div>
@@ -210,173 +238,6 @@ const AdminDoctorViewComponent = () => {
               </div>
             </div>
             {/* Verification History */}
-            {doctor.verificationHistory.length > 0 && (
-              <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
-                <h2 className="text-lg font-bold text-slate-900">
-                  Verification History
-                </h2>
-                <div className="space-y-3">
-                  {doctor.verificationHistory.map((history, idx) => (
-                    <div
-                      key={idx}
-                      className="border border-slate-200 rounded-lg overflow-hidden"
-                    >
-                      <button
-                        onClick={() =>
-                          setExpandedHistory(
-                            expandedHistory === idx ? null : idx,
-                          )
-                        }
-                        className="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100 transition-colors"
-                      >
-                        <div className="flex items-center gap-3 flex-1 text-left">
-                          <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              history.status === "rejected"
-                                ? "bg-red-100"
-                                : history.status === "approved"
-                                  ? "bg-green-100"
-                                  : "bg-yellow-100"
-                            }`}
-                          >
-                            {history.status === "rejected" && (
-                              <AlertCircle className="w-5 h-5 text-red-600" />
-                            )}
-                            {history.status === "approved" && (
-                              <CheckCircle className="w-5 h-5 text-green-600" />
-                            )}
-                            {history.status === "pending" && (
-                              <AlertCircle className="w-5 h-5 text-yellow-600" />
-                            )}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-slate-900 text-sm">
-                              {history.status === "rejected"
-                                ? "Rejected"
-                                : history.status === "approved"
-                                  ? "Approved"
-                                  : "Pending"}{" "}
-                              on {history.actedAt}
-                            </div>
-                            {/* <div className="text-xs text-slate-500">{history.submissionId}</div> */}
-                          </div>
-                        </div>
-                        {expandedHistory === idx ? (
-                          <ChevronUp className="w-5 h-5 text-slate-600 flex-shrink-0" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-slate-600 flex-shrink-0" />
-                        )}
-                      </button>
-
-                      {expandedHistory === idx && (
-                        <div
-                          className={`p-4 border-t border-slate-200 space-y-4 ${
-                            history.status === "rejected"
-                              ? "bg-red-50"
-                              : history.status === "approved"
-                                ? "bg-green-50"
-                                : "bg-yellow-50"
-                          }`}
-                        >
-                          {/* Submitted At */}
-                          <div>
-                            <h4 className="font-semibold text-slate-900 text-sm mb-2">
-                              Submitted At
-                            </h4>
-                            <p className="text-sm text-slate-700">
-                              {history.actedAt}
-                            </p>
-                          </div>
-
-                          {/* Approved/Rejected At */}
-                          {/* {history.actedAt && (
-                            <div>
-                              <h4 className="font-semibold text-slate-900 text-sm mb-2">
-                                {history.status === "rejected"
-                                  ? "Rejected At"
-                                  : "Approved At"}
-                              </h4>
-                              <p className="text-sm text-slate-700">
-                                {history.actedAt}
-                              </p>
-                            </div>
-                          )} */}
-
-                          {/* Rejection Reason */}
-                          {history.reason && (
-                            <div>
-                              <h4
-                                className={`font-semibold text-sm mb-2 ${
-                                  history.status === "rejected"
-                                    ? "text-red-900"
-                                    : "text-slate-900"
-                                }`}
-                              >
-                                {history.status === "rejected"
-                                  ? "Rejection Reason"
-                                  : "Comments"}
-                              </h4>
-                              <p
-                                className={`text-sm ${
-                                  history.status === "rejected"
-                                    ? "text-red-800"
-                                    : "text-slate-700"
-                                }`}
-                              >
-                                {history.reason}
-                              </p>
-                            </div>
-                          )}
-
-                          {/* Approved By */}
-                          {/* {history.approvedBy && ( */}
-
-                          {/* Documents Uploaded */}
-                          <div>
-                            <h4 className="font-semibold text-slate-900 text-sm mb-2">
-                              Documents Uploaded
-                            </h4>
-                            <div className="space-y-2">
-                              {history.documentUrl && (
-                                <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200">
-                                  <div className="w-8 h-8 bg-slate-200 rounded flex items-center justify-center flex-shrink-0">
-                                    <svg
-                                      className="w-4 h-4 text-slate-600"
-                                      fill="currentColor"
-                                      viewBox="0 0 20 20"
-                                    >
-                                      <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
-                                      <path
-                                        fillRule="evenodd"
-                                        d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
-                                        clipRule="evenodd"
-                                      />
-                                    </svg>
-                                  </div>
-                                  <span className="text-sm font-medium text-slate-700 flex-1">
-                                    Document
-                                  </span>
-                                  <button
-                                    onClick={() =>
-                                      showDocumentModal(
-                                        history.documentUrl as string,
-                                      )
-                                    }
-                                    className="text-blue-600 hover:text-blue-700 text-xs font-medium"
-                                  >
-                                    View
-                                  </button>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
           {/* Sidebar Actions */}
           <div className="space-y-4">
@@ -492,6 +353,174 @@ const AdminDoctorViewComponent = () => {
                     : "This doctor application has been rejected."}
               </p>
             </div>
+            {doctor.verificationHistory.length > 0 && (
+              <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4">
+                <h2 className="text-lg font-bold text-slate-900">
+                  Verification History
+                </h2>
+                <div className="space-y-3">
+                  {doctor.verificationHistory.map((history, idx) => (
+                    <div
+                      key={idx}
+                      className="border border-slate-200 rounded-lg overflow-hidden"
+                    >
+                      <button
+                        onClick={() =>
+                          setExpandedHistory(
+                            expandedHistory === idx ? null : idx,
+                          )
+                        }
+                        className="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100 transition-colors"
+                      >
+                        <div className="flex items-center gap-3 flex-1 text-left">
+                          <div
+                            className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                              history.status === "rejected"
+                                ? "bg-red-100"
+                                : history.status === "approved"
+                                  ? "bg-green-100"
+                                  : "bg-yellow-100"
+                            }`}
+                          >
+                            {history.status === "rejected" && (
+                              <AlertCircle className="w-5 h-5 text-red-600" />
+                            )}
+                            {history.status === "approved" && (
+                              <CheckCircle className="w-5 h-5 text-green-600" />
+                            )}
+                            {history.status === "pending" && (
+                              <AlertCircle className="w-5 h-5 text-yellow-600" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-slate-900 text-sm">
+                              {history.status === "rejected"
+                                ? "Rejected"
+                                : history.status === "approved"
+                                  ? "Approved"
+                                  : "Pending"}{" "}
+                              on{" "}
+                              {new Date(history.actedAt).toLocaleDateString()}
+                            </div>
+                            {/* <div className="text-xs text-slate-500">{history.submissionId}</div> */}
+                          </div>
+                        </div>
+                        {expandedHistory === idx ? (
+                          <ChevronUp className="w-5 h-5 text-slate-600 flex-shrink-0" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-slate-600 flex-shrink-0" />
+                        )}
+                      </button>
+
+                      {expandedHistory === idx && (
+                        <div
+                          className={`p-4 border-t border-slate-200 space-y-4 ${
+                            history.status === "rejected"
+                              ? "bg-red-50"
+                              : history.status === "approved"
+                                ? "bg-green-50"
+                                : "bg-yellow-50"
+                          }`}
+                        >
+                          {/* Submitted At */}
+                          <div>
+                            <h4 className="font-semibold text-slate-900 text-sm mb-2">
+                              Submitted At
+                            </h4>
+                            <p className="text-sm text-slate-700">
+                              {new Date(history.actedAt).toDateString()}
+                            </p>
+                          </div>
+
+                          {/* Approved/Rejected At */}
+                          {/* {history.actedAt && (
+                            <div>
+                              <h4 className="font-semibold text-slate-900 text-sm mb-2">
+                                {history.status === "rejected"
+                                  ? "Rejected At"
+                                  : "Approved At"}
+                              </h4>
+                              <p className="text-sm text-slate-700">
+                                {history.actedAt}
+                              </p>
+                            </div>
+                          )} */}
+
+                          {/* Rejection Reason */}
+                          {history.reason && (
+                            <div>
+                              <h4
+                                className={`font-semibold text-sm mb-2 ${
+                                  history.status === "rejected"
+                                    ? "text-red-900"
+                                    : "text-slate-900"
+                                }`}
+                              >
+                                {history.status === "rejected"
+                                  ? "Rejection Reason"
+                                  : "Comments"}
+                              </h4>
+                              <p
+                                className={`text-sm ${
+                                  history.status === "rejected"
+                                    ? "text-red-800"
+                                    : "text-slate-700"
+                                }`}
+                              >
+                                {history.reason}
+                              </p>
+                            </div>
+                          )}
+
+                          {/* Approved By */}
+                          {/* {history.approvedBy && ( */}
+
+                          {/* Documents Uploaded */}
+                          {history.documentUrl && (
+                            <div>
+                              <h4 className="font-semibold text-slate-900 text-sm mb-2">
+                                Documents Uploaded
+                              </h4>
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-3 p-2 bg-white rounded-lg border border-slate-200">
+                                  <div className="w-8 h-8 bg-slate-200 rounded flex items-center justify-center flex-shrink-0">
+                                    <svg
+                                      className="w-4 h-4 text-slate-600"
+                                      fill="currentColor"
+                                      viewBox="0 0 20 20"
+                                    >
+                                      <path d="M8 16.5a1 1 0 11-2 0 1 1 0 012 0zM15 7a2 2 0 11-4 0 2 2 0 014 0z" />
+                                      <path
+                                        fillRule="evenodd"
+                                        d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633z"
+                                        clipRule="evenodd"
+                                      />
+                                    </svg>
+                                  </div>
+                                  <span className="text-sm font-medium text-slate-700 flex-1">
+                                    Document
+                                  </span>
+                                  <button
+                                    onClick={() =>
+                                      showDocumentModal(
+                                        history.documentUrl as string,
+                                      )
+                                    }
+                                    className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                                  >
+                                    View
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -120,6 +120,18 @@ export interface IAppointmentRepository {
   getDashboardStatistics(
     period: BOOKING_PERIOD
   ): Promise<IAppointmentDashboardStatistics>;
+
+  getDoctorAppointmentStatusDistribution(doctorId: string): Promise<{
+    totalAppointments: number;
+    appointmentStatusDistribution: {
+      confirmed: number;
+      ongoing: number;
+      completed: number;
+      cancelled: number;
+      noShow: number;
+      expired: number;
+    };
+  }>;
 }
 
 export interface IAppointmentDashboardStatistics {

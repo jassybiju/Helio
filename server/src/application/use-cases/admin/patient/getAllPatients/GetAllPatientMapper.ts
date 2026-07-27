@@ -7,7 +7,7 @@ export class GetAllPatientsMapper {
     page: number,
     limit: number,
     totalCount: number,
-    getFileURL: (url : string)=>string
+    getFileURL: (url: string) => string
   ): IGetAllPatientsResponseDTO {
     return {
       totalCount,
@@ -15,11 +15,11 @@ export class GetAllPatientsMapper {
       page,
       patients: patients.map((x) => ({
         id: x.id,
-        fullName: `${x.firstName} ${x?.lastName ?? ''}`,
+        fullName: `${x.firstName} ${x?.lastName ?? ""}`,
         email: x.email,
         phone: x.phone,
         status: x.isBlocked ? "blocked" : ("active" as "blocked" | "active"),
-        profilePic : x.profilePicKey ? getFileURL(x.profilePicKey) : null,
+        profilePic: x.profilePicKey ? getFileURL(x.profilePicKey) : null,
         verificationStatus: x.isVerified,
         createdAt: x.createdAt.toISOString(),
         dob: x.dob?.toISOString() ?? null,

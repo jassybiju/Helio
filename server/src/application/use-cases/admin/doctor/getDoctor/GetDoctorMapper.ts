@@ -5,32 +5,45 @@ export class GetDoctorMapper {
   static toDto(
     doctor: Doctor,
     documentUrl: string | null,
-    verificationHistory: IGetDoctorResponseDTO["verificationHistory"]
+    verificationHistory: IGetDoctorResponseDTO["doctor"]["verificationHistory"],
+    totalAppointments: number,
+    appointmentStatusDistribution: {
+      confirmed: number;
+      ongoing: number;
+      completed: number;
+      cancelled: number;
+      noShow: number;
+      expired: number;
+    }
   ): IGetDoctorResponseDTO {
     return {
-      id: doctor.id,
-      email: doctor.email,
-      fullName: doctor.fullName,
+      doctor: {
+        id: doctor.id,
+        email: doctor.email,
+        fullName: doctor.fullName,
 
-      gender: doctor.gender,
-      specialization: doctor.specialization,
-      careerStartYear: doctor.careerStartYear,
-      bio: doctor.bio,
+        gender: doctor.gender,
+        specialization: doctor.specialization,
+        careerStartYear: doctor.careerStartYear,
+        bio: doctor.bio,
 
-      verificationStatus: doctor.verificationStatus,
-      rejectionReason: doctor.rejectionReason,
-      documentUrl,
-      additionalInfo: doctor.additionalInfo,
-      onlineFee: doctor.onlineFee,
-      clinicFee: doctor.clinicFee,
+        verificationStatus: doctor.verificationStatus,
+        rejectionReason: doctor.rejectionReason,
+        documentUrl,
+        additionalInfo: doctor.additionalInfo,
+        onlineFee: doctor.onlineFee,
+        clinicFee: doctor.clinicFee,
 
-      isVerified: doctor.isVerified,
-      isBlocked: doctor.isBlocked,
+        isVerified: doctor.isVerified,
+        isBlocked: doctor.isBlocked,
 
-      verificationHistory,
+        verificationHistory,
 
-      createdAt: doctor.createdAt.toISOString(),
-      updatedAt: doctor.updatedAt.toISOString(),
+        createdAt: doctor.createdAt.toISOString(),
+        updatedAt: doctor.updatedAt.toISOString(),
+      },
+      totalAppointments,
+      appointmentStatusDistribution,
     };
   }
 }

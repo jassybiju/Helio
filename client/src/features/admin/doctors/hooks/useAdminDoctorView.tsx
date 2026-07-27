@@ -25,8 +25,8 @@ export const useAdminDoctorView = (id: string) => {
   const handleToggleBlock = () => {
     open(ConfirmModal, {
       onConfirm: () => toggleDoctorStatus(id),
-      message: `Are you sure you want to ${!data?.data.isBlocked ? "block" : "unblock"} doctor`,
-      title: `${!data?.data.isBlocked ? "Block" : "Unblock"} Doctor`,
+      message: `Are you sure you want to ${!data?.data.doctor.isBlocked ? "block" : "unblock"} doctor`,
+      title: `${!data?.data.doctor.isBlocked ? "Block" : "Unblock"} Doctor`,
     });
   };
 
@@ -45,8 +45,32 @@ export const useAdminDoctorView = (id: string) => {
   const showDocumentModal = (url: string) => {
     open(ViewPDFModal, { file: url, title: "Document" });
   };
+
+  const appointmentStatus = data?.data.appointmentStatusDistribution
+  const appointmentStatusData = [
+    {
+      name: "Confirmed",
+      value: appointmentStatus?.confirmed,
+      color: "#3b82f6",
+    },
+    {
+      name: "Completed",
+      value: appointmentStatus?.completed,
+      color: "#10b981",
+    },
+    { name: "Ongoing", value: appointmentStatus?.ongoing, color: "#8b5cf6" },
+    // { name: "No Show", value: appointmentStatus?.noShow, color: "#f59e0b" },
+    { name: "Expired", value: appointmentStatus?.expired, color: "#6b7280" },
+    {
+      name: "Cancelled",
+      value: appointmentStatus?.cancelled,
+      color: "#ef4444",
+    },
+  ];
   return {
-    doctor: data?.data as DoctorView,
+    doctor: data?.data.doctor as DoctorView["doctor"],
+    totalAppointments: data?.data.totalAppointments,
+    appointmentStatusData,
     showDocumentModal,
     isLoading,
     expandedHistory,

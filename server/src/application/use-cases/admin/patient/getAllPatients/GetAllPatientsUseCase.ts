@@ -15,7 +15,7 @@ export class GetAllPatientsUseCase implements IGetAllPatientsUseCase {
   constructor(
     private readonly _logger: ILogger,
     private readonly _patientRepo: IPatientRepository,
-    private readonly _fileUpload : IFileUpload,
+    private readonly _fileUpload: IFileUpload
   ) {}
   async execute(
     input: IGetAllPatientsRequestDTO
@@ -49,6 +49,12 @@ export class GetAllPatientsUseCase implements IGetAllPatientsUseCase {
     const { patients, totalCount } =
       await this._patientRepo.findAllWithFilters(filter);
 
-    return GetAllPatientsMapper.toDto(patients, page, limit, totalCount,this._fileUpload.getFileUrl);
+    return GetAllPatientsMapper.toDto(
+      patients,
+      page,
+      limit,
+      totalCount,
+      this._fileUpload.getFileUrl
+    );
   }
 }

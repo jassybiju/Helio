@@ -10,6 +10,15 @@ export type GetDoctorUseCaseResult = {
     documentUrl: string | null;
     actedAt: string;
   }[];
+  totalAppointments: number;
+  appointmentStatusDistribution: {
+    confirmed: number;
+    ongoing: number;
+    completed: number;
+    cancelled: number;
+    noShow: number;
+    expired: number;
+  };
 };
 
 export interface IGetDoctorUseCase {
