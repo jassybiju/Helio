@@ -8,6 +8,7 @@ import { useModal } from "@/src/hooks/useModal";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import Link from "next/link";
 import { useDebounce } from "@/src/hooks/useDebounce";
+import Image from "next/image";
 
 export const useAdminPatient = () => {
   const limit = 2;
@@ -16,7 +17,7 @@ export const useAdminPatient = () => {
     limit,
     isVerified: null,
   });
-  const debouncedSearch = useDebounce(filter)
+  const debouncedSearch = useDebounce(filter);
   const { open } = useModal();
   const { data } = usePatientsQuery(debouncedSearch);
   const { mutate } = useToggleBlockPatient();
@@ -42,8 +43,19 @@ export const useAdminPatient = () => {
       title: "Patient",
       render: (_value, row) => (
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-            {row.fullName[0]}
+          <div className="w-10 h-10  overflow-hidden relative bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+            {row.profilePic ? (
+              <Image
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="100vw"
+                alt="Profile"
+                className="h-full w-full object-cover"
+                src={row.profilePic}
+              />
+            ) : (
+              row.fullName[0]
+            )}
           </div>
           <div>
             <p className="text-sm font-medium text-slate-900">{row.fullName}</p>

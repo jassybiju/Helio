@@ -22,6 +22,7 @@ export type IGetAllPatientsResponseDTO = {
     verificationStatus: boolean;
     createdAt: string;
     phone: string | null;
+    profilePic : string | null;
     blood_group: BLOOD_GROUP | null;
     dob: string | null;
     gender: GENDER | null;

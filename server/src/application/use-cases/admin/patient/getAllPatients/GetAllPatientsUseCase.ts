@@ -9,11 +9,13 @@ import type {
   IPatientRepository,
 } from "@application/ports/repositories/IPatientRepository.ts";
 import { GetAllPatientsMapper } from "./GetAllPatientMapper.ts";
+import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
 
 export class GetAllPatientsUseCase implements IGetAllPatientsUseCase {
   constructor(
     private readonly _logger: ILogger,
-    private readonly _patientRepo: IPatientRepository
+    private readonly _patientRepo: IPatientRepository,
+    private readonly _fileUpload : IFileUpload,
   ) {}
   async execute(
     input: IGetAllPatientsRequestDTO
@@ -47,6 +49,6 @@ export class GetAllPatientsUseCase implements IGetAllPatientsUseCase {
     const { patients, totalCount } =
       await this._patientRepo.findAllWithFilters(filter);
 
-    return GetAllPatientsMapper.toDto(patients, page, limit, totalCount);
+    return GetAllPatientsMapper.toDto(patients, page, limit, totalCount,this._fileUpload.getFileUrl);
   }
 }

@@ -6,7 +6,8 @@ export class GetAllPatientsMapper {
     patients: Patient[],
     page: number,
     limit: number,
-    totalCount: number
+    totalCount: number,
+    getFileURL: (url : string)=>string
   ): IGetAllPatientsResponseDTO {
     return {
       totalCount,
@@ -18,6 +19,7 @@ export class GetAllPatientsMapper {
         email: x.email,
         phone: x.phone,
         status: x.isBlocked ? "blocked" : ("active" as "blocked" | "active"),
+        profilePic : x.profilePicKey ? getFileURL(x.profilePicKey) : null,
         verificationStatus: x.isVerified,
         createdAt: x.createdAt.toISOString(),
         dob: x.dob?.toISOString() ?? null,

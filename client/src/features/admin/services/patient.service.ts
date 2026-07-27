@@ -8,6 +8,7 @@ export type Patients = {
   email: string;
   status: "active" | "blocked";
   verificationStatus: boolean;
+  profilePic : string | null;
   createdAt: string;
   dob: string;
   gender: string;
