@@ -44,7 +44,7 @@ export const useAdminDoctor = () => {
       title: "Doctor",
       render: (_value, row) => (
         <div className="flex items-center gap-3">
-          <div className="relative w-10 h-10 bg-gradient-to-br from-blue-400 overflow-hidden to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+          <div className="relative w-10 h-10 bg-gradient-to-br shrink-0 from-blue-400 overflow-hidden to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
             {row.profilePic ? (
               <Image
               alt=""

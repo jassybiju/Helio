@@ -43,7 +43,7 @@ export const useAdminPatient = () => {
       title: "Patient",
       render: (_value, row) => (
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10  overflow-hidden relative bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+          <div className="w-10 h-10  overflow-hidden shrink-0 relative bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
             {row.profilePic ? (
               <Image
                 fill
