@@ -9,9 +9,10 @@ export type ColumnType<T> = {
 type Props<T> = {
   columns: ColumnType<T>;
   data?: T[];
+  noDataMessage? : string
 };
 
-const TableComponent = <T,>({ data = [], columns }: Props<T>) => {
+const TableComponent = <T,>({ data = [], columns,noDataMessage }: Props<T>) => {
   return (
     <div className="bg-white rounded-lg border text-black border-slate-200 overflow-hidden">
       <div className="w-full overflow-x-auto">
@@ -51,7 +52,7 @@ const TableComponent = <T,>({ data = [], columns }: Props<T>) => {
               ))
             ) : (
               <tr>
-                <td>No </td>
+                <td className="text-center" colSpan={columns.length}>{noDataMessage ? noDataMessage : 'NO Data'} </td>
               </tr>
             )}
           </tbody>

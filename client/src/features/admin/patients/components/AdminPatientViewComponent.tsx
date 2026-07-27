@@ -118,7 +118,7 @@ const AdminPatientViewComponent = () => {
                 Appointment Details
               </h2>
               <div className=" gap-6">
-                <TableComponent columns={column} data={appointments}/>
+                <TableComponent noDataMessage="No Appointments" columns={column} data={appointments}/>
               </div>
             </div>
           </div>

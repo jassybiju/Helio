@@ -18,7 +18,7 @@ const UpdatePatientProfileModal = ({ close }: ModalProps) => {
   const { mutate: updateProfile, isPending: isSubmitting } =
     useUpdatePatientProfileMutation(close);
   const toISO = (date: string) => {
-    const [d, m, y] = date.split("/");
+    const [m, d, y] = date.split("/");
     return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
   };
   const {

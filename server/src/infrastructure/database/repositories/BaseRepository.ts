@@ -77,7 +77,7 @@ export abstract class BaseRepository<
       .limit(limit ?? 0)
       .lean()
       .session(this._session);
-      
+
     return docs.map((x) => map(x));
   }
 

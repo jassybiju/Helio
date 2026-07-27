@@ -14,7 +14,7 @@ export class GetAllPatientsMapper {
       page,
       patients: patients.map((x) => ({
         id: x.id,
-        fullName: `${x.firstName} ${x.lastName}`,
+        fullName: `${x.firstName} ${x?.lastName ?? ''}`,
         email: x.email,
         phone: x.phone,
         status: x.isBlocked ? "blocked" : ("active" as "blocked" | "active"),

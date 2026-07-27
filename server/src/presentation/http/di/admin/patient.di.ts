@@ -8,7 +8,7 @@ import { AppointmentRepository } from "@infrastructure/database/repositories/App
 
 const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
-const appointmentRepo = new AppointmentRepository(loggerService)
+const appointmentRepo = new AppointmentRepository(loggerService);
 
 const getAllPatientsUseCase = new GetAllPatientsUseCase(
   loggerService,
@@ -19,7 +19,11 @@ const toggleBlockPatientUseCase = new ToggleBlockPatientUseCase(
   loggerService,
   patientRepo
 );
-const getPatientUsecase = new GetPatientUseCase(loggerService, patientRepo,appointmentRepo);
+const getPatientUsecase = new GetPatientUseCase(
+  loggerService,
+  patientRepo,
+  appointmentRepo
+);
 export const adminPatientController = new AdminPatientController(
   getAllPatientsUseCase,
   getPatientUsecase,

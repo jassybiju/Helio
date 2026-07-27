@@ -29,6 +29,10 @@ export class GetPatientUseCase implements IGetPatientUseCase {
       limit: 5,
       order: "desc",
     });
-    return GetPatientMapper.toDto(patient, appointments.appointments, appointments.totalCount);
+    return GetPatientMapper.toDto(
+      patient,
+      appointments.appointments,
+      appointments.totalCount
+    );
   }
 }

@@ -7,7 +7,7 @@ export class GetPatientMapper {
   static toDto(
     patient: Patient,
     appointments: DoctorAppointmentListItem[],
-    totalCount : number
+    totalCount: number
   ): IGetPatientResponseDTO {
     return {
       patient: {
@@ -32,7 +32,7 @@ export class GetPatientMapper {
         paymentStatus: app.appointment.paymentStatus,
         createdAt: app.appointment.createdAt.toISOString(),
       })),
-      totalAppointments : totalCount
+      totalAppointments: totalCount,
     };
   }
 }
