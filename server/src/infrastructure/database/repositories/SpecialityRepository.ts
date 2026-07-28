@@ -48,7 +48,7 @@ export class SpecialtyRepository implements ISpecialityRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await SpecialtyModel.deleteOne({ _id: id });
+    await SpecialtyModel.updateOne({ _id: id }, { $set: { is_deleted: true } });
   }
 
   async findMany(filters: { page?: number; limit?: number }): Promise<{
