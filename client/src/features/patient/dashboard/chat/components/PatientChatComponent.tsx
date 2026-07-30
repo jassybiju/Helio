@@ -4,57 +4,34 @@ import ConsultationChat from "@/src/features/shared/chat/components/Consultation
 import ConsultationChatList from "@/src/features/shared/chat/components/ConsultationChatList";
 import React, { useState } from "react";
 import { usePatientChat } from "../hooks/usePatientChat";
+import { useParams, useRouter } from "next/navigation";
 
 const PatientChatComponent = () => {
-  const [showChat, setShowChat] = useState(false);
-
+  const router = useRouter()
+  const {id} = useParams<{id : string }>()
   const {
     chatList,
-    activeSessionId,
-    setActiveSessionId,
     chatData,
     onSendMessage,
     sendeeData,
     isExpired,
-  } = usePatientChat();
+  } = usePatientChat(id);
+  if (!chatData) {
+    return <div className="flex h-full items-center justify-center">Loading...</div>;
+  }
 
   return (
-    <>
-      <div className="flex h-full w-full">
-        {/* Sidebar */}
-        <div
-          className={`
-          w-full lg:w-[340px] lg:block
-          ${showChat ? "hidden lg:block" : "block"}
-        `}
-        >
-          {" "}
-          <ConsultationChatList
-            list={chatList!}
-            activeId={activeSessionId}
-            setActiveId={(id)=>{setActiveSessionId(id) ; setShowChat(true)}}
-            baseUrl="/patient/dashboard/consultation-chat"
-          />
-        </div>
- <div
-          className={` flex-1 ${showChat ? "flex" : "hidden lg:flex"} flex-col `}
-        >
-        {activeSessionId && !chatData ? (
-          "LOADING"
-        ) : (
-          <ConsultationChat
-            onBack={() => setShowChat(false)}
-            onSendMessage={onSendMessage}
-            chatData={chatData}
-            sendeeData={sendeeData}
-            chatId={activeSessionId}
-            userType="patient"
-            consultationStatus={!isExpired ? "active" : "expired"}
-          />
-        )}
-        </div>
-      </div>
-    </>
+    <div className="flex h-full w-full flex-col">
+      <ConsultationChat
+      onBack={()=>router.push('/dashboard/ead chat')}
+        onSendMessage={onSendMessage}
+        chatData={chatData}
+        sendeeData={sendeeData}
+        chatId={id}
+        userType="patient"
+        consultationStatus={isExpired ? "expired" : "active"}
+      />
+    </div>
   );
 };
 

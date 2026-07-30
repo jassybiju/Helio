@@ -1,13 +1,7 @@
-
-import DoctorChatComponent from "@/src/features/doctor/dashboard/chat/components/DoctorChatComponent";
-
-export default function ConsultationChatPage() {
+export default function DoctorChatDefaultPage() {
   return (
-    <div className="h-[calc(100vh-140px)] overflow-hidden rounded-lg border border-slate-200 bg-white">
-      <div className="flex h-full">
-        <DoctorChatComponent />
-      </div>
+    <div className="flex flex-1 items-center justify-center text-muted-foreground">
+      Select a conversation
     </div>
   );
 }
-``;

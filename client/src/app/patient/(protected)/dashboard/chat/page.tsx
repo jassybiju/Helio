@@ -1,12 +1,7 @@
-import PatientChatComponent from '@/src/features/patient/dashboard/chat/components/PatientChatComponent'
-
-const PatientChatPage = () => {
+export default function PatientChatDefaultPage() {
   return (
-    <div className="h-[calc(100vh-140px)] overflow-hidden rounded-lg border border-slate-200 bg-white">
-      <div className="flex h-full">
-        <PatientChatComponent />
-      </div>
-    </div>  )
+    <div className="flex flex-1 items-center justify-center text-muted-foreground">
+      Select a conversation
+    </div>
+  );
 }
-
-export default PatientChatPage

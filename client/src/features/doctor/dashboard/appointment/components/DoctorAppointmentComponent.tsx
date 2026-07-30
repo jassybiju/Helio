@@ -49,57 +49,57 @@ const DoctorAppointmentComponent = () => {
           />
         </div>
         {/* Filter Controls */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-stretch lg:items-center gap-3">
+        <div className=" flex flex-col gap-3">
           <span className="text-xs sm:text-sm font-semibold text-slate-600 uppercase">
             Filters
           </span>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <input
+              type="date"
+              value={dateFilter}
+              onChange={(e) => {
+                setDateFilter(e.target.value);
+                setPage(1);
+              }}
+              className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
 
-          <input
-            type="date"
-            value={dateFilter}
-            onChange={(e) => {
-              setDateFilter(e.target.value);
-              setPage(1);
-            }}
-            className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            <select
+              value={statusFilter ?? ""}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  return setStatusFilter(undefined);
+                }
 
-          <select
-            value={statusFilter ?? ""}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                return setStatusFilter(undefined);
-              }
+                setStatusFilter(e.target.value as APPOINTMENT_STATUS);
+                setPage(1);
+              }}
+              className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value={""}>All Status</option>
+              <option value="CONFIRMED">Confirmed</option>
+              <option value="ONGOING">Ongoing</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="CANCELLED">Cancelled</option>
+              <option value="NO_SHOW">No-Show</option>
+            </select>
 
-              setStatusFilter(e.target.value as APPOINTMENT_STATUS);
-              setPage(1);
-            }}
-            className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value={""}>All Status</option>
-            <option value="CONFIRMED">Confirmed</option>
-            <option value="ONGOING">Ongoing</option>
-            <option value="COMPLETED">Completed</option>
-            <option value="CANCELLED">Cancelled</option>
-            <option value="NO_SHOW">No-Show</option>
-          </select>
-
-          <select
-            value={typeFilter ?? ""}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                return setTypeFilter(undefined);
-              }
-              setTypeFilter(e.target.value as CONSULTATION_TYPE);
-              setPage(1);
-            }}
-            className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">All Types</option>
-            <option value="ONLINE">Online</option>
-            <option value="CLINIC">In-Person</option>
-          </select>
-
+            <select
+              value={typeFilter ?? ""}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  return setTypeFilter(undefined);
+                }
+                setTypeFilter(e.target.value as CONSULTATION_TYPE);
+                setPage(1);
+              }}
+              className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">All Types</option>
+              <option value="ONLINE">Online</option>
+              <option value="CLINIC">In-Person</option>
+            </select>
+          </div>
           <button
             onClick={() => {
               setSearchQuery("");
@@ -108,7 +108,7 @@ const DoctorAppointmentComponent = () => {
               setDateFilter("");
               setPage(1);
             }}
-            className="w-full sm:w-auto px-4 py-3 text-blue-600 font-medium text-sm hover:bg-blue-50 rounded-lg transition border border-transparent hover:border-blue-100"
+            className="w-full self-end sm:w-auto px-4 py-3 text-blue-600 font-medium text-sm hover:bg-blue-50 rounded-lg transition border border-transparent hover:border-blue-100"
           >
             Clear Filters
           </button>

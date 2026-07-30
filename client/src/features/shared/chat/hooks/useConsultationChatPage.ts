@@ -10,16 +10,16 @@ import { ChatListType, ChatMessageType, ChatType } from "../types/chat.type";
 import { APIResponse } from "@/src/types/API.types";
 
 export function useConsultationChatPage({
+  activeSessionId,
   userType,
   useChatListQuery,
   useChatQuery,
   useSendMessageMutation,
 }: {
+  activeSessionId: string | null;
   userType: USER_ROLES;
   useChatListQuery: () => UseQueryResult<APIResponse<ChatListType>>;
-  useChatQuery: (
-    id: string | null,
-  ) => UseQueryResult<APIResponse<ChatType>>;
+  useChatQuery: (id: string | null) => UseQueryResult<APIResponse<ChatType>>;
   useSendMessageMutation: (
     id: string | null,
   ) => UseMutationResult<
@@ -29,8 +29,6 @@ export function useConsultationChatPage({
     unknown
   >;
 }) {
-  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
-
   const { data: chatListRes } = useChatListQuery();
   const { data: chatRes } = useChatQuery(activeSessionId);
   const { mutate: sendMessage } = useSendMessageMutation(activeSessionId);
@@ -65,9 +63,9 @@ export function useConsultationChatPage({
         ["chat-list"],
         (old: { data: ChatListType } | undefined) => {
           if (!old) return old;
-          prevMessage = old.data.chats.active.find(
-            (chat) => chat.id === activeSessionId,
-          )?.message ?? '';
+          prevMessage =
+            old.data.chats.active.find((chat) => chat.id === activeSessionId)
+              ?.message ?? "";
           return {
             ...old,
             data: {
@@ -151,8 +149,7 @@ export function useConsultationChatPage({
     chatList: chatListRes?.data,
     chatData: chatRes?.data?.chats,
     sendeeData: chatRes?.data?.sendee,
-    activeSessionId,
-    setActiveSessionId,
+
     isExpired: chatRes?.data?.isExpired,
     onSendMessage: handleSendMessage,
   };

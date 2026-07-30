@@ -5,20 +5,23 @@ services:
     image: mongo:6
     container_name: mongo_db
     command: >
-      bash -c "
-        chmod 600 /etc/mongo-keyfile &&
-        mongod --replSet rs0 --bind_ip_all --keyFile /etc/mongo-keyfile
-      "
+      mongod --replSet rs0 --keyFile /etc/mongo-keyfile --bind_ip_all --port 27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret
     ports:
       - "27017:27017"
     volumes:
-      - type: bind
-        source: ./mongo-keyfile
-        target: /etc/mongo-keyfile      
+      - ./mongo-keyfile:/etc/mongo-keyfile:ro
       - mongo_data:/data/db
+      - mongo_config:/data/configdb
+
+    restart: always
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'mongo:27017'}]}) }" | mongosh --port 27017 -u admin -p secret --authenticationDatabase admin
+      interval: 10s
+      timeout: 5s
+      retries: 2
 
   redis:
     image: redis:7
@@ -43,8 +46,10 @@ services:
       - '5000:5000'
     command: sh -c "npm run eslint-fix && npm run dev"
     depends_on:
-      - redis
       - mongo
+      - redis
+      
+
   worker:
     build:
       context: ./server
@@ -58,6 +63,8 @@ services:
     command: npx tsx src/workers/emailWorker.ts
     depends_on:
       - redis
+      - backend
+
   frontend:
     build:
       context: ./client
@@ -83,6 +90,9 @@ services:
       - "6333:6333"
 
 volumes:
+  mongo_config:
+    name: my_mongo_config
+
   mongo_data:
     name: my_mongo_data
 
