@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ClipboardPlus,
   DollarSign,
   LayoutGrid,
   LogOut,
@@ -18,10 +19,10 @@ const menuItems = [
   { label: "Dashboard", href: "/", icon: LayoutGrid },
   { label: "Patients", href: "/patients", icon: Users },
   { label: "Doctors", href: "/doctor", icon: Stethoscope },
-  { label: "Specialty", href: "/specialty", icon: DollarSign },
-  { label: "Wallet", href: "/wallet", icon: DollarSign },
+  { label: "Specialty", href: "/specialty", icon: ClipboardPlus },
+  { label: "Revenue", href: "/wallet", icon: DollarSign },
   // { label: "Revenue", href: "/revenue", icon: DollarSign },
-  { label: "Settings", href: "/settings", icon: Settings },
+  // { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 const AdminSidebar = () => {
