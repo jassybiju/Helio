@@ -71,7 +71,6 @@ export class ConsultationRepository
         $ne: excludeConsultationId,
       };
     }
-
     return await super.find(
       query,
       {
@@ -83,6 +82,11 @@ export class ConsultationRepository
       },
       ConsultationMapper.toDomain
     );
+  }
+
+  async countAllPatientHistory(patientId: string): Promise<number> {
+    const query = { patient_id: patientId };
+    return await super.count(query);
   }
 
   async findLatestPatientConsultation(

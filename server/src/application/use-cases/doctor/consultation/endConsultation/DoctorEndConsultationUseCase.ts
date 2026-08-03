@@ -80,11 +80,11 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
             id: chatSessionId,
             patientId: appointment.patientId,
             doctorId: appointment.doctorId,
-            period: consultation.medicationPeriod,
+            period: 2,
           });
         } else {
           shouldUpdateChatSession = true;
-          chatSession.updateExpiry(consultation.medicationPeriod);
+          chatSession.updateExpiry(2);
         }
       }
       consultation.end();

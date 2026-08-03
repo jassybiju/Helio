@@ -17,6 +17,8 @@ export interface IConsultationRepository {
     excludeConsultationId?: string
   ): Promise<Consultation[]>;
 
+  countAllPatientHistory(patientId: string): Promise<number>;
+
   findLatestPatientConsultation(
     patientId: string,
     excludeConsultationId?: string

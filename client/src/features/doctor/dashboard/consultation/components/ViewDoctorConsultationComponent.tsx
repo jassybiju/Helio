@@ -18,12 +18,15 @@ import useDoctorConsultation, {
 } from "../hooks/useDoctorConsultation";
 import { CONSULTATION_TYPE } from "@/src/types/appointment.types";
 import VideoCall from "@/src/components/VideoCall";
+import Pagination from "@/src/components/Pagination";
 
 const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
   const {
     consultationData,
     isError,
     history,
+    historyPage,
+    historyTotalPages,
     handleCompleteConsultation,
     setActiveTab,
     activeTab,
@@ -36,6 +39,7 @@ const ViewDoctorConsultationComponent = ({ id }: { id: string }) => {
     handleRemoveLabTest,
     viewHistoryDetails,
     handleUpdateNotes,
+    setHistoryPage
   } = useDoctorConsultation(id);
 
   const router = useRouter();
@@ -417,7 +421,7 @@ font-semibold
             {/* Medical History Tab */}
             {activeTab === "history" && (
               <div className="space-y-4 order-2 lg:order-1">
-                <div className="flex flex-col sm:flex-row gap-4">
+                {/* <div className="flex flex-col sm:flex-row gap-4">
                   {" "}
                   <input
                     type="text"
@@ -427,7 +431,7 @@ font-semibold
                   <select className="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option>All Records</option>
                   </select>
-                </div>
+                </div> */}
 
                 <div className="overflow-x-auto ">
                   <table className="w-full">
@@ -454,7 +458,7 @@ font-semibold
                       </tr>
                     </thead>
                     <tbody>
-                      {history?.consultation.map((h, i) => (
+                      {history?.history.map((h, i) => h.type === 'CONSULTATION' ?(
                         <tr
                           key={i}
                           className="border-b border-slate-200 hover:bg-slate-50"
@@ -481,17 +485,13 @@ font-semibold
                           <td
                             className="px-6 py-4 flex gap-2"
                             onClick={() =>
-                              viewHistoryDetails({
-                                type: "consultation",
-                                data: h,
-                              })
+                              viewHistoryDetails(h)
                             }
                           >
                             <Eye className="w-4 h-4 text-slate-600" />
                           </td>
                         </tr>
-                      ))}
-                      {history?.labReport.map((h, i) => (
+                      ) :( 
                         <tr
                           key={i}
                           className="border-b border-slate-200 hover:bg-slate-50"
@@ -521,10 +521,7 @@ font-semibold
                           <td
                             className="px-6 py-4 flex gap-2"
                             onClick={() =>
-                              viewHistoryDetails({
-                                type: "lab",
-                                data: h,
-                              })
+                              viewHistoryDetails(h)
                             }
                           >
                             <Eye className="w-4 h-4 text-slate-600" />
@@ -582,9 +579,8 @@ font-semibold
                     </tbody>
                   </table>
                 </div>
-                <p className="text-sm text-slate-600">
-                  Showing 1 to 4 of 24 records
-                </p>
+                <Pagination currentPage={historyPage} totalPages={historyTotalPages} onPageChange={(page)=>setHistoryPage(page)}/>
+             
               </div>
             )}
             {/* Today's Prescription Tab */}

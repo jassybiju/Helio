@@ -8,7 +8,7 @@ export const AddLabReportModal = ({close ,id} : ModalProps & {id : string}) => {
   // const [error, setError] = useState();
   const {mutate} = useDoctorAddTestMutation(id)
   const handleAddTest = () => {
-    mutate({testName : test.name, instructions : test.instructions})
+    mutate({testName : test.name, instructions : test.instructions},{onSuccess : ()=>close()})
   }
 
   const handleCloseTestModal = () => close()

@@ -1,5 +1,6 @@
 import { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
 import { model, Schema, type InferSchemaType } from "mongoose";
+import { string } from "zod";
 
 export const labReportSchema = new Schema({
   _id: { type: String, required: true },

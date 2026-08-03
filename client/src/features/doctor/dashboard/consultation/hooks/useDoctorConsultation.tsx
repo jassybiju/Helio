@@ -13,15 +13,12 @@ import { useDoctorRemovePrescription } from "./useDoctorRemovePrescriptionMutati
 import { AddLabReportModal } from "../components/AddLabReportModal";
 import { useDoctorViewHistoryQuery } from "./useDoctorViewHistoryQuery";
 import { useDoctorCompleteConsultationMutation } from "./useDoctorCompleteConsultationMutation";
-import {
-  ConsultationHistoryDetail,
-  LabHistoryDetail,
-} from "../../../services/consultation.service";
 import ViewHistoryDetailModal from "../components/ViewHistoryDetailModal";
 import { socket } from "@/src/libs/socket";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import useDoctorRemoveTestMutation from "./useDoctorRemoveTestMutation";
+import { IDoctorViewHistory } from "../../../services/consultation.service";
 
 interface LabTest {
   id: string;
@@ -56,12 +53,15 @@ type ConsultationForm = {
   clinicalObservation: string;
 };
 
+const LIMIT = 1
 const useDoctorConsultation = (id: string) => {
   const router = useRouter();
 
   const { open } = useModal();
 
   const [activeTab, setActiveTab] = useState<TAB_TYPES>("overview");
+
+  const [historyPage, setHistoryPage] = useState(1);
 
   const [isEditingVitals, setIsEditingVitals] = useState(false);
 
@@ -97,7 +97,11 @@ const useDoctorConsultation = (id: string) => {
   const { mutate: updateNotes } = useDoctorConsultationNotesMutation(id);
   const { mutate: removeMedicine } = useDoctorRemovePrescription(id);
   const { mutate: removeTest } = useDoctorRemoveTestMutation(id);
-  const { data: history } = useDoctorViewHistoryQuery(id);
+  const { data: history } = useDoctorViewHistoryQuery({
+    id,
+    page: historyPage,
+    limit: LIMIT,
+  });
   const { mutate: endConsultaiton } = useDoctorCompleteConsultationMutation(id);
   const consultationData = data?.data;
 
@@ -330,7 +334,7 @@ const useDoctorConsultation = (id: string) => {
   };
 
   const viewHistoryDetails = (
-    payload: ConsultationHistoryDetail | LabHistoryDetail,
+    payload: IDoctorViewHistory["history"][number],
   ) => {
     open(ViewHistoryDetailModal, { data: payload });
   };
@@ -348,6 +352,10 @@ const useDoctorConsultation = (id: string) => {
     });
   };
 
+  const historyTotalCount = history?.data.pagination.totalCount ?? 0;
+
+  const historyTotalPages = Math.ceil(historyTotalCount / (LIMIT * 2));
+  console.log(historyTotalCount, historyTotalPages);
   return {
     /**
      * QUERY
@@ -355,6 +363,9 @@ const useDoctorConsultation = (id: string) => {
     consultationData,
     isError,
     history: history?.data,
+    historyPage,
+    historyTotalPages,
+    setHistoryPage,
 
     /**
      * FORM

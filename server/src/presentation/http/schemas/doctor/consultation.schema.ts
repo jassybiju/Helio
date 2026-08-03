@@ -45,3 +45,16 @@ export const doctorUpdateConsultationNotes = z.object({
       }
     ),
 });
+
+export const doctorViewHistorySchema = z.object({
+  query: z.object({
+    page: z
+      .string()
+      .optional()
+      .transform((val) => (val ? Number(val) : 1)),
+    limit: z
+      .string()
+      .optional()
+      .transform((val) => (val ? Number(val) : 10)),
+  }),
+});

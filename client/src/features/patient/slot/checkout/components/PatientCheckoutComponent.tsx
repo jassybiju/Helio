@@ -273,7 +273,7 @@ const PatientCheckoutComponent = () => {
               )}
 
               {/* RAZORPAY Details */}
-              {selectedPayment === "RAZORPAY" && (
+              {/* {selectedPayment === "RAZORPAY" && (
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-semibold text-slate-900 mb-2">
@@ -337,7 +337,7 @@ const PatientCheckoutComponent = () => {
                     </label>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Pay Button */}
               <button

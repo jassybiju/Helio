@@ -82,7 +82,7 @@ export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppo
         queue: i,
         type: appointment.consultationType,
         status: appointment.status,
-        time: utcToIst(appointment.startTime),
+        time: appointment.startTime,
       };
     };
 

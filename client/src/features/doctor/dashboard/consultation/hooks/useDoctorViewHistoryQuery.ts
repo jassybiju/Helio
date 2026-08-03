@@ -1,9 +1,17 @@
-import { useQuery } from "@tanstack/react-query"
-import { doctorConsultationService } from "../../../services/consultation.service"
+import { useQuery } from "@tanstack/react-query";
+import { doctorConsultationService } from "../../../services/consultation.service";
 
-export const useDoctorViewHistoryQuery = (id : string) => {
+export const useDoctorViewHistoryQuery = ({
+  id,
+  page,
+  limit,
+}: {
+  id: string;
+  page: number;
+  limit: number;
+}) => {
   return useQuery({
-    queryKey : ['consultation-history'],
-    queryFn:()=> doctorConsultationService.viewHistory(id)
-  })
-}
+    queryKey: ["consultation-history", page, limit],
+    queryFn: () => doctorConsultationService.viewHistory(id, page, limit),
+  });
+};

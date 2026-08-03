@@ -235,10 +235,19 @@ export class ConsultationController {
     }
   };
 
-  viewHistory = async (req: Request, res: Response, next: NextFunction) => {
+  viewHistory = async (
+    req: Request<
+      { appointmentId: string },
+      unknown,
+      unknown,
+      { page: number; limit: number }
+    >,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const doctorId = req.user?.id;
-
+      const { page, limit } = req.query;
       if (!doctorId) {
         throw new NotFoundError(MESSAGE.DOCTOR_NOT_FOUND);
       }
@@ -246,7 +255,9 @@ export class ConsultationController {
       const { appointmentId } = req.params;
       const response = await this._viewHistory.execute(
         doctorId,
-        appointmentId as string
+        appointmentId as string,
+        page,
+        limit
       );
 
       return apiResponse(

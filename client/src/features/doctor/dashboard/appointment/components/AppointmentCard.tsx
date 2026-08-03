@@ -62,7 +62,7 @@ const AppointmentCard = ({
                     : "text-blue-700"
               }`}
             >
-              #{appointment.queue}
+              #{appointment.queue + 1}
             </span>
           </div>
 
@@ -107,7 +107,7 @@ const AppointmentCard = ({
                 {appointment.patient?.gender === "male" ? "M" : "F"}
               </span>
               <Clock className="w-3 h-3 text-slate-500" />
-              <span className="text-xs text-slate-600">{appointment.time}</span>
+              <span className="text-xs text-slate-600">{new Date(appointment.time).toLocaleString('en-US')}</span>
             </div>
           </div>
         </div>

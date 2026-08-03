@@ -1,25 +1,22 @@
 import { ModalProps } from "@/src/layout/ModalProvider";
 import React from "react";
-import type {
-  ConsultationHistoryDetail,
-  LabHistoryDetail,
-} from "../../../services/consultation.service";
 import { useModal } from "@/src/hooks/useModal";
 import ViewPDFModal from "@/src/components/ViewPDFModal";
+import { IDoctorViewHistory } from "../../../services/consultation.service";
 
 type Props = ModalProps & {
-  data: ConsultationHistoryDetail | LabHistoryDetail;
+  data: IDoctorViewHistory['history'][0]
 };
 
 const ViewHistoryDetailModal = ({ close, data }: Props) => {
   const { open } = useModal();
-  const consultationData: ConsultationHistoryDetail["data"] | null =
-    data.type === "consultation"
-      ? (data.data as ConsultationHistoryDetail["data"])
+  const consultationData =
+    data.type === "CONSULTATION"
+      ? (data )
       : null;
 
-  const labData: LabHistoryDetail["data"] | null =
-    data.type === "lab" ? (data.data as LabHistoryDetail["data"]) : null;
+  const labData =
+    data.type === "LAB_REPORT" ? (data ) : null;
 
   const viewPDF = (file: string) => {
     open(ViewPDFModal, { file: file, title: "Lab Report" });
@@ -61,7 +58,7 @@ const ViewHistoryDetailModal = ({ close, data }: Props) => {
               </p>
 
               <p className="mt-1 text-lg font-bold text-slate-900">
-                {consultationData.appointment.date}
+                {consultationData.date}
               </p>
             </div>
 
@@ -159,14 +156,14 @@ const ViewHistoryDetailModal = ({ close, data }: Props) => {
                   </div>
                 )}
 
-                {consultationData.vitals.pulse && (
+                {consultationData.vitals.heartRate && (
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                       Pulse
                     </p>
 
                     <p className="mt-1 text-lg font-bold text-slate-900">
-                      {consultationData.vitals.pulse}
+                      {consultationData.vitals.heartRate}
                     </p>
                   </div>
                 )}
@@ -183,14 +180,14 @@ const ViewHistoryDetailModal = ({ close, data }: Props) => {
                   </div>
                 )}
 
-                {consultationData.vitals.spo2 && (
+                {consultationData.vitals.oxygenLevel && (
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                       SpO2
                     </p>
 
                     <p className="mt-1 text-lg font-bold text-slate-900">
-                      {consultationData.vitals.spo2}%
+                      {consultationData.vitals.oxygenLevel}%
                     </p>
                   </div>
                 )}
@@ -241,11 +238,14 @@ const ViewHistoryDetailModal = ({ close, data }: Props) => {
 
                     <div className="mt-2 space-y-1 text-sm text-slate-700">
                       <p>
-                        <strong>Dosage:</strong> {rx.dosage}
+                        <strong>Timing:</strong> 
+                        {rx.timings.morning && "MORNING"}
+                        {rx.timings.afternoon && "AFTERNOON"}
+                        {rx.timings.night && "NIGHT"}
                       </p>
 
                       <p>
-                        <strong>Frequency:</strong> {rx.frequency}
+                        <strong>FoodTiming:</strong> {rx.foodTiming == 0 ? 'BEFORE' : "AFTER "} FOOD
                       </p>
 
                       <p>
@@ -349,7 +349,7 @@ const ViewHistoryDetailModal = ({ close, data }: Props) => {
             </div>
           )}
 
-          {labData.remarks && (
+          {/* {labData.remarks && (
             <div className="border-t border-slate-200 pt-6">
               <h3 className="mb-4 text-lg font-bold text-slate-900">Remarks</h3>
 
@@ -357,7 +357,7 @@ const ViewHistoryDetailModal = ({ close, data }: Props) => {
                 {labData.remarks}
               </p>
             </div>
-          )}
+          )} */}
 
           {labData.documentKey && (
             <div className="border-t border-slate-200 pt-6">

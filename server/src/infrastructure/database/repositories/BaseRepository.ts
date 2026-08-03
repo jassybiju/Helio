@@ -69,6 +69,7 @@ export abstract class BaseRepository<
     options: { skip?: number; limit?: number; sort?: Record<string, 1 | -1> },
     map: (doc: TModel) => TDomain
   ): Promise<TDomain[]> {
+    console.log(options, filter);
     const { skip = 0, limit, sort = {} } = options;
     const docs = await this._model
       .find({ ...filter, is_deleted: false })

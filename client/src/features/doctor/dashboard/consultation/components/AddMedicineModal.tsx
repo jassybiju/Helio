@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useDoctorAddPrescription } from "../hooks/useDoctorAddPrescriptionMutation";
 
 const AddMedicineModal = ({ close, id }: ModalProps & { id: string }) => {
-
   const [medicine, setMedicine] = useState<{
     name: string;
     foodTiming: 0 | 1;
@@ -40,7 +39,12 @@ const AddMedicineModal = ({ close, id }: ModalProps & { id: string }) => {
       return 0;
     }
 
-    addMedicine(medicine);
+    addMedicine(medicine, {
+      onSuccess: () => {
+        console.log("closed");
+        close();
+      },
+    });
   };
 
   const handleCloseMedicineModal = () => {
@@ -55,11 +59,11 @@ const AddMedicineModal = ({ close, id }: ModalProps & { id: string }) => {
         <button
           onClick={close}
           className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-500"
-          >
+        >
           <X className="w-4 h-4" />
         </button>
       </div>
-          {error && (<p className="text-red-500">{error}</p>)}
+      {error && <p className="text-red-500">{error}</p>}
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 space-y-4">
         <h2 className="text-xl font-bold text-slate-900">Add Medicine</h2>
 

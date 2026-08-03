@@ -3,6 +3,8 @@ import type { IDoctorViewHistoryDTO } from "@application/use-cases/doctor/consul
 export interface IViewHistoryUseCase {
   execute(
     doctorId: string,
-    appointmentId: string
+    appointmentId: string,
+    page?: number,
+    limit?: number
   ): Promise<IDoctorViewHistoryDTO>;
 }

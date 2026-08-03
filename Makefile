@@ -28,7 +28,7 @@ redis-flush:
 	docker compose exec redis redis-cli FLUSHALL
 
 rs-init:
-	docker compose exec mongo mongosh -u admin -p secret --authenticationDatabase admin --eval "rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'mongo:27017' }] })"
+	docker compose 	exec mongo mongosh -u admin -p secret --authenticationDatabase admin --eval "rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'mongo:27017' }] })"
 
 recreate:
 	docker compose up -d --force-recreate $(filter-out $@,$(MAKECMDGOALS))

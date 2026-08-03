@@ -8,6 +8,7 @@ import {
   doctorAddPrescriptionSchema,
   doctorUpdateConsultationNotes,
   doctorUpdateVitalsSchema,
+  doctorViewHistorySchema,
 } from "../../schemas/doctor/consultation.schema.ts";
 
 export const doctorConsultationRoutes = Router();
@@ -58,5 +59,6 @@ doctorConsultationRoutes.delete(
 );
 doctorConsultationRoutes.get(
   "/:appointmentId/history",
+  validate(doctorViewHistorySchema),
   doctorConsultationController.viewHistory
 );

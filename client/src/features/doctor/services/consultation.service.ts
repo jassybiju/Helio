@@ -1,76 +1,76 @@
 import { apiRequest } from "@/src/libs/axios.config";
 import { APIResponse, HTTP_METHOD } from "@/src/types/API.types";
-export type ConsultationHistoryDetail = {
-  type: string;
+// export type ConsultationHistoryDetail = {
+//   type: string;
 
-  data: {
-    consultationId: string;
+//   data: {
+//     consultationId: string;
 
-    doctor: {
-      id: string;
-      name: string;
-    };
+//     doctor: {
+//       id: string;
+//       name: string;
+//     };
 
-    appointment: {
-      date: string;
-      startTime: string;
-      endTime: string;
-      consultationType: string;
-      status: string;
-    };
+//     appointment: {
+//       date: string;
+//       startTime: string;
+//       endTime: string;
+//       consultationType: string;
+//       status: string;
+//     };
 
-    diagnosis: {
-      primaryDiagnosis: string | null;
-      clinicalObservation: string | null;
-      generalAdvice: string | null;
-      quickNote: string | null;
-    };
+//     diagnosis: {
+//       primaryDiagnosis: string | null;
+//       clinicalObservation: string | null;
+//       generalAdvice: string | null;
+//       quickNote: string | null;
+//     };
 
-    vitals: {
-      bloodPressure?: string | null;
-      pulse?: number | null;
-      temperature?: number | null;
-      spo2?: number | null;
-      height?: number | null;
-      weight?: number | null;
-    } | null;
+//     vitals: {
+//       bloodPressure?: string | null;
+//       pulse?: number | null;
+//       temperature?: number | null;
+//       spo2?: number | null;
+//       height?: number | null;
+//       weight?: number | null;
+//     } | null;
 
-    prescriptions: {
-      name: string;
-      dosage: string;
-      frequency: string;
-      durationInDays: number;
-      instruction?: string | null;
-    }[];
+//     prescriptions: {
+//       name: string;
+//       dosage: string;
+//       frequency: string;
+//       durationInDays: number;
+//       instruction?: string | null;
+//     }[];
 
-    followUp: {
-      medicationPeriod: number | null;
-      freeFollowUpValidUntil: string | null;
-      freeFollowUpUsed: boolean;
-    };
+//     followUp: {
+//       medicationPeriod: number | null;
+//       freeFollowUpValidUntil: string | null;
+//       freeFollowUpUsed: boolean;
+//     };
 
-    timestamps: {
-      startedAt: string;
-      endedAt: string | null;
-      createdAt: string;
-    };
-  };
-};
+//     timestamps: {
+//       startedAt: string;
+//       endedAt: string | null;
+//       createdAt: string;
+//     };
+//   };
+// };
 
-export type LabHistoryDetail = {
-  type: string;
+// export type LabHistoryDetail = {
+//   type: string;
 
-  data: {
-    labReportId: string;
-    testName: string;
-    instructions: string | null;
-    status: string;
-    remarks: string | null;
-    requestedAt: string;
-    uploadedAt: string | null;
-    documentKey: string | null;
-  };
-};
+//   data: {
+//     labReportId: string;
+//     testName: string;
+//     instructions: string | null;
+//     status: string;
+//     remarks: string | null;
+//     requestedAt: string;
+//     uploadedAt: string | null;
+//     documentKey: string | null;
+//   };
+// };
 
 export interface IDOCTOR_VIEW_CONSULTATION {
   patient: {
@@ -117,7 +117,7 @@ export interface IDOCTOR_VIEW_CONSULTATION {
     durationInDays: number;
     instruction: string | null;
   }[];
-  labTest: { testName: string; instructions: string | null, id : string }[];
+  labTest: { testName: string; instructions: string | null; id: string }[];
 
   medicationPeriod: number | null;
 }
@@ -199,15 +199,86 @@ export const doctorConsultationService = {
       HTTP_METHOD.DELETE,
     );
   },
-  viewHistory(id: string) {
+  viewHistory(id: string, page: number, limit: number) {
     return apiRequest(
       `/doctor/consultation/${id}/history`,
       HTTP_METHOD.GET,
-    ) as Promise<
-      APIResponse<{
-        consultation: ConsultationHistoryDetail["data"][];
-        labReport: LabHistoryDetail["data"][];
-      }>
-    >;
+      null,
+      { limit, page },
+    ) as Promise<APIResponse<IDoctorViewHistory>>;
   },
 };
+
+export interface IDoctorViewHistory {
+  history: (
+    | {
+        type: "CONSULTATION";
+        consultationId: string;
+        date: string;
+        doctor: {
+          id: string;
+          name: string;
+        };
+
+        appointment: {
+          date: string;
+          startTime: string;
+          endTime: string;
+          consultationType: string;
+          status: string;
+        };
+
+        diagnosis: {
+          primaryDiagnosis: string | null;
+          clinicalObservation: string | null;
+          generalAdvice: string | null;
+          quickNote: string | null;
+        };
+
+        vitals: {
+          bloodPressure?: string | null;
+          heartRate?: number | null;
+          temperature?: number | null;
+          oxygenLevel?: number | null;
+          height?: number | null;
+          weight?: number | null;
+        } | null;
+
+        prescriptions: {
+          name: string;
+          foodTiming: number;
+          timings: { morning: boolean; afternoon: boolean; night: boolean };
+          durationInDays: number;
+          instruction?: string | null;
+        }[];
+
+        followUp: {
+          medicationPeriod: number | null;
+          freeFollowUpValidUntil: string | null;
+          freeFollowUpUsed: boolean;
+        };
+
+        timestamps: {
+          startedAt: string;
+          endedAt: string | null;
+          createdAt: string;
+        };
+      }
+    | {
+        type: "LAB_REPORT";
+        id: string;
+        date: string;
+        testName: string;
+        instructions: string | null;
+        status: string;
+        requestedAt: string;
+        uploadedAt: string | null;
+        documentKey: string | null;
+      }
+  )[];
+  pagination: {
+    page: number;
+    limit: number;
+    totalCount: number;
+  };
+}
