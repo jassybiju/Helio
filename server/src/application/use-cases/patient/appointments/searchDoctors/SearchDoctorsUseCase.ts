@@ -1,13 +1,13 @@
 import type {
   ISearchDoctorsInput,
   ISearchDoctorUseCase,
-} from "@application/ports/use-cases/patient/appointments/ISearchDoctorUseCase.ts";
-import type { ISearchDoctorsDTO } from "./ISearchDoctorDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+} from "#application/ports/use-cases/patient/appointments/ISearchDoctorUseCase.js";
+import type { ISearchDoctorsDTO } from "./ISearchDoctorDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ISlotGenerator } from "#application/ports/services/ISlotGenerator.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
   constructor(

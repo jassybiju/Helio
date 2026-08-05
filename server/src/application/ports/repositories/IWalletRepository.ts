@@ -1,4 +1,4 @@
-import type { Wallet } from "@domain/entities/Wallet.ts";
+import type { Wallet } from "#domain/entities/Wallet.js";
 import type { ClientSession } from "mongoose";
 
 export interface IWalletRepository {

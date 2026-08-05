@@ -1,14 +1,14 @@
 import type {
   ICompleteDoctorProfileRequestDTO,
   ICompleteDoctorProfileResponseDTO,
-} from "@application/dto/doctor/auth/ICompleteDoctorProfileDTO.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { ICompleteDoctorProfileUseCase } from "@application/ports/use-cases/doctor/auth/ICompleteDoctorProfileUseCase.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/dto/doctor/auth/ICompleteDoctorProfileDTO.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { ICompleteDoctorProfileUseCase } from "#application/ports/use-cases/doctor/auth/ICompleteDoctorProfileUseCase.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class CompleteDoctorProfileUseCase implements ICompleteDoctorProfileUseCase {
   constructor(

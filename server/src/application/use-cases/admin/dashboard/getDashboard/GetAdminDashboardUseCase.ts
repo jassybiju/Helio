@@ -1,12 +1,12 @@
-import type { IGetAdminDashboardUseCase } from "@application/ports/use-cases/admin/IGetAdminDashboardUseCase.ts";
-import { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
-import type { IGetAdminDashboardDTO } from "./IGetAdminDashboardDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
+import type { IGetAdminDashboardUseCase } from "#application/ports/use-cases/admin/IGetAdminDashboardUseCase.js";
+import { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
+import type { IGetAdminDashboardDTO } from "./IGetAdminDashboardDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
 
 export class GetAdminDashboardUseCase implements IGetAdminDashboardUseCase {
   constructor(

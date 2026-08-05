@@ -1,8 +1,8 @@
 import type {
   TRANSACTION_STATUS,
   TRANSACTION_TYPE,
-} from "@domain/common/enums/wallet.enum.ts";
-import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
+} from "#domain/common/enums/wallet.enum.js";
+import type { WalletTransaction } from "#domain/entities/WalletTransaction.js";
 
 export type IGetWalletInput = {
   type?: TRANSACTION_TYPE | undefined;

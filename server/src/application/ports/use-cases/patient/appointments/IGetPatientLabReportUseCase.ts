@@ -1,4 +1,4 @@
-import type { IGetPatientLabReportsDTO } from "@application/use-cases/patient/appointments/lab/getLabReport/IGetPatientLabReportDTO.ts";
+import type { IGetPatientLabReportsDTO } from "#application/use-cases/patient/appointments/lab/getLabReport/IGetPatientLabReportDTO.js";
 
 export interface IGetPatientLabReportUseCase {
   execute(

@@ -1,13 +1,13 @@
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { ICompletePatientProfileUseCase } from "@application/ports/use-cases/patient/profile/ICompletePatientProfileUseCase.ts";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { ICompletePatientProfileUseCase } from "#application/ports/use-cases/patient/profile/ICompletePatientProfileUseCase.js";
 import type {
   ICompletePatientProfileRequestDTO,
   ICompletePatientProfileResponseDTO,
-} from "./ICompletePatientProfileDTO.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
+} from "./ICompletePatientProfileDTO.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
 
 export class CompletePatientProfileUseCase implements ICompletePatientProfileUseCase {
   constructor(

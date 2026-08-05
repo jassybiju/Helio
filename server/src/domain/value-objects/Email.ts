@@ -1,5 +1,5 @@
-import { AppError } from "../../shared/errors/AppError.ts";
-import { HTTPStatus } from "../../shared/types/HTTPStatus.ts";
+import { AppError } from "../../shared/errors/AppError.js";
+import { HTTPStatus } from "../../shared/types/HTTPStatus.js";
 
 export class Email {
   private _emailAddress;

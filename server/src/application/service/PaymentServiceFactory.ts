@@ -1,8 +1,8 @@
-import type { IPaymentService } from "@application/ports/services/IPaymentService.ts";
-import type { IPaymentServiceFactory } from "@application/ports/services/IPaymentServiceFactory.ts";
-import { PAYMENT_TYPE } from "@domain/common/enums/appointment.enum.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IPaymentService } from "#application/ports/services/IPaymentService.js";
+import type { IPaymentServiceFactory } from "#application/ports/services/IPaymentServiceFactory.js";
+import { PAYMENT_TYPE } from "#domain/common/enums/appointment.enum.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class PaymentServiceFactory implements IPaymentServiceFactory {
   constructor(

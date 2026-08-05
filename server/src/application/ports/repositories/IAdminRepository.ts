@@ -1,5 +1,5 @@
-import type { Admin } from "@domain/entities/Admin.ts";
-import type { Email } from "@domain/value-objects/Email.ts";
+import type { Admin } from "#domain/entities/Admin.js";
+import type { Email } from "#domain/value-objects/Email.js";
 
 export interface IAdminRepository {
   findByEmail(email: Email): Promise<Admin | null>;

@@ -1,7 +1,7 @@
-import type { Patient } from "@domain/entities/Patient.ts";
-import type { IGetPatientResponseDTO } from "./IGetPatientDTO.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
-import type { DoctorAppointmentListItem } from "@application/ports/repositories/IAppointmentRepository.ts";
+import type { Patient } from "#domain/entities/Patient.js";
+import type { IGetPatientResponseDTO } from "./IGetPatientDTO.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
+import type { DoctorAppointmentListItem } from "#application/ports/repositories/IAppointmentRepository.js";
 
 export class GetPatientMapper {
   static toDto(

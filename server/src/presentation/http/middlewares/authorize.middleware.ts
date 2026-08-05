@@ -1,7 +1,7 @@
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type { NextFunction, Request, Response } from "express";
 
 export const authorizeMiddleware = (role: USER_ROLES | USER_ROLES[]) => {

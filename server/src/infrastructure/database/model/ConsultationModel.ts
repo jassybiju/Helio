@@ -1,5 +1,5 @@
-import { FOOD_TIMING } from "@domain/common/enums/consultation.enum.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import { FOOD_TIMING } from "#domain/common/enums/consultation.enum.js";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const prescriptionSchema = new Schema(

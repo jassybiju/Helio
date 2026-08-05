@@ -1,15 +1,15 @@
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import { DoctorShift } from "@domain/entities/DoctorShift.ts";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import { BaseRepository } from "./BaseRepository.js";
+import { DoctorShift } from "#domain/entities/DoctorShift.js";
 import {
   doctorShiftModel,
   type DoctorShiftDoc,
-} from "../model/DoctorShiftModel.ts";
-import type { DAY_OF_WEEK } from "@domain/common/enums/doctorShift.enum.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { DoctorShiftMapper } from "../../../mappers/DoctorShiftMapper.ts";
+} from "../model/DoctorShiftModel.js";
+import type { DAY_OF_WEEK } from "#domain/common/enums/doctorShift.enum.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { AppError } from "#shared/errors/AppError.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { DoctorShiftMapper } from "../../../mappers/DoctorShiftMapper.js";
 import type { ClientSession, QueryFilter } from "mongoose";
 
 export class DoctorShiftRepository

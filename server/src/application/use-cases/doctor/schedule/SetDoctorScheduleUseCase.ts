@@ -1,17 +1,17 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
 import type {
   IDoctorScheduleInput,
   ISetDoctorScheduleUseCase,
-} from "@application/ports/use-cases/doctor/schedule/ISetDoctorScheduleUseCase.ts";
-import { DoctorShift } from "@domain/entities/DoctorShift.ts";
-import { Time } from "@domain/value-objects/Time.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/ports/use-cases/doctor/schedule/ISetDoctorScheduleUseCase.js";
+import { DoctorShift } from "#domain/entities/DoctorShift.js";
+import { Time } from "#domain/value-objects/Time.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class SetDoctorScheduleUseCase implements ISetDoctorScheduleUseCase {
   constructor(

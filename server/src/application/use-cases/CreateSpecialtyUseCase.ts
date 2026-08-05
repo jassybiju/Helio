@@ -1,9 +1,9 @@
-import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { ICreateSpecialtyUseCase } from "@application/ports/use-cases/ICreateSpecialtyUseCase.ts";
+import type { ISpecialityRepository } from "#application/ports/repositories/ISpeicaltyRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { ICreateSpecialtyUseCase } from "#application/ports/use-cases/ICreateSpecialtyUseCase.js";
 
 export class CreateSpecialtyUseCase implements ICreateSpecialtyUseCase {
   constructor(

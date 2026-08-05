@@ -1,9 +1,9 @@
-import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDeleteDoctorBlockSlotUseCase } from "@application/ports/use-cases/doctor/slot/IDeleteDoctorBlockSlotUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { IDoctorBlockShiftRepository } from "#application/ports/repositories/IDoctorBlockShiftRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDeleteDoctorBlockSlotUseCase } from "#application/ports/use-cases/doctor/slot/IDeleteDoctorBlockSlotUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class DeleteDoctorBlockSlotUseCase implements IDeleteDoctorBlockSlotUseCase {
   constructor(

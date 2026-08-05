@@ -1,4 +1,4 @@
-import { logger } from "@shared/utils/logger.utils.ts";
+import { logger } from "#shared/utils/logger.utils.js";
 import type { Server } from "socket.io";
 import type { Socket } from "socket.io";
 

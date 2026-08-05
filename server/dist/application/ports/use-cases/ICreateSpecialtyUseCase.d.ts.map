@@ -1,0 +1,1 @@
+{"version":3,"file":"ICreateSpecialtyUseCase.d.ts","sourceRoot":"","sources":["../../../../src/application/ports/use-cases/ICreateSpecialtyUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,uBAAuB;IACtC,OAAO,CAAC,KAAK,EAAE;QACb,IAAI,EAAE,MAAM,CAAC;QACb,WAAW,CAAC,EAAE,MAAM,CAAC;KACtB,GAAG,OAAO,CAAC;QAAE,EAAE,EAAE,MAAM,CAAA;KAAE,CAAC,CAAC;CAC7B"}

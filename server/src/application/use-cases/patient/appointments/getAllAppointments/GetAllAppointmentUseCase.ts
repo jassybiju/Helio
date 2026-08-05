@@ -1,15 +1,15 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILabReportRepository } from "@application/ports/repositories/ILabReportRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetAllAppointmentsUseCase } from "@application/ports/use-cases/patient/appointments/IGetAllAppointmentsUsecase.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import type { IGetAllAppointmentsDTO } from "./IGetAllAppointmentsDTO.ts";
-import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILabReportRepository } from "#application/ports/repositories/ILabReportRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetAllAppointmentsUseCase } from "#application/ports/use-cases/patient/appointments/IGetAllAppointmentsUsecase.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import type { IGetAllAppointmentsDTO } from "./IGetAllAppointmentsDTO.js";
+import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
   constructor(

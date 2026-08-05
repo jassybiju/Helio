@@ -1,14 +1,14 @@
 import type { NextFunction, Request, Response } from "express";
-import { adminLoginSchema } from "../../schemas/admin/auth.schema.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
+import { adminLoginSchema } from "../../schemas/admin/auth.schema.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { ILoginUseCase } from "#application/ports/use-cases/auth/ILoginUseCase.js";
 import {
   apiResponse,
   sendToken,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { MESSAGE } from "#shared/constants/messages.js";
 
 export class AdminAuthController {
   constructor(private readonly _loginUsecase: ILoginUseCase) {}

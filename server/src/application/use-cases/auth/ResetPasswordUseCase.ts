@@ -1,14 +1,14 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import type { IResetTokenService } from "@application/ports/services/IResetTokenService.ts";
-import type { IResetPasswordUseCase } from "@application/ports/use-cases/auth/IResetPasswordUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
-import type { Patient } from "@domain/entities/Patient.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import type { IResetTokenService } from "#application/ports/services/IResetTokenService.js";
+import type { IResetPasswordUseCase } from "#application/ports/use-cases/auth/IResetPasswordUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
+import type { Patient } from "#domain/entities/Patient.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class ResetPasswordUseCase implements IResetPasswordUseCase {
   constructor(

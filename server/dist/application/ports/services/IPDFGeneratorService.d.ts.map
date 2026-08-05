@@ -1,0 +1,1 @@
+{"version":3,"file":"IPDFGeneratorService.d.ts","sourceRoot":"","sources":["../../../../src/application/ports/services/IPDFGeneratorService.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,QAAQ,CAAC;AAEvC,MAAM,WAAW,oBAAoB;IACnC,QAAQ,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,QAAQ,CAAC,CAAC;CAC3C"}

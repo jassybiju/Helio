@@ -1,11 +1,11 @@
-import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetDoctorBlockSlotUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorBlockSlotUseCase.ts";
-import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorBlockShiftRepository } from "#application/ports/repositories/IDoctorBlockShiftRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetDoctorBlockSlotUseCase } from "#application/ports/use-cases/doctor/slot/IGetDoctorBlockSlotUseCase.js";
+import type { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class GetDoctorBlockSlotUseCase implements IGetDoctorBlockSlotUseCase {
   constructor(

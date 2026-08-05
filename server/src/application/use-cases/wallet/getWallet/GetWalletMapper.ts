@@ -1,5 +1,5 @@
-import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
-import type { IGetWalletDTO } from "./IGetWalletDTO.ts";
+import type { WalletTransaction } from "#domain/entities/WalletTransaction.js";
+import type { IGetWalletDTO } from "./IGetWalletDTO.js";
 
 export class GetWalletMapper {
   static toDto({

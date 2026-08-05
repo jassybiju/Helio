@@ -1,8 +1,8 @@
-import { connectDB } from "@config/mongo.config.ts";
-import { app } from "./app.ts";
-import { connectRedis } from "@config/redis.config.ts";
+import { connectDB } from "#config/mongo.config.js";
+import { app } from "./app.js";
+import { connectRedis } from "#config/redis.config.js";
 import http from "http";
-import { SocketServer } from "@infrastructure/socket/SocketServer.ts";
+import { SocketServer } from "#infrastructure/socket/SocketServer.js";
 
 const PORT = process.env.PORT || 5000;
 const startServer = async () => {

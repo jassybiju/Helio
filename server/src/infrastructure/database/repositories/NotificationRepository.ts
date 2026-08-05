@@ -1,13 +1,13 @@
-import type { INotificationRepository } from "@application/ports/repositories/INotificationRepository.ts";
-import { BaseRepository } from "./BaseRepository.ts";
+import type { INotificationRepository } from "#application/ports/repositories/INotificationRepository.js";
+import { BaseRepository } from "./BaseRepository.js";
 import {
   notificationModel,
   type NotificationRaw,
-} from "../model/NotificationModel.ts";
+} from "../model/NotificationModel.js";
 import type { ClientSession, PipelineStage } from "mongoose";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { NotificationMapper } from "../../../mappers/NotificationMapper.ts";
-import { Notification } from "@domain/entities/Notification.ts";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { NotificationMapper } from "../../../mappers/NotificationMapper.js";
+import { Notification } from "#domain/entities/Notification.js";
 
 export class NotificationRepository
   extends BaseRepository<Notification, NotificationRaw>

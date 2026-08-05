@@ -1,12 +1,12 @@
-import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
-import { Consultation } from "@domain/entities/Consultation.ts";
-import { BaseRepository } from "./BaseRepository.ts";
+import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import { Consultation } from "#domain/entities/Consultation.js";
+import { BaseRepository } from "./BaseRepository.js";
 import {
   consultationModel,
   type ConsultationDoc,
-} from "../model/ConsultationModel.ts";
-import { ConsultationMapper } from "../../../mappers/ConsultationMapper.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "../model/ConsultationModel.js";
+import { ConsultationMapper } from "../../../mappers/ConsultationMapper.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type { ClientSession } from "mongoose";
 
 export class ConsultationRepository

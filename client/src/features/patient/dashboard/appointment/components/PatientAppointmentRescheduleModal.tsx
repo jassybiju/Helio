@@ -22,7 +22,7 @@ const PatientAppointmentRescheduleModal = ({
 
   const doctor = data?.data?.doctor;
   const slotsData = useMemo(
-  () => data?.data.slots ?? [],
+  () => data?.data.slots ?? {},
   [data?.data.slots]
 );
 

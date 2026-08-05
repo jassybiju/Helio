@@ -1,5 +1,5 @@
-import type { ICreateAppointmentDTO } from "@application/use-cases/patient/appointments/createAppointment/ICreateAppointmentDTO.ts";
-import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import type { ICreateAppointmentDTO } from "#application/use-cases/patient/appointments/createAppointment/ICreateAppointmentDTO.js";
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 
 export type ICreateAppointmentInput = {
   doctorId: string;

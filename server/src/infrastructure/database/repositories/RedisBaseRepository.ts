@@ -1,6 +1,6 @@
-import { redisClient } from "@config/redis.config.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import { redisClient } from "#config/redis.config.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 /**
  * Base class for Redis Repositories

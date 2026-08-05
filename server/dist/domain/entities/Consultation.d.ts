@@ -1,0 +1,52 @@
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { Prescription } from "#domain/value-objects/Prescription.js";
+import type { Vital } from "#domain/value-objects/Vitals.js";
+export declare class Consultation {
+    private readonly _id;
+    private readonly _appointmentId;
+    private readonly _doctorId;
+    private readonly _patientId;
+    private _vitals;
+    private _primaryDiagnosis;
+    private _clinicalObservation;
+    private _generalAdvice;
+    private _quickNote;
+    private readonly _consultationType;
+    private _prescriptions;
+    private _medicationPeriod;
+    private readonly _startedAt;
+    private _endedAt;
+    private readonly _createdAt;
+    constructor(_id: string, _appointmentId: string, _doctorId: string, _patientId: string, _vitals: Vital | null, _primaryDiagnosis: string | null, _clinicalObservation: string | null, _generalAdvice: string | null, _quickNote: string | null, _consultationType: CONSULTATION_TYPE, _prescriptions: Prescription[], _medicationPeriod: number | null, _startedAt: Date, _endedAt: Date | null, _createdAt: Date);
+    end(): void;
+    updateMedicationPeriod(period: number): void;
+    addNotes(clinicalObservation: string | null, primaryDiagnosis: string | null, generalAdvice: string | null, quickNote: string | null): void;
+    addPrescription(prescription: Prescription): void;
+    removePrescription(name: string): void;
+    ensureActive(): void;
+    addVitals(vital: Vital): void;
+    static create({ id, appointmentId, doctorId, patientId, consultationType, startedAt, }: {
+        id: string;
+        appointmentId: string;
+        doctorId: string;
+        patientId: string;
+        consultationType: CONSULTATION_TYPE;
+        startedAt: Date;
+    }): Consultation;
+    get id(): string;
+    get appointmentId(): string;
+    get doctorId(): string;
+    get patientId(): string;
+    get vitals(): Vital | null;
+    get primaryDiagnosis(): string | null;
+    get clinicalObservation(): string | null;
+    get generalAdvice(): string | null;
+    get quickNote(): string | null;
+    get consultationType(): CONSULTATION_TYPE;
+    get prescriptions(): Prescription[];
+    get medicationPeriod(): number | null;
+    get startedAt(): Date;
+    get endedAt(): Date | null;
+    get createdAt(): Date;
+}
+//# sourceMappingURL=Consultation.d.ts.map

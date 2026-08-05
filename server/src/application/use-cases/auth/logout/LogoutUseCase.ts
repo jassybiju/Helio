@@ -1,8 +1,8 @@
-import type { ILogoutUseCase } from "@application/ports/use-cases/auth/ILogoutUseCase.ts";
-import type { ILogoutRequestDTO } from "./ILogoutDto.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
-import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
+import type { ILogoutUseCase } from "#application/ports/use-cases/auth/ILogoutUseCase.js";
+import type { ILogoutRequestDTO } from "./ILogoutDto.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IRefreshTokenService } from "#application/ports/services/IRefreshTokenService.js";
+import type { ISessionRepository } from "#application/ports/repositories/ISessionRepository.js";
 
 export class LogoutUseCase implements ILogoutUseCase {
   constructor(

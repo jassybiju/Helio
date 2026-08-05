@@ -1,20 +1,20 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
-import type { IPatientCancellationUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IPatientCancellationUseCase.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
+import type { IPatientCancellationUseCase } from "#application/ports/use-cases/patient/appointments/cancellation/IPatientCancellationUseCase.js";
 import {
   APPOINTMENT_STATUS,
   PAYMENT_STATUS,
-} from "@domain/common/enums/appointment.enum.ts";
-import { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
-import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import { TRANSACTION_TYPE } from "#domain/common/enums/wallet.enum.js";
+import { WalletTransaction } from "#domain/entities/WalletTransaction.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class PatientAppointmentCancellationUseCase implements IPatientCancellationUseCase {
   constructor(

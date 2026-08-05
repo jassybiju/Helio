@@ -1,0 +1,4 @@
+export interface IReadNotificationUseCase {
+    execute(userId: string, notificationId: string): Promise<void>;
+}
+//# sourceMappingURL=IReadNotificationUseCase%20copy.d.ts.map

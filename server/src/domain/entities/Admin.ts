@@ -1,4 +1,4 @@
-import { Email } from "@domain/value-objects/Email.ts";
+import { Email } from "#domain/value-objects/Email.js";
 
 export class Admin {
   constructor(

@@ -1,4 +1,4 @@
-import { logger } from "@shared/utils/logger.utils.ts";
+import { logger } from "#shared/utils/logger.utils.js";
 import { Job, Worker } from "bullmq";
 import nodemailer from "nodemailer";
 
@@ -33,7 +33,7 @@ const worker = new Worker<EmailJob>(
   },
   {
     connection: {
-      host: "redis_cache",
+      host: "redis",
       port: 6379,
     },
   }

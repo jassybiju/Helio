@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { doctorProfileController } from "../../di/doctor/profile.di.ts";
-import { authMiddleware } from "../../middlewares/auth.middleware.ts";
-import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { documentUpload, imageUpload } from "@config/multer.config.ts";
-import { checkBlockMiddleware } from "../../di/middleware.di.ts";
+import { doctorProfileController } from "../../di/doctor/profile.di.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { documentUpload, imageUpload } from "#config/multer.config.js";
+import { checkBlockMiddleware } from "../../di/middleware.di.js";
 
 export const doctorProfileRouter = Router();
 

@@ -1,13 +1,13 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetPatientLiveQueueUseCase } from "@application/ports/use-cases/patient/appointments/IGetPatientLiveQueueUseCase.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetPatientLiveQueueUseCase } from "#application/ports/use-cases/patient/appointments/IGetPatientLiveQueueUseCase.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class GetPatientLiveQueueUseCase implements IGetPatientLiveQueueUseCase {
   constructor(

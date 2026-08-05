@@ -1,6 +1,6 @@
-import { Specialty } from "@domain/entities/Specialty.ts";
-import { SpecialtyModel } from "../model/SpecialityModel.ts";
-import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
+import { Specialty } from "#domain/entities/Specialty.js";
+import { SpecialtyModel } from "../model/SpecialityModel.js";
+import type { ISpecialityRepository } from "#application/ports/repositories/ISpeicaltyRepository.js";
 import type { PipelineStage } from "mongoose";
 
 export class SpecialtyRepository implements ISpecialityRepository {

@@ -1,0 +1,1 @@
+{"version":3,"file":"AppointmentMapper.d.ts","sourceRoot":"","sources":["../../src/mappers/AppointmentMapper.ts"],"names":[],"mappings":"AAMA,OAAO,EAAE,WAAW,EAAE,MAAM,iCAAiC,CAAC;AAC9D,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,oDAAoD,CAAC;AAEzF,qBAAa,iBAAiB;IAC5B,MAAM,CAAC,QAAQ,CAAC,GAAG,EAAE,cAAc,GAAG,WAAW;IA6BjD,MAAM,CAAC,aAAa,CAAC,MAAM,EAAE,WAAW,GAAG,cAAc;CAoC1D"}

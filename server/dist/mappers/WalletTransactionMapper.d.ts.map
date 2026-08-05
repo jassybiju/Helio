@@ -1,0 +1,1 @@
+{"version":3,"file":"WalletTransactionMapper.d.ts","sourceRoot":"","sources":["../../src/mappers/WalletTransactionMapper.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,iBAAiB,EAAE,MAAM,uCAAuC,CAAC;AAC1E,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,0DAA0D,CAAC;AAErG,qBAAa,uBAAuB;IAClC,MAAM,CAAC,QAAQ,CAAC,GAAG,EAAE,oBAAoB,GAAG,iBAAiB;IAa7D,MAAM,CAAC,aAAa,CAAC,EAAE,EAAE,iBAAiB,GAAG,oBAAoB;CAalE"}

@@ -1,4 +1,4 @@
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
+import type { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
 
 export type IGetVerificationDetailsResponseDTO = {
   userId: string;

@@ -1,0 +1,1 @@
+{"version":3,"file":"fetchPatient.schema.js","sourceRoot":"","sources":["../../../../../src/presentation/http/schemas/admin/fetchPatient.schema.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,MAAM,KAAK,CAAC;AAEpB,MAAM,CAAC,MAAM,kBAAkB,GAAG,CAAC,CAAC,MAAM,CAAC;IACzC,IAAI,EAAE,CAAC,CAAC,MAAM,EAAE;CACjB,CAAC,CAAC"}

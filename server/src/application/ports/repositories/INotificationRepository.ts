@@ -1,4 +1,4 @@
-import type { Notification } from "@domain/entities/Notification.ts";
+import type { Notification } from "#domain/entities/Notification.js";
 import type { ClientSession } from "mongoose";
 
 export interface INotificationRepository {

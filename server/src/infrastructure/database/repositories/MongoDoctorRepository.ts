@@ -2,16 +2,16 @@ import type {
   IDoctorFilters,
   IDoctorRepository,
   IDoctorSearchQuery,
-} from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
-import type { Email } from "@domain/value-objects/Email.ts";
-import { doctorModel, type DoctorDoc } from "../model/DoctorModel.ts";
-import { DoctorMapper } from "../../../mappers/DoctorMapper.ts";
-import { BaseRepository } from "./BaseRepository.ts";
+} from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
+import type { Email } from "#domain/value-objects/Email.js";
+import { doctorModel, type DoctorDoc } from "../model/DoctorModel.js";
+import { DoctorMapper } from "../../../mappers/DoctorMapper.js";
+import { BaseRepository } from "./BaseRepository.js";
 import type { ClientSession, QueryFilter } from "mongoose";
-import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+import { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
 
 export class MongoDoctorRepository
   extends BaseRepository<Doctor, DoctorDoc>

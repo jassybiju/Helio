@@ -1,4 +1,4 @@
-import type { Doctor } from "@domain/entities/Doctor.ts";
+import type { Doctor } from "#domain/entities/Doctor.js";
 
 export class GetDoctorProfileMapper {
   static toDto(doctor: Doctor, profilePic: string | null) {

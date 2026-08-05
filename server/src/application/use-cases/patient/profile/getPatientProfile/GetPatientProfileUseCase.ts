@@ -1,12 +1,12 @@
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { GetPatientProfileMapper } from "./GetPatientProfileMapper.ts";
-import type { IGetPatientProfileDTO } from "./IGetPatientProfileDTO.ts";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetPatientProfileUseCase } from "#application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { GetPatientProfileMapper } from "./GetPatientProfileMapper.js";
+import type { IGetPatientProfileDTO } from "./IGetPatientProfileDTO.js";
 
 export class GetPatientProfileUseCase implements IGetPatientProfileUseCase {
   constructor(

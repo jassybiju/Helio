@@ -1,7 +1,7 @@
-import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { Prescription } from "@domain/value-objects/Prescription.ts";
-import type { Vital } from "@domain/value-objects/Vitals.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { Prescription } from "#domain/value-objects/Prescription.js";
+import type { Vital } from "#domain/value-objects/Vitals.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
 
 export class Consultation {
   constructor(

@@ -1,14 +1,14 @@
-import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import { BaseRepository } from "./BaseRepository.ts";
+import type { IDoctorBlockShiftRepository } from "#application/ports/repositories/IDoctorBlockShiftRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
+import { BaseRepository } from "./BaseRepository.js";
 import {
   blockShiftModel,
   type BlockShiftDoc,
-} from "../model/BlockShiftModel.ts";
-import { DoctorBlockShiftMapper } from "../../../mappers/DoctorBlockShiftMapper.ts";
+} from "../model/BlockShiftModel.js";
+import { DoctorBlockShiftMapper } from "../../../mappers/DoctorBlockShiftMapper.js";
 import type { ClientSession } from "mongoose";
-import { istToUtc } from "@shared/utils/date.utils.ts";
+import { istToUtc } from "#shared/utils/date.utils.js";
 
 export class DoctorBlockShiftRepository
   extends BaseRepository<DoctorBlockShift, BlockShiftDoc>

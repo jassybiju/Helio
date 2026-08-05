@@ -1,6 +1,6 @@
-import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetAllSpecialityUseCase } from "@application/ports/use-cases/IGetAllSpecialityUseCase.ts";
+import type { ISpecialityRepository } from "#application/ports/repositories/ISpeicaltyRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetAllSpecialityUseCase } from "#application/ports/use-cases/IGetAllSpecialityUseCase.js";
 
 export class GetAllSpecialtyUseCase implements IGetAllSpecialityUseCase {
   constructor(

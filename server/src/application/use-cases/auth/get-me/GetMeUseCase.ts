@@ -1,12 +1,12 @@
 import type {
   IGetMeRequestDTO,
   IGetMeResponseDTO,
-} from "@application/dto/auth/IGetMeDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetMeHandler } from "@application/ports/use-cases/auth/IGetMeHandler.ts";
-import type { IGetMeUseCase } from "@application/ports/use-cases/auth/IGetMeUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/dto/auth/IGetMeDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetMeHandler } from "#application/ports/use-cases/auth/IGetMeHandler.js";
+import type { IGetMeUseCase } from "#application/ports/use-cases/auth/IGetMeUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 /**
  * Get the details of the user from userId and role from middlewares

@@ -1,4 +1,4 @@
-import type { FOOD_TIMING } from "@domain/common/enums/consultation.enum.ts";
+import type { FOOD_TIMING } from "#domain/common/enums/consultation.enum.js";
 
 export interface IAddPrescriptionUseCase {
   execute(

@@ -1,12 +1,12 @@
-import { Patient } from "@domain/entities/Patient.ts";
+import { Patient } from "#domain/entities/Patient.js";
 import type {
   PatientDoc,
   PatientRawDoc,
-} from "@infrastructure/database/model/PatientModel.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import type { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
+} from "#infrastructure/database/model/PatientModel.js";
+import { Email } from "#domain/value-objects/Email.js";
+import type { BLOOD_GROUP } from "#domain/common/enums/blood-group.enum.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
+import type { ALLERGEN_SEVERITY } from "#domain/common/enums/allergen_severity.js";
 
 export class PatientMapper {
   static toPersistance(t: Patient): PatientRawDoc {

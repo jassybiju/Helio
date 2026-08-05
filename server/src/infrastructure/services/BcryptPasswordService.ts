@@ -1,5 +1,5 @@
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import { AppError } from "@shared/errors/AppError.ts";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import { AppError } from "#shared/errors/AppError.js";
 import bcrypt from "bcrypt";
 
 export class BcryptPasswordService implements IPasswordService {

@@ -1,19 +1,19 @@
 import type {
   IDoctorScheduleInput,
   ISetDoctorScheduleUseCase,
-} from "@application/ports/use-cases/doctor/schedule/ISetDoctorScheduleUseCase.ts";
+} from "#application/ports/use-cases/doctor/schedule/ISetDoctorScheduleUseCase.js";
 import type { NextFunction, Request, Response } from "express";
-import { setDoctorScheduleSchema } from "../../schemas/doctor/schedule.schema.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
+import { setDoctorScheduleSchema } from "../../schemas/doctor/schedule.schema.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import type { IGetDoctorScheduleUseCase } from "@application/ports/use-cases/doctor/schedule/IGetDoctorScheduleUseCase.ts";
-import { GetDoctorScheduleMapper } from "@application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleMapper.ts";
-import type { IDeleteDoctorScheduleUseCase } from "@application/ports/use-cases/doctor/schedule/IDeleteDoctorScheduleUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import type { IGetDoctorScheduleUseCase } from "#application/ports/use-cases/doctor/schedule/IGetDoctorScheduleUseCase.js";
+import { GetDoctorScheduleMapper } from "#application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleMapper.js";
+import type { IDeleteDoctorScheduleUseCase } from "#application/ports/use-cases/doctor/schedule/IDeleteDoctorScheduleUseCase.js";
 
 export class DoctorScheduleController {
   constructor(

@@ -1,0 +1,7 @@
+export var ALLERGEN_SEVERITY;
+(function (ALLERGEN_SEVERITY) {
+    ALLERGEN_SEVERITY["LOW"] = "LOW";
+    ALLERGEN_SEVERITY["MED"] = "MEDIUM";
+    ALLERGEN_SEVERITY["HIGH"] = "HIGH";
+})(ALLERGEN_SEVERITY || (ALLERGEN_SEVERITY = {}));
+//# sourceMappingURL=allergen_severity.js.map

@@ -1,15 +1,15 @@
-import type { IGetWalletUseCase } from "@application/ports/use-cases/wallet/IGetWalletUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetWalletUseCase } from "#application/ports/use-cases/wallet/IGetWalletUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type { NextFunction, Request, Response } from "express";
-import { addMoneySchema, getWalletSchema } from "../schemas/wallet.schema.ts";
+import { addMoneySchema, getWalletSchema } from "../schemas/wallet.schema.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import type { IAddMoneyUseCase } from "@application/ports/use-cases/wallet/IAddMoneyUseCase.ts";
-import { GetWalletMapper } from "@application/use-cases/wallet/getWallet/GetWalletMapper.ts";
-import type { IAddMoneyVerifyUseCase } from "@application/ports/use-cases/wallet/IAddMoneyVerifyUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import type { IAddMoneyUseCase } from "#application/ports/use-cases/wallet/IAddMoneyUseCase.js";
+import { GetWalletMapper } from "#application/use-cases/wallet/getWallet/GetWalletMapper.js";
+import type { IAddMoneyVerifyUseCase } from "#application/ports/use-cases/wallet/IAddMoneyVerifyUseCase.js";
 
 export class WalletController {
   constructor(

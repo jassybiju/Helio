@@ -1,5 +1,5 @@
-import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
-import type { IGetSpecialityUsecase } from "@application/ports/use-cases/IGetSpecialityUsecase.ts";
+import type { ISpecialityRepository } from "#application/ports/repositories/ISpeicaltyRepository.js";
+import type { IGetSpecialityUsecase } from "#application/ports/use-cases/IGetSpecialityUsecase.js";
 
 export class GetSpecialtiesUseCase implements IGetSpecialityUsecase {
   constructor(private specialtyRepo: ISpecialityRepository) {}

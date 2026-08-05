@@ -1,8 +1,8 @@
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IToggleBlockPatientUseCase } from "@application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IToggleBlockPatientUseCase } from "#application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class ToggleBlockPatientUseCase implements IToggleBlockPatientUseCase {
   constructor(

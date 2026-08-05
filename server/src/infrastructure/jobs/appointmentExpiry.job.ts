@@ -1,5 +1,5 @@
-import type { IExpiryAppointmentsUseCase } from "@application/ports/use-cases/patient/appointments/IExpiryAppointmentsUseCase.ts";
-import { logger } from "@shared/utils/logger.utils.ts";
+import type { IExpiryAppointmentsUseCase } from "#application/ports/use-cases/patient/appointments/IExpiryAppointmentsUseCase.js";
+import { logger } from "#shared/utils/logger.utils.js";
 import cron from "node-cron";
 
 export const appointmentExpiryJob = (

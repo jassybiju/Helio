@@ -1,5 +1,5 @@
-import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
-import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
+import type { DoctorShift } from "#domain/entities/DoctorShift.js";
+import type { DoctorSlot } from "#domain/value-objects/DoctorSlot.js";
 
 export interface ISlotGenerator {
   generateSlots(shift: DoctorShift, date: Date): DoctorSlot[];

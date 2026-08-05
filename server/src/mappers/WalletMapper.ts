@@ -1,6 +1,6 @@
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { Wallet } from "@domain/entities/Wallet.ts";
-import type { WalletDoc } from "@infrastructure/database/model/WalletModel.ts";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { Wallet } from "#domain/entities/Wallet.js";
+import type { WalletDoc } from "#infrastructure/database/model/WalletModel.js";
 
 export class WalletMapper {
   static toDomain(doc: WalletDoc): Wallet {

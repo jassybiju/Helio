@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/auth.middleware.ts";
-import { walletController } from "../di/wallet.di.ts";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { walletController } from "../di/wallet.di.js";
 
 export const walletRouter = Router();
 

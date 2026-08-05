@@ -1,5 +1,5 @@
-import { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import type { BlockShiftDoc } from "@infrastructure/database/model/BlockShiftModel.ts";
+import { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
+import type { BlockShiftDoc } from "#infrastructure/database/model/BlockShiftModel.js";
 
 export class DoctorBlockShiftMapper {
   static toDomain(raw: BlockShiftDoc): DoctorBlockShift {

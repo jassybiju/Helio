@@ -1,27 +1,27 @@
 import {
   patientCompleteProfileSchema,
   updatePatientSchema,
-} from "../../schemas/patient/profile.schema.ts";
+} from "../../schemas/patient/profile.schema.js";
 import { type NextFunction, type Request, type Response } from "express";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { ICompletePatientProfileUseCase } from "@application/ports/use-cases/patient/profile/ICompletePatientProfileUseCase.ts";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { ICompletePatientProfileUseCase } from "#application/ports/use-cases/patient/profile/ICompletePatientProfileUseCase.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IGetPatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.ts";
-import type { IAddPatientAllergenUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientAllergenUseCase.ts";
-import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
-import type { IRemovePatientAllergenUseCase } from "@application/ports/use-cases/patient/profile/IRemovePatientAllergenUseCase.ts";
-import type { IAddPatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IAddPatientConditionUseCase.ts";
-import type { IRemovePatientConditionUseCase } from "@application/ports/use-cases/patient/profile/IRemovePatientConditionUseCase.ts";
-import type { IChangePatientPasswordUseCase } from "@application/ports/use-cases/patient/profile/IChangePatientPasswordUseCase.ts";
-import type { IUpdatePatientProfileUseCase } from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
-import type { IPatientUpdateProfilePictureUseCase } from "@application/ports/use-cases/patient/profile/IUpdateProfilePictureUseCase.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { ValidationError } from "@shared/errors/ValidationError.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IGetPatientProfileUseCase } from "#application/ports/use-cases/patient/profile/IGetPatientProfileUseCase.js";
+import type { IAddPatientAllergenUseCase } from "#application/ports/use-cases/patient/profile/IAddPatientAllergenUseCase.js";
+import type { ALLERGEN_SEVERITY } from "#domain/common/enums/allergen_severity.js";
+import type { IRemovePatientAllergenUseCase } from "#application/ports/use-cases/patient/profile/IRemovePatientAllergenUseCase.js";
+import type { IAddPatientConditionUseCase } from "#application/ports/use-cases/patient/profile/IAddPatientConditionUseCase.js";
+import type { IRemovePatientConditionUseCase } from "#application/ports/use-cases/patient/profile/IRemovePatientConditionUseCase.js";
+import type { IChangePatientPasswordUseCase } from "#application/ports/use-cases/patient/profile/IChangePatientPasswordUseCase.js";
+import type { IUpdatePatientProfileUseCase } from "#application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.js";
+import type { IPatientUpdateProfilePictureUseCase } from "#application/ports/use-cases/patient/profile/IUpdateProfilePictureUseCase.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { ValidationError } from "#shared/errors/ValidationError.js";
 
 export class PatientProfileController {
   constructor(

@@ -1,6 +1,6 @@
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { logger } from "@shared/utils/logger.utils.ts";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { logger } from "#shared/utils/logger.utils.js";
 import multer from "multer";
 
 export const documentUpload = multer({

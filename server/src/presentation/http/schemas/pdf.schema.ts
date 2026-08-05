@@ -1,4 +1,4 @@
-import { PDF_TYPE } from "@shared/types/pdf.type.ts";
+import { PDF_TYPE } from "#shared/types/pdf.type.js";
 import z from "zod";
 
 export const generatePdfSchema = z.object({

@@ -1,5 +1,5 @@
-import type { IGetChatDTO } from "@application/use-cases/chat/getChat/IGetChatDTO.ts";
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { IGetChatDTO } from "#application/use-cases/chat/getChat/IGetChatDTO.js";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export interface IGetChatUseCase {
   execute(

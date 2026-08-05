@@ -1,9 +1,9 @@
-import type { IUpdateDoctorInput } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.ts";
-import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import type { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IUpdateDoctorInput } from "#application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.js";
+import { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
+import type { Email } from "#domain/value-objects/Email.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class Doctor {
   constructor(

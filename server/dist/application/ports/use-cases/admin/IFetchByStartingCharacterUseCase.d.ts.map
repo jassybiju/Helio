@@ -1,0 +1,1 @@
+{"version":3,"file":"IFetchByStartingCharacterUseCase.d.ts","sourceRoot":"","sources":["../../../../../src/application/ports/use-cases/admin/IFetchByStartingCharacterUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EACV,mCAAmC,EACnC,oCAAoC,EACrC,MAAM,6CAA6C,CAAC;AAErD,MAAM,WAAW,gCAAgC;IAC/C,OAAO,CACL,KAAK,EAAE,mCAAmC,GACzC,OAAO,CAAC,oCAAoC,CAAC,CAAC;CAClD"}

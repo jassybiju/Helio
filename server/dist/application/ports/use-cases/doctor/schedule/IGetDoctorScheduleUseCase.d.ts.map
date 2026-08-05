@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetDoctorScheduleUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/schedule/IGetDoctorScheduleUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,iCAAiC,CAAC;AAEnE,MAAM,WAAW,yBAAyB;IACxC,OAAO,CAAC,QAAQ,EAAE,MAAM,GAAG,OAAO,CAAC,WAAW,EAAE,CAAC,CAAC;CACnD"}

@@ -1,4 +1,4 @@
-import type { Review } from "@domain/entities/Review.ts";
+import type { Review } from "#domain/entities/Review.js";
 import type { ClientSession } from "mongoose";
 
 export interface IReviewRepository {

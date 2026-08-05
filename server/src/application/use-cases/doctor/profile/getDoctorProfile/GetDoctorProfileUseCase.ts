@@ -1,11 +1,11 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetDoctorProfileUseCase } from "@application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { GetDoctorProfileMapper } from "./GetDoctorProfileMapper.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetDoctorProfileUseCase } from "#application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { GetDoctorProfileMapper } from "./GetDoctorProfileMapper.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class GetDoctorProfileUseCase implements IGetDoctorProfileUseCase {
   constructor(

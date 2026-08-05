@@ -1,7 +1,7 @@
 import {
   TRANSACTION_STATUS,
   type TRANSACTION_TYPE,
-} from "@domain/common/enums/wallet.enum.ts";
+} from "#domain/common/enums/wallet.enum.js";
 
 export class WalletTransaction {
   constructor(

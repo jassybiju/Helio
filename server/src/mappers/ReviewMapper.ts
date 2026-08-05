@@ -1,5 +1,5 @@
-import { Review } from "@domain/entities/Review.ts";
-import type { ReviewRaw } from "@infrastructure/database/model/ReviewModel.ts";
+import { Review } from "#domain/entities/Review.js";
+import type { ReviewRaw } from "#infrastructure/database/model/ReviewModel.js";
 
 export class ReviewMapper {
   static toDomain(raw: ReviewRaw): Review {

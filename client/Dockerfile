@@ -1,6 +1,6 @@
-FROM node:alpine as base
+FROM node:24-alpine AS base
 
-WORKDIR /home/next
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -10,9 +10,31 @@ COPY . .
 
 
 
+FROM base AS development
 
-# FROM base as production
+CMD ["npm", "run", "dev"]
 
-# ENV NODE_PATH=./build
 
-# RUN npm run dev
+
+FROM base AS builder
+
+RUN npm run build
+
+
+
+FROM node:alpine AS production
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+COPY --from=builder /app/package*.json ./
+
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

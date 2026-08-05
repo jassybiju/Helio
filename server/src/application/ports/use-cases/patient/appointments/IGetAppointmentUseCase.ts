@@ -1,4 +1,4 @@
-import type { IGetAppointmentDTO } from "@application/use-cases/patient/appointments/getAppointment/IGetAppointmentDTO.ts";
+import type { IGetAppointmentDTO } from "#application/use-cases/patient/appointments/getAppointment/IGetAppointmentDTO.js";
 
 export interface IGetAppointmentUseCase {
   execute(

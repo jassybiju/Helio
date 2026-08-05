@@ -1,19 +1,19 @@
-import { DoctorSlotController } from "../../controllers/doctor/slot.controller.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { GetDoctorWeeklySlotsUsecase } from "@application/use-cases/doctor/slot/getDoctorSlots/GetDoctorWeeklySlotsUseCase.ts";
-import { DoctorShiftRepository } from "@infrastructure/database/repositories/DoctorShiftRepository.ts";
-import { SlotGenerator } from "@application/service/SlotGenerator.ts";
-import { BlockDoctorSlotUseCase } from "@application/use-cases/doctor/slot/blockDoctorSlot/BlockDoctorSlotUseCase.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { DoctorBlockShiftRepository } from "@infrastructure/database/repositories/DoctorBlockShiftRepository.ts";
-import { GetDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotUseCase.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
-import { DeleteDoctorBlockSlotUseCase } from "@application/use-cases/doctor/slot/deleteDoctorBlockSlot/DeleteDoctorBlockSlotUseCase.ts";
-import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
-import { NotificationService } from "@application/service/NotificationService.ts";
-import { NotificationRepository } from "@infrastructure/database/repositories/NotificationRepository.ts";
-import { SocketRealTimeNotifier } from "@infrastructure/services/SocketRealTimeNotifier.ts";
+import { DoctorSlotController } from "../../controllers/doctor/slot.controller.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { GetDoctorWeeklySlotsUsecase } from "#application/use-cases/doctor/slot/getDoctorSlots/GetDoctorWeeklySlotsUseCase.js";
+import { DoctorShiftRepository } from "#infrastructure/database/repositories/DoctorShiftRepository.js";
+import { SlotGenerator } from "#application/service/SlotGenerator.js";
+import { BlockDoctorSlotUseCase } from "#application/use-cases/doctor/slot/blockDoctorSlot/BlockDoctorSlotUseCase.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { DoctorBlockShiftRepository } from "#infrastructure/database/repositories/DoctorBlockShiftRepository.js";
+import { GetDoctorBlockSlotUseCase } from "#application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotUseCase.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { DeleteDoctorBlockSlotUseCase } from "#application/use-cases/doctor/slot/deleteDoctorBlockSlot/DeleteDoctorBlockSlotUseCase.js";
+import { MongoUnitOfWork } from "#infrastructure/database/unitOfWork/MongoUnitOfWork.js";
+import { NotificationService } from "#application/service/NotificationService.js";
+import { NotificationRepository } from "#infrastructure/database/repositories/NotificationRepository.js";
+import { SocketRealTimeNotifier } from "#infrastructure/services/SocketRealTimeNotifier.js";
 
 const loggerService = PinoLoggerService.getInstance();
 

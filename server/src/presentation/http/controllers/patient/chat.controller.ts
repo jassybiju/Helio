@@ -1,14 +1,14 @@
-import type { IGetChatListUseCase } from "@application/ports/use-cases/chat/IGetChatListUseCase.ts";
-import type { IGetChatUseCase } from "@application/ports/use-cases/chat/IGetChatUseCase.ts";
-import type { ISendMessageUseCase } from "@application/ports/use-cases/chat/ISendMessageUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetChatListUseCase } from "#application/ports/use-cases/chat/IGetChatListUseCase.js";
+import type { IGetChatUseCase } from "#application/ports/use-cases/chat/IGetChatUseCase.js";
+import type { ISendMessageUseCase } from "#application/ports/use-cases/chat/ISendMessageUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class PatientChatController {

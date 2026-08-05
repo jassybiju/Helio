@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { documentUpload } from "@config/multer.config.ts";
-import { doctorAuthController } from "../../di/doctor/auth.di.ts";
+import { documentUpload } from "#config/multer.config.js";
+import { doctorAuthController } from "../../di/doctor/auth.di.js";
 
 export const doctorAuthRouter = Router();
 

@@ -1,5 +1,5 @@
-import { LabReport } from "@domain/entities/LabReport.ts";
-import type { LabReportDoc } from "@infrastructure/database/model/LabReportModel.ts";
+import { LabReport } from "#domain/entities/LabReport.js";
+import type { LabReportDoc } from "#infrastructure/database/model/LabReportModel.js";
 
 export class LabReportMapper {
   static toDomain(raw: LabReportDoc): LabReport {

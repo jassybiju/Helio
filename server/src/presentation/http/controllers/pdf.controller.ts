@@ -1,4 +1,4 @@
-import type { IPDFDispatcher } from "@application/ports/use-cases/pdf/IPdfDispatcher.ts";
+import type { IPDFDispatcher } from "#application/ports/use-cases/pdf/IPdfDispatcher.js";
 import type { NextFunction, Request, Response } from "express";
 import { pipeline } from "stream/promises";
 export class GeneratePDFController {

@@ -1,4 +1,4 @@
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 import { v2 as cloudinary } from "cloudinary";
 import { randomUUID } from "crypto";
 import streamifier from "streamifier";

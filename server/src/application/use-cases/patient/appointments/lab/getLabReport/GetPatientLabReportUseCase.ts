@@ -1,12 +1,12 @@
-import type { IGetPatientLabReportUseCase } from "@application/ports/use-cases/patient/appointments/IGetPatientLabReportUseCase.ts";
-import type { IGetPatientLabReportsDTO } from "./IGetPatientLabReportDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILabReportRepository } from "@application/ports/repositories/ILabReportRepository.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IGetPatientLabReportUseCase } from "#application/ports/use-cases/patient/appointments/IGetPatientLabReportUseCase.js";
+import type { IGetPatientLabReportsDTO } from "./IGetPatientLabReportDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILabReportRepository } from "#application/ports/repositories/ILabReportRepository.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class GetPatientLabReportUseCase implements IGetPatientLabReportUseCase {
   constructor(
@@ -30,7 +30,9 @@ export class GetPatientLabReportUseCase implements IGetPatientLabReportUseCase {
     );
 
     const { reports: uploadedReports, totalCount } =
-      await this._labRepo.findByPatient(patient.id, data.page, data.limit);
+      await this._labRepo.findByPatient(patient.id, data.page, data.limit, [
+        LAB_REPORT_STATUS.UPLOADED,
+      ]);
 
     return {
       requested: requestedReports.map((report) => ({
@@ -39,23 +41,24 @@ export class GetPatientLabReportUseCase implements IGetPatientLabReportUseCase {
         instructions: report.instructions,
         requestedAt: report.requestedAt,
         status: report.status,
+        appointmentId: report.appointmentId,
       })),
 
       uploaded: {
-        reports: uploadedReports
-          .filter((r) => r.status === LAB_REPORT_STATUS.UPLOADED)
-          .map((report) => ({
-            id: report.id,
-            testName: report.testName,
-            documentKey: this._fileUpload.getFileUrl(
-              report.documentKey ?? "",
-              true
-            ),
-            remarks: report.remarks,
-            requestedAt: report.requestedAt,
-            uploadedAt: report.uploadedAt,
-            status: report.status,
-          })),
+        reports: uploadedReports.map((report) => ({
+          id: report.id,
+          testName: report.testName,
+          documentKey: this._fileUpload.getFileUrl(
+            report.documentKey ?? "",
+            true
+          ),
+          remarks: report.remarks,
+          instructions: report.instructions,
+          requestedAt: report.requestedAt,
+          uploadedAt: report.uploadedAt,
+          status: report.status,
+          appointmentId: report.appointmentId,
+        })),
 
         totalCount,
         page: data.page,

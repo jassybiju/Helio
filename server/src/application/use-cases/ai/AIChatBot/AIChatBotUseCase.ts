@@ -1,8 +1,8 @@
-import type { IAIAgentService } from "@application/ports/services/IAIAgentService.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IVectorStoreService } from "@application/ports/services/IVectorStoreService.ts";
-import type { IAIChatBotUseCase } from "@application/ports/use-cases/ai/IAIChatBotUseCase.ts";
+import type { IAIAgentService } from "#application/ports/services/IAIAgentService.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IVectorStoreService } from "#application/ports/services/IVectorStoreService.js";
+import type { IAIChatBotUseCase } from "#application/ports/use-cases/ai/IAIChatBotUseCase.js";
 
 export class AIChatBotUseCase implements IAIChatBotUseCase {
   constructor(

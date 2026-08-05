@@ -1,10 +1,10 @@
-import type { IGetAdminDashboardUseCase } from "@application/ports/use-cases/admin/IGetAdminDashboardUseCase.ts";
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetAdminDashboardUseCase } from "#application/ports/use-cases/admin/IGetAdminDashboardUseCase.js";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class AdminDashboardController {

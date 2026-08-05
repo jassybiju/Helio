@@ -1,5 +1,5 @@
-import { DAY_OF_WEEK } from "@domain/common/enums/doctorShift.enum.ts";
-import type { Time } from "@domain/value-objects/Time.ts";
+import { DAY_OF_WEEK } from "#domain/common/enums/doctorShift.enum.js";
+import type { Time } from "#domain/value-objects/Time.js";
 
 export function combineDateAndTime(date: Date, time: Time) {
   const istDate = new Date(date);

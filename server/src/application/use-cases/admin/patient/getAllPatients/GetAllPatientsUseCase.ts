@@ -1,15 +1,15 @@
-import type { IGetAllPatientsUseCase } from "@application/ports/use-cases/admin/patient/IGetAllPatientsUseCase.ts";
+import type { IGetAllPatientsUseCase } from "#application/ports/use-cases/admin/patient/IGetAllPatientsUseCase.js";
 import type {
   IGetAllPatientsRequestDTO,
   IGetAllPatientsResponseDTO,
-} from "./IGetAllPatientsDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "./IGetAllPatientsDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type {
   IPatientFilters,
   IPatientRepository,
-} from "@application/ports/repositories/IPatientRepository.ts";
-import { GetAllPatientsMapper } from "./GetAllPatientMapper.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+} from "#application/ports/repositories/IPatientRepository.js";
+import { GetAllPatientsMapper } from "./GetAllPatientMapper.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class GetAllPatientsUseCase implements IGetAllPatientsUseCase {
   constructor(

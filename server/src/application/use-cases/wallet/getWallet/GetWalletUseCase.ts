@@ -1,13 +1,13 @@
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type {
   IGetWalletInput,
   IGetWalletUseCase,
-} from "@application/ports/use-cases/wallet/IGetWalletUseCase.ts";
-import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/ports/use-cases/wallet/IGetWalletUseCase.js";
+import type { WalletTransaction } from "#domain/entities/WalletTransaction.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class GetWalletUseCase implements IGetWalletUseCase {
   constructor(

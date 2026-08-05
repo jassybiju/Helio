@@ -1,14 +1,14 @@
 import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware.ts";
-import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { patientAppointmentController } from "../../di/patient/appointment/appointment.di.ts";
-import { validate } from "../../middlewares/validation.middleware.ts";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { patientAppointmentController } from "../../di/patient/appointment/appointment.di.js";
+import { validate } from "../../middlewares/validation.middleware.js";
 import {
   checkoutSchema,
   rescheduleAppointmentSchema,
   verifyPaymentSchema,
-} from "../../schemas/patient/appointment.schema.ts";
+} from "../../schemas/patient/appointment.schema.js";
 
 export const patientAppointmentRouter = Router();
 

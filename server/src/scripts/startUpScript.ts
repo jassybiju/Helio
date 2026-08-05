@@ -1,10 +1,10 @@
-import { CreateAdminUseCase } from "@application/use-cases/admin/auth/CreateAdminUseCase.ts";
-import { connectDB } from "@config/mongo.config.ts";
-import { AdminRepository } from "@infrastructure/database/repositories/AdminRepository.ts";
-import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
-import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
+import { CreateAdminUseCase } from "#application/use-cases/admin/auth/CreateAdminUseCase.js";
+import { connectDB } from "#config/mongo.config.js";
+import { AdminRepository } from "#infrastructure/database/repositories/AdminRepository.js";
+import { WalletRepository } from "#infrastructure/database/repositories/WalletRepository.js";
+import { BcryptPasswordService } from "#infrastructure/services/BcryptPasswordService.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
 
 await connectDB();
 

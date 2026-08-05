@@ -1,18 +1,18 @@
 import type {
   ILoginRequestDTO,
   ILoginResponseDTO,
-} from "@application/dto/auth/ILoginDTO.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
-import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
-import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
-import type { PatientValidator } from "@application/validators/PatientValidator.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+} from "#application/dto/auth/ILoginDTO.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ISessionRepository } from "#application/ports/repositories/ISessionRepository.js";
+import type { IAccessTokenService } from "#application/ports/services/IAccessTokenService.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IRefreshTokenService } from "#application/ports/services/IRefreshTokenService.js";
+import type { ILoginUseCase } from "#application/ports/use-cases/auth/ILoginUseCase.js";
+import type { PatientValidator } from "#application/validators/PatientValidator.js";
+import { Email } from "#domain/value-objects/Email.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export class LoginPatientUseCase implements ILoginUseCase {
   constructor(

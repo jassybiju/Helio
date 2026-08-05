@@ -1,4 +1,4 @@
-import type { ILoginResponseDTO } from "@application/dto/auth/ILoginDTO.ts";
+import type { ILoginResponseDTO } from "#application/dto/auth/ILoginDTO.js";
 
 export interface IGoogleLoginUseCase {
   execute({

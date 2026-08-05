@@ -1,11 +1,11 @@
-import { GetAdminDashboardUseCase } from "@application/use-cases/admin/dashboard/getDashboard/GetAdminDashboardUseCase.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { AdminDashboardController } from "../../controllers/admin/dashboard.controller.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
-import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
+import { GetAdminDashboardUseCase } from "#application/use-cases/admin/dashboard/getDashboard/GetAdminDashboardUseCase.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { AdminDashboardController } from "../../controllers/admin/dashboard.controller.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { WalletTransactionRepository } from "#infrastructure/database/repositories/WalletTransactionRepository.js";
+import { WalletRepository } from "#infrastructure/database/repositories/WalletRepository.js";
 
 const logger = PinoLoggerService.getInstance();
 

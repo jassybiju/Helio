@@ -1,14 +1,14 @@
 import type { Request, Response, NextFunction } from "express";
-import type { ISearchDoctorUseCase } from "@application/ports/use-cases/patient/appointments/ISearchDoctorUseCase.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { ISearchDoctorUseCase } from "#application/ports/use-cases/patient/appointments/ISearchDoctorUseCase.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { patientSearchDoctorSchema } from "../../../schemas/patient/doctor-search.schema.ts";
-import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { IGetSlotUseCase } from "@application/ports/use-cases/patient/appointments/IGetSlotUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { patientSearchDoctorSchema } from "../../../schemas/patient/doctor-search.schema.js";
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { IGetSlotUseCase } from "#application/ports/use-cases/patient/appointments/IGetSlotUseCase.js";
 
 // (optional) create a zod schema later if you want strict validation
 

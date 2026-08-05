@@ -1,14 +1,14 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPaymentServiceFactory } from "@application/ports/services/IPaymentServiceFactory.ts";
-import type { ICheckoutAppointmentUseCase } from "@application/ports/use-cases/patient/appointments/ICheckoutAppointmentUseCase.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPaymentServiceFactory } from "#application/ports/services/IPaymentServiceFactory.js";
+import type { ICheckoutAppointmentUseCase } from "#application/ports/use-cases/patient/appointments/ICheckoutAppointmentUseCase.js";
 import {
   APPOINTMENT_STATUS,
   type PAYMENT_TYPE,
-} from "@domain/common/enums/appointment.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class CheckoutAppointmentUseCase implements ICheckoutAppointmentUseCase {
   constructor(

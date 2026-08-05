@@ -1,4 +1,4 @@
-import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
+import { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
 import z from "zod";
 
 export const getAllDoctorSchema = z.object({

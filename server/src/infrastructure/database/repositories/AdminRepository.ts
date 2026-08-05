@@ -1,9 +1,9 @@
-import type { IAdminRepository } from "@application/ports/repositories/IAdminRepository.ts";
-import { Admin } from "@domain/entities/Admin.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { AdminModel } from "../model/AdminModel.ts";
+import type { IAdminRepository } from "#application/ports/repositories/IAdminRepository.js";
+import { Admin } from "#domain/entities/Admin.js";
+import { Email } from "#domain/value-objects/Email.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { AdminModel } from "../model/AdminModel.js";
 
 export class AdminRepository implements IAdminRepository {
   async findByEmail(email: Email): Promise<Admin | null> {

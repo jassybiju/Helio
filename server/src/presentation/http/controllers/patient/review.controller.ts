@@ -1,10 +1,10 @@
-import type { IAddReview } from "@application/ports/use-cases/patient/review/IAddReview.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IAddReview } from "#application/ports/use-cases/patient/review/IAddReview.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class PatientReviewController {

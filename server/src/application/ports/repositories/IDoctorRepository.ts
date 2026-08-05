@@ -1,6 +1,6 @@
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
-import type { Email } from "@domain/value-objects/Email.ts";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
+import type { Email } from "#domain/value-objects/Email.js";
 import type { ClientSession } from "mongoose";
 
 export interface IDoctorFilters {

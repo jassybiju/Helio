@@ -1,0 +1,1 @@
+{"version":3,"file":"ICreateAdminUseCase.d.ts","sourceRoot":"","sources":["../../../../../src/application/ports/use-cases/admin/ICreateAdminUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,mBAAmB;IAClC,OAAO,CAAC,KAAK,EAAE,MAAM,EAAE,QAAQ,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CACzD"}

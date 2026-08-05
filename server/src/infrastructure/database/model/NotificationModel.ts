@@ -1,4 +1,4 @@
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const notificationSchema = new Schema({

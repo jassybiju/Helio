@@ -1,13 +1,13 @@
-import { ChatMessage } from "@domain/entities/ChatMessage.ts";
-import { BaseRepository } from "./BaseRepository.ts";
+import { ChatMessage } from "#domain/entities/ChatMessage.js";
+import { BaseRepository } from "./BaseRepository.js";
 import {
   chatMessageModel,
   type ChatMessageRaw,
-} from "../model/ChatMessageModel.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "../model/ChatMessageModel.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type { ClientSession } from "mongoose";
-import type { IChatMessageRepository } from "@application/ports/repositories/IChatMessageRepository.ts";
-import { ChatMessageMapper } from "../../../mappers/ChatMessageMapper.ts";
+import type { IChatMessageRepository } from "#application/ports/repositories/IChatMessageRepository.js";
+import { ChatMessageMapper } from "../../../mappers/ChatMessageMapper.js";
 
 export class ChatMessageRepository
   extends BaseRepository<ChatMessage, ChatMessageRaw>

@@ -1,10 +1,10 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDeleteDoctorScheduleUseCase } from "@application/ports/use-cases/doctor/schedule/IDeleteDoctorScheduleUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDeleteDoctorScheduleUseCase } from "#application/ports/use-cases/doctor/schedule/IDeleteDoctorScheduleUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class DeleteDoctorScheduleUseCase implements IDeleteDoctorScheduleUseCase {
   constructor(

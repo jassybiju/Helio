@@ -1,5 +1,5 @@
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
+import type { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
 
 export type GetDoctorUseCaseResult = {
   doctor: Doctor;

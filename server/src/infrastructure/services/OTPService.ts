@@ -1,4 +1,4 @@
-import type { IOTPService } from "@application/ports/services/IOTPService.ts";
+import type { IOTPService } from "#application/ports/services/IOTPService.js";
 
 export class OTPService implements IOTPService {
   generate(): string {

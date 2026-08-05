@@ -1,7 +1,7 @@
 import type {
   ICompleteDoctorProfileRequestDTO,
   ICompleteDoctorProfileResponseDTO,
-} from "@application/dto/doctor/auth/ICompleteDoctorProfileDTO.ts";
+} from "#application/dto/doctor/auth/ICompleteDoctorProfileDTO.js";
 
 export interface ICompleteDoctorProfileUseCase {
   execute(

@@ -1,4 +1,4 @@
-import type { HTTPStatus } from "../types/HTTPStatus.ts";
+import type { HTTPStatus } from "../types/HTTPStatus.js";
 
 export class AppError extends Error {
   constructor(

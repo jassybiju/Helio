@@ -1,15 +1,15 @@
 import type {
   IResendOTPRequestDTO,
   IResendOTPResponseDTO,
-} from "@application/dto/auth/IOTPDTO.ts";
-import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
-import type { IOTPService } from "@application/ports/services/IOTPService.ts";
-import type { IResendOTPUseCase } from "@application/ports/use-cases/auth/IResendOTPUseCase.ts";
-import { OTP } from "@domain/entities/OTP.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/dto/auth/IOTPDTO.js";
+import type { IOTPRepository } from "#application/ports/repositories/IOTPRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IMessageQueue } from "#application/ports/services/IMessageQueue.js";
+import type { IOTPService } from "#application/ports/services/IOTPService.js";
+import type { IResendOTPUseCase } from "#application/ports/use-cases/auth/IResendOTPUseCase.js";
+import { OTP } from "#domain/entities/OTP.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class ResendOTPUseCase implements IResendOTPUseCase {
   constructor(

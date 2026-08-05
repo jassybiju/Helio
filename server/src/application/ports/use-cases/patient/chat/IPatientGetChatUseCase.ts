@@ -1,4 +1,4 @@
-import type { IPatientGetChatDTO } from "@application/use-cases/patient/chat/getChat/IPatientGetChatDTO.ts";
+import type { IPatientGetChatDTO } from "#application/use-cases/patient/chat/getChat/IPatientGetChatDTO.js";
 
 export interface IPatientGetChatUseCase {
   execute(

@@ -1,17 +1,17 @@
-import type { IDoctorStartConsultationUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorStartConsultationUseCase.ts";
+import type { IDoctorStartConsultationUseCase } from "#application/ports/use-cases/doctor/appointment/IDoctorStartConsultationUseCase.js";
 import type {
   DoctorViewAllInput,
   IDoctorViewAllAppointmentUseCase,
-} from "@application/ports/use-cases/doctor/appointment/IDoctorViewAllAppointmentUseCase.ts";
-import type { IDoctorViewAppointmentUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorViewAppointmentUseCase.ts";
-import type { IDoctorViewTodaysAppointmentUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorViewTodaysAppointmentUseCase.ts";
-import type { ISkipDoctorAppointmentUseCase } from "@application/ports/use-cases/doctor/appointment/ISkipDoctorAppointmentUseCase.ts";
-import { UnauthorizedError } from "@shared/errors/UnauthorizedError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/ports/use-cases/doctor/appointment/IDoctorViewAllAppointmentUseCase.js";
+import type { IDoctorViewAppointmentUseCase } from "#application/ports/use-cases/doctor/appointment/IDoctorViewAppointmentUseCase.js";
+import type { IDoctorViewTodaysAppointmentUseCase } from "#application/ports/use-cases/doctor/appointment/IDoctorViewTodaysAppointmentUseCase.js";
+import type { ISkipDoctorAppointmentUseCase } from "#application/ports/use-cases/doctor/appointment/ISkipDoctorAppointmentUseCase.js";
+import { UnauthorizedError } from "#shared/errors/UnauthorizedError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class DoctorAppointmentController {

@@ -1,0 +1,1 @@
+{"version":3,"file":"SocketRealTimeNotifier.d.ts","sourceRoot":"","sources":["../../../src/infrastructure/services/SocketRealTimeNotifier.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,kDAAkD,CAAC;AAG1F,qBAAa,sBAAuB,YAAW,iBAAiB;;IAGxD,UAAU,CACd,IAAI,EAAE,MAAM,EACZ,KAAK,EAAE,MAAM,EACb,OAAO,EAAE,OAAO,GACf,OAAO,CAAC,IAAI,CAAC;CAGjB"}

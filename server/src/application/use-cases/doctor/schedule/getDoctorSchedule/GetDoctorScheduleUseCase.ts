@@ -1,7 +1,7 @@
-import type { IGetDoctorScheduleUseCase } from "@application/ports/use-cases/doctor/schedule/IGetDoctorScheduleUseCase.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
+import type { IGetDoctorScheduleUseCase } from "#application/ports/use-cases/doctor/schedule/IGetDoctorScheduleUseCase.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { DoctorShift } from "#domain/entities/DoctorShift.js";
 
 export class GetDoctorScheduleUseCase implements IGetDoctorScheduleUseCase {
   constructor(

@@ -1,12 +1,12 @@
-import { SetDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/SetDoctorScheduleUseCase.ts";
-import { DoctorScheduleController } from "../../controllers/doctor/schedule.controller.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { DoctorShiftRepository } from "@infrastructure/database/repositories/DoctorShiftRepository.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { GetDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleUseCase.ts";
-import { DeleteDoctorScheduleUseCase } from "@application/use-cases/doctor/schedule/deleteDoctorSchedule/DeleteDoctorScheduleUseCase.ts";
-import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
+import { SetDoctorScheduleUseCase } from "#application/use-cases/doctor/schedule/SetDoctorScheduleUseCase.js";
+import { DoctorScheduleController } from "../../controllers/doctor/schedule.controller.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { DoctorShiftRepository } from "#infrastructure/database/repositories/DoctorShiftRepository.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { GetDoctorScheduleUseCase } from "#application/use-cases/doctor/schedule/getDoctorSchedule/GetDoctorScheduleUseCase.js";
+import { DeleteDoctorScheduleUseCase } from "#application/use-cases/doctor/schedule/deleteDoctorSchedule/DeleteDoctorScheduleUseCase.js";
+import { MongoUnitOfWork } from "#infrastructure/database/unitOfWork/MongoUnitOfWork.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();

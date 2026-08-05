@@ -1,5 +1,5 @@
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { ChatSession } from "@domain/entities/ChatSession.ts";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { ChatSession } from "#domain/entities/ChatSession.js";
 import type { ClientSession } from "mongoose";
 
 export interface IChatSessionRepository {

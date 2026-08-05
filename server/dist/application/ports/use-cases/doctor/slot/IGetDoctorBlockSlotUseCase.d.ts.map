@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetDoctorBlockSlotUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/slot/IGetDoctorBlockSlotUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,sCAAsC,CAAC;AAE7E,MAAM,WAAW,0BAA0B;IACzC,OAAO,CAAC,QAAQ,EAAE,MAAM,GAAG,OAAO,CAAC,gBAAgB,EAAE,CAAC,CAAC;CACxD"}

@@ -1,11 +1,11 @@
 import type {
   APPOINTMENT_STATUS,
   PAYMENT_STATUS,
-} from "@domain/common/enums/appointment.enum.ts";
-import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { Appointment } from "@domain/entities/Appointment.ts";
-import type { AppointmentRaw } from "@infrastructure/database/model/AppointmentModel.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { Appointment } from "#domain/entities/Appointment.js";
+import type { AppointmentRaw } from "#infrastructure/database/model/AppointmentModel.js";
 
 export class AppointmentMapper {
   static toDomain(raw: AppointmentRaw): Appointment {

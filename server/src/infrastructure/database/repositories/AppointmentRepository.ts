@@ -3,24 +3,24 @@ import type {
   FindAppointmentsFilter,
   IAppointmentDashboardStatistics,
   IAppointmentRepository,
-} from "@application/ports/repositories/IAppointmentRepository.ts";
-import { Appointment } from "@domain/entities/Appointment.ts";
-import { BaseRepository } from "./BaseRepository.ts";
+} from "#application/ports/repositories/IAppointmentRepository.js";
+import { Appointment } from "#domain/entities/Appointment.js";
+import { BaseRepository } from "./BaseRepository.js";
 import {
   appointmentModel,
   type AppointmentRaw,
-} from "../model/AppointmentModel.ts";
-import { AppointmentMapper } from "../../../mappers/AppointmentMapper.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+} from "../model/AppointmentModel.js";
+import { AppointmentMapper } from "../../../mappers/AppointmentMapper.js";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 import type { ClientSession, PipelineStage, QueryFilter } from "mongoose";
 import {
   APPOINTMENT_STATUS,
   BOOKING_PERIOD,
-} from "@domain/common/enums/appointment.enum.ts";
-import type { PatientRawDoc } from "../model/PatientModel.ts";
-import type { DoctorRawDoc } from "../model/DoctorModel.ts";
-import { istToUtc, utcToIst } from "@shared/utils/date.utils.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import type { PatientRawDoc } from "../model/PatientModel.js";
+import type { DoctorRawDoc } from "../model/DoctorModel.js";
+import { istToUtc, utcToIst } from "#shared/utils/date.utils.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 
 export class AppointmentRepository
   extends BaseRepository<Appointment, AppointmentRaw>

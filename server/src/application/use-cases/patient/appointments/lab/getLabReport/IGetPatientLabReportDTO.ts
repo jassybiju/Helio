@@ -1,4 +1,4 @@
-import type { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
+import type { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
 
 export interface IGetPatientLabReportsDTO {
   requested: {
@@ -7,12 +7,14 @@ export interface IGetPatientLabReportsDTO {
     instructions: string | null;
     requestedAt: Date;
     status: LAB_REPORT_STATUS;
+    appointmentId: string;
   }[];
 
   uploaded: {
     reports: {
       id: string;
       testName: string;
+      appointmentId: string;
 
       documentKey: string | null;
 

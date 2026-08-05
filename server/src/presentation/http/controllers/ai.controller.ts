@@ -1,9 +1,9 @@
-import type { IAIChatBotUseCase } from "@application/ports/use-cases/ai/IAIChatBotUseCase.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IAIChatBotUseCase } from "#application/ports/use-cases/ai/IAIChatBotUseCase.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class AIController {

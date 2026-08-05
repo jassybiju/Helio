@@ -1,4 +1,4 @@
-import { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+import { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
 import z from "zod";
 
 export const getDoctorDashboardSchema = z.object({

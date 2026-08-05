@@ -1,4 +1,4 @@
-import type { OTP_PURPOSE } from "@domain/common/enums/otp.enum.ts";
+import type { OTP_PURPOSE } from "#domain/common/enums/otp.enum.js";
 
 export type OTPData = {
   email: string;

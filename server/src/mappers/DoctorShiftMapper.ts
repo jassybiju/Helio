@@ -1,9 +1,9 @@
-import { DoctorShift } from "@domain/entities/DoctorShift.ts";
+import { DoctorShift } from "#domain/entities/DoctorShift.js";
 import type {
   CONSULTATION_TYPE,
   DAY_OF_WEEK,
-} from "@domain/common/enums/doctorShift.enum.ts";
-import { Time } from "@domain/value-objects/Time.ts";
+} from "#domain/common/enums/doctorShift.enum.js";
+import { Time } from "#domain/value-objects/Time.js";
 
 export class DoctorShiftMapper {
   static toDomain(raw: {

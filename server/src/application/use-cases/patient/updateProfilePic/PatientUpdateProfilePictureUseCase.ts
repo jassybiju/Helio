@@ -1,9 +1,9 @@
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPatientUpdateProfilePictureUseCase } from "@application/ports/use-cases/patient/profile/IUpdateProfilePictureUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPatientUpdateProfilePictureUseCase } from "#application/ports/use-cases/patient/profile/IUpdateProfilePictureUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class PatientUpdateProfilePictureUseCase implements IPatientUpdateProfilePictureUseCase {
   constructor(

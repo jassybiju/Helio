@@ -1,12 +1,12 @@
-import type { ITemplateRenderer } from "@application/ports/services/ITemplateRenderer.ts";
-import type { PDF_TYPE } from "@shared/types/pdf.type.ts";
+import type { ITemplateRenderer } from "#application/ports/services/ITemplateRenderer.js";
+import type { PDF_TYPE } from "#shared/types/pdf.type.js";
 import path from "path";
 import fs from "fs/promises";
 import Handlebars from "handlebars";
 export class HandlebarsTemplateRenderer implements ITemplateRenderer {
   private readonly templatePath = path.resolve(
     process.cwd(),
-    "src/infrastructure/pdf/templates"
+    "templates"
   );
 
   constructor() {}

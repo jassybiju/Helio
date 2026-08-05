@@ -1,18 +1,18 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
-import type { IDoctorStartConsultationUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorStartConsultationUseCase.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
-import { Consultation } from "@domain/entities/Consultation.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
+import type { IDoctorStartConsultationUseCase } from "#application/ports/use-cases/doctor/appointment/IDoctorStartConsultationUseCase.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
+import { Consultation } from "#domain/entities/Consultation.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class DoctorStartConsultationUseCase implements IDoctorStartConsultationUseCase {
   constructor(

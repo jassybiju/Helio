@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetAppointmentUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/patient/appointments/IGetAppointmentUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,kFAAkF,CAAC;AAE3H,MAAM,WAAW,sBAAsB;IACrC,OAAO,CACL,SAAS,EAAE,MAAM,EACjB,aAAa,EAAE,MAAM,GACpB,OAAO,CAAC,kBAAkB,CAAC,CAAC;CAChC"}

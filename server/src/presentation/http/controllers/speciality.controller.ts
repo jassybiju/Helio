@@ -1,12 +1,12 @@
-import type { ICreateSpecialtyUseCase } from "@application/ports/use-cases/ICreateSpecialtyUseCase.ts";
-import type { IGetAllSpecialityUseCase } from "@application/ports/use-cases/IGetAllSpecialityUseCase.ts";
-import type { IGetSpecialityUsecase } from "@application/ports/use-cases/IGetSpecialityUsecase.ts";
-import type { IRemoveSpecialtyUseCase } from "@application/ports/use-cases/IRemoveSpecialtyUseCase.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { ICreateSpecialtyUseCase } from "#application/ports/use-cases/ICreateSpecialtyUseCase.js";
+import type { IGetAllSpecialityUseCase } from "#application/ports/use-cases/IGetAllSpecialityUseCase.js";
+import type { IGetSpecialityUsecase } from "#application/ports/use-cases/IGetSpecialityUsecase.js";
+import type { IRemoveSpecialtyUseCase } from "#application/ports/use-cases/IRemoveSpecialtyUseCase.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import { type NextFunction, type Request, type Response } from "express";
 
 export class SpecialtyController {

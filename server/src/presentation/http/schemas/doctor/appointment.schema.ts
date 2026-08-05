@@ -1,5 +1,5 @@
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 import z from "zod";
 
 export const doctorViewAllAppointmentSchema = z.object({

@@ -1,6 +1,6 @@
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 

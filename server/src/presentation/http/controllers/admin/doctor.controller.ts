@@ -1,21 +1,21 @@
-import type { IGetAllDoctorsUseCase } from "@application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.ts";
+import type { IGetAllDoctorsUseCase } from "#application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.js";
 import type { NextFunction, Request, Response } from "express";
 import {
   changeDoctorApprovalStatusSchema,
   getAllDoctorSchema,
-} from "../../schemas/admin/doctor.schema.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "../../schemas/admin/doctor.schema.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IChangeDoctorApprovalStatusUseCase } from "@application/ports/use-cases/admin/doctor/IChangeDoctorApprovalStatusUseCase.ts";
-import type { IGetDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IGetDoctorUseCase.ts";
-import { GetDoctorMapper } from "@application/use-cases/admin/doctor/getDoctor/GetDoctorMapper.ts";
-import type { IToggleBlockDoctorUseCase } from "@application/ports/use-cases/admin/doctor/IToggleBlockDoctorUseCase.ts";
-import type { IChangeDoctorApprovalStatusRequestDTO } from "@application/use-cases/admin/doctor/changeDoctorApprovalStatus/IChangeDoctorApprovalStatusDTO.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IChangeDoctorApprovalStatusUseCase } from "#application/ports/use-cases/admin/doctor/IChangeDoctorApprovalStatusUseCase.js";
+import type { IGetDoctorUseCase } from "#application/ports/use-cases/admin/doctor/IGetDoctorUseCase.js";
+import { GetDoctorMapper } from "#application/use-cases/admin/doctor/getDoctor/GetDoctorMapper.js";
+import type { IToggleBlockDoctorUseCase } from "#application/ports/use-cases/admin/doctor/IToggleBlockDoctorUseCase.js";
+import type { IChangeDoctorApprovalStatusRequestDTO } from "#application/use-cases/admin/doctor/changeDoctorApprovalStatus/IChangeDoctorApprovalStatusDTO.js";
 
 export class AdminDoctorController {
   constructor(

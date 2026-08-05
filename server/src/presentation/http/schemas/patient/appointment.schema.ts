@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 
 export const createPatientAppointmentSchema = z.object({
   doctorId: z.string().min(1, "Doctor ID is required"),

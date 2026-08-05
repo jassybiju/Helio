@@ -1,12 +1,12 @@
-import type { ILabReportRepository } from "@application/ports/repositories/ILabReportRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IUploadPatientLabReportUseCase } from "@application/ports/use-cases/patient/appointments/IUploadPatientLabReportUseCase.ts";
-import { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { ILabReportRepository } from "#application/ports/repositories/ILabReportRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IUploadPatientLabReportUseCase } from "#application/ports/use-cases/patient/appointments/IUploadPatientLabReportUseCase.js";
+import { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class UploadPatientLabReportUseCase implements IUploadPatientLabReportUseCase {
   constructor(

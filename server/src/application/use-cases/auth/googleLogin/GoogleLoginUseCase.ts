@@ -1,22 +1,22 @@
-import type { IGoogleLoginResponseDTO } from "@application/dto/auth/IGoogleLoginDTO.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
-import type { IGoogleAuthService } from "@application/ports/services/IGoogleAuthService.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
-import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoogleLoginUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { Doctor } from "@domain/entities/Doctor.ts";
-import { Patient } from "@domain/entities/Patient.ts";
-import { Wallet } from "@domain/entities/Wallet.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGoogleLoginResponseDTO } from "#application/dto/auth/IGoogleLoginDTO.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ISessionRepository } from "#application/ports/repositories/ISessionRepository.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IAccessTokenService } from "#application/ports/services/IAccessTokenService.js";
+import type { IGoogleAuthService } from "#application/ports/services/IGoogleAuthService.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IRefreshTokenService } from "#application/ports/services/IRefreshTokenService.js";
+import type { IGoogleLoginUseCase } from "#application/ports/use-cases/auth/IGoogleLoginUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { Doctor } from "#domain/entities/Doctor.js";
+import { Patient } from "#domain/entities/Patient.js";
+import { Wallet } from "#domain/entities/Wallet.js";
+import { Email } from "#domain/value-objects/Email.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class GoogleLoginUseCase implements IGoogleLoginUseCase {
   constructor(

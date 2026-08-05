@@ -1,4 +1,4 @@
-import type { IVectorStoreService } from "@application/ports/services/IVectorStoreService.ts";
+import type { IVectorStoreService } from "#application/ports/services/IVectorStoreService.js";
 import { tool } from "@langchain/core/tools";
 import z from "zod";
 

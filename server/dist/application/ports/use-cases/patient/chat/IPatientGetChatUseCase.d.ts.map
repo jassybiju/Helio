@@ -1,0 +1,1 @@
+{"version":3,"file":"IPatientGetChatUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/patient/chat/IPatientGetChatUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,mEAAmE,CAAC;AAE5G,MAAM,WAAW,sBAAsB;IACrC,OAAO,CACL,SAAS,EAAE,MAAM,EACjB,aAAa,EAAE,MAAM,GACpB,OAAO,CAAC,kBAAkB,CAAC,CAAC;CAChC"}

@@ -1,4 +1,4 @@
-import { LangchainQdrantVectorStoreService } from "@infrastructure/ai/vectorStore/LangchainQdrantVectorStoreService.ts";
+import { LangchainQdrantVectorStoreService } from "#infrastructure/ai/vectorStore/LangchainQdrantVectorStoreService.js";
 import { TextLoader } from "@langchain/classic/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import path from "path";

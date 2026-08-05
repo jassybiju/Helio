@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { authController } from "../di/auth.di.ts";
-import { authMiddleware } from "../middlewares/auth.middleware.ts";
-import { checkBlockMiddleware } from "../di/middleware.di.ts";
+import { authController } from "../di/auth.di.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { checkBlockMiddleware } from "../di/middleware.di.js";
 
 export const authRouter = Router();
 

@@ -1,15 +1,15 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type {
   IVerifyAppointmentPaymentUseCase,
   VerifyAppointmentPaymentInput,
-} from "@application/ports/use-cases/patient/appointments/IVerifyAppointmentPaymentUseCase.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { PaymentError } from "@shared/errors/PaymentError.ts";
+} from "#application/ports/use-cases/patient/appointments/IVerifyAppointmentPaymentUseCase.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { PaymentError } from "#shared/errors/PaymentError.js";
 import crypto from "crypto";
 
 export class VerifyAppointmentPaymentUseCase implements IVerifyAppointmentPaymentUseCase {

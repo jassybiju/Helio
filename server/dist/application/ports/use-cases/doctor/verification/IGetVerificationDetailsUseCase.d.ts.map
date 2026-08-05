@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetVerificationDetailsUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/verification/IGetVerificationDetailsUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,kCAAkC,EAAE,MAAM,iGAAiG,CAAC;AAE1J,MAAM,WAAW,8BAA8B;IAC7C,OAAO,CAAC,MAAM,EAAE,MAAM,GAAG,OAAO,CAAC,kCAAkC,CAAC,CAAC;CACtE"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetPatientDashboardUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/patient/dashboard/IGetPatientDashboardUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,uBAAuB,EAAE,MAAM,kFAAkF,CAAC;AAEhI,MAAM,WAAW,2BAA2B;IAC1C,OAAO,CAAC,SAAS,EAAE,MAAM,GAAG,OAAO,CAAC,uBAAuB,CAAC,CAAC;CAC9D"}

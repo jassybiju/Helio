@@ -1,14 +1,14 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorViewAppointmentUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorViewAppointmentUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import type { IDoctorViewAppointmentDTO } from "./IDoctorViewAppointmentDTO.ts";
-import { DoctorViewAppointmentMapper } from "./DoctorViewAppointmentMapper.ts";
-import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorViewAppointmentUseCase } from "#application/ports/use-cases/doctor/appointment/IDoctorViewAppointmentUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import type { IDoctorViewAppointmentDTO } from "./IDoctorViewAppointmentDTO.js";
+import { DoctorViewAppointmentMapper } from "./DoctorViewAppointmentMapper.js";
+import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
 
 export class DoctorViewAppointmentUseCase implements IDoctorViewAppointmentUseCase {
   constructor(

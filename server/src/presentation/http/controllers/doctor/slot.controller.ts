@@ -1,23 +1,23 @@
-import type { IDoctorSlotFilters } from "@application/ports/repositories/IDoctorSlotRepository.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorSlotFilters } from "#application/ports/repositories/IDoctorSlotRepository.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   errorResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 import {
   blockDoctorSlotSchema,
   getAllDoctorSlotsSchema,
-} from "../../schemas/doctor/slot.schema.ts";
-import { GetDoctorWeeklySlotsMapper } from "@application/use-cases/doctor/slot/getDoctorSlots/GetDoctorWeeklySlotsMapper.ts";
-import type { IGetDoctorWeeklySlotsUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorWeeklySlotsUseCase.ts";
-import type { IBlockDoctorSlotUseCase } from "@application/ports/use-cases/doctor/slot/IBlockDoctorSlotUseCase.ts";
-import type { IGetDoctorBlockSlotUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorBlockSlotUseCase.ts";
-import { GetDoctorBlockSlotMapper } from "@application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotMapper.ts";
-import type { IDeleteDoctorBlockSlotUseCase } from "@application/ports/use-cases/doctor/slot/IDeleteDoctorBlockSlotUseCase.ts";
+} from "../../schemas/doctor/slot.schema.js";
+import { GetDoctorWeeklySlotsMapper } from "#application/use-cases/doctor/slot/getDoctorSlots/GetDoctorWeeklySlotsMapper.js";
+import type { IGetDoctorWeeklySlotsUseCase } from "#application/ports/use-cases/doctor/slot/IGetDoctorWeeklySlotsUseCase.js";
+import type { IBlockDoctorSlotUseCase } from "#application/ports/use-cases/doctor/slot/IBlockDoctorSlotUseCase.js";
+import type { IGetDoctorBlockSlotUseCase } from "#application/ports/use-cases/doctor/slot/IGetDoctorBlockSlotUseCase.js";
+import { GetDoctorBlockSlotMapper } from "#application/use-cases/doctor/slot/getDoctorBlockSlot/GetDoctorBlockSlotMapper.js";
+import type { IDeleteDoctorBlockSlotUseCase } from "#application/ports/use-cases/doctor/slot/IDeleteDoctorBlockSlotUseCase.js";
 
 export class DoctorSlotController {
   constructor(

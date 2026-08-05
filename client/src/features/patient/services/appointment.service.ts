@@ -36,7 +36,7 @@ export interface IGetAllPatientAppointments {
 
     hasLabReports: boolean;
   }[];
-  cancelledAppointments: string[]
+  cancelledAppointments: string[];
   totalCount: number;
   page: number;
   limit: number;
@@ -70,7 +70,7 @@ export interface IGetPatientAppointment {
     generalAdvice: string | null;
     quickNote: string | null;
     clinicalObservation: string | null;
-      prescriptions: {
+    prescriptions: {
       name: string;
       timings: {
         morning: boolean;
@@ -108,20 +108,19 @@ export interface IGetPatientLabReports {
     instructions: string | null;
     requestedAt: Date;
     status: string;
+    appointmentId: string;
   }[];
 
   uploaded: {
     reports: {
       id: string;
       testName: string;
-
+      appointmentId: string;
+      instructions: string | null;
       documentKey: string | null;
-
       remarks: string | null;
-
       requestedAt: Date;
       uploadedAt: Date | null;
-
       status: string;
     }[];
     totalCount: number;

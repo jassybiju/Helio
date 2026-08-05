@@ -1,17 +1,17 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPDFGeneratorService } from "@application/ports/services/IPDFGeneratorService.ts";
-import type { ITemplateRenderer } from "@application/ports/services/ITemplateRenderer.ts";
-import type { IPdfRequestDTO } from "@application/ports/use-cases/pdf/IPdfRequestDTO.ts";
-import type { IPdfUseCase } from "@application/ports/use-cases/pdf/IPdfUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPDFGeneratorService } from "#application/ports/services/IPDFGeneratorService.js";
+import type { ITemplateRenderer } from "#application/ports/services/ITemplateRenderer.js";
+import type { IPdfRequestDTO } from "#application/ports/use-cases/pdf/IPdfRequestDTO.js";
+import type { IPdfUseCase } from "#application/ports/use-cases/pdf/IPdfUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 import type { Readable } from "node:stream";
-import { PatientAppointmentPdfMapper } from "./PatientInvoicePDFMapper.ts";
-import { PDF_TYPE } from "@shared/types/pdf.type.ts";
+import { PatientAppointmentPdfMapper } from "./PatientInvoicePDFMapper.js";
+import { PDF_TYPE } from "#shared/types/pdf.type.js";
 
 export class GeneratePatientInvoicePDFUseCase implements IPdfUseCase {
   constructor(

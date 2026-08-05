@@ -1,11 +1,11 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import type { IChangeDoctorPasswordUseCase } from "@application/ports/use-cases/doctor/profile/IChangeDoctorPasswordUseCase.ts";
-import type { DoctorValidator } from "@application/validators/DoctorValidator.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import type { IChangeDoctorPasswordUseCase } from "#application/ports/use-cases/doctor/profile/IChangeDoctorPasswordUseCase.js";
+import type { DoctorValidator } from "#application/validators/DoctorValidator.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class ChangeDoctorPasswordUseCase implements IChangeDoctorPasswordUseCase {
   constructor(

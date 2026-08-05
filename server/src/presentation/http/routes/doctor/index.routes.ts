@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { doctorAuthRouter } from "./auth.routes.ts";
-import { doctorProfileRouter } from "./profile.routes.ts";
-import { doctorVerificationRoutes } from "./verification.routes.ts";
-import { doctorScheduleRouter } from "./schedule.routes.ts";
-import { doctorSlotRouter } from "./slot.routes.ts";
-import { doctorAppointmentRoutes } from "./appointment.routes.ts";
-import { doctorConsultationRoutes } from "./consultation.routes.ts";
-import { doctorChatRouter } from "./chat.routes.ts";
-import { doctorDashboardRoutes } from "./dashboard.routes.ts";
+import { doctorAuthRouter } from "./auth.routes.js";
+import { doctorProfileRouter } from "./profile.routes.js";
+import { doctorVerificationRoutes } from "./verification.routes.js";
+import { doctorScheduleRouter } from "./schedule.routes.js";
+import { doctorSlotRouter } from "./slot.routes.js";
+import { doctorAppointmentRoutes } from "./appointment.routes.js";
+import { doctorConsultationRoutes } from "./consultation.routes.js";
+import { doctorChatRouter } from "./chat.routes.js";
+import { doctorDashboardRoutes } from "./dashboard.routes.js";
 
 export const doctorRouter = Router();
 

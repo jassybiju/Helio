@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { validate } from "../../middlewares/validation.middleware.ts";
-import { getAdminDashboardSchema } from "../../schemas/admin/dashboard.schema.ts";
-import { adminDashboardController } from "../../di/admin/dashboard.di.ts";
-import { authMiddleware } from "../../middlewares/auth.middleware.ts";
-import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { validate } from "../../middlewares/validation.middleware.js";
+import { getAdminDashboardSchema } from "../../schemas/admin/dashboard.schema.js";
+import { adminDashboardController } from "../../di/admin/dashboard.di.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export const adminDashboardRoutes = Router();
 

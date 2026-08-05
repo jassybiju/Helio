@@ -1,0 +1,1 @@
+{"version":3,"file":"ConflictError.js","sourceRoot":"","sources":["../../../src/shared/errors/ConflictError.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,6BAA6B,CAAC;AACzD,OAAO,EAAE,QAAQ,EAAE,MAAM,eAAe,CAAC;AAEzC,MAAM,OAAO,aAAc,SAAQ,QAAQ;IACzC,YAAY,OAAe;QACzB,KAAK,CAAC,OAAO,EAAE,UAAU,CAAC,QAAQ,CAAC,CAAC;IACtC,CAAC;CACF"}

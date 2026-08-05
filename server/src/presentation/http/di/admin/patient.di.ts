@@ -1,11 +1,11 @@
-import { GetAllPatientsUseCase } from "@application/use-cases/admin/patient/getAllPatients/GetAllPatientsUseCase.ts";
-import { AdminPatientController } from "../../controllers/admin/patient.controller.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { ToggleBlockPatientUseCase } from "@application/use-cases/admin/patient/toggleBlock/ToggleBlockPatientUseCase.ts";
-import { GetPatientUseCase } from "@application/use-cases/admin/patient/getPatient/GetPatientUseCase.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
-import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { GetAllPatientsUseCase } from "#application/use-cases/admin/patient/getAllPatients/GetAllPatientsUseCase.js";
+import { AdminPatientController } from "../../controllers/admin/patient.controller.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { ToggleBlockPatientUseCase } from "#application/use-cases/admin/patient/toggleBlock/ToggleBlockPatientUseCase.js";
+import { GetPatientUseCase } from "#application/use-cases/admin/patient/getPatient/GetPatientUseCase.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);

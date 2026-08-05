@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { doctorConsultationController } from "../../di/doctor/consultation.di.ts";
-import { authMiddleware } from "../../middlewares/auth.middleware.ts";
-import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { validate } from "../../middlewares/validation.middleware.ts";
+import { doctorConsultationController } from "../../di/doctor/consultation.di.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { validate } from "../../middlewares/validation.middleware.js";
 import {
   doctorAddPrescriptionSchema,
   doctorUpdateConsultationNotes,
   doctorUpdateVitalsSchema,
   doctorViewHistorySchema,
-} from "../../schemas/doctor/consultation.schema.ts";
+} from "../../schemas/doctor/consultation.schema.js";
 
 export const doctorConsultationRoutes = Router();
 

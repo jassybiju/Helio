@@ -1,17 +1,17 @@
-import { DoctorAppointmentController } from "../../controllers/doctor/appointment.controller.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { DoctorViewAllAppointmentUseCase } from "@application/use-cases/doctor/appointment/doctorViewAllAppointment/DoctorViewAllAppointmentUseCase.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { DoctorViewAppointmentUseCase } from "@application/use-cases/doctor/appointment/doctorViewAppointment/DoctorViewAppointmentUseCase.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { DoctorStartConsultationUseCase } from "@application/use-cases/doctor/appointment/startConsultation/DoctorStartConsultationUseCase.ts";
-import { ConsultationRepository } from "@infrastructure/database/repositories/ConsultationRepository.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
-import { DoctorViewTodaysAppointmentUseCase } from "@application/use-cases/doctor/appointment/doctorViewTodaysAppointment/DoctorViewTodaysAppointmentUseCase.ts";
-import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
-import { SkipDoctorAppointmentUseCase } from "@application/use-cases/doctor/appointment/skipAppointment/SkipDoctorAppointmentUseCase.ts";
+import { DoctorAppointmentController } from "../../controllers/doctor/appointment.controller.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { DoctorViewAllAppointmentUseCase } from "#application/use-cases/doctor/appointment/doctorViewAllAppointment/DoctorViewAllAppointmentUseCase.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { DoctorViewAppointmentUseCase } from "#application/use-cases/doctor/appointment/doctorViewAppointment/DoctorViewAppointmentUseCase.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { DoctorStartConsultationUseCase } from "#application/use-cases/doctor/appointment/startConsultation/DoctorStartConsultationUseCase.js";
+import { ConsultationRepository } from "#infrastructure/database/repositories/ConsultationRepository.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { MongoUnitOfWork } from "#infrastructure/database/unitOfWork/MongoUnitOfWork.js";
+import { DoctorViewTodaysAppointmentUseCase } from "#application/use-cases/doctor/appointment/doctorViewTodaysAppointment/DoctorViewTodaysAppointmentUseCase.js";
+import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { SkipDoctorAppointmentUseCase } from "#application/use-cases/doctor/appointment/skipAppointment/SkipDoctorAppointmentUseCase.js";
 
 const loggerService = PinoLoggerService.getInstance();
 

@@ -1,7 +1,7 @@
 import type {
   IChangeDoctorApprovalStatusRequestDTO,
   IChangeDoctorApprovalStatusResponseDTO,
-} from "@application/use-cases/admin/doctor/changeDoctorApprovalStatus/IChangeDoctorApprovalStatusDTO.ts";
+} from "#application/use-cases/admin/doctor/changeDoctorApprovalStatus/IChangeDoctorApprovalStatusDTO.js";
 
 export interface IChangeDoctorApprovalStatusUseCase {
   execute(

@@ -1,0 +1,1 @@
+{"version":3,"file":"IPatientCancellationUseCase.d.ts","sourceRoot":"","sources":["../../../../../../../src/application/ports/use-cases/patient/appointments/cancellation/IPatientCancellationUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,2BAA2B;IAC1C,OAAO,CAAC,SAAS,EAAE,MAAM,EAAE,aAAa,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CAClE"}

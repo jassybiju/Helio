@@ -1,12 +1,12 @@
-import type { IDoctorGetChatListUseCase } from "@application/ports/use-cases/doctor/chat/IDoctorGetChatListUseCase.ts";
-import type { IDoctorGetChatListDTO } from "./IDoctorGetChatListDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IChatSessionRepository } from "@application/ports/repositories/IChatSessionRepository.ts";
-import type { IChatMessageRepository } from "@application/ports/repositories/IChatMessageRepository.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
+import type { IDoctorGetChatListUseCase } from "#application/ports/use-cases/doctor/chat/IDoctorGetChatListUseCase.js";
+import type { IDoctorGetChatListDTO } from "./IDoctorGetChatListDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
+import type { IChatMessageRepository } from "#application/ports/repositories/IChatMessageRepository.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
 
 export class DoctorGetChatListUseCase implements IDoctorGetChatListUseCase {
   constructor(

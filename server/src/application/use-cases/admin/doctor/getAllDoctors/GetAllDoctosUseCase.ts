@@ -1,15 +1,15 @@
 import type {
   IDoctorFilters,
   IDoctorRepository,
-} from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetAllDoctorsUseCase } from "@application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.ts";
+} from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetAllDoctorsUseCase } from "#application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.js";
 import type {
   IGetAllDoctorsRequestDTO,
   IGetAllDoctorsResponseDTO,
-} from "./IGetAllDoctorsDTO.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import { GetAllDoctorMapper } from "./GetAllDoctorMapper.ts";
+} from "./IGetAllDoctorsDTO.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import { GetAllDoctorMapper } from "./GetAllDoctorMapper.js";
 
 export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
   constructor(

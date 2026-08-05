@@ -1,12 +1,12 @@
-import type { IGetVerificationDetailsUseCase } from "@application/ports/use-cases/doctor/verification/IGetVerificationDetailsUseCase.ts";
-import type { IResubmitVerificationUseCase } from "@application/ports/use-cases/doctor/verification/IResubmitVerificationUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { ValidationError } from "@shared/errors/ValidationError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetVerificationDetailsUseCase } from "#application/ports/use-cases/doctor/verification/IGetVerificationDetailsUseCase.js";
+import type { IResubmitVerificationUseCase } from "#application/ports/use-cases/doctor/verification/IResubmitVerificationUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { ValidationError } from "#shared/errors/ValidationError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class DoctorVerificationController {

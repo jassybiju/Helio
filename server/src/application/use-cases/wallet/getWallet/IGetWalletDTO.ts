@@ -1,4 +1,4 @@
-import type { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
+import type { TRANSACTION_TYPE } from "#domain/common/enums/wallet.enum.js";
 
 export interface IGetWalletDTO {
   transactions: {

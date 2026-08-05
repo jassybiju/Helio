@@ -1,4 +1,4 @@
-import type { IRegisterPatientResponseDTO } from "@application/dto/patient/auth/IRegisterPatientDTO.ts";
+import type { IRegisterPatientResponseDTO } from "#application/dto/patient/auth/IRegisterPatientDTO.js";
 import type { NextFunction, Request, Response } from "express";
 import {
   patientForgetPasswordSchema,
@@ -7,27 +7,27 @@ import {
   patientResendOTPSchema,
   patientResetPasswordSchema,
   patientVerifyOTPSchema,
-} from "../../schemas/patient/auth.schema.ts";
-import type { IRegisterPatientUseCase } from "@application/ports/use-cases/patient/auth/IRegisterPatientUseCase.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "../../schemas/patient/auth.schema.js";
+import type { IRegisterPatientUseCase } from "#application/ports/use-cases/patient/auth/IRegisterPatientUseCase.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   sendToken,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import type { IVerifyOTPUseCase } from "@application/ports/use-cases/auth/IVerifyOTPUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import type { IVerifyOTPUseCase } from "#application/ports/use-cases/auth/IVerifyOTPUseCase.js";
 import type {
   IResendOTPResponseDTO,
   IVerifyOTPResponseDTO,
-} from "@application/dto/auth/IOTPDTO.ts";
-import type { IResendOTPUseCase } from "@application/ports/use-cases/auth/IResendOTPUseCase.ts";
-import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
-import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
-import type { IResetPasswordUseCase } from "@application/ports/use-cases/auth/IResetPasswordUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoogleLoginUseCase.ts";
+} from "#application/dto/auth/IOTPDTO.js";
+import type { IResendOTPUseCase } from "#application/ports/use-cases/auth/IResendOTPUseCase.js";
+import type { ILoginUseCase } from "#application/ports/use-cases/auth/ILoginUseCase.js";
+import type { IForgetPasswordUseCase } from "#application/ports/use-cases/auth/IForgetPasswordUseCase.js";
+import type { IResetPasswordUseCase } from "#application/ports/use-cases/auth/IResetPasswordUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { IGoogleLoginUseCase } from "#application/ports/use-cases/auth/IGoogleLoginUseCase.js";
 
 export class PatientAuthController {
   constructor(

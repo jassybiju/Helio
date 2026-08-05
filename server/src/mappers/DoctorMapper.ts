@@ -1,11 +1,11 @@
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import { Doctor } from "@domain/entities/Doctor.ts";
-import { Email } from "@domain/value-objects/Email.ts";
+import type { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
+import { Doctor } from "#domain/entities/Doctor.js";
+import { Email } from "#domain/value-objects/Email.js";
 import type {
   DoctorDoc,
   DoctorRawDoc,
-} from "@infrastructure/database/model/DoctorModel.ts";
+} from "#infrastructure/database/model/DoctorModel.js";
 
 export class DoctorMapper {
   static toDomain(raw: DoctorDoc): Doctor {

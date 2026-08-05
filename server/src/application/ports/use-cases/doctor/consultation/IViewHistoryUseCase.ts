@@ -1,4 +1,4 @@
-import type { IDoctorViewHistoryDTO } from "@application/use-cases/doctor/consultation/viewHistory/IDoctorViewHistoryDTO.ts";
+import type { IDoctorViewHistoryDTO } from "#application/use-cases/doctor/consultation/viewHistory/IDoctorViewHistoryDTO.js";
 
 export interface IViewHistoryUseCase {
   execute(

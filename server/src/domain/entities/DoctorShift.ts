@@ -1,10 +1,10 @@
 import type {
   CONSULTATION_TYPE,
   DAY_OF_WEEK,
-} from "@domain/common/enums/doctorShift.enum.ts";
-import type { Time } from "@domain/value-objects/Time.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#domain/common/enums/doctorShift.enum.js";
+import type { Time } from "#domain/value-objects/Time.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class DoctorShift {
   constructor(

@@ -1,4 +1,4 @@
-import { CHAT_SESSION_STATUS } from "@domain/common/enums/chat.enum.ts";
+import { CHAT_SESSION_STATUS } from "#domain/common/enums/chat.enum.js";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const chatSessionSchema = new Schema({

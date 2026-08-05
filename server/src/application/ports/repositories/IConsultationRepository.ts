@@ -1,4 +1,4 @@
-import type { Consultation } from "@domain/entities/Consultation.ts";
+import type { Consultation } from "#domain/entities/Consultation.js";
 import type { ClientSession } from "mongoose";
 
 export interface IConsultationRepository {

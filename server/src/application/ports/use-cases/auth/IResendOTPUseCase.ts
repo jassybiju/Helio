@@ -1,7 +1,7 @@
 import type {
   IResendOTPRequestDTO,
   IResendOTPResponseDTO,
-} from "@application/dto/auth/IOTPDTO.ts";
+} from "#application/dto/auth/IOTPDTO.js";
 
 export interface IResendOTPUseCase {
   execute(input: IResendOTPRequestDTO): Promise<IResendOTPResponseDTO>;

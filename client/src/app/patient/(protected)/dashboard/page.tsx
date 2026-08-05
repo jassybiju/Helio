@@ -1,7 +1,8 @@
+import PatientDashboardComponent from "@/src/features/patient/dashboard/dashboard/components/PatientDashboardComponent";
 import React from "react";
 
-const page = () => {
-  return <div className="text-red-600">page</div>;
+const PatientDashboardPage = () => {
+  return <PatientDashboardComponent/>
 };
 
-export default page;
+export default PatientDashboardPage;

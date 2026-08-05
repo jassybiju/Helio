@@ -1,11 +1,11 @@
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { PatientReviewController } from "../../controllers/patient/review.controller.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { PatientAddReviewUseCase } from "@application/use-cases/patient/review/addReview/PatientAddReviewUseCase.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
-import { ReviewRepository } from "@infrastructure/database/repositories/ReviewRepository.ts";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { PatientReviewController } from "../../controllers/patient/review.controller.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { PatientAddReviewUseCase } from "#application/use-cases/patient/review/addReview/PatientAddReviewUseCase.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { ReviewRepository } from "#infrastructure/database/repositories/ReviewRepository.js";
 
 const logger = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(logger);

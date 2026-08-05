@@ -1,7 +1,7 @@
 import type {
   CONSULTATION_TYPE,
   DAY_OF_WEEK,
-} from "@domain/common/enums/doctorShift.enum.ts";
+} from "#domain/common/enums/doctorShift.enum.js";
 
 export type IDoctorScheduleInput = {
   dayOfWeek: DAY_OF_WEEK[];

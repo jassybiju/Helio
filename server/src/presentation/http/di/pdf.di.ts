@@ -1,16 +1,16 @@
-import { PdfDispatcher } from "@application/service/PdfDispatcher.ts";
-import { GeneratePDFController } from "../controllers/pdf.controller.ts";
-import { GeneratePatientAppointmentPDFUseCase } from "@application/use-cases/pdf/patientAppointment/GeneratePatientAppointmentPDFUseCase.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
-import { ConsultationRepository } from "@infrastructure/database/repositories/ConsultationRepository.ts";
-import { GotenbergPdfGenerator } from "@infrastructure/pdf/GotenbergPdfGenerator.ts";
-import { HandlebarsTemplateRenderer } from "@infrastructure/pdf/HandlerbarsTemplateRenderer.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { PDF_TYPE } from "@shared/types/pdf.type.ts";
-import { GeneratePatientInvoicePDFUseCase } from "@application/use-cases/pdf/patientInvoice/GeneratePatientInvoicePDFUseCase.ts";
-import type { IPdfUseCase } from "@application/ports/use-cases/pdf/IPdfUseCase.ts";
+import { PdfDispatcher } from "#application/service/PdfDispatcher.js";
+import { GeneratePDFController } from "../controllers/pdf.controller.js";
+import { GeneratePatientAppointmentPDFUseCase } from "#application/use-cases/pdf/patientAppointment/GeneratePatientAppointmentPDFUseCase.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { ConsultationRepository } from "#infrastructure/database/repositories/ConsultationRepository.js";
+import { GotenbergPdfGenerator } from "#infrastructure/pdf/GotenbergPdfGenerator.js";
+import { HandlebarsTemplateRenderer } from "#infrastructure/pdf/HandlerbarsTemplateRenderer.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { PDF_TYPE } from "#shared/types/pdf.type.js";
+import { GeneratePatientInvoicePDFUseCase } from "#application/use-cases/pdf/patientInvoice/GeneratePatientInvoicePDFUseCase.js";
+import type { IPdfUseCase } from "#application/ports/use-cases/pdf/IPdfUseCase.js";
 
 const logger = PinoLoggerService.getInstance();
 

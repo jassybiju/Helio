@@ -1,8 +1,8 @@
 import {
   APPOINTMENT_STATUS,
   PAYMENT_STATUS,
-} from "@domain/common/enums/appointment.enum.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 import { model, Schema, type InferSchemaType } from "mongoose";
 
 const appointmentSchema = new Schema({

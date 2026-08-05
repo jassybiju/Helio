@@ -1,10 +1,10 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
+import { Email } from "#domain/value-objects/Email.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class DoctorValidator {
   constructor(

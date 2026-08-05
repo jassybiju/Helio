@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { labController } from "../../di/patient/lab.di.ts";
-import { authMiddleware } from "../../middlewares/auth.middleware.ts";
-import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { documentUpload } from "@config/multer.config.ts";
+import { labController } from "../../di/patient/lab.di.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { documentUpload } from "#config/multer.config.js";
 
 export const patientLabRoutes = Router();
 

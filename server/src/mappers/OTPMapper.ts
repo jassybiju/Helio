@@ -1,6 +1,6 @@
-import { OTP } from "@domain/entities/OTP.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import type { OTPData } from "@shared/types/OTPData.ts";
+import { OTP } from "#domain/entities/OTP.js";
+import { Email } from "#domain/value-objects/Email.js";
+import type { OTPData } from "#shared/types/OTPData.js";
 
 export class OTPMapper {
   static toPersistance(otp: OTP): OTPData {

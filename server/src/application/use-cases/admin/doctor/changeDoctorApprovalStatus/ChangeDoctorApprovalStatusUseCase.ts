@@ -1,15 +1,15 @@
-import type { IChangeDoctorApprovalStatusUseCase } from "@application/ports/use-cases/admin/doctor/IChangeDoctorApprovalStatusUseCase.ts";
-import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
+import type { IChangeDoctorApprovalStatusUseCase } from "#application/ports/use-cases/admin/doctor/IChangeDoctorApprovalStatusUseCase.js";
+import { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
 import type {
   IChangeDoctorApprovalStatusRequestDTO,
   IChangeDoctorApprovalStatusResponseDTO,
-} from "./IChangeDoctorApprovalStatusDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { Doctor } from "@domain/entities/Doctor.ts";
+} from "./IChangeDoctorApprovalStatusDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { Doctor } from "#domain/entities/Doctor.js";
 
 export class ChangeDoctorApprovalStatusUseCase implements IChangeDoctorApprovalStatusUseCase {
   constructor(

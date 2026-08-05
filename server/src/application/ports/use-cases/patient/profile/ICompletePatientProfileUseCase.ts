@@ -1,7 +1,7 @@
 import type {
   ICompletePatientProfileRequestDTO,
   ICompletePatientProfileResponseDTO,
-} from "@application/use-cases/patient/profile/completeProfile/ICompletePatientProfileDTO.ts";
+} from "#application/use-cases/patient/profile/completeProfile/ICompletePatientProfileDTO.js";
 
 export interface ICompletePatientProfileUseCase {
   execute(

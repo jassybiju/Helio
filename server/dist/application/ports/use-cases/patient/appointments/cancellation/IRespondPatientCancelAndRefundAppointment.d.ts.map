@@ -1,0 +1,1 @@
+{"version":3,"file":"IRespondPatientCancelAndRefundAppointment.d.ts","sourceRoot":"","sources":["../../../../../../../src/application/ports/use-cases/patient/appointments/cancellation/IRespondPatientCancelAndRefundAppointment.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,yCAAyC;IACxD,OAAO,CAAC,SAAS,EAAE,MAAM,EAAE,aAAa,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CAClE"}

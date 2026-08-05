@@ -1,0 +1,1 @@
+{"version":3,"file":"ISkipDoctorAppointmentUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/appointment/ISkipDoctorAppointmentUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,6BAA6B;IAC5C,OAAO,CAAC,QAAQ,EAAE,MAAM,EAAE,aAAa,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CACjE"}

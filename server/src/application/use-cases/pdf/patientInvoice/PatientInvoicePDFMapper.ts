@@ -1,7 +1,7 @@
-import type { Appointment } from "@domain/entities/Appointment.ts";
-import type { IPatientInvoicePDFView } from "./IPatientInvoicePDFView.ts";
-import type { Patient } from "@domain/entities/Patient.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
+import type { Appointment } from "#domain/entities/Appointment.js";
+import type { IPatientInvoicePDFView } from "./IPatientInvoicePDFView.js";
+import type { Patient } from "#domain/entities/Patient.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
 
 export class PatientAppointmentPdfMapper {
   static toView(

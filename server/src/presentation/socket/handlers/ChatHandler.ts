@@ -1,5 +1,5 @@
-import type { IChatSessionRepository } from "@application/ports/repositories/IChatSessionRepository.ts";
-import { logger } from "@shared/utils/logger.utils.ts";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
+import { logger } from "#shared/utils/logger.utils.js";
 import type { Server, Socket } from "socket.io";
 
 export class ChatHandler {

@@ -1,0 +1,1 @@
+{"version":3,"file":"IRemovePatientConditionUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/patient/profile/IRemovePatientConditionUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,8BAA8B;IAC7C,OAAO,CAAC,SAAS,EAAE,MAAM,EAAE,WAAW,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CAChE"}

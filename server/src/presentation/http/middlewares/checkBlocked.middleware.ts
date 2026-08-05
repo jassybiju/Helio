@@ -1,11 +1,11 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { removeToken } from "@shared/utils/apiReponse.utils.ts";
-import { logger } from "@shared/utils/logger.utils.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { removeToken } from "#shared/utils/apiReponse.utils.js";
+import { logger } from "#shared/utils/logger.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class CheckBlockMiddleware {

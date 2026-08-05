@@ -1,4 +1,4 @@
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import pino from "pino";
 import pretty from "pino-pretty";
 

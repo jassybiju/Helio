@@ -1,20 +1,20 @@
 import type {
   IVerifyOtpRequestDTO,
   IVerifyOTPResponseDTO,
-} from "@application/dto/auth/IOTPDTO.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IVerifyOTPUseCase } from "@application/ports/use-cases/auth/IVerifyOTPUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { Doctor } from "@domain/entities/Doctor.ts";
-import type { Patient } from "@domain/entities/Patient.ts";
-import { Wallet } from "@domain/entities/Wallet.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/dto/auth/IOTPDTO.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IOTPRepository } from "#application/ports/repositories/IOTPRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IVerifyOTPUseCase } from "#application/ports/use-cases/auth/IVerifyOTPUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { Doctor } from "#domain/entities/Doctor.js";
+import type { Patient } from "#domain/entities/Patient.js";
+import { Wallet } from "#domain/entities/Wallet.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class VerifyOTPUseCase implements IVerifyOTPUseCase {
   constructor(

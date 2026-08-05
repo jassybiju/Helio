@@ -1,9 +1,9 @@
 import type {
   TRANSACTION_STATUS,
   TRANSACTION_TYPE,
-} from "@domain/common/enums/wallet.enum.ts";
-import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
-import type { WalletTransactionDoc } from "@infrastructure/database/model/WalletTransactionModel.ts";
+} from "#domain/common/enums/wallet.enum.js";
+import { WalletTransaction } from "#domain/entities/WalletTransaction.js";
+import type { WalletTransactionDoc } from "#infrastructure/database/model/WalletTransactionModel.js";
 
 export class WalletTransactionMapper {
   static toDomain(doc: WalletTransactionDoc): WalletTransaction {

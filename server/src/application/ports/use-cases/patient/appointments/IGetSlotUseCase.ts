@@ -1,4 +1,4 @@
-import type { IGetSlotDTO } from "@application/use-cases/patient/appointments/getSlots/IGetSlotDTO.ts";
+import type { IGetSlotDTO } from "#application/use-cases/patient/appointments/getSlots/IGetSlotDTO.js";
 
 export interface IGetSlotUseCase {
   execute(

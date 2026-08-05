@@ -1,5 +1,5 @@
-import type { IPaymentService } from "@application/ports/services/IPaymentService.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
+import type { IPaymentService } from "#application/ports/services/IPaymentService.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
 import type Razorpay from "razorpay";
 
 export class RazorpayPaymentService implements IPaymentService {

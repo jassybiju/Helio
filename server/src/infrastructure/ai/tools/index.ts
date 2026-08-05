@@ -1,8 +1,8 @@
-import type { ISpecialityRepository } from "@application/ports/repositories/ISpeicaltyRepository.ts";
-import { SpecialtyRepository } from "@infrastructure/database/repositories/SpecialityRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { logger } from "@shared/utils/logger.utils.ts";
+import type { ISpecialityRepository } from "#application/ports/repositories/ISpeicaltyRepository.js";
+import { SpecialtyRepository } from "#infrastructure/database/repositories/SpecialityRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { logger } from "#shared/utils/logger.utils.js";
 import { DynamicStructuredTool } from "langchain";
 import z from "zod";
 

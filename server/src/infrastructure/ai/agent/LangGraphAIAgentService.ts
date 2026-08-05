@@ -1,7 +1,7 @@
-import type { IAIAgentService } from "@application/ports/services/IAIAgentService.ts";
+import type { IAIAgentService } from "#application/ports/services/IAIAgentService.js";
 import { Command, type CompiledStateGraph } from "@langchain/langgraph";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 
 export class LangGraphAIAgentService implements IAIAgentService {
   constructor(

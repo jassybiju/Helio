@@ -1,4 +1,4 @@
-import { CHAT_SESSION_STATUS } from "@domain/common/enums/chat.enum.ts";
+import { CHAT_SESSION_STATUS } from "#domain/common/enums/chat.enum.js";
 
 export class ChatSession {
   constructor(

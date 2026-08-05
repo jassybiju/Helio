@@ -1,5 +1,5 @@
-import type { IGetDoctorDashboardDTO } from "@application/use-cases/doctor/dashboard/getDoctorDashboard/IGetDoctorDashboardDTO.ts";
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+import type { IGetDoctorDashboardDTO } from "#application/use-cases/doctor/dashboard/getDoctorDashboard/IGetDoctorDashboardDTO.js";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
 
 export interface IGetDoctorDashboardUseCase {
   execute(

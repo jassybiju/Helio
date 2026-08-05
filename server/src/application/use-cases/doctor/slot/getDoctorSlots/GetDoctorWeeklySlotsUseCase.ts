@@ -1,19 +1,19 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IDoctorSlotFilters } from "@application/ports/repositories/IDoctorSlotRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetDoctorWeeklySlotsUseCase } from "@application/ports/use-cases/doctor/slot/IGetDoctorWeeklySlotsUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
-import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
-import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
-import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import { utcToIst } from "@shared/utils/date.utils.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IDoctorSlotFilters } from "#application/ports/repositories/IDoctorSlotRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetDoctorWeeklySlotsUseCase } from "#application/ports/use-cases/doctor/slot/IGetDoctorWeeklySlotsUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { ISlotGenerator } from "#application/ports/services/ISlotGenerator.js";
+import type { DoctorSlot } from "#domain/value-objects/DoctorSlot.js";
+import type { IDoctorBlockShiftRepository } from "#application/ports/repositories/IDoctorBlockShiftRepository.js";
+import type { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
+import { utcToIst } from "#shared/utils/date.utils.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
 
 type SlotWithUnits = DoctorSlot;
 

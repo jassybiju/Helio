@@ -1,5 +1,5 @@
-import type { IRegisterDoctorReponseDTO } from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
-import type { IRegisterDoctorUseCase } from "@application/ports/use-cases/doctor/auth/IRegisterDoctorUseCase.ts";
+import type { IRegisterDoctorReponseDTO } from "#application/dto/doctor/auth/IRegisterDoctorDTO.js";
+import type { IRegisterDoctorUseCase } from "#application/ports/use-cases/doctor/auth/IRegisterDoctorUseCase.js";
 import type { NextFunction, Request, Response } from "express";
 import {
   doctorForgetPasswordSchema,
@@ -8,25 +8,25 @@ import {
   doctorResendOTPSchema,
   doctorResetPasswordSchema,
   doctorVerifyOTPSchema,
-} from "../../schemas/doctor/auth.schema.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "../../schemas/doctor/auth.schema.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import {
   apiResponse,
   sendToken,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IVerifyOTPUseCase } from "@application/ports/use-cases/auth/IVerifyOTPUseCase.ts";
-import type { IResendOTPResponseDTO } from "@application/dto/auth/IOTPDTO.ts";
-import type { IResendOTPUseCase } from "@application/ports/use-cases/auth/IResendOTPUseCase.ts";
-import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
-import type { ILoginResponseDTO } from "@application/dto/auth/ILoginDTO.ts";
-import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
-import type { IResetPasswordUseCase } from "@application/ports/use-cases/auth/IResetPasswordUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { IGoogleLoginUseCase } from "@application/ports/use-cases/auth/IGoogleLoginUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IVerifyOTPUseCase } from "#application/ports/use-cases/auth/IVerifyOTPUseCase.js";
+import type { IResendOTPResponseDTO } from "#application/dto/auth/IOTPDTO.js";
+import type { IResendOTPUseCase } from "#application/ports/use-cases/auth/IResendOTPUseCase.js";
+import type { ILoginUseCase } from "#application/ports/use-cases/auth/ILoginUseCase.js";
+import type { ILoginResponseDTO } from "#application/dto/auth/ILoginDTO.js";
+import type { IForgetPasswordUseCase } from "#application/ports/use-cases/auth/IForgetPasswordUseCase.js";
+import type { IResetPasswordUseCase } from "#application/ports/use-cases/auth/IResetPasswordUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { IGoogleLoginUseCase } from "#application/ports/use-cases/auth/IGoogleLoginUseCase.js";
 
 export class DoctorAuthController {
   constructor(

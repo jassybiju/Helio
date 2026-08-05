@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/auth.middleware.ts";
-import { validate } from "../middlewares/validation.middleware.ts";
-import { generatePdfSchema } from "../schemas/pdf.schema.ts";
-import { pdfController } from "../di/pdf.di.ts";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { validate } from "../middlewares/validation.middleware.js";
+import { generatePdfSchema } from "../schemas/pdf.schema.js";
+import { pdfController } from "../di/pdf.di.js";
 
 export const pdfRouter = Router();
 

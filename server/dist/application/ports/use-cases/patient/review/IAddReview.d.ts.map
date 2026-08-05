@@ -1,0 +1,1 @@
+{"version":3,"file":"IAddReview.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/patient/review/IAddReview.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,UAAU;IACzB,OAAO,CACL,SAAS,EAAE,MAAM,EACjB,QAAQ,EAAE,MAAM,EAChB,IAAI,EAAE;QAAE,OAAO,EAAE,MAAM,CAAC;QAAC,MAAM,EAAE,MAAM,CAAA;KAAE,GACxC,OAAO,CAAC,IAAI,CAAC,CAAC;CAClB"}

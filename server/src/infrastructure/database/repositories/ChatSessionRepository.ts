@@ -1,14 +1,14 @@
-import type { IChatSessionRepository } from "@application/ports/repositories/IChatSessionRepository.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import type { ChatSession } from "@domain/entities/ChatSession.ts";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
+import { BaseRepository } from "./BaseRepository.js";
+import type { ChatSession } from "#domain/entities/ChatSession.js";
 import {
   chatSessionModel,
   type ChatSessionRaw,
-} from "../model/ChatSessionModel.ts";
+} from "../model/ChatSessionModel.js";
 import type { ClientSession } from "mongoose";
-import { ChatSessionMapper } from "../../../mappers/ChatSessionMapper.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { ChatSessionMapper } from "../../../mappers/ChatSessionMapper.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export class ChatSessionRepository
   extends BaseRepository<ChatSession, ChatSessionRaw>

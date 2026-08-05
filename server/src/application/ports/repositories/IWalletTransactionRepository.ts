@@ -1,6 +1,6 @@
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
-import type { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
-import type { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
+import type { TRANSACTION_TYPE } from "#domain/common/enums/wallet.enum.js";
+import type { WalletTransaction } from "#domain/entities/WalletTransaction.js";
 import type { ClientSession } from "mongoose";
 
 export interface ITransactionFilter {

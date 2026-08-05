@@ -1,4 +1,4 @@
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 import path from "path";
 import fs from "fs";
 import { randomUUID } from "crypto";

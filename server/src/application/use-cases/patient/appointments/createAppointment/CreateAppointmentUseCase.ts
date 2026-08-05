@@ -1,21 +1,21 @@
 import type {
   ICreateAppointmentInput,
   ICreateAppointmentUseCase,
-} from "@application/ports/use-cases/patient/appointments/ICreateAppointmentUseCase.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { ICreateAppointmentDTO } from "./ICreateAppointmentDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
-import { Appointment } from "@domain/entities/Appointment.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { INotificationService } from "@application/ports/services/INotificationService.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+} from "#application/ports/use-cases/patient/appointments/ICreateAppointmentUseCase.js";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { ICreateAppointmentDTO } from "./ICreateAppointmentDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { jsToEnumDay, utcToIst } from "#shared/utils/date.utils.js";
+import { Appointment } from "#domain/entities/Appointment.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { INotificationService } from "#application/ports/services/INotificationService.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export class CreateAppointmentUseCase implements ICreateAppointmentUseCase {
   constructor(

@@ -1,5 +1,5 @@
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { PDF_TYPE } from "@shared/types/pdf.type.ts";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { PDF_TYPE } from "#shared/types/pdf.type.js";
 
 export interface IPdfRequestDTO {
   type: PDF_TYPE;

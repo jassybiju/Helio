@@ -1,13 +1,13 @@
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
-import type { IAddMoneyUseCase } from "@application/ports/use-cases/wallet/IAddMoneyUseCase.ts";
-import { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
-import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
+import type { IAddMoneyUseCase } from "#application/ports/use-cases/wallet/IAddMoneyUseCase.js";
+import { TRANSACTION_TYPE } from "#domain/common/enums/wallet.enum.js";
+import { WalletTransaction } from "#domain/entities/WalletTransaction.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type Razorpay from "razorpay";
 
 export class AddMoneyUseCase implements IAddMoneyUseCase {

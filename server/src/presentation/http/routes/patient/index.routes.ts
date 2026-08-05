@@ -1,12 +1,13 @@
 import { Router } from "express";
-import { patientProfileRouter } from "./profile.routes.ts";
-import { patientAuthRouter } from "./auth.routes.ts";
-import { patientDoctorRouter } from "./doctor.routes.ts";
-import { patientAppointmentRouter } from "./appointment.routes.ts";
-import { patientLabRoutes } from "./lab.routes.ts";
-import { patientChatRouter } from "./chat.routes.ts";
-import { patientReviewRouter } from "./review.routes.ts";
-import { aiRouter } from "./ai.routes.ts";
+import { patientProfileRouter } from "./profile.routes.js";
+import { patientAuthRouter } from "./auth.routes.js";
+import { patientDoctorRouter } from "./doctor.routes.js";
+import { patientAppointmentRouter } from "./appointment.routes.js";
+import { patientLabRoutes } from "./lab.routes.js";
+import { patientChatRouter } from "./chat.routes.js";
+import { patientReviewRouter } from "./review.routes.js";
+import { aiRouter } from "./ai.routes.js";
+import { patientDashboardRoutes } from "./dashboard.routes.js";
 
 export const patientRouter = Router();
 
@@ -18,3 +19,4 @@ patientRouter.use("/lab", patientLabRoutes);
 patientRouter.use("/chat", patientChatRouter);
 patientRouter.use("/review", patientReviewRouter);
 patientRouter.use("/ai", aiRouter);
+patientRouter.use("/dashboard", patientDashboardRoutes);

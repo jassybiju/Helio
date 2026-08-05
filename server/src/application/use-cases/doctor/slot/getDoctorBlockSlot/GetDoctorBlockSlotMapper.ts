@@ -1,5 +1,5 @@
-import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import type { IGetDoctorBlockSlotDTO } from "./IGetDoctorBlockSlotDTO.ts";
+import type { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
+import type { IGetDoctorBlockSlotDTO } from "./IGetDoctorBlockSlotDTO.js";
 
 export class GetDoctorBlockSlotMapper {
   static toDto(blockShift: DoctorBlockShift[]): IGetDoctorBlockSlotDTO[] {

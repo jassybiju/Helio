@@ -1,20 +1,20 @@
 import type {
   IRegisterPatientRequestDTO,
   IRegisterPatientResponseDTO,
-} from "@application/dto/patient/auth/IRegisterPatientDTO.ts";
-import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IEmailService } from "@application/ports/services/IEmailService.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IOTPService } from "@application/ports/services/IOTPService.ts";
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import type { IRegisterPatientUseCase } from "@application/ports/use-cases/patient/auth/IRegisterPatientUseCase.ts";
-import type { PatientValidator } from "@application/validators/PatientValidator.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import { OTP } from "@domain/entities/OTP.ts";
-import { Patient } from "@domain/entities/Patient.ts";
-import { Email } from "@domain/value-objects/Email.ts";
+} from "#application/dto/patient/auth/IRegisterPatientDTO.js";
+import type { IOTPRepository } from "#application/ports/repositories/IOTPRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IEmailService } from "#application/ports/services/IEmailService.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IOTPService } from "#application/ports/services/IOTPService.js";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import type { IRegisterPatientUseCase } from "#application/ports/use-cases/patient/auth/IRegisterPatientUseCase.js";
+import type { PatientValidator } from "#application/validators/PatientValidator.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
+import { OTP } from "#domain/entities/OTP.js";
+import { Patient } from "#domain/entities/Patient.js";
+import { Email } from "#domain/value-objects/Email.js";
 
 export class RegisterPatientUseCase implements IRegisterPatientUseCase {
   constructor(

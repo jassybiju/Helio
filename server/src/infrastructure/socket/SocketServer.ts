@@ -1,11 +1,11 @@
 import { Server } from "socket.io";
 import type { Server as HttpServer } from "http";
-import { socketAuthMiddleware } from "../../presentation/socket/middlewares/socket.middleware.ts";
-import { SignalingHandler } from "../../presentation/socket/handlers/SignalingHandler.ts";
-import { setIO } from "@config/socket.instance.ts";
-import { ChatHandler } from "../../presentation/socket/handlers/ChatHandler.ts";
-import { ChatSessionRepository } from "@infrastructure/database/repositories/ChatSessionRepository.ts";
-import { logger } from "@shared/utils/logger.utils.ts";
+import { socketAuthMiddleware } from "../../presentation/socket/middlewares/socket.middleware.js";
+import { SignalingHandler } from "../../presentation/socket/handlers/SignalingHandler.js";
+import { setIO } from "#config/socket.instance.js";
+import { ChatHandler } from "../../presentation/socket/handlers/ChatHandler.js";
+import { ChatSessionRepository } from "#infrastructure/database/repositories/ChatSessionRepository.js";
+import { logger } from "#shared/utils/logger.utils.js";
 export class SocketServer {
   private _io!: Server;
 
@@ -15,10 +15,10 @@ export class SocketServer {
     this._io = new Server(this._httpServer, {
       cors: {
         origin: [
-          "http://localhost:3000",
-          "http://helixo.com:3000",
-          "http://doctor.helixo.com:3000",
-          "http://admin.helixo.com:3000",
+          "http://localhost",
+          "http://helixo.com",
+          "http://doctor.helixo.com",
+          "http://admin.helixo.com",
         ],
         credentials: true,
       },

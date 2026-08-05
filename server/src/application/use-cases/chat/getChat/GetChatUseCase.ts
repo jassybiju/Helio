@@ -1,14 +1,14 @@
-import type { IChatMessageRepository } from "@application/ports/repositories/IChatMessageRepository.ts";
-import type { IChatSessionRepository } from "@application/ports/repositories/IChatSessionRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetChatUseCase } from "@application/ports/use-cases/chat/IGetChatUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import type { IGetChatDTO } from "./IGetChatDTO.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IChatMessageRepository } from "#application/ports/repositories/IChatMessageRepository.js";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetChatUseCase } from "#application/ports/use-cases/chat/IGetChatUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import type { IGetChatDTO } from "./IGetChatDTO.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class GetChatUseCase implements IGetChatUseCase {
   constructor(

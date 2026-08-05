@@ -1,10 +1,10 @@
-import type { IGetMeResponseDTO } from "@application/dto/auth/IGetMeDTO.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IGetMeHandler } from "@application/ports/use-cases/auth/IGetMeHandler.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IGetMeResponseDTO } from "#application/dto/auth/IGetMeDTO.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IGetMeHandler } from "#application/ports/use-cases/auth/IGetMeHandler.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class DoctorGetMeHandler implements IGetMeHandler {
   constructor(

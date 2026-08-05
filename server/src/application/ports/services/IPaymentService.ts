@@ -1,4 +1,4 @@
-import type { Appointment } from "@domain/entities/Appointment.ts";
+import type { Appointment } from "#domain/entities/Appointment.js";
 
 export interface IPaymentService {
   pay(data: {

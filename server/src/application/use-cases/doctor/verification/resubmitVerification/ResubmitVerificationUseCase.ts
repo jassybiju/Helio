@@ -1,12 +1,12 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IResubmitVerificationUseCase } from "@application/ports/use-cases/doctor/verification/IResubmitVerificationUseCase.ts";
-import { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import { Doctor } from "@domain/entities/Doctor.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IResubmitVerificationUseCase } from "#application/ports/use-cases/doctor/verification/IResubmitVerificationUseCase.js";
+import { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
+import { Doctor } from "#domain/entities/Doctor.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class ResubmitVerificationUseCase implements IResubmitVerificationUseCase {
   constructor(

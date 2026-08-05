@@ -1,15 +1,15 @@
-import { CompleteDoctorProfileUseCase } from "@application/use-cases/doctor/profile/CompleteDoctorProfileUseCase.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { DoctorProfileController } from "../../controllers/doctor/profile.controller.ts";
-import { GetDoctorProfileUseCase } from "@application/use-cases/doctor/profile/getDoctorProfile/GetDoctorProfileUseCase.ts";
-import { UpdateDoctorFeeUseCase } from "@application/use-cases/doctor/profile/updateDoctorFee/UpdateDoctorFeeUseCase.ts";
-import { UpdateDoctorProfileUseCase } from "@application/use-cases/doctor/profile/updateDoctorProfile/UpdateDoctorProfileUseCase.ts";
-import { ChangeDoctorPasswordUseCase } from "@application/use-cases/doctor/profile/changePassword/DoctorChangePasswordUseCase.ts";
-import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
-import { DoctorValidator } from "@application/validators/DoctorValidator.ts";
-import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
-import { DoctorUpdateProfilePictureUseCase } from "@application/use-cases/doctor/profile/updateProfilePicture/DoctorUpdateProfilePictureUseCase.ts";
+import { CompleteDoctorProfileUseCase } from "#application/use-cases/doctor/profile/CompleteDoctorProfileUseCase.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { DoctorProfileController } from "../../controllers/doctor/profile.controller.js";
+import { GetDoctorProfileUseCase } from "#application/use-cases/doctor/profile/getDoctorProfile/GetDoctorProfileUseCase.js";
+import { UpdateDoctorFeeUseCase } from "#application/use-cases/doctor/profile/updateDoctorFee/UpdateDoctorFeeUseCase.js";
+import { UpdateDoctorProfileUseCase } from "#application/use-cases/doctor/profile/updateDoctorProfile/UpdateDoctorProfileUseCase.js";
+import { ChangeDoctorPasswordUseCase } from "#application/use-cases/doctor/profile/changePassword/DoctorChangePasswordUseCase.js";
+import { BcryptPasswordService } from "#infrastructure/services/BcryptPasswordService.js";
+import { DoctorValidator } from "#application/validators/DoctorValidator.js";
+import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { DoctorUpdateProfilePictureUseCase } from "#application/use-cases/doctor/profile/updateProfilePicture/DoctorUpdateProfilePictureUseCase.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(loggerService);

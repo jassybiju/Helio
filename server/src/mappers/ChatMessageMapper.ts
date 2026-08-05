@@ -1,5 +1,5 @@
-import { ChatMessage } from "@domain/entities/ChatMessage.ts";
-import type { ChatMessageRaw } from "@infrastructure/database/model/ChatMessageModel.ts";
+import { ChatMessage } from "#domain/entities/ChatMessage.js";
+import type { ChatMessageRaw } from "#infrastructure/database/model/ChatMessageModel.js";
 
 export class ChatMessageMapper {
   static toPersistance(chatMessage: ChatMessage): ChatMessageRaw {

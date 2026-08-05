@@ -1,11 +1,11 @@
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
-import type { IResetTokenService } from "@application/ports/services/IResetTokenService.ts";
-import type { IForgetPasswordUseCase } from "@application/ports/use-cases/auth/IForgetPasswordUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { Email } from "@domain/value-objects/Email.ts";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IMessageQueue } from "#application/ports/services/IMessageQueue.js";
+import type { IResetTokenService } from "#application/ports/services/IResetTokenService.js";
+import type { IForgetPasswordUseCase } from "#application/ports/use-cases/auth/IForgetPasswordUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { Email } from "#domain/value-objects/Email.js";
 
 export class ForgetPasswordUseCase implements IForgetPasswordUseCase {
   constructor(

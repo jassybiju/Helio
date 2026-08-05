@@ -1,12 +1,12 @@
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type {
   IUpdatePatientInput,
   IUpdatePatientProfileUseCase,
-} from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class UpdatePatientProfileUseCase implements IUpdatePatientProfileUseCase {
   constructor(

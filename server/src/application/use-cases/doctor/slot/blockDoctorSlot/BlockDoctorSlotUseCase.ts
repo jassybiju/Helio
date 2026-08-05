@@ -1,18 +1,18 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { INotificationService } from "@application/ports/services/INotificationService.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorBlockShiftRepository } from "#application/ports/repositories/IDoctorBlockShiftRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { INotificationService } from "#application/ports/services/INotificationService.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
 import type {
   IBlockDoctorInput,
   IBlockDoctorSlotUseCase,
-} from "@application/ports/use-cases/doctor/slot/IBlockDoctorSlotUseCase.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "#application/ports/use-cases/doctor/slot/IBlockDoctorSlotUseCase.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class BlockDoctorSlotUseCase implements IBlockDoctorSlotUseCase {
   constructor(

@@ -1,10 +1,10 @@
-import type { IGetPatientLabReportUseCase } from "@application/ports/use-cases/patient/appointments/IGetPatientLabReportUseCase.ts";
-import type { IUploadPatientLabReportUseCase } from "@application/ports/use-cases/patient/appointments/IUploadPatientLabReportUseCase.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetPatientLabReportUseCase } from "#application/ports/use-cases/patient/appointments/IGetPatientLabReportUseCase.js";
+import type { IUploadPatientLabReportUseCase } from "#application/ports/use-cases/patient/appointments/IUploadPatientLabReportUseCase.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class PatientLabReportController {

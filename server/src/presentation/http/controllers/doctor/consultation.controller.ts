@@ -1,19 +1,19 @@
-import type { IAddLabReportUseCase } from "@application/ports/use-cases/doctor/consultation/IAddLabReportUseCase.ts";
-import type { IAddPrescriptionUseCase } from "@application/ports/use-cases/doctor/consultation/IAddPrescriptionUseCase.ts";
-import type { IDoctorEndConsultationUseCase } from "@application/ports/use-cases/doctor/consultation/IDoctorEndConsultationUseCase.ts";
-import type { IDoctorViewConsultationUseCase } from "@application/ports/use-cases/doctor/consultation/IDoctorViewConsultationUseCase.ts";
-import type { IRemoveLabReportUseCase } from "@application/ports/use-cases/doctor/consultation/IRemoveLabReportUseCase.ts";
-import type { IRemovePrescriptionUseCase } from "@application/ports/use-cases/doctor/consultation/IRemovePrescriptionUseCase.ts";
-import type { IUpdateConsultationNotesUseCase } from "@application/ports/use-cases/doctor/consultation/IUpdateConsultationNotesUseCase.ts";
-import type { IUpdateVitalsConsultationUseCase } from "@application/ports/use-cases/doctor/consultation/IUpdateVitalsConsultationUseCase.ts";
-import type { IViewHistoryUseCase } from "@application/ports/use-cases/doctor/consultation/IViewHistoryUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IAddLabReportUseCase } from "#application/ports/use-cases/doctor/consultation/IAddLabReportUseCase.js";
+import type { IAddPrescriptionUseCase } from "#application/ports/use-cases/doctor/consultation/IAddPrescriptionUseCase.js";
+import type { IDoctorEndConsultationUseCase } from "#application/ports/use-cases/doctor/consultation/IDoctorEndConsultationUseCase.js";
+import type { IDoctorViewConsultationUseCase } from "#application/ports/use-cases/doctor/consultation/IDoctorViewConsultationUseCase.js";
+import type { IRemoveLabReportUseCase } from "#application/ports/use-cases/doctor/consultation/IRemoveLabReportUseCase.js";
+import type { IRemovePrescriptionUseCase } from "#application/ports/use-cases/doctor/consultation/IRemovePrescriptionUseCase.js";
+import type { IUpdateConsultationNotesUseCase } from "#application/ports/use-cases/doctor/consultation/IUpdateConsultationNotesUseCase.js";
+import type { IUpdateVitalsConsultationUseCase } from "#application/ports/use-cases/doctor/consultation/IUpdateVitalsConsultationUseCase.js";
+import type { IViewHistoryUseCase } from "#application/ports/use-cases/doctor/consultation/IViewHistoryUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class ConsultationController {
@@ -240,7 +240,7 @@ export class ConsultationController {
       { appointmentId: string },
       unknown,
       unknown,
-      { page: number; limit: number }
+      { page?: string; limit?: string }
     >,
     res: Response,
     next: NextFunction
@@ -256,8 +256,8 @@ export class ConsultationController {
       const response = await this._viewHistory.execute(
         doctorId,
         appointmentId as string,
-        page,
-        limit
+        Number(page),
+        Number(limit)
       );
 
       return apiResponse(

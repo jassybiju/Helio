@@ -1,4 +1,4 @@
-import type { IDoctorViewConsultationDTO } from "@application/use-cases/doctor/consultation/viewConsultation/IDoctorViewConsultationDTO.ts";
+import type { IDoctorViewConsultationDTO } from "#application/use-cases/doctor/consultation/viewConsultation/IDoctorViewConsultationDTO.js";
 
 export interface IDoctorViewConsultationUseCase {
   execute(

@@ -1,4 +1,4 @@
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 import { model, now, Schema, type InferSchemaType } from "mongoose";
 
 export const chatMessageSchema = new Schema({

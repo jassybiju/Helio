@@ -1,15 +1,15 @@
 import type {
   DoctorViewAllInput,
   IDoctorViewAllAppointmentUseCase,
-} from "@application/ports/use-cases/doctor/appointment/IDoctorViewAllAppointmentUseCase.ts";
-import type { PaginationResponse } from "@shared/types/pagination.types.ts";
-import type { IDoctorViewAllAppointmentDTO } from "./IDoctorViewAllAppointmentDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import { DoctorViewAllAppointmentMapper } from "./DoctorViewAllAppointmentMapper.ts";
+} from "#application/ports/use-cases/doctor/appointment/IDoctorViewAllAppointmentUseCase.js";
+import type { PaginationResponse } from "#shared/types/pagination.types.js";
+import type { IDoctorViewAllAppointmentDTO } from "./IDoctorViewAllAppointmentDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import { DoctorViewAllAppointmentMapper } from "./DoctorViewAllAppointmentMapper.js";
 
 export class DoctorViewAllAppointmentUseCase implements IDoctorViewAllAppointmentUseCase {
   constructor(

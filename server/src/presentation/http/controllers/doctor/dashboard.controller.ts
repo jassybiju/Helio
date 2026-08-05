@@ -1,12 +1,12 @@
-import type { IGetDoctorDashboardUseCase } from "@application/ports/use-cases/doctor/dashboard/IGetDoctorDashboardUseCase.ts";
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetDoctorDashboardUseCase } from "#application/ports/use-cases/doctor/dashboard/IGetDoctorDashboardUseCase.js";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class DoctorDashboardController {

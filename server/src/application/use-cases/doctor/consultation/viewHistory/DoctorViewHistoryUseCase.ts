@@ -1,15 +1,15 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILabReportRepository } from "@application/ports/repositories/ILabReportRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IViewHistoryUseCase } from "@application/ports/use-cases/doctor/consultation/IViewHistoryUseCase.ts";
-import { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import type { IDoctorViewHistoryDTO } from "./IDoctorViewHistoryDTO.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILabReportRepository } from "#application/ports/repositories/ILabReportRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IViewHistoryUseCase } from "#application/ports/use-cases/doctor/consultation/IViewHistoryUseCase.js";
+import { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import type { IDoctorViewHistoryDTO } from "./IDoctorViewHistoryDTO.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
   constructor(

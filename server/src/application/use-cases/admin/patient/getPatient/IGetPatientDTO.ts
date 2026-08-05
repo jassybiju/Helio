@@ -1,5 +1,5 @@
-import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
 
 export type IGetPatientResponseDTO = {
   patient: {

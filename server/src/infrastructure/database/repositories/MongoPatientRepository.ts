@@ -1,17 +1,17 @@
 import type {
   IPatientFilters,
   IPatientRepository,
-} from "@application/ports/repositories/IPatientRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "#application/ports/repositories/IPatientRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type { ClientSession, QueryFilter } from "mongoose";
-import { Patient } from "@domain/entities/Patient.ts";
-import { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { PatientMapper } from "../../../mappers/PatientMapper.ts";
-import { patientModel, type PatientDoc } from "../model/PatientModel.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+import { Patient } from "#domain/entities/Patient.js";
+import { Email } from "#domain/value-objects/Email.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { PatientMapper } from "../../../mappers/PatientMapper.js";
+import { patientModel, type PatientDoc } from "../model/PatientModel.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { BaseRepository } from "./BaseRepository.js";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
 
 export class PatientRepository
   extends BaseRepository<Patient, PatientDoc>

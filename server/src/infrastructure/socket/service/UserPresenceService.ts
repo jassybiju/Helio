@@ -1,4 +1,4 @@
-import type { IUserPresenceService } from "@application/ports/IUserPresenceService.ts";
+import type { IUserPresenceService } from "#application/ports/IUserPresenceService.js";
 
 export class UserPresenceService implements IUserPresenceService {
   private readonly _onlineUsers = new Map<string, Set<string>>();

@@ -82,8 +82,8 @@ const isValidFile = (file: File) => {
   }
 
   return (
-    <div className=" inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+    <div className=" inset-0 bg-black w-full bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full  max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="border-b border-slate-200 p-6 flex items-start justify-between">
           <div>
@@ -187,7 +187,7 @@ const isValidFile = (file: File) => {
           <button
             onClick={handleSubmit}
             disabled={!selectedFile || isUploading}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-semibold rounded-lg transition flex items-center gap-2 disabled:cursor-not-allowed"
+            className="px-6 py-2 text-nowrap bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-semibold rounded-lg transition flex items-center gap-2 disabled:cursor-not-allowed"
           >
             {isUploading ? (
               <>

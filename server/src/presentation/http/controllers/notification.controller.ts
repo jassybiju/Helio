@@ -1,9 +1,9 @@
-import type { IGetAllNotificationUseCase } from "@application/ports/use-cases/notification/IGetAllNotificationUseCase.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetAllNotificationUseCase } from "#application/ports/use-cases/notification/IGetAllNotificationUseCase.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class NotificationController {

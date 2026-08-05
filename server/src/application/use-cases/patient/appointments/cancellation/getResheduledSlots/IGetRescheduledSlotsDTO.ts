@@ -1,4 +1,4 @@
-import type { SLOT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
+import type { SLOT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
 
 export type IGetRescheduledSlotsDTO = {
   slots: Record<

@@ -1,0 +1,1 @@
+{"version":3,"file":"IRegisterDoctorUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/auth/IRegisterDoctorUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EACV,yBAAyB,EACzB,yBAAyB,EAC1B,MAAM,oDAAoD,CAAC;AAE5D,MAAM,WAAW,sBAAsB;IACrC,OAAO,CAAC,KAAK,EAAE,yBAAyB,GAAG,OAAO,CAAC,yBAAyB,CAAC,CAAC;CAC/E"}

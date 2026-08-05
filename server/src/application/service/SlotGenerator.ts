@@ -1,11 +1,11 @@
-import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
-import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
-import { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
+import type { ISlotGenerator } from "#application/ports/services/ISlotGenerator.js";
+import type { DoctorShift } from "#domain/entities/DoctorShift.js";
+import { DoctorSlot } from "#domain/value-objects/DoctorSlot.js";
 import {
   combineDateAndTime,
   dayMap,
   istToUtc,
-} from "@shared/utils/date.utils.ts";
+} from "#shared/utils/date.utils.js";
 
 export class SlotGenerator implements ISlotGenerator {
   constructor() {}

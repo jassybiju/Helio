@@ -1,4 +1,4 @@
-import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
+import type { IRefreshTokenService } from "#application/ports/services/IRefreshTokenService.js";
 import crypto from "crypto";
 
 export class CryptoRefreshTokenService implements IRefreshTokenService {

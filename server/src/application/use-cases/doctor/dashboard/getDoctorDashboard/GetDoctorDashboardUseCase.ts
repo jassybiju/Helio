@@ -1,18 +1,18 @@
-import type { IGetDoctorDashboardUseCase } from "@application/ports/use-cases/doctor/dashboard/IGetDoctorDashboardUseCase.ts";
-import type { IGetDoctorDashboardDTO } from "./IGetDoctorDashboardDTO.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import { istToUtc } from "@shared/utils/date.utils.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
+import type { IGetDoctorDashboardUseCase } from "#application/ports/use-cases/doctor/dashboard/IGetDoctorDashboardUseCase.js";
+import type { IGetDoctorDashboardDTO } from "./IGetDoctorDashboardDTO.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import { istToUtc } from "#shared/utils/date.utils.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
 import {
   APPOINTMENT_STATUS,
   BOOKING_PERIOD,
-} from "@domain/common/enums/appointment.enum.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
 
 export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
   constructor(

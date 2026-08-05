@@ -1,4 +1,4 @@
-import type { PAYMENT_TYPE } from "@domain/common/enums/appointment.enum.ts";
+import type { PAYMENT_TYPE } from "#domain/common/enums/appointment.enum.js";
 
 export interface ICheckoutAppointmentUseCase {
   execute(

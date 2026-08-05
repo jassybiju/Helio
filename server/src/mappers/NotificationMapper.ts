@@ -1,5 +1,5 @@
-import { Notification } from "@domain/entities/Notification.ts";
-import type { NotificationRaw } from "@infrastructure/database/model/NotificationModel.ts";
+import { Notification } from "#domain/entities/Notification.js";
+import type { NotificationRaw } from "#infrastructure/database/model/NotificationModel.js";
 
 export class NotificationMapper {
   static toDomain(raw: NotificationRaw): Notification {

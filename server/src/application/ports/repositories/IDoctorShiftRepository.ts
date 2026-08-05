@@ -1,5 +1,5 @@
-import type { DAY_OF_WEEK } from "@domain/common/enums/doctorShift.enum.ts";
-import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
+import type { DAY_OF_WEEK } from "#domain/common/enums/doctorShift.enum.js";
+import type { DoctorShift } from "#domain/entities/DoctorShift.js";
 import type { ClientSession } from "mongoose";
 
 export interface IDoctorShiftRepository {

@@ -1,19 +1,19 @@
 import type {
   ITransactionFilter,
   IWalletTransactionRepository,
-} from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
+} from "#application/ports/repositories/IWalletTransactionRepository.js";
+import { BaseRepository } from "./BaseRepository.js";
+import { WalletTransaction } from "#domain/entities/WalletTransaction.js";
 import {
   walletTransactionModel,
   type WalletTransactionDoc,
-} from "../model/WalletTransactionModel.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+} from "../model/WalletTransactionModel.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type { ClientSession, QueryFilter } from "mongoose";
-import { WalletTransactionMapper } from "../../../mappers/WalletTransactionMapper.ts";
-import { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
-import { TRANSACTION_STATUS } from "@domain/common/enums/wallet.enum.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import { WalletTransactionMapper } from "../../../mappers/WalletTransactionMapper.js";
+import { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
+import { TRANSACTION_STATUS } from "#domain/common/enums/wallet.enum.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export class WalletTransactionRepository
   extends BaseRepository<WalletTransaction, WalletTransactionDoc>

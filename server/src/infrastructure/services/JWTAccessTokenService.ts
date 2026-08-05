@@ -1,4 +1,4 @@
-import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
+import type { IAccessTokenService } from "#application/ports/services/IAccessTokenService.js";
 import jwt from "jsonwebtoken";
 
 export class JWTAccessTokenService implements IAccessTokenService {

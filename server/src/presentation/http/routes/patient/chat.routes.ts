@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware.ts";
-import { authorizeMiddleware } from "../../middlewares/authorize.middleware.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { patientChatController } from "../../di/patient/chat.di.ts";
-import { validate } from "../../middlewares/validation.middleware.ts";
-import { sendChatSchema } from "../../schemas/chat.schema.ts";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { patientChatController } from "../../di/patient/chat.di.js";
+import { validate } from "../../middlewares/validation.middleware.js";
+import { sendChatSchema } from "../../schemas/chat.schema.js";
 
 export const patientChatRouter = Router();
 

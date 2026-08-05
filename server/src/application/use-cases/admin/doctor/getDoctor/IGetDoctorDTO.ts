@@ -1,5 +1,5 @@
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
+import type { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
 
 export type IGetDoctorResponseDTO = {
   doctor: {

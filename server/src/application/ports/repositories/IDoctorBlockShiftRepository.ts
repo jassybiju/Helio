@@ -1,4 +1,4 @@
-import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
+import type { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
 import type { ClientSession } from "mongoose";
 
 export interface IDoctorBlockShiftRepository {

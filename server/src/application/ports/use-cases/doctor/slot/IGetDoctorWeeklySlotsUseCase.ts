@@ -1,5 +1,5 @@
-import type { IDoctorSlotFilters } from "@application/ports/repositories/IDoctorSlotRepository.ts";
-import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
+import type { IDoctorSlotFilters } from "#application/ports/repositories/IDoctorSlotRepository.js";
+import type { DoctorSlot } from "#domain/value-objects/DoctorSlot.js";
 
 export interface IGetDoctorWeeklySlotsUseCase {
   execute(

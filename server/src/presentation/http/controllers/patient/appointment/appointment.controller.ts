@@ -1,26 +1,26 @@
-import type { ICreateAppointmentUseCase } from "@application/ports/use-cases/patient/appointments/ICreateAppointmentUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { ICreateAppointmentUseCase } from "#application/ports/use-cases/patient/appointments/ICreateAppointmentUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type { NextFunction, Request, Response } from "express";
-import { createPatientAppointmentSchema } from "../../../schemas/patient/appointment.schema.ts";
+import { createPatientAppointmentSchema } from "../../../schemas/patient/appointment.schema.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import type { IGetAppointmentUseCase } from "@application/ports/use-cases/patient/appointments/IGetAppointmentUseCase.ts";
-import type { ICheckoutAppointmentUseCase } from "@application/ports/use-cases/patient/appointments/ICheckoutAppointmentUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import type { IGetAppointmentUseCase } from "#application/ports/use-cases/patient/appointments/IGetAppointmentUseCase.js";
+import type { ICheckoutAppointmentUseCase } from "#application/ports/use-cases/patient/appointments/ICheckoutAppointmentUseCase.js";
 import type {
   APPOINTMENT_STATUS,
   PAYMENT_TYPE,
-} from "@domain/common/enums/appointment.enum.ts";
-import type { IGetAllAppointmentsUseCase } from "@application/ports/use-cases/patient/appointments/IGetAllAppointmentsUsecase.ts";
-import type { IVerifyAppointmentPaymentUseCase } from "@application/ports/use-cases/patient/appointments/IVerifyAppointmentPaymentUseCase.ts";
-import type { IGetPatientLiveQueueUseCase } from "@application/ports/use-cases/patient/appointments/IGetPatientLiveQueueUseCase.ts";
-import type { IGetRescheduledSlotsUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IGetRescheduledSlotsUseCase.ts";
-import type { IRespondPatientResheduleAppointmentUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IRespondPatientResheduleAppointmentUseCase.ts";
-import type { IRespondPatientCancelAndRefundAppointment } from "@application/ports/use-cases/patient/appointments/cancellation/IRespondPatientCancelAndRefundAppointment.ts";
-import type { IPatientCancellationUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IPatientCancellationUseCase.ts";
-import type { IPatientRescheduleUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IPatientRescheduleUseCase.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import type { IGetAllAppointmentsUseCase } from "#application/ports/use-cases/patient/appointments/IGetAllAppointmentsUsecase.js";
+import type { IVerifyAppointmentPaymentUseCase } from "#application/ports/use-cases/patient/appointments/IVerifyAppointmentPaymentUseCase.js";
+import type { IGetPatientLiveQueueUseCase } from "#application/ports/use-cases/patient/appointments/IGetPatientLiveQueueUseCase.js";
+import type { IGetRescheduledSlotsUseCase } from "#application/ports/use-cases/patient/appointments/cancellation/IGetRescheduledSlotsUseCase.js";
+import type { IRespondPatientResheduleAppointmentUseCase } from "#application/ports/use-cases/patient/appointments/cancellation/IRespondPatientResheduleAppointmentUseCase.js";
+import type { IRespondPatientCancelAndRefundAppointment } from "#application/ports/use-cases/patient/appointments/cancellation/IRespondPatientCancelAndRefundAppointment.js";
+import type { IPatientCancellationUseCase } from "#application/ports/use-cases/patient/appointments/cancellation/IPatientCancellationUseCase.js";
+import type { IPatientRescheduleUseCase } from "#application/ports/use-cases/patient/appointments/cancellation/IPatientRescheduleUseCase.js";
 
 export class PatientAppointmentController {
   constructor(

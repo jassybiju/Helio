@@ -1,0 +1,20 @@
+import { Router } from "express";
+import { doctorConsultationController } from "../../di/doctor/consultation.di.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { validate } from "../../middlewares/validation.middleware.js";
+import { doctorAddPrescriptionSchema, doctorUpdateConsultationNotes, doctorUpdateVitalsSchema, doctorViewHistorySchema, } from "../../schemas/doctor/consultation.schema.js";
+export const doctorConsultationRoutes = Router();
+doctorConsultationRoutes.use(authMiddleware);
+doctorConsultationRoutes.use(authorizeMiddleware(USER_ROLES.DOCTOR));
+doctorConsultationRoutes.get("/:appointmentId/", doctorConsultationController.viewConsultation);
+doctorConsultationRoutes.patch("/:appointmentId/end", doctorConsultationController.endConsultation);
+doctorConsultationRoutes.patch("/:appointmentId/vitals", validate(doctorUpdateVitalsSchema), doctorConsultationController.updateVitals);
+doctorConsultationRoutes.post("/:appointmentId/prescription", validate(doctorAddPrescriptionSchema), doctorConsultationController.addPrescription);
+doctorConsultationRoutes.delete("/:appointmentId/prescription/:prescriptionName", doctorConsultationController.removePrescription);
+doctorConsultationRoutes.patch("/:appointmentId/notes", validate(doctorUpdateConsultationNotes), doctorConsultationController.updateNotes);
+doctorConsultationRoutes.post("/:appointmentId/test", doctorConsultationController.addTest);
+doctorConsultationRoutes.delete("/:appointmentId/test/:testId", doctorConsultationController.removeTest);
+doctorConsultationRoutes.get("/:appointmentId/history", validate(doctorViewHistorySchema), doctorConsultationController.viewHistory);
+//# sourceMappingURL=consultation.routes.js.map

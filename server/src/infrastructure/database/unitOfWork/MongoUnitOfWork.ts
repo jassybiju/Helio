@@ -1,4 +1,4 @@
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
 import mongoose, { type ClientSession } from "mongoose";
 
 export class MongoUnitOfWork implements IUnitOfWork {

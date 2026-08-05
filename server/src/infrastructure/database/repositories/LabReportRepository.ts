@@ -1,11 +1,11 @@
-import type { ILabReportRepository } from "@application/ports/repositories/ILabReportRepository.ts";
-import type { LabReport } from "@domain/entities/LabReport.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import { labReportModel, type LabReportDoc } from "../model/LabReportModel.ts";
+import type { ILabReportRepository } from "#application/ports/repositories/ILabReportRepository.js";
+import type { LabReport } from "#domain/entities/LabReport.js";
+import { BaseRepository } from "./BaseRepository.js";
+import { labReportModel, type LabReportDoc } from "../model/LabReportModel.js";
 import type { ClientSession } from "mongoose";
-import { LabReportMapper } from "../../../mappers/LabReportMapper.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
+import { LabReportMapper } from "../../../mappers/LabReportMapper.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
 
 export class LabReportRepository
   extends BaseRepository<LabReport, LabReportDoc>

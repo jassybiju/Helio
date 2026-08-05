@@ -1,16 +1,16 @@
-import type { IGetAllPatientsUseCase } from "@application/ports/use-cases/admin/patient/IGetAllPatientsUseCase.ts";
+import type { IGetAllPatientsUseCase } from "#application/ports/use-cases/admin/patient/IGetAllPatientsUseCase.js";
 import type { NextFunction, Request, Response } from "express";
-import { getAllPatientsSchema } from "../../schemas/admin/patient.schema.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import { getAllPatientsSchema } from "../../schemas/admin/patient.schema.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IToggleBlockPatientUseCase } from "@application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.ts";
-import type { IGetPatientUseCase } from "@application/ports/use-cases/admin/patient/IGetPatientUseCase.ts";
-import { GetPatientMapper } from "@application/use-cases/admin/patient/getPatient/GetPatientMapper.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IToggleBlockPatientUseCase } from "#application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.js";
+import type { IGetPatientUseCase } from "#application/ports/use-cases/admin/patient/IGetPatientUseCase.js";
+import { GetPatientMapper } from "#application/use-cases/admin/patient/getPatient/GetPatientMapper.js";
 
 export class AdminPatientController {
   constructor(

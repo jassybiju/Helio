@@ -1,25 +1,25 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
 import type {
   IPatientRescheduleUseCase,
   IPatientResheduleAppointmentInput,
-} from "@application/ports/use-cases/patient/appointments/cancellation/IPatientRescheduleUseCase.ts";
+} from "#application/ports/use-cases/patient/appointments/cancellation/IPatientRescheduleUseCase.js";
 import {
   APPOINTMENT_STATUS,
   PAYMENT_STATUS,
-} from "@domain/common/enums/appointment.enum.ts";
-import { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { Appointment } from "@domain/entities/Appointment.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { jsToEnumDay, utcToIst } from "@shared/utils/date.utils.ts";
+} from "#domain/common/enums/appointment.enum.js";
+import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { Appointment } from "#domain/entities/Appointment.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { jsToEnumDay, utcToIst } from "#shared/utils/date.utils.js";
 
 export class PatientRescheduleAppointmentUseCase implements IPatientRescheduleUseCase {
   constructor(

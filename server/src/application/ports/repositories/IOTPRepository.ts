@@ -1,4 +1,4 @@
-import type { OTP } from "@domain/entities/OTP.ts";
+import type { OTP } from "#domain/entities/OTP.js";
 
 export interface IOTPRepository {
   save(otp: OTP): Promise<void>;

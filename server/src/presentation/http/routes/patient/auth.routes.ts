@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authController } from "../../di/patient/auth.di.ts";
+import { authController } from "../../di/patient/auth.di.js";
 
 export const patientAuthRouter = Router();
 

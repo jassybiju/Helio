@@ -3,29 +3,29 @@ import express, {
   type Request,
   type Response,
 } from "express";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import type { AppError } from "@shared/errors/AppError.ts";
-import { errorResponse } from "@shared/utils/apiReponse.utils.ts";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import type { AppError } from "#shared/errors/AppError.js";
+import { errorResponse } from "#shared/utils/apiReponse.utils.js";
 import cors from "cors";
-import { authRouter } from "./presentation/http/routes/auth.routes.ts";
+import { authRouter } from "./presentation/http/routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
-import { adminAuthRouter } from "./presentation/http/routes/admin/auth.routes.ts";
-import { adminPatientRouter } from "./presentation/http/routes/admin/patient.routes.ts";
-import { adminDoctorRouter } from "./presentation/http/routes/admin/doctor.routes.ts";
-import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.ts";
+import { adminAuthRouter } from "./presentation/http/routes/admin/auth.routes.js";
+import { adminPatientRouter } from "./presentation/http/routes/admin/patient.routes.js";
+import { adminDoctorRouter } from "./presentation/http/routes/admin/doctor.routes.js";
+import { doctorRouter } from "./presentation/http/routes/doctor/index.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { patientRouter } from "./presentation/http/routes/patient/index.routes.ts";
-import { specialityController } from "./presentation/http/di/specialty.di.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { adminSpecialtyRouter } from "./presentation/http/routes/admin/specialty.routes.ts";
-import { walletRouter } from "./presentation/http/routes/wallet.routes.ts";
-import { expireAppointmentsUseCase } from "./presentation/http/di/jobs/appointmentExpiry.di.ts";
-import { appointmentExpiryJob } from "@infrastructure/jobs/appointmentExpiry.job.ts";
-import { pdfRouter } from "./presentation/http/routes/pdf.routes.ts";
-import { notificationRouter } from "./presentation/http/routes/notification.routes.ts";
-import { adminDashboardRoutes } from "./presentation/http/routes/admin/dashboard.routes.ts";
+import { patientRouter } from "./presentation/http/routes/patient/index.routes.js";
+import { specialityController } from "./presentation/http/di/specialty.di.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { adminSpecialtyRouter } from "./presentation/http/routes/admin/specialty.routes.js";
+import { walletRouter } from "./presentation/http/routes/wallet.routes.js";
+import { expireAppointmentsUseCase } from "./presentation/http/di/jobs/appointmentExpiry.di.js";
+import { appointmentExpiryJob } from "#infrastructure/jobs/appointmentExpiry.job.js";
+import { pdfRouter } from "./presentation/http/routes/pdf.routes.js";
+import { notificationRouter } from "./presentation/http/routes/notification.routes.js";
+import { adminDashboardRoutes } from "./presentation/http/routes/admin/dashboard.routes.js";
 
 export const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -39,7 +39,7 @@ app.use(
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
 
-      const allowedDomains = ["localhost:3000", "helixo.com:3000"];
+      const allowedDomains = ["localhost:3000", "helixo.com"];
 
       const isAllowed = allowedDomains.some((domain) => {
         return origin.endsWith(domain);

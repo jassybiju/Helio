@@ -1,5 +1,5 @@
-import type { DoctorShift } from "@domain/entities/DoctorShift.ts";
-import type { IGetDoctorScheduleDTO } from "./IGetDoctorScheduleDTO.ts";
+import type { DoctorShift } from "#domain/entities/DoctorShift.js";
+import type { IGetDoctorScheduleDTO } from "./IGetDoctorScheduleDTO.js";
 
 export class GetDoctorScheduleMapper {
   static toDto(shifts: DoctorShift[]): IGetDoctorScheduleDTO[] {

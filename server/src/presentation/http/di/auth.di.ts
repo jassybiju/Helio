@@ -1,18 +1,18 @@
-import { GetMeUseCase } from "@application/use-cases/auth/get-me/GetMeUseCase.ts";
-import { AuthController } from "../controllers/auth.controller.ts";
-import { PatientGetMeHandler } from "@application/use-cases/auth/get-me/PatientGetMeHandler.ts";
-import { DoctorGetMeHandler } from "@application/use-cases/auth/get-me/DoctorGetMeHandler.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { AdminGetMeHandler } from "@application/use-cases/auth/get-me/AdminGetMeHandler.ts";
-import { RefreshTokenUseCase } from "@application/use-cases/auth/refreshToken/RefreshTokenUseCase.ts";
-import { RedisSessionRepository } from "@infrastructure/database/repositories/RedisSessionRepository.ts";
-import { CryptoRefreshTokenService } from "@infrastructure/services/CryptoRefreshTokenService.ts";
-import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenService.ts";
-import { LogoutUseCase } from "@application/use-cases/auth/logout/LogoutUseCase.ts";
-import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
-import { AdminRepository } from "@infrastructure/database/repositories/AdminRepository.ts";
+import { GetMeUseCase } from "#application/use-cases/auth/get-me/GetMeUseCase.js";
+import { AuthController } from "../controllers/auth.controller.js";
+import { PatientGetMeHandler } from "#application/use-cases/auth/get-me/PatientGetMeHandler.js";
+import { DoctorGetMeHandler } from "#application/use-cases/auth/get-me/DoctorGetMeHandler.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { AdminGetMeHandler } from "#application/use-cases/auth/get-me/AdminGetMeHandler.js";
+import { RefreshTokenUseCase } from "#application/use-cases/auth/refreshToken/RefreshTokenUseCase.js";
+import { RedisSessionRepository } from "#infrastructure/database/repositories/RedisSessionRepository.js";
+import { CryptoRefreshTokenService } from "#infrastructure/services/CryptoRefreshTokenService.js";
+import { JWTAccessTokenService } from "#infrastructure/services/JWTAccessTokenService.js";
+import { LogoutUseCase } from "#application/use-cases/auth/logout/LogoutUseCase.js";
+import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { AdminRepository } from "#infrastructure/database/repositories/AdminRepository.js";
 
 const loggerService = PinoLoggerService.getInstance();
 

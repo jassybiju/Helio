@@ -1,5 +1,5 @@
-import type { IUserPresenceService } from "@application/ports/IUserPresenceService.ts";
-import type { AuthenticatedSocket } from "../types/AuthenticatedSocket.ts";
+import type { IUserPresenceService } from "#application/ports/IUserPresenceService.js";
+import type { AuthenticatedSocket } from "../types/AuthenticatedSocket.js";
 
 // responsible to connection lifecyle
 export class PresenceHandler {

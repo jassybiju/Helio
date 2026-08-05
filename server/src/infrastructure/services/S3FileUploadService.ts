@@ -1,4 +1,4 @@
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 
 export class S3FileUploadService implements IFileUpload {
   async upload(_document: {

@@ -1,6 +1,6 @@
-import type { INotificationRepository } from "@application/ports/repositories/INotificationRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IGetAllNotificationUseCase } from "@application/ports/use-cases/notification/IGetAllNotificationUseCase.ts";
+import type { INotificationRepository } from "#application/ports/repositories/INotificationRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IGetAllNotificationUseCase } from "#application/ports/use-cases/notification/IGetAllNotificationUseCase.js";
 
 export class GetAllNotificationuseCase implements IGetAllNotificationUseCase {
   constructor(

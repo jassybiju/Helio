@@ -1,13 +1,13 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IConsultationRepository } from "@application/ports/repositories/IConsultationRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IAddPrescriptionUseCase } from "@application/ports/use-cases/doctor/consultation/IAddPrescriptionUseCase.ts";
-import type { FOOD_TIMING } from "@domain/common/enums/consultation.enum.ts";
-import { Prescription } from "@domain/value-objects/Prescription.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ForbiddenError } from "@shared/errors/ForbiddenError.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IAddPrescriptionUseCase } from "#application/ports/use-cases/doctor/consultation/IAddPrescriptionUseCase.js";
+import type { FOOD_TIMING } from "#domain/common/enums/consultation.enum.js";
+import { Prescription } from "#domain/value-objects/Prescription.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ForbiddenError } from "#shared/errors/ForbiddenError.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class DoctorAddPrescriptionUseCase implements IAddPrescriptionUseCase {
   constructor(

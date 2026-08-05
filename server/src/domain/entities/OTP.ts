@@ -1,7 +1,7 @@
-import type { OTP_PURPOSE } from "@domain/common/enums/otp.enum.ts";
-import type { Email } from "@domain/value-objects/Email.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { OTP_PURPOSE } from "#domain/common/enums/otp.enum.js";
+import type { Email } from "#domain/value-objects/Email.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class OTP {
   constructor(

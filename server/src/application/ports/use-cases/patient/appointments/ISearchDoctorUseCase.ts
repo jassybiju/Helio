@@ -1,5 +1,5 @@
-import type { ISearchDoctorsDTO } from "@application/use-cases/patient/appointments/searchDoctors/ISearchDoctorDTO.ts";
-import type { CONSULTATION_TYPE } from "@domain/common/enums/doctorShift.enum.ts";
+import type { ISearchDoctorsDTO } from "#application/use-cases/patient/appointments/searchDoctors/ISearchDoctorDTO.js";
+import type { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 
 export interface ISearchDoctorsInput {
   search?: string | undefined;

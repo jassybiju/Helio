@@ -1,4 +1,4 @@
-import type { BOOKING_PERIOD } from "@domain/common/enums/appointment.enum.ts";
+import type { BOOKING_PERIOD } from "#domain/common/enums/appointment.enum.js";
 
 export interface IGetDoctorDashboardDTO {
   summary: {

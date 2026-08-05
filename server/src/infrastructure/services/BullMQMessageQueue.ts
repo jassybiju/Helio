@@ -1,6 +1,6 @@
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IMessageQueue } from "@application/ports/services/IMessageQueue.ts";
-import { notificationQueue } from "@config/bullmq.config.ts";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IMessageQueue } from "#application/ports/services/IMessageQueue.js";
+import { notificationQueue } from "#config/bullmq.config.js";
 
 export class BullMQMessageQueue implements IMessageQueue {
   constructor(private readonly _logger: ILogger) {}

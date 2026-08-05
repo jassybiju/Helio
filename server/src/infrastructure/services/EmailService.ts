@@ -1,4 +1,4 @@
-import type { IEmailService } from "@application/ports/services/IEmailService.ts";
+import type { IEmailService } from "#application/ports/services/IEmailService.js";
 import nodemailer from "nodemailer";
 
 export class EmailService implements IEmailService {

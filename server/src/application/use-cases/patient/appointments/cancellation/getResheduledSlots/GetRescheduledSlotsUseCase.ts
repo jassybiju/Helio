@@ -1,23 +1,23 @@
-import type { IGetRescheduledSlotsUseCase } from "@application/ports/use-cases/patient/appointments/cancellation/IGetRescheduledSlotsUseCase.ts";
-import type { IGetRescheduledSlotsDTO } from "./IGetRescheduledSlotsDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { ConflictError } from "@shared/errors/ConflictError.ts";
-import type { IDoctorShiftRepository } from "@application/ports/repositories/IDoctorShiftRepository.ts";
-import type { IDoctorBlockShiftRepository } from "@application/ports/repositories/IDoctorBlockShiftRepository.ts";
-import type { ISlotGenerator } from "@application/ports/services/ISlotGenerator.ts";
-import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
-import type { DoctorBlockShift } from "@domain/entities/DoctorBlockShift.ts";
+import type { IGetRescheduledSlotsUseCase } from "#application/ports/use-cases/patient/appointments/cancellation/IGetRescheduledSlotsUseCase.js";
+import type { IGetRescheduledSlotsDTO } from "./IGetRescheduledSlotsDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { ConflictError } from "#shared/errors/ConflictError.js";
+import type { IDoctorShiftRepository } from "#application/ports/repositories/IDoctorShiftRepository.js";
+import type { IDoctorBlockShiftRepository } from "#application/ports/repositories/IDoctorBlockShiftRepository.js";
+import type { ISlotGenerator } from "#application/ports/services/ISlotGenerator.js";
+import type { DoctorSlot } from "#domain/value-objects/DoctorSlot.js";
+import type { DoctorBlockShift } from "#domain/entities/DoctorBlockShift.js";
 import {
   CONSULTATION_TYPE,
   SLOT_STATUS,
-} from "@domain/common/enums/doctorShift.enum.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
+} from "#domain/common/enums/doctorShift.enum.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
 
 export class GetRescheduledSlotsUseCase implements IGetRescheduledSlotsUseCase {
   constructor(

@@ -1,13 +1,13 @@
-import { GetWalletUseCase } from "@application/use-cases/wallet/getWallet/GetWalletUseCase.ts";
-import { WalletController } from "../controllers/wallet.controller.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { WalletRepository } from "@infrastructure/database/repositories/WalletRepository.ts";
-import { WalletTransactionRepository } from "@infrastructure/database/repositories/WalletTransactionRepository.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { AddMoneyUseCase } from "@application/use-cases/wallet/addMoney/AddMoneyUseCase.ts";
-import { razorpay } from "@config/razorpay.config.ts";
-import { AddMoneyVerifyUseCase } from "@application/use-cases/wallet/addMoney/AddMoneyVerifyUseCase.ts";
-import { MongoUnitOfWork } from "@infrastructure/database/unitOfWork/MongoUnitOfWork.ts";
+import { GetWalletUseCase } from "#application/use-cases/wallet/getWallet/GetWalletUseCase.js";
+import { WalletController } from "../controllers/wallet.controller.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { WalletRepository } from "#infrastructure/database/repositories/WalletRepository.js";
+import { WalletTransactionRepository } from "#infrastructure/database/repositories/WalletTransactionRepository.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { AddMoneyUseCase } from "#application/use-cases/wallet/addMoney/AddMoneyUseCase.js";
+import { razorpay } from "#config/razorpay.config.js";
+import { AddMoneyVerifyUseCase } from "#application/use-cases/wallet/addMoney/AddMoneyVerifyUseCase.js";
+import { MongoUnitOfWork } from "#infrastructure/database/unitOfWork/MongoUnitOfWork.js";
 
 const logger = PinoLoggerService.getInstance();
 

@@ -1,5 +1,5 @@
-import type { IDoctorViewAllAppointmentDTO } from "./IDoctorViewAllAppointmentDTO.ts";
-import type { DoctorAppointmentListItem } from "@application/ports/repositories/IAppointmentRepository.ts";
+import type { IDoctorViewAllAppointmentDTO } from "./IDoctorViewAllAppointmentDTO.js";
+import type { DoctorAppointmentListItem } from "#application/ports/repositories/IAppointmentRepository.js";
 
 export class DoctorViewAllAppointmentMapper {
   static toDto(

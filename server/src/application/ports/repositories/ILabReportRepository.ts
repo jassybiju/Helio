@@ -1,5 +1,5 @@
-import type { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
-import type { LabReport } from "@domain/entities/LabReport.ts";
+import type { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
+import type { LabReport } from "#domain/entities/LabReport.js";
 import type { ClientSession } from "mongoose";
 
 export interface ILabReportRepository {

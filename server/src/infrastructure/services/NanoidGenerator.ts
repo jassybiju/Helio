@@ -1,4 +1,4 @@
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
 import { nanoid } from "nanoid";
 
 export class NanoidGenerator implements IIDGenerator {

@@ -1,18 +1,18 @@
 import type {
   ILoginRequestDTO,
   ILoginResponseDTO,
-} from "@application/dto/auth/ILoginDTO.ts";
-import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
-import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
-import type { ILoginUseCase } from "@application/ports/use-cases/auth/ILoginUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { IAdminRepository } from "@application/ports/repositories/IAdminRepository.ts";
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import { Email } from "@domain/value-objects/Email.ts";
+} from "#application/dto/auth/ILoginDTO.js";
+import type { ISessionRepository } from "#application/ports/repositories/ISessionRepository.js";
+import type { IAccessTokenService } from "#application/ports/services/IAccessTokenService.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IRefreshTokenService } from "#application/ports/services/IRefreshTokenService.js";
+import type { ILoginUseCase } from "#application/ports/use-cases/auth/ILoginUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { IAdminRepository } from "#application/ports/repositories/IAdminRepository.js";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import { Email } from "#domain/value-objects/Email.js";
 
 export class LoginAdminUseCase implements ILoginUseCase {
   constructor(

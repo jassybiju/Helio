@@ -1,6 +1,6 @@
-import type { IGoogleAuthService } from "@application/ports/services/IGoogleAuthService.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGoogleAuthService } from "#application/ports/services/IGoogleAuthService.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import { OAuth2Client } from "google-auth-library";
 
 export class GoogleAuthService implements IGoogleAuthService {

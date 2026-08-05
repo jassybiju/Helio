@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { patientDoctorController } from "../../di/patient/appointment/search.di.ts";
-import { optionalAuthMiddleware } from "../../middlewares/optionalAuth.middleware.ts";
+import { patientDoctorController } from "../../di/patient/appointment/search.di.js";
+import { optionalAuthMiddleware } from "../../middlewares/optionalAuth.middleware.js";
 
 export const patientDoctorRouter = Router();
 

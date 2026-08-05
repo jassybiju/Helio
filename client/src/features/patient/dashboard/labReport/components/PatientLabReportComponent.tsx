@@ -1,19 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { CheckCircle, Eye } from "lucide-react";
 import { useGetLabReportQuery } from "../hooks/useGetLabReportQuery";
 import { useModal } from "@/src/hooks/useModal";
 import PatientUploadLabReportModal from "./PatientUploadLabReportModal";
 import ViewPDFModal from "@/src/components/ViewPDFModal";
+import Pagination from "@/src/components/Pagination";
 
-const LIMIT = 4;
+const LIMIT = 1;
 const PatientLabReportComponent = () => {
-  // const [currentPage, _setCurrentPage] = useState(1);
-  const currentPage = 1
+  const [currentPage, setCurrentPage] = useState(1);
   const { data } = useGetLabReportQuery({ limit: LIMIT, page: currentPage });
   const { open } = useModal();
-  
+
   const openViewPDFModal = (file: string, title: string) => {
     open(ViewPDFModal, { file, title });
   };
@@ -21,8 +21,9 @@ const PatientLabReportComponent = () => {
     open(PatientUploadLabReportModal, { testName, reportId });
   };
 
+  const totalPage = Math.ceil((data?.data.uploaded.totalCount ?? 0) / LIMIT);
   return (
-    <div className="space-y-6 sm:space-y-8 px-4 sm:px-6 lg:px-0">
+    <div className="space-y-6 text-nowrap sm:space-y-8 px-4 sm:px-6 lg:px-0">
       {" "}
       {/* Header */}
       <div>
@@ -49,7 +50,10 @@ const PatientLabReportComponent = () => {
                     Test Name
                   </th>
                   <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
-                    Requested By
+                    Instructions
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Requested For
                   </th>
                   <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
                     Date
@@ -75,6 +79,9 @@ const PatientLabReportComponent = () => {
                       </td>
                       <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
                         {request.instructions}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
+                        {request.appointmentId}
                       </td>
                       <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
                         {new Date(request.requestedAt).toDateString()}
@@ -183,6 +190,9 @@ const PatientLabReportComponent = () => {
                     Upload Date
                   </th>
                   <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
+                    Requested For
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
                     Status
                   </th>
                   <th className="px-3 sm:px-6 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase">
@@ -218,12 +228,15 @@ const PatientLabReportComponent = () => {
                           ? new Date(report.uploadedAt).toDateString()
                           : "-"}
                       </td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
+                        {report.appointmentId}
+                      </td>
                       <td className="px-3 sm:px-6 py-3">
                         <span className="inline-flex whitespace-nowrap rounded-full px-2 sm:px-3 py-1 text-xs font-semibold">
                           UPLOADED
                         </span>
                       </td>
-                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-500"></td>
+                      <td className="px-3 sm:px-6 py-3 text-sm text-slate-500">{report.instructions}</td>
                       <td className="px-3 sm:px-6 py-3 flex items-center gap-2">
                         <button
                           onClick={() =>
@@ -259,6 +272,11 @@ const PatientLabReportComponent = () => {
               </tbody>
             </table>
           </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPage}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
         </div>
 
         {/* Pagination

@@ -1,11 +1,11 @@
-import { LoginAdminUseCase } from "@application/use-cases/admin/auth/LoginAdminUseCase.ts";
-import { AdminAuthController } from "../../controllers/admin/auth.controller.ts";
-import { CryptoRefreshTokenService } from "@infrastructure/services/CryptoRefreshTokenService.ts";
-import { JWTAccessTokenService } from "@infrastructure/services/JWTAccessTokenService.ts";
-import { RedisSessionRepository } from "@infrastructure/database/repositories/RedisSessionRepository.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { BcryptPasswordService } from "@infrastructure/services/BcryptPasswordService.ts";
-import { AdminRepository } from "@infrastructure/database/repositories/AdminRepository.ts";
+import { LoginAdminUseCase } from "#application/use-cases/admin/auth/LoginAdminUseCase.js";
+import { AdminAuthController } from "../../controllers/admin/auth.controller.js";
+import { CryptoRefreshTokenService } from "#infrastructure/services/CryptoRefreshTokenService.js";
+import { JWTAccessTokenService } from "#infrastructure/services/JWTAccessTokenService.js";
+import { RedisSessionRepository } from "#infrastructure/database/repositories/RedisSessionRepository.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { BcryptPasswordService } from "#infrastructure/services/BcryptPasswordService.js";
+import { AdminRepository } from "#infrastructure/database/repositories/AdminRepository.js";
 
 const refreshTokenService = new CryptoRefreshTokenService();
 const accessTokenService = new JWTAccessTokenService();

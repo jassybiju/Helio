@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
   DAY_OF_WEEK,
   CONSULTATION_TYPE,
-} from "@domain/common/enums/doctorShift.enum.ts";
+} from "#domain/common/enums/doctorShift.enum.js";
 
 // HH:mm format validator
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;

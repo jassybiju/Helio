@@ -1,7 +1,7 @@
 import type {
   IFetchByStartingCharacterRequestDTO,
   IFetchByStartingCharacterResponseDTO,
-} from "@application/dto/admin/IFetchByCharacter.ts";
+} from "#application/dto/admin/IFetchByCharacter.js";
 
 export interface IFetchByStartingCharacterUseCase {
   execute(

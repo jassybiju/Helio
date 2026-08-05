@@ -1,0 +1,1 @@
+{"version":3,"file":"IDoctorViewTodaysAppointmentUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/appointment/IDoctorViewTodaysAppointmentUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,+BAA+B,EAAE,MAAM,0GAA0G,CAAC;AAEhK,MAAM,WAAW,mCAAmC;IAClD,OAAO,CAAC,QAAQ,EAAE,MAAM,GAAG,OAAO,CAAC,+BAA+B,CAAC,CAAC;CACrE"}

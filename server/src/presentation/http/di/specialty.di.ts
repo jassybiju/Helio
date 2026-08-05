@@ -1,11 +1,11 @@
-import { GetSpecialtiesUseCase } from "@application/use-cases/GetSpecialtiesUseCase.ts";
-import { SpecialtyController } from "../controllers/speciality.controller.ts";
-import { SpecialtyRepository } from "@infrastructure/database/repositories/SpecialityRepository.ts";
-import { CreateSpecialtyUseCase } from "@application/use-cases/CreateSpecialtyUseCase.ts";
-import { NanoidGenerator } from "@infrastructure/services/NanoidGenerator.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { RemoveSpecialtyUseCase } from "@application/use-cases/RemoveSpecialtyUseCase.ts";
-import { GetAllSpecialtyUseCase } from "@application/use-cases/GetAllSpecialtyUseCase.ts";
+import { GetSpecialtiesUseCase } from "#application/use-cases/GetSpecialtiesUseCase.js";
+import { SpecialtyController } from "../controllers/speciality.controller.js";
+import { SpecialtyRepository } from "#infrastructure/database/repositories/SpecialityRepository.js";
+import { CreateSpecialtyUseCase } from "#application/use-cases/CreateSpecialtyUseCase.js";
+import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { RemoveSpecialtyUseCase } from "#application/use-cases/RemoveSpecialtyUseCase.js";
+import { GetAllSpecialtyUseCase } from "#application/use-cases/GetAllSpecialtyUseCase.js";
 
 const specialtyRepo = new SpecialtyRepository();
 const idGenerator = new NanoidGenerator();

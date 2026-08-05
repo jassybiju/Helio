@@ -1,4 +1,4 @@
-import { LAB_REPORT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
+import { LAB_REPORT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
 
 export class LabReport {
   constructor(

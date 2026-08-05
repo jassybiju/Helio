@@ -1,4 +1,4 @@
-import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
+import type { ALLERGEN_SEVERITY } from "#domain/common/enums/allergen_severity.js";
 
 export interface IAddPatientAllergenUseCase {
   execute(

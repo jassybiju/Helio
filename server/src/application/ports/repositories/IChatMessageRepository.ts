@@ -1,4 +1,4 @@
-import type { ChatMessage } from "@domain/entities/ChatMessage.ts";
+import type { ChatMessage } from "#domain/entities/ChatMessage.js";
 import type { ClientSession } from "mongoose";
 
 export interface IChatMessageRepository {

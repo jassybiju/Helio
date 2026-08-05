@@ -1,4 +1,4 @@
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export interface IPatientSendMessageUseCase {
   execute(

@@ -1,5 +1,5 @@
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import type { DOCTOR_VERIFICATION_STATUS } from "@domain/common/enums/doctor.enum.ts";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import type { DOCTOR_VERIFICATION_STATUS } from "#domain/common/enums/doctor.enum.js";
 
 export type IGetMeRequestDTO = {
   id: string;

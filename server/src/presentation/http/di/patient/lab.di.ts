@@ -1,10 +1,10 @@
-import { GetPatientLabReportUseCase } from "@application/use-cases/patient/appointments/lab/getLabReport/GetPatientLabReportUseCase.ts";
-import { PatientLabReportController } from "../../controllers/patient/lab.controller.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { PatientRepository } from "@infrastructure/database/repositories/MongoPatientRepository.ts";
-import { LabReportRepository } from "@infrastructure/database/repositories/LabReportRepository.ts";
-import { UploadPatientLabReportUseCase } from "@application/use-cases/patient/appointments/lab/uploadLabReport/UploadPatientLabReportUseCase.ts";
-import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
+import { GetPatientLabReportUseCase } from "#application/use-cases/patient/appointments/lab/getLabReport/GetPatientLabReportUseCase.js";
+import { PatientLabReportController } from "../../controllers/patient/lab.controller.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
+import { LabReportRepository } from "#infrastructure/database/repositories/LabReportRepository.js";
+import { UploadPatientLabReportUseCase } from "#application/use-cases/patient/appointments/lab/uploadLabReport/UploadPatientLabReportUseCase.js";
+import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 const logger = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(logger);
 const labRepo = new LabReportRepository(logger);

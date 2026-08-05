@@ -1,10 +1,10 @@
-import { Consultation } from "@domain/entities/Consultation.ts";
-import { Prescription } from "@domain/value-objects/Prescription.ts";
-import { Vital } from "@domain/value-objects/Vitals.ts";
+import { Consultation } from "#domain/entities/Consultation.js";
+import { Prescription } from "#domain/value-objects/Prescription.js";
+import { Vital } from "#domain/value-objects/Vitals.js";
 import type {
   ConsultationDoc,
   ConsultationRawDoc,
-} from "@infrastructure/database/model/ConsultationModel.ts";
+} from "#infrastructure/database/model/ConsultationModel.js";
 
 export class ConsultationMapper {
   static toDomain(raw: ConsultationDoc): Consultation {

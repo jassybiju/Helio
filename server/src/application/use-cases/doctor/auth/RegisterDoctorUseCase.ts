@@ -1,21 +1,21 @@
 import type {
   IRegisterDoctorRequestDTO,
   IRegisterDoctorReponseDTO,
-} from "@application/dto/doctor/auth/IRegisterDoctorDTO.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
-import type { IEmailService } from "@application/ports/services/IEmailService.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IOTPService } from "@application/ports/services/IOTPService.ts";
-import type { IPasswordService } from "@application/ports/services/IPasswordService.ts";
-import type { IRegisterDoctorUseCase } from "@application/ports/use-cases/doctor/auth/IRegisterDoctorUseCase.ts";
-import type { DoctorValidator } from "@application/validators/DoctorValidator.ts";
-import type { GENDER } from "@domain/common/enums/gender.enum.ts";
-import { Doctor } from "@domain/entities/Doctor.ts";
-import { OTP } from "@domain/entities/OTP.ts";
-import { Email } from "@domain/value-objects/Email.ts";
+} from "#application/dto/doctor/auth/IRegisterDoctorDTO.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IOTPRepository } from "#application/ports/repositories/IOTPRepository.js";
+import type { IEmailService } from "#application/ports/services/IEmailService.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IOTPService } from "#application/ports/services/IOTPService.js";
+import type { IPasswordService } from "#application/ports/services/IPasswordService.js";
+import type { IRegisterDoctorUseCase } from "#application/ports/use-cases/doctor/auth/IRegisterDoctorUseCase.js";
+import type { DoctorValidator } from "#application/validators/DoctorValidator.js";
+import type { GENDER } from "#domain/common/enums/gender.enum.js";
+import { Doctor } from "#domain/entities/Doctor.js";
+import { OTP } from "#domain/entities/OTP.js";
+import { Email } from "#domain/value-objects/Email.js";
 
 export class RegisterDoctorUseCase implements IRegisterDoctorUseCase {
   constructor(

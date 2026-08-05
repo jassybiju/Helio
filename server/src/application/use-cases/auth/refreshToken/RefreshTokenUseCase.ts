@@ -1,10 +1,10 @@
-import type { ISessionRepository } from "@application/ports/repositories/ISessionRepository.ts";
-import type { IAccessTokenService } from "@application/ports/services/IAccessTokenService.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IRefreshTokenService } from "@application/ports/services/IRefreshTokenService.ts";
-import type { IRefreshTokenUseCase } from "@application/ports/use-cases/auth/IRefreshTokenUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { ISessionRepository } from "#application/ports/repositories/ISessionRepository.js";
+import type { IAccessTokenService } from "#application/ports/services/IAccessTokenService.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IRefreshTokenService } from "#application/ports/services/IRefreshTokenService.js";
+import type { IRefreshTokenUseCase } from "#application/ports/use-cases/auth/IRefreshTokenUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class RefreshTokenUseCase implements IRefreshTokenUseCase {
   constructor(

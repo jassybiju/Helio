@@ -1,4 +1,4 @@
-import { FOOD_TIMING } from "@domain/common/enums/consultation.enum.ts";
+import { FOOD_TIMING } from "#domain/common/enums/consultation.enum.js";
 import z from "zod";
 
 export const doctorUpdateVitalsSchema = z.object({

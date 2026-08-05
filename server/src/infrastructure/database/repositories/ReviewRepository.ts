@@ -1,10 +1,10 @@
-import type { IReviewRepository } from "@application/ports/repositories/IReviewRepository.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import type { Review } from "@domain/entities/Review.ts";
-import { reviewModel, type ReviewRaw } from "../model/ReviewModel.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { IReviewRepository } from "#application/ports/repositories/IReviewRepository.js";
+import { BaseRepository } from "./BaseRepository.js";
+import type { Review } from "#domain/entities/Review.js";
+import { reviewModel, type ReviewRaw } from "../model/ReviewModel.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type { ClientSession } from "mongoose";
-import { ReviewMapper } from "../../../mappers/ReviewMapper.ts";
+import { ReviewMapper } from "../../../mappers/ReviewMapper.js";
 
 export class ReviewRepository
   extends BaseRepository<Review, ReviewRaw>

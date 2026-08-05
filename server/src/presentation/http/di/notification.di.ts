@@ -1,7 +1,7 @@
-import { GetAllNotificationuseCase } from "@application/use-cases/notification/getAllNotification/GetAllNotificationuseCase.ts";
-import { NotificationController } from "../controllers/notification.controller.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { NotificationRepository } from "@infrastructure/database/repositories/NotificationRepository.ts";
+import { GetAllNotificationuseCase } from "#application/use-cases/notification/getAllNotification/GetAllNotificationuseCase.js";
+import { NotificationController } from "../controllers/notification.controller.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { NotificationRepository } from "#infrastructure/database/repositories/NotificationRepository.js";
 
 const logger = PinoLoggerService.getInstance();
 const notificationRepo = new NotificationRepository(logger);

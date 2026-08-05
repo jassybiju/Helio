@@ -1,10 +1,10 @@
-import { AppError } from "@shared/errors/AppError.ts";
-import type { BLOOD_GROUP } from "../common/enums/blood-group.enum.ts";
-import type { GENDER } from "../common/enums/gender.enum.ts";
-import type { Email } from "../value-objects/Email.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { ALLERGEN_SEVERITY } from "@domain/common/enums/allergen_severity.ts";
-import type { IUpdatePatientInput } from "@application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.ts";
+import { AppError } from "#shared/errors/AppError.js";
+import type { BLOOD_GROUP } from "../common/enums/blood-group.enum.js";
+import type { GENDER } from "../common/enums/gender.enum.js";
+import type { Email } from "../value-objects/Email.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { ALLERGEN_SEVERITY } from "#domain/common/enums/allergen_severity.js";
+import type { IUpdatePatientInput } from "#application/ports/use-cases/patient/profile/IUpdatePatientProfileUseCase.js";
 
 export class Patient {
   constructor(

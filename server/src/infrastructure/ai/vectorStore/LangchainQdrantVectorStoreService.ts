@@ -1,7 +1,7 @@
 import type {
   IVectorDocument,
   IVectorStoreService,
-} from "@application/ports/services/IVectorStoreService.ts";
+} from "#application/ports/services/IVectorStoreService.js";
 import { TaskType } from "@google/generative-ai";
 import type { Document } from "@langchain/core/documents";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";

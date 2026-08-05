@@ -1,9 +1,9 @@
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IResetTokenService } from "@application/ports/services/IResetTokenService.ts";
-import type { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { RedisBaseRepository } from "@infrastructure/database/repositories/RedisBaseRepository.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IResetTokenService } from "#application/ports/services/IResetTokenService.js";
+import type { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { RedisBaseRepository } from "#infrastructure/database/repositories/RedisBaseRepository.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import crypto from "crypto";
 
 export class RedisResetTokenService

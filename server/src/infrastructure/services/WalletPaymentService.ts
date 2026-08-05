@@ -1,14 +1,14 @@
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { IPaymentService } from "@application/ports/services/IPaymentService.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
-import { TRANSACTION_TYPE } from "@domain/common/enums/wallet.enum.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
-import { WalletTransaction } from "@domain/entities/WalletTransaction.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { IPaymentService } from "#application/ports/services/IPaymentService.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
+import { TRANSACTION_TYPE } from "#domain/common/enums/wallet.enum.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
+import { WalletTransaction } from "#domain/entities/WalletTransaction.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class WalletPaymentService implements IPaymentService {
   constructor(

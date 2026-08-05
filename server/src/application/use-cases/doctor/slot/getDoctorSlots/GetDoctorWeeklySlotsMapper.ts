@@ -1,6 +1,6 @@
-import type { DoctorSlot } from "@domain/value-objects/DoctorSlot.ts";
-import type { IWeeklySlotsResponseDTO } from "./IGetDoctorWeeklySlotsDTO.ts";
-import { SLOT_STATUS } from "@domain/common/enums/doctorShift.enum.ts";
+import type { DoctorSlot } from "#domain/value-objects/DoctorSlot.js";
+import type { IWeeklySlotsResponseDTO } from "./IGetDoctorWeeklySlotsDTO.js";
+import { SLOT_STATUS } from "#domain/common/enums/doctorShift.enum.js";
 
 export class GetDoctorWeeklySlotsMapper {
   static toDto(data: Record<string, DoctorSlot[]>): IWeeklySlotsResponseDTO {

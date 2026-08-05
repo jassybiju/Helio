@@ -1,5 +1,5 @@
-import type { Patient } from "@domain/entities/Patient.ts";
-import type { IGetPatientProfileDTO } from "./IGetPatientProfileDTO.ts";
+import type { Patient } from "#domain/entities/Patient.js";
+import type { IGetPatientProfileDTO } from "./IGetPatientProfileDTO.js";
 
 export class GetPatientProfileMapper {
   static toDto(

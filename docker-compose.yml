@@ -33,7 +33,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-      target: base
+      target: development
     volumes:
       - ./server:/home/node/app
       - backend_node_modules:/home/node/app/node_modules
@@ -54,7 +54,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-      target: base
+      target: development
     volumes:
       - ./server:/home/node/app
       - backend_node_modules:/home/node/app/node_modules
@@ -69,7 +69,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-      target: base
+      target: development
     volumes:
       - ./client:/home/next/
       - frontend_node_modules:/home/next/node_modules

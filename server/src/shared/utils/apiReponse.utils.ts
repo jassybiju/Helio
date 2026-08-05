@@ -1,5 +1,5 @@
-import type { APIResponse } from "@shared/types/APIResponse.ts";
-import type { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { APIResponse } from "#shared/types/APIResponse.js";
+import type { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type { Response } from "express";
 
 export function successResponse<T>(data: T, message: string): APIResponse<T> {

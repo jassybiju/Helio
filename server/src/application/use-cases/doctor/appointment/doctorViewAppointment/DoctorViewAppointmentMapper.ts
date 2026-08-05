@@ -1,7 +1,7 @@
-import type { Appointment } from "@domain/entities/Appointment.ts";
-import type { Patient } from "@domain/entities/Patient.ts";
-import type { IDoctorViewAppointmentDTO } from "./IDoctorViewAppointmentDTO.ts";
-import type { Consultation } from "@domain/entities/Consultation.ts";
+import type { Appointment } from "#domain/entities/Appointment.js";
+import type { Patient } from "#domain/entities/Patient.js";
+import type { IDoctorViewAppointmentDTO } from "./IDoctorViewAppointmentDTO.js";
+import type { Consultation } from "#domain/entities/Consultation.js";
 
 export class DoctorViewAppointmentMapper {
   static toDto(

@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetAllPatientsUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/admin/patient/IGetAllPatientsUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EACV,yBAAyB,EACzB,0BAA0B,EAC3B,MAAM,2EAA2E,CAAC;AAEnF,MAAM,WAAW,sBAAsB;IACrC,OAAO,CACL,KAAK,EAAE,yBAAyB,GAC/B,OAAO,CAAC,0BAA0B,CAAC,CAAC;CACxC"}

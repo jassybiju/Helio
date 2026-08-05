@@ -1,5 +1,5 @@
-import type { Doctor } from "@domain/entities/Doctor.ts";
-import type { IGetDoctorResponseDTO } from "./IGetDoctorDTO.ts";
+import type { Doctor } from "#domain/entities/Doctor.js";
+import type { IGetDoctorResponseDTO } from "./IGetDoctorDTO.js";
 
 export class GetDoctorMapper {
   static toDto(

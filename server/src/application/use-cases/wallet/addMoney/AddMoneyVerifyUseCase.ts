@@ -1,12 +1,12 @@
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
-import type { IWalletTransactionRepository } from "@application/ports/repositories/IWalletTransactionRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
+import type { IWalletTransactionRepository } from "#application/ports/repositories/IWalletTransactionRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
 import type {
   AddMoneyVerifyInput,
   IAddMoneyVerifyUseCase,
-} from "@application/ports/use-cases/wallet/IAddMoneyVerifyUseCase.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { PaymentError } from "@shared/errors/PaymentError.ts";
+} from "#application/ports/use-cases/wallet/IAddMoneyVerifyUseCase.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { PaymentError } from "#shared/errors/PaymentError.js";
 import crypto from "crypto";
 
 export class AddMoneyVerifyUseCase implements IAddMoneyVerifyUseCase {

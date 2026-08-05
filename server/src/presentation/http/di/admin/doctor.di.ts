@@ -1,12 +1,12 @@
-import { GetAllDoctorUseCase } from "@application/use-cases/admin/doctor/getAllDoctors/GetAllDoctosUseCase.ts";
-import { MongoDoctorRepository } from "@infrastructure/database/repositories/MongoDoctorRepository.ts";
-import { PinoLoggerService } from "@infrastructure/services/PinoLoggerService.ts";
-import { AdminDoctorController } from "../../controllers/admin/doctor.controller.ts";
-import { ChangeDoctorApprovalStatusUseCase } from "@application/use-cases/admin/doctor/changeDoctorApprovalStatus/ChangeDoctorApprovalStatusUseCase.ts";
-import { GetDoctorUseCase } from "@application/use-cases/admin/doctor/getDoctor/GetDoctorUseCase.ts";
-import { ToggleBlockDoctorUseCase } from "@application/use-cases/admin/doctor/toggleBlock/ToggleBlockDoctorUseCase.ts";
-import { CloudinaryFileUploadService } from "@infrastructure/services/CloudinaryFileUploadService.ts";
-import { AppointmentRepository } from "@infrastructure/database/repositories/AppointmentRepository.ts";
+import { GetAllDoctorUseCase } from "#application/use-cases/admin/doctor/getAllDoctors/GetAllDoctosUseCase.js";
+import { MongoDoctorRepository } from "#infrastructure/database/repositories/MongoDoctorRepository.js";
+import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js";
+import { AdminDoctorController } from "../../controllers/admin/doctor.controller.js";
+import { ChangeDoctorApprovalStatusUseCase } from "#application/use-cases/admin/doctor/changeDoctorApprovalStatus/ChangeDoctorApprovalStatusUseCase.js";
+import { GetDoctorUseCase } from "#application/use-cases/admin/doctor/getDoctor/GetDoctorUseCase.js";
+import { ToggleBlockDoctorUseCase } from "#application/use-cases/admin/doctor/toggleBlock/ToggleBlockDoctorUseCase.js";
+import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const fileUploadService = new CloudinaryFileUploadService();

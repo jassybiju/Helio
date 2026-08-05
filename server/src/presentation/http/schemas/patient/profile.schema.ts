@@ -1,4 +1,4 @@
-import { BLOOD_GROUP } from "@domain/common/enums/blood-group.enum.ts";
+import { BLOOD_GROUP } from "#domain/common/enums/blood-group.enum.js";
 import z from "zod";
 
 export const patientCompleteProfileSchema = z.object({

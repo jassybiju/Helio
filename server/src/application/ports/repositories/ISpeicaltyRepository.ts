@@ -1,4 +1,4 @@
-import type { Specialty } from "@domain/entities/Specialty.ts";
+import type { Specialty } from "#domain/entities/Specialty.js";
 
 export interface ISpecialityRepository {
   findAll(): Promise<Specialty[]>;

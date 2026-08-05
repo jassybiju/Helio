@@ -1,8 +1,8 @@
-import type { IFetchByStartingCharacterUseCase } from "@application/ports/use-cases/admin/IFetchByStartingCharacterUseCase.ts";
+import type { IFetchByStartingCharacterUseCase } from "#application/ports/use-cases/admin/IFetchByStartingCharacterUseCase.js";
 import type { NextFunction, Request, Response } from "express";
-import { fetchPatientSchema } from "../../schemas/admin/fetchPatient.schema.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import { fetchPatientSchema } from "../../schemas/admin/fetchPatient.schema.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 
 export class FetchPatientController {
   constructor(

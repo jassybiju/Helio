@@ -1,0 +1,1 @@
+{"version":3,"file":"IRemoveLabReportUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/consultation/IRemoveLabReportUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,uBAAuB;IACtC,OAAO,CACL,QAAQ,EAAE,MAAM,EAChB,aAAa,EAAE,MAAM,EACrB,KAAK,EAAE,MAAM,GACZ,OAAO,CAAC,IAAI,CAAC,CAAC;CAClB"}

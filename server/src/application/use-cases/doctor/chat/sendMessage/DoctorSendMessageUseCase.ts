@@ -1,15 +1,15 @@
-import type { IChatMessageRepository } from "@application/ports/repositories/IChatMessageRepository.ts";
-import type { IChatSessionRepository } from "@application/ports/repositories/IChatSessionRepository.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IIDGenerator } from "@application/ports/services/IIDGenerator.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IRealTimeNotifier } from "@application/ports/services/IRealTimeNotifier.ts";
-import type { IUnitOfWork } from "@application/ports/services/IUnitOfWork.ts";
-import type { IDoctorSendMessageUseCase } from "@application/ports/use-cases/doctor/chat/IDoctorSendMessageUseCase.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
-import { ChatMessage } from "@domain/entities/ChatMessage.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
+import type { IChatMessageRepository } from "#application/ports/repositories/IChatMessageRepository.js";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IIDGenerator } from "#application/ports/services/IIDGenerator.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IRealTimeNotifier } from "#application/ports/services/IRealTimeNotifier.js";
+import type { IUnitOfWork } from "#application/ports/services/IUnitOfWork.js";
+import type { IDoctorSendMessageUseCase } from "#application/ports/use-cases/doctor/chat/IDoctorSendMessageUseCase.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { ChatMessage } from "#domain/entities/ChatMessage.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
 
 export class DoctorSendMessageUseCase implements IDoctorSendMessageUseCase {
   constructor(

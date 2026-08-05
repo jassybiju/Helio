@@ -1,18 +1,18 @@
-import type { IDoctorViewTodaysAppointmentUseCase } from "@application/ports/use-cases/doctor/appointment/IDoctorViewTodaysAppointmentUseCase.ts";
+import type { IDoctorViewTodaysAppointmentUseCase } from "#application/ports/use-cases/doctor/appointment/IDoctorViewTodaysAppointmentUseCase.js";
 import type {
   IDoctorViewTodaysAppointmentDTO,
   ITodayAppointmentCardDTO,
-} from "./IDoctorViewTodaysAppointmentDTO.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { IDoctorRepository } from "@application/ports/repositories/IDoctorRepository.ts";
-import type { IPatientRepository } from "@application/ports/repositories/IPatientRepository.ts";
-import type { IAppointmentRepository } from "@application/ports/repositories/IAppointmentRepository.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import { istToUtc, utcToIst } from "@shared/utils/date.utils.ts";
-import { APPOINTMENT_STATUS } from "@domain/common/enums/appointment.enum.ts";
-import type { IFileUpload } from "@application/ports/services/IFileUpload.ts";
-import type { Appointment } from "@domain/entities/Appointment.ts";
+} from "./IDoctorViewTodaysAppointmentDTO.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
+import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
+import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import { istToUtc, utcToIst } from "#shared/utils/date.utils.js";
+import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
+import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
+import type { Appointment } from "#domain/entities/Appointment.js";
 
 export class DoctorViewTodaysAppointmentUseCase implements IDoctorViewTodaysAppointmentUseCase {
   constructor(

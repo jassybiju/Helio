@@ -1,0 +1,20 @@
+import { Router } from "express";
+import { patientProfileController } from "../../di/patient/profile.di.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+import { authorizeMiddleware } from "../../middlewares/authorize.middleware.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
+import { checkBlockMiddleware } from "../../di/middleware.di.js";
+import { imageUpload } from "#config/multer.config.js";
+export const patientProfileRouter = Router();
+patientProfileRouter.use(authMiddleware);
+patientProfileRouter.use(authorizeMiddleware(USER_ROLES.PATIENT), checkBlockMiddleware.handle);
+patientProfileRouter.get("/", patientProfileController.getPatient);
+patientProfileRouter.patch("/complete-profile", patientProfileController.completeProfile);
+patientProfileRouter.post("/allergen", patientProfileController.addAllergen);
+patientProfileRouter.delete("/allergen/:allergenId", patientProfileController.removeAllergen);
+patientProfileRouter.post("/condition", patientProfileController.addCondition);
+patientProfileRouter.delete("/condition/:conditionId", patientProfileController.removeCondition);
+patientProfileRouter.patch("/change-password", patientProfileController.changePassword);
+patientProfileRouter.put("/", patientProfileController.updateProfile);
+patientProfileRouter.patch("/picture", imageUpload.single("avatar"), patientProfileController.updateProfilePic);
+//# sourceMappingURL=profile.routes.js.map

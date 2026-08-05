@@ -1,11 +1,11 @@
-import type { Wallet } from "@domain/entities/Wallet.ts";
-import { BaseRepository } from "./BaseRepository.ts";
-import { walletModel, type WalletDoc } from "../model/WalletModel.ts";
-import type { IWalletRepository } from "@application/ports/repositories/IWalletRepository.ts";
+import type { Wallet } from "#domain/entities/Wallet.js";
+import { BaseRepository } from "./BaseRepository.js";
+import { walletModel, type WalletDoc } from "../model/WalletModel.js";
+import type { IWalletRepository } from "#application/ports/repositories/IWalletRepository.js";
 import type { ClientSession } from "mongoose";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import { WalletMapper } from "../../../mappers/WalletMapper.ts";
-import { USER_ROLES } from "@domain/common/enums/user-roles.enum.ts";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import { WalletMapper } from "../../../mappers/WalletMapper.js";
+import { USER_ROLES } from "#domain/common/enums/user-roles.enum.js";
 
 export class WalletRepository
   extends BaseRepository<Wallet, WalletDoc>

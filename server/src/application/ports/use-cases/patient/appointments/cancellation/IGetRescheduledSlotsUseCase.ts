@@ -1,4 +1,4 @@
-import type { IGetRescheduledSlotsDTO } from "@application/use-cases/patient/appointments/cancellation/getResheduledSlots/IGetRescheduledSlotsDTO.ts";
+import type { IGetRescheduledSlotsDTO } from "#application/use-cases/patient/appointments/cancellation/getResheduledSlots/IGetRescheduledSlotsDTO.js";
 
 export interface IGetRescheduledSlotsUseCase {
   execute(

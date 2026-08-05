@@ -1,14 +1,14 @@
-import type { IGetMeUseCase } from "@application/ports/use-cases/auth/IGetMeUseCase.ts";
-import type { ILogoutUseCase } from "@application/ports/use-cases/auth/ILogoutUseCase.ts";
-import type { IRefreshTokenUseCase } from "@application/ports/use-cases/auth/IRefreshTokenUseCase.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+import type { IGetMeUseCase } from "#application/ports/use-cases/auth/IGetMeUseCase.js";
+import type { ILogoutUseCase } from "#application/ports/use-cases/auth/ILogoutUseCase.js";
+import type { IRefreshTokenUseCase } from "#application/ports/use-cases/auth/IRefreshTokenUseCase.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   removeToken,
   sendToken,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
+} from "#shared/utils/apiReponse.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class AuthController {

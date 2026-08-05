@@ -1,4 +1,4 @@
-import type { IPDFGeneratorService } from "@application/ports/services/IPDFGeneratorService.ts";
+import type { IPDFGeneratorService } from "#application/ports/services/IPDFGeneratorService.js";
 import { Readable } from "stream";
 import { ReadableStream } from "stream/web";
 export class GotenbergPdfGenerator implements IPDFGeneratorService {

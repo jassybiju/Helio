@@ -1,11 +1,11 @@
-import type { IOTPRepository } from "@application/ports/repositories/IOTPRepository.ts";
-import type { ILogger } from "@application/ports/services/ILogger.ts";
-import type { OTP } from "@domain/entities/OTP.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
-import type { OTPData } from "@shared/types/OTPData.ts";
-import { OTPMapper } from "../../../mappers/OTPMapper.ts";
-import { RedisBaseRepository } from "./RedisBaseRepository.ts";
+import type { IOTPRepository } from "#application/ports/repositories/IOTPRepository.js";
+import type { ILogger } from "#application/ports/services/ILogger.js";
+import type { OTP } from "#domain/entities/OTP.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
+import type { OTPData } from "#shared/types/OTPData.js";
+import { OTPMapper } from "../../../mappers/OTPMapper.js";
+import { RedisBaseRepository } from "./RedisBaseRepository.js";
 
 export class RedisOTPRepository
   extends RedisBaseRepository

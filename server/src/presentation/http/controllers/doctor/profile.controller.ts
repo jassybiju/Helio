@@ -1,27 +1,27 @@
-import type { ICompleteDoctorProfileUseCase } from "@application/ports/use-cases/doctor/auth/ICompleteDoctorProfileUseCase.ts";
+import type { ICompleteDoctorProfileUseCase } from "#application/ports/use-cases/doctor/auth/ICompleteDoctorProfileUseCase.js";
 import type { NextFunction, Request, Response } from "express";
 import {
   doctorCompleteProfileSchema,
   doctorUpdateFeeSchema,
   doctorUpdateProfileSchema,
-} from "../../schemas/doctor/profile.schema.ts";
-import { AppError } from "@shared/errors/AppError.ts";
-import { HTTPStatus } from "@shared/types/HTTPStatus.ts";
+} from "../../schemas/doctor/profile.schema.js";
+import { AppError } from "#shared/errors/AppError.js";
+import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import {
   apiResponse,
   successResponse,
-} from "@shared/utils/apiReponse.utils.ts";
-import type { IGetDoctorProfileUseCase } from "@application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.ts";
-import { MESSAGE } from "@shared/constants/messages.ts";
-import type { IUpdateDoctorFeeUseCase } from "@application/ports/use-cases/doctor/profile/IUpdateDoctorFeeUseCase.ts";
+} from "#shared/utils/apiReponse.utils.js";
+import type { IGetDoctorProfileUseCase } from "#application/ports/use-cases/doctor/profile/IGetDoctorProfileUseCase.js";
+import { MESSAGE } from "#shared/constants/messages.js";
+import type { IUpdateDoctorFeeUseCase } from "#application/ports/use-cases/doctor/profile/IUpdateDoctorFeeUseCase.js";
 import type {
   IUpdateDoctorInput,
   IUpdateDoctorProfileUseCase,
-} from "@application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.ts";
-import type { IChangeDoctorPasswordUseCase } from "@application/ports/use-cases/doctor/profile/IChangeDoctorPasswordUseCase.ts";
-import type { IDoctorUpdateProfilePictureUseCase } from "@application/ports/use-cases/doctor/profile/IUpdateProfilePictureUseCase.ts";
-import { NotFoundError } from "@shared/errors/NotFoundError.ts";
-import { ValidationError } from "@shared/errors/ValidationError.ts";
+} from "#application/ports/use-cases/doctor/profile/IUpdateDoctorProfileUseCase.js";
+import type { IChangeDoctorPasswordUseCase } from "#application/ports/use-cases/doctor/profile/IChangeDoctorPasswordUseCase.js";
+import type { IDoctorUpdateProfilePictureUseCase } from "#application/ports/use-cases/doctor/profile/IUpdateProfilePictureUseCase.js";
+import { NotFoundError } from "#shared/errors/NotFoundError.js";
+import { ValidationError } from "#shared/errors/ValidationError.js";
 
 export class DoctorProfileController {
   constructor(
