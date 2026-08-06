@@ -20,10 +20,7 @@ services:
     networks:
       - app
   backend:
-    build: 
-      context: ./server
-      dockerfile: Dockerfile
-      target: production
+    image: jassymon/helio-backend:latest
     
     container_name: backend
 
@@ -40,10 +37,7 @@ services:
       - app
 
   worker:
-    build:
-      context: ./server
-      target: production
-
+    image: jassymon/helio-worker:latest
 
     container_name: worker
 
@@ -61,9 +55,7 @@ services:
       - app
 
   frontend:
-    build:
-      context: ./client
-      target: production
+    image: jassymon/helio-frontend:latest
 
 
     container_name: frontend
