@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { usePatientCheckoutMutation } from "../hooks/usePatientCheckoutMutation";
 import usePatientVerifyPaymentMutation from "../hooks/usePatientVerifyPaymentMutation";
 import { useRouter } from "next/navigation";
+import Config from "@/config";
 
 const PaymentErrorComponent = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const PaymentErrorComponent = () => {
         };
 
         const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
+          key: Config.RAZORPAY_KEY!,
           amount: data.amount,
           currency: data.currency,
           order_id: data.orderId,

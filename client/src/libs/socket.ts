@@ -1,6 +1,7 @@
+import Config from "@/config";
 import { io } from "socket.io-client";
 
-export const socket = io(process.env.NEXT_PUBLIC_BACKEND_WSURL, {
+export const socket = io(Config.BACKEND_WSURL, {
   // transports: ["websocket"]/,
   withCredentials: true,
 });

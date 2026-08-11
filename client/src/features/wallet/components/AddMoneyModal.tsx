@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { useAddMoneyMutation } from "../hooks/useAddMoneyMutation";
 import useAddMoneyVerifyMutation from "../hooks/useAddMoneyVerifyMutation";
 import { toast } from "react-toastify";
+import Config from "@/config";
 
 const AddMoneyModal = ({ close }: ModalProps) => {
   const { mutate: addMoney } = useAddMoneyMutation();
@@ -36,7 +37,7 @@ const AddMoneyModal = ({ close }: ModalProps) => {
         };
 
         const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
+          key: Config.RAZORPAY_KEY!,
           amount: data.amount,
           currency: data.currency,
           order_id: data.orderId,

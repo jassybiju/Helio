@@ -9,7 +9,7 @@ import { useGetWalletQuery } from "@/src/features/wallet/hooks/useGetWalletQuery
 import { usePatientCheckoutMutation } from "../hooks/usePatientCheckoutMutation";
 import { useRouter } from "next/navigation";
 import usePatientVerifyPaymentMutation from "../hooks/usePatientVerifyPaymentMutation";
-
+import Config from '../../../../../../config'
 const PatientCheckoutComponent = () => {
   const { id } = useParams();
   const { data, isError } = usePatientCheckoutQuery(id as string);
@@ -47,7 +47,7 @@ const PatientCheckoutComponent = () => {
         };
 
         const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY!,
+          key: Config.RAZORPAY_KEY!,
           amount: data.amount,
           currency: data.currency,
           order_id: data.orderId,

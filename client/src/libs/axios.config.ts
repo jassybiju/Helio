@@ -4,13 +4,14 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import { invalidateQuery } from "./queryClient";
+import Config from "@/config";
 
 const isServer = typeof window === "undefined";
 
 export const apiClient = axios.create({
   baseURL: isServer
     ? process.env.SERVER_BACKEND_URL
-    : process.env.NEXT_PUBLIC_BACKEND_URL,
+    : Config.SERVER_BACKEND_URL,
   withCredentials: true,
 });
 
