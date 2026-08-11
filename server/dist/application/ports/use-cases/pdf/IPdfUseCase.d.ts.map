@@ -1,1 +1,0 @@
-{"version":3,"file":"IPdfUseCase.d.ts","sourceRoot":"","sources":["../../../../../src/application/ports/use-cases/pdf/IPdfUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,QAAQ,CAAC;AACvC,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,qBAAqB,CAAC;AAE1D,MAAM,WAAW,WAAW;IAC1B,OAAO,CAAC,OAAO,EAAE,cAAc,GAAG,OAAO,CAAC,QAAQ,CAAC,CAAC;CACrD"}

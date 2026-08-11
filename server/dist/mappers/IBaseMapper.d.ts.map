@@ -1,1 +1,0 @@
-{"version":3,"file":"IBaseMapper.d.ts","sourceRoot":"","sources":["../../src/mappers/IBaseMapper.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,WAAW,CAAC,CAAC,EAAE,KAAK;IACnC,QAAQ,CAAC,GAAG,EAAE,KAAK,GAAG,CAAC,CAAC;IACxB,aAAa,CAAC,CAAC,EAAE,CAAC,GAAG,KAAK,CAAC;CAC5B"}

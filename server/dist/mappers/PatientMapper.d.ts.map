@@ -1,1 +1,0 @@
-{"version":3,"file":"PatientMapper.d.ts","sourceRoot":"","sources":["../../src/mappers/PatientMapper.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,6BAA6B,CAAC;AACtD,OAAO,KAAK,EACV,UAAU,EACV,aAAa,EACd,MAAM,gDAAgD,CAAC;AAMxD,qBAAa,aAAa;IACxB,MAAM,CAAC,aAAa,CAAC,CAAC,EAAE,OAAO,GAAG,aAAa;IA4B/C,MAAM,CAAC,QAAQ,CAAC,GAAG,EAAE,UAAU,GAAG,OAAO;CA+B1C"}

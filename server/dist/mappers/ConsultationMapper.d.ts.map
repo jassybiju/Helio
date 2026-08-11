@@ -1,1 +1,0 @@
-{"version":3,"file":"ConsultationMapper.d.ts","sourceRoot":"","sources":["../../src/mappers/ConsultationMapper.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,kCAAkC,CAAC;AAGhE,OAAO,KAAK,EACV,eAAe,EACf,kBAAkB,EACnB,MAAM,qDAAqD,CAAC;AAE7D,qBAAa,kBAAkB;IAC7B,MAAM,CAAC,QAAQ,CAAC,GAAG,EAAE,eAAe,GAAG,YAAY;IA+CnD,MAAM,CAAC,aAAa,CAAC,YAAY,EAAE,YAAY,GAAG,kBAAkB;CAsCrE"}

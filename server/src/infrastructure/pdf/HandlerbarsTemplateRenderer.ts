@@ -4,10 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 import Handlebars from "handlebars";
 export class HandlebarsTemplateRenderer implements ITemplateRenderer {
-  private readonly templatePath = path.resolve(
-    process.cwd(),
-    "templates"
-  );
+  private readonly templatePath = path.resolve(process.cwd(), "templates");
 
   constructor() {}
 

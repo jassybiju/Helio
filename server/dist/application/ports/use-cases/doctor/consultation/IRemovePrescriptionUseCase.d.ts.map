@@ -1,1 +1,0 @@
-{"version":3,"file":"IRemovePrescriptionUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/consultation/IRemovePrescriptionUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,0BAA0B;IACzC,OAAO,CACL,QAAQ,EAAE,MAAM,EAChB,cAAc,EAAE,MAAM,EACtB,gBAAgB,EAAE,MAAM,GACvB,OAAO,CAAC,IAAI,CAAC,CAAC;CAClB"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"IDoctorViewConsultationUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/consultation/IDoctorViewConsultationUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,0BAA0B,EAAE,MAAM,2FAA2F,CAAC;AAE5I,MAAM,WAAW,8BAA8B;IAC7C,OAAO,CACL,QAAQ,EAAE,MAAM,EAChB,cAAc,EAAE,MAAM,GACrB,OAAO,CAAC,0BAA0B,CAAC,CAAC;CACxC"}

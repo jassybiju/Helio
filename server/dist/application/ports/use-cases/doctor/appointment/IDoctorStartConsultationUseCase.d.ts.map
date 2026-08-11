@@ -1,1 +1,0 @@
-{"version":3,"file":"IDoctorStartConsultationUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/appointment/IDoctorStartConsultationUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,+BAA+B;IAC9C,OAAO,CACL,QAAQ,EAAE,MAAM,EAChB,aAAa,EAAE,MAAM,GACpB,OAAO,CAAC;QAAE,cAAc,EAAE,MAAM,CAAA;KAAE,CAAC,CAAC;CACxC"}

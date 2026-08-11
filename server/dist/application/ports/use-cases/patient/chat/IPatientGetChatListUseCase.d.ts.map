@@ -1,1 +1,0 @@
-{"version":3,"file":"IPatientGetChatListUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/patient/chat/IPatientGetChatListUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,sBAAsB,EAAE,MAAM,2EAA2E,CAAC;AAExH,MAAM,WAAW,0BAA0B;IACzC,OAAO,CAAC,SAAS,EAAE,MAAM,GAAG,OAAO,CAAC,sBAAsB,CAAC,CAAC;CAC7D"}

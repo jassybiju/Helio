@@ -1,1 +1,0 @@
-{"version":3,"file":"IGetDoctorBlockSlotDTO.d.ts","sourceRoot":"","sources":["../../../../../../src/application/use-cases/doctor/slot/getDoctorBlockSlot/IGetDoctorBlockSlotDTO.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,sBAAsB;IACrC,EAAE,EAAE,MAAM,CAAC;IACX,SAAS,EAAE,MAAM,CAAC;IAClB,OAAO,EAAE,MAAM,CAAC;IAChB,MAAM,EAAE,MAAM,GAAG,IAAI,CAAC;CACvB"}

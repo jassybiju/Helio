@@ -1,1 +1,0 @@
-{"version":3,"file":"IMessageQueue.d.ts","sourceRoot":"","sources":["../../../../src/application/ports/services/IMessageQueue.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,aAAa;IAC5B,MAAM,CAAC,OAAO,EAAE,MAAM,EAAE,OAAO,EAAE,OAAO,GAAG,OAAO,CAAC,MAAM,CAAC,CAAC;CAC5D"}

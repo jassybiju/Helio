@@ -1,1 +1,0 @@
-{"version":3,"file":"IDoctorGetChatUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/chat/IDoctorGetChatUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,iEAAiE,CAAC;AAEzG,MAAM,WAAW,qBAAqB;IACpC,OAAO,CAAC,QAAQ,EAAE,MAAM,EAAE,aAAa,EAAE,MAAM,GAAG,OAAO,CAAC,iBAAiB,CAAC,CAAC;CAC9E"}

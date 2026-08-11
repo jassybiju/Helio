@@ -1,1 +1,0 @@
-{"version":3,"file":"chat.schema.js","sourceRoot":"","sources":["../../../../src/presentation/http/schemas/chat.schema.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,MAAM,KAAK,CAAC;AAEpB,MAAM,CAAC,MAAM,cAAc,GAAG,CAAC,CAAC,MAAM,CAAC;IACrC,IAAI,EAAE,CAAC,CAAC,MAAM,CAAC;QACb,OAAO,EAAE,CAAC,CAAC,MAAM,CAAC,kBAAkB,CAAC,CAAC,GAAG,CAAC,CAAC,EAAE,0BAA0B,CAAC;KACzE,CAAC;CACH,CAAC,CAAC"}

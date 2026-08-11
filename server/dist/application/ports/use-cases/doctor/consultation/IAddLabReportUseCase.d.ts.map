@@ -1,1 +1,0 @@
-{"version":3,"file":"IAddLabReportUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/doctor/consultation/IAddLabReportUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,oBAAoB;IACnC,OAAO,CACL,QAAQ,EAAE,MAAM,EAChB,aAAa,EAAE,MAAM,EACrB,KAAK,EAAE;QACL,QAAQ,EAAE,MAAM,CAAC;QACjB,YAAY,EAAE,MAAM,CAAC;KACtB,GACA,OAAO,CAAC,IAAI,CAAC,CAAC;CAClB"}

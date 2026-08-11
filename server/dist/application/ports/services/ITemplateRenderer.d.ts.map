@@ -1,1 +1,0 @@
-{"version":3,"file":"ITemplateRenderer.d.ts","sourceRoot":"","sources":["../../../../src/application/ports/services/ITemplateRenderer.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,2BAA2B,CAAC;AAE1D,MAAM,WAAW,iBAAiB;IAChC,MAAM,CAAC,QAAQ,EAAE,QAAQ,EAAE,KAAK,EAAE,OAAO,GAAG,OAAO,CAAC,MAAM,CAAC,CAAC;CAC7D"}

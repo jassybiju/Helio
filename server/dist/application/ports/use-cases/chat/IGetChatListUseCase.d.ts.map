@@ -1,1 +1,0 @@
-{"version":3,"file":"IGetChatListUseCase.d.ts","sourceRoot":"","sources":["../../../../../src/application/ports/use-cases/chat/IGetChatListUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,eAAe,EAAE,MAAM,4DAA4D,CAAC;AAClG,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,yCAAyC,CAAC;AAE1E,MAAM,WAAW,mBAAmB;IAClC,OAAO,CAAC,MAAM,EAAE,MAAM,EAAE,QAAQ,EAAE,UAAU,GAAG,OAAO,CAAC,eAAe,CAAC,CAAC;CACzE"}

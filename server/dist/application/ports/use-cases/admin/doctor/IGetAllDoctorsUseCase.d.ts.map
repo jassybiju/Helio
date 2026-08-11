@@ -1,1 +1,0 @@
-{"version":3,"file":"IGetAllDoctorsUseCase.d.ts","sourceRoot":"","sources":["../../../../../../src/application/ports/use-cases/admin/doctor/IGetAllDoctorsUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EACV,wBAAwB,EACxB,yBAAyB,EAC1B,MAAM,wEAAwE,CAAC;AAEhF,MAAM,WAAW,qBAAqB;IACpC,OAAO,CAAC,KAAK,EAAE,wBAAwB,GAAG,OAAO,CAAC,yBAAyB,CAAC,CAAC;CAC9E"}

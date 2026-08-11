@@ -1,1 +1,0 @@
-{"version":3,"file":"IAIChatBotUseCase.d.ts","sourceRoot":"","sources":["../../../../../src/application/ports/use-cases/ai/IAIChatBotUseCase.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,iBAAiB;IAChC,OAAO,CACL,SAAS,EAAE,MAAM,EACjB,OAAO,EAAE,MAAM,EACf,eAAe,CAAC,EAAE,MAAM,GAAG,IAAI,GAC9B,OAAO,CAAC;QAAE,cAAc,EAAE,MAAM,CAAC;QAAC,OAAO,EAAE,MAAM,CAAA;KAAE,CAAC,CAAC;CACzD"}
