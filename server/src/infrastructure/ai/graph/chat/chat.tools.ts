@@ -33,8 +33,8 @@ const doctorRepository = new MongoDoctorRepository(logger);
 const shiftRepository = new DoctorShiftRepository(logger);
 const blockShiftRepository = new DoctorBlockShiftRepository(logger);
 const appointmentRepository = new AppointmentRepository(logger);
-const walletRepo = new WalletRepository(logger)
-const transactionRepo = new WalletTransactionRepository(logger)
+const walletRepo = new WalletRepository(logger);
+const transactionRepo = new WalletTransactionRepository(logger);
 const idGenerator = new NanoidGenerator();
 const notificationService = new NotificationService(
   new NotificationRepository(logger),

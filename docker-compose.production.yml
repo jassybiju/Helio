@@ -16,15 +16,20 @@ services:
     depends_on:
       - frontend
       - backend
+      - grafana
 
     networks:
       - app
+
+
   backend:
     image: jassymon/helio-backend:latest
     
     container_name: backend
+    expose:
+      - "5000"
 
-    restart: always
+    restart: unless-stopped
 
     env_file:
       - ./server/.env
@@ -41,7 +46,7 @@ services:
 
     container_name: worker
 
-    restart: always
+    restart: unless-stopped
 
     env_file:
       - ./server/.env
@@ -50,18 +55,19 @@ services:
 
     depends_on:
       - redis
+      - backend
     
     networks:
       - app
 
   frontend:
     image: jassymon/helio-frontend:latest
-
-
     container_name: frontend
 
-    restart: always
+    restart: unless-stopped
 
+    expose:
+      - "3000"
 
     depends_on:
       - backend
@@ -73,7 +79,7 @@ services:
     image: redis:7-alpine
     container_name: redis
 
-    restart: always
+    restart: unless-stopped
 
     volumes:
       - redis_data:/data
@@ -81,11 +87,68 @@ services:
     networks:
       - app
 
+  prom-server:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+
+    expose:
+      - "9090"
+
+    volumes:
+      - ./prometheus/prometheus-config.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+
+    depends_on:
+      - backend
+    networks:
+      - app
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+
+    expose:
+      - "3000"
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+    depends_on:
+      - prom-server
+      - loki
+    networks:
+      - app
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    restart: unless-stopped
+
+    expose:
+      - "3100"
+
+    volumes:
+      - loki_data:/loki
+
+    networks:
+      - app
+
+
   qdrant:
     image: qdrant/qdrant
     container_name: qdrant
     
     restart: always
+
+    expose:
+      - "6333"
 
     volumes:
       - qdrant_data:/qdrant/storage
@@ -95,8 +158,8 @@ services:
 
   gotenberg:
     image : gotenberg/gotenberg:8-chromium
-    ports:
-      - "4000:3000"
+    expose:
+      - "3000"
     networks:
       - app
 

@@ -7,33 +7,21 @@ export class PinoLoggerService implements ILogger {
   private static instance: PinoLoggerService;
   constructor() {
     // const filePath = path.join(process.cwd(), "logs");
-    this._logger = pino(
-      {
-        level: process.env.LOG_LEVEL || "debug",
-        // transport: {
-        //   target: "pino-pretty",
-        //   options: { colorize: true },
-        // },
+    const transport = pino.transport({
+      target: "pino-loki",
+      options: {
+        host: "http://loki:3100",
+        basicAuth: {
+          username: "username",
+          password: "password",
+        },
       },
-      pretty({ colorize: true })
-      // pino.multistream([
-      //   {
-      //     level: process.env.LOG_LEVEL || "debug",
-      //     stream: pino.transport({
-      //       target: "pino-pretty",
-      //       options: { colorize: true },
-      //     }),
-      //   },
-      // {
-      //   stream: pino.destination({
-      //     dest: filePath,
-      //     sync: false,
-      //     mkdir: true,
-      //   }),
-      //   level: "info",
+      // transport: {
+      //   target: "pino-pretty",
+      //   options: { colorize: true },
       // },
-      // ])
-    );
+    });
+    this._logger = pino(transport);
   }
 
   public static getInstance(): PinoLoggerService {

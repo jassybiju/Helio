@@ -1,6 +1,36 @@
 version: '3.9'
 
 services:
+
+  prom-server:
+    image: prom/prometheus
+    container_name: prometheus
+    expose: 
+      - "9090"
+    volumes:
+      - ./prometheus/prometheus-config.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    expose:
+      - "3000"
+    depends_on:
+      - prom-server
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  loki:
+    image: grafana/loki
+    container_name : loki
+    expose:
+      - "3100"
+    restart: unless-stopped
+    volumes:
+      - loki_data:/loki
+
   nginx:
     image: nginx:alpine
     container_name: nginx
@@ -9,6 +39,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "9090:9090"
 
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -27,8 +58,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret
-    ports:
-      - "27017:27017"
     volumes:
       - ./mongo-keyfile:/etc/mongo-keyfile:ro
       - mongo_data:/data/db
@@ -59,9 +88,7 @@ services:
     env_file:
       - ./server/.env
     expose:
-      - '5000'
-    ports:
-      - '5000:5000'
+       - '5000'
     command: sh -c "npm run eslint-fix && npm run dev"
     depends_on:
       - mongo
@@ -69,6 +96,7 @@ services:
       
 
   worker:
+    container_name: worker
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -84,6 +112,7 @@ services:
       - backend
 
   frontend:
+    container_name: frontend
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -98,11 +127,13 @@ services:
       - backend
 
   gotenberg:
+    container_name: gotenberg
     image : gotenberg/gotenberg:8-chromium
     expose:
       - "3000"
 
   qdrant:
+    container_name: qdrant
     image : qdrant/qdrant
     expose:
       - "6333"
@@ -119,3 +150,12 @@ volumes:
 
   frontend_node_modules:
     name: frontend_node_modules
+
+  prometheus_data:
+    name: prometheus_data
+
+  grafana_data:
+    name: grafana_data
+
+  loki_data:
+    name: loki_data

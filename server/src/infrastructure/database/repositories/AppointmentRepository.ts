@@ -887,5 +887,4 @@ export class AppointmentRepository
       },
     };
   }
-
 }

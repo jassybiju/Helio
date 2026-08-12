@@ -1,4 +1,4 @@
-name: Deploy Helio to AWS
+name: Helio CI
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,12 +25,6 @@ jobs:
             -t ${{ secrets.DOCKER_USERNAME }}/helio-backend:latest \
             ./server
       
-      - name: Build Worker
-        run: |
-             docker build \
-             -t ${{ secrets.DOCKER_USERNAME }}/helio-worker:latest \
-             ./server
-
       - name: Build Frontend
         run: |
              docker build \
@@ -40,18 +34,4 @@ jobs:
       - name: Push Images
         run: |
             docker push ${{ secrets.DOCKER_USERNAME }}/helio-backend:latest
-            docker push ${{ secrets.DOCKER_USERNAME }}/helio-worker:latest
             docker push ${{ secrets.DOCKER_USERNAME }}/helio-frontend:latest
-
-
-      - name: Deploy EC2
-        uses: appleboy/ssh-action@v1
-        with: 
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ~/helio
-            docker compose -f docker-compose.production.yml pull
-            docker compose -f docker-compose.production.yml up -d
-            docker image prune -f

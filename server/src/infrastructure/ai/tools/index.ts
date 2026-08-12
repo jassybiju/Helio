@@ -251,7 +251,6 @@ export function createBookAppointment(
       shifts,
       day: jsToEnumDay[istStart.getDay()]!,
       getday: istStart.getDay(),
-      
     });
     if (!matchedShift) {
       throw new AppError("Invalid slot selected", HTTPStatus.BAD_REQUEST);
@@ -340,7 +339,7 @@ export function createBookAppointment(
       platformFee,
     });
 
-    appointment.paymentCompleted()
+    appointment.paymentCompleted();
 
     const wallet = await walletRepo.findByUserId(params.patientId);
 
@@ -383,8 +382,6 @@ export function createBookAppointment(
 
     return appointmentId;
   };
-
-  
 }
 
 /* -------------------------------------------------------------------------- */

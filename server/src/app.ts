@@ -26,10 +26,17 @@ import { appointmentExpiryJob } from "#infrastructure/jobs/appointmentExpiry.job
 import { pdfRouter } from "./presentation/http/routes/pdf.routes.js";
 import { notificationRouter } from "./presentation/http/routes/notification.routes.js";
 import { adminDashboardRoutes } from "./presentation/http/routes/admin/dashboard.routes.js";
+import client from "prom-client";
+import responseTime from "response-time";
 
 export const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Prometheus SetUp
+const collectDefaultMetrics = client.collectDefaultMetrics;
+
+collectDefaultMetrics({ register: client.register });
 
 app.use(morgan("dev"));
 
@@ -53,12 +60,38 @@ app.use(
   })
 );
 
+const reqResTime = new client.Histogram({
+  name: "http_express_req_res_time",
+  help: "This tells how much time is taken by req and res",
+  labelNames: ["method", "route", "status_code"],
+  buckets: [1, 50, 100, 200, 500, 1000],
+});
+
+app.use(
+  responseTime((req: Request, res: Response, time) => {
+    reqResTime
+      .labels({
+        method: req.method,
+        route: req.url,
+        status_code: res.statusCode,
+      })
+      .observe(time);
+  })
+);
+
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const api = "/v1/api/";
+
+app.use("/metrics", async (req, res) => {
+  res.setHeader("Content-Type", client.register.contentType);
+  const metrics = await client.register.metrics();
+
+  res.send(metrics);
+});
 
 app.use(`${api}admin/auth`, adminAuthRouter);
 app.use(`${api}auth`, authRouter);

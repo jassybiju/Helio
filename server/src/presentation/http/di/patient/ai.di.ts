@@ -10,7 +10,6 @@ const idGenerator = new NanoidGenerator();
 const logger = PinoLoggerService.getInstance();
 const vectorStore = await LangchainQdrantVectorStoreService.create();
 
-
 const retrieveTool = createRetrieveTool(vectorStore);
 
 const graph = bookingApp;
