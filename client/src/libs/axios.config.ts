@@ -7,17 +7,28 @@ import { invalidateQuery } from "./queryClient";
 import { getRuntimeConfig } from "./config";
 
 const isServer = typeof window === "undefined";
+const getBackendUrl = () => {
+  if (isServer) {
+    const url = process.env.SERVER_BACKEND_URL;
 
-const backendUrl = isServer
-  ? process.env.SERVER_BACKEND_URL
-  : getRuntimeConfig().backendUrl;
+    if (!url) {
+      throw new Error("SERVER_BACKEND_URL is not configured");
+    }
 
+    return url;
+  }
+
+  return getRuntimeConfig().backendUrl;
+};
 
 export const apiClient = axios.create({
   withCredentials: true,
-  baseURL : backendUrl
 });
 
+apiClient.interceptors.request.use((config) => {
+  config.baseURL = getBackendUrl();
+  return config;
+});
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -25,7 +36,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 
 //response interceptors : Handle 401 and Retry
 
-let isRefreshing = false;  
+let isRefreshing = false;
 let failedQueue: {
   resolve: (value?: unknown) => void;
   reject: (reason?: unknown) => void;
@@ -61,7 +72,6 @@ apiClient.interceptors.response.use(
 
       isRefreshing = true;
       try {
-
         // refresh token request using cookies
         await apiClient.post("/auth/refresh");
 
@@ -69,13 +79,11 @@ apiClient.interceptors.response.use(
         processQueue(null);
         return apiClient(originalRequest);
       } catch (refreshError) {
-
         isRefreshing = false;
         processQueue(refreshError);
-        invalidateQuery('me')
+        invalidateQuery("me");
         return Promise.reject(refreshError);
       } finally {
-
         isRefreshing = false;
       }
     }
