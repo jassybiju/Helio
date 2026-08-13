@@ -8,6 +8,7 @@ import { getRuntimeConfig } from "./config";
 
 const isServer = typeof window === "undefined";
 const getBackendUrl = () => {
+  console.log("GETTING BACKEND URL")
   if (isServer) {
     const url = process.env.SERVER_BACKEND_URL;
 
