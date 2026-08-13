@@ -40,22 +40,27 @@ collectDefaultMetrics({ register: client.register });
 
 app.use(morgan("dev"));
 
+const allowedOrigins = new Set(
+  (process.env.CORS_ORIGINS ?? "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
+
 app.use(
   cors({
     credentials: true,
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
 
-      const allowedDomains = ["localhost:3000", "helixo.com"];
-
-      const isAllowed = allowedDomains.some((domain) => {
-        return origin.endsWith(domain);
-      });
-      if (isAllowed) {
+      if (!origin) {
         cb(null, true);
-      } else {
-        cb(new Error("not allowed by cors"));
       }
+      if (allowedOrigins.has(origin)) {
+        return cb(null, true);
+      }
+
+      return cb(new Error("not allowed by cors"));
     },
   })
 );

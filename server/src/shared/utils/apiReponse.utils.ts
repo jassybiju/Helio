@@ -40,14 +40,14 @@ export function sendToken(
   res.cookie("refreshToken", refreshToken, {
     maxAge: REFRESH_TOKEN_EXPIRY_MS,
     httpOnly: true,
-    domain: ".helixo.com",
+    domain: process.env.COOKIE_DOMAIN || undefined,
     secure: process.env.NODE_ENV === "production",
   });
   res.cookie("accessToken", accessToken, {
     maxAge: ACCESS_TOKEN_EXPIRY_MS,
     httpOnly: true,
     sameSite: "lax",
-    domain: ".helixo.com",
+    domain: process.env.COOKIE_DOMAIN || undefined,
 
     secure: process.env.NODE_ENV === "production",
   });
