@@ -1,20 +1,25 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from "react"
-import { initializeRuntimeConfig } from "../libs/config"
+import { useEffect, useState } from "react";
+import { initializeRuntimeConfig } from "../libs/config";
 
-export function ApiConfigProvider({children} : {children : React.ReactNode}){
+export function ApiConfigProvider({ children }: { children: React.ReactNode }) {
+  const [initialized, setInitialized] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-    const [initialized, setInitialized] = useState(false)
+  useEffect(() => {
+    initializeRuntimeConfig()
+      .then(() => setInitialized(true))
+      .catch(setError);
+  }, []);
 
-    useEffect(()=>{
-        initializeRuntimeConfig().then(()=>setInitialized(true))
-        .catch(err=>console.error('Failed to initialize API Client', err))
-    },[])
+  if (error) {
+    throw error;
+  }
 
-    if(!initialized){
-        return null
-    }
+  if (!initialized) {
+    return null;
+  }
 
-    return children
+  return children;
 }
