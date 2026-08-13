@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { useAddMoneyMutation } from "../hooks/useAddMoneyMutation";
 import useAddMoneyVerifyMutation from "../hooks/useAddMoneyVerifyMutation";
 import { toast } from "react-toastify";
-import Config from "@/config";
+import { getRuntimeConfig } from "@/src/libs/config";
 
 const AddMoneyModal = ({ close }: ModalProps) => {
   const { mutate: addMoney } = useAddMoneyMutation();
@@ -19,9 +19,11 @@ const AddMoneyModal = ({ close }: ModalProps) => {
     }
   };
 
+  const CONFIG = getRuntimeConfig()
+
   const handlePayment = async () => {
       const paymentAmount = Number(amount);
-
+    
   if (!paymentAmount || paymentAmount <= 0) {
     toast.error("Please enter a valid amount");
     return;
@@ -37,7 +39,7 @@ const AddMoneyModal = ({ close }: ModalProps) => {
         };
 
         const options = {
-          key: Config.RAZORPAY_KEY!,
+          key: CONFIG.RazorpayURL!,
           amount: data.amount,
           currency: data.currency,
           order_id: data.orderId,

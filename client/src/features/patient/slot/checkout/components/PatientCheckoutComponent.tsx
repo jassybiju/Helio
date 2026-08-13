@@ -9,7 +9,7 @@ import { useGetWalletQuery } from "@/src/features/wallet/hooks/useGetWalletQuery
 import { usePatientCheckoutMutation } from "../hooks/usePatientCheckoutMutation";
 import { useRouter } from "next/navigation";
 import usePatientVerifyPaymentMutation from "../hooks/usePatientVerifyPaymentMutation";
-import Config from '../../../../../../config'
+import { getRuntimeConfig } from "@/src/libs/config";
 const PatientCheckoutComponent = () => {
   const { id } = useParams();
   const { data, isError } = usePatientCheckoutQuery(id as string);
@@ -25,6 +25,7 @@ const PatientCheckoutComponent = () => {
   );
   const [promoCode, setPromoCode] = useState("");
 
+  const CONFIG = getRuntimeConfig()
   const handlePayment = async () => {
     if (selectedPayment === "WALLET") {
       mutate("WALLET", {
@@ -47,7 +48,7 @@ const PatientCheckoutComponent = () => {
         };
 
         const options = {
-          key: Config.RAZORPAY_KEY!,
+          key: CONFIG.RazorpayURL!,
           amount: data.amount,
           currency: data.currency,
           order_id: data.orderId,

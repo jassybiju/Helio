@@ -1,6 +1,5 @@
 import type { ILogger } from "#application/ports/services/ILogger.js";
 import pino from "pino";
-import pretty from "pino-pretty";
 
 export class PinoLoggerService implements ILogger {
   private readonly _logger;

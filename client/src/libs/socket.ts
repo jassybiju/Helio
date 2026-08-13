@@ -1,23 +1,21 @@
-import Config from "@/config";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
+import { getRuntimeConfig } from "./config";
 
-export const socket = io(Config.BACKEND_WSURL, {
-  // transports: ["websocket"]/,
+const config = getRuntimeConfig();
+
+export const socket: Socket = io(config.backendWsUrl, {
   withCredentials: true,
-});
-// export const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
-//   withCredentials: true,
-//   reconnection: true,
-// });
-socket.on("connect_error", (error: Error) => {
-  console.log(error.message);
-  // console.log(error.description);
-  // console.log(error.context);
+  reconnection: true,
 });
 
-socket.on('connect',()=>{
-  console.log("CONNECTED")
-})
-socket.on('disconnect',(reason)=>{
-  console.log("Disconnected", reason)
-})
+socket.on("connect_error", (error) => {
+  console.error("Socket connection error:", error.message);
+});
+
+socket.on("connect", () => {
+  console.log("CONNECTED");
+});
+
+socket.on("disconnect", (reason) => {
+  console.log("Disconnected", reason);
+});

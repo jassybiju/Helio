@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import { usePatientCheckoutMutation } from "../hooks/usePatientCheckoutMutation";
 import usePatientVerifyPaymentMutation from "../hooks/usePatientVerifyPaymentMutation";
 import { useRouter } from "next/navigation";
-import Config from "@/config";
+import { getRuntimeConfig } from "@/src/libs/config";
 
 const PaymentErrorComponent = () => {
   const { id } = useParams();
@@ -16,6 +16,7 @@ const PaymentErrorComponent = () => {
   const { data } = usePatientCheckoutQuery(id as string);
   const {mutate} = usePatientCheckoutMutation(id as string)
   const  verifyPayment = usePatientVerifyPaymentMutation(id as string)
+  const CONFIG = getRuntimeConfig()
   const handleRetryPayment = () => {  
     mutate("RAZORPAY", {
       onSuccess: async (response) => {
@@ -27,7 +28,7 @@ const PaymentErrorComponent = () => {
         };
 
         const options = {
-          key: Config.RAZORPAY_KEY!,
+          key: CONFIG.RazorpayURL!,
           amount: data.amount,
           currency: data.currency,
           order_id: data.orderId,

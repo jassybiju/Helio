@@ -1,6 +1,5 @@
 import { logger } from "#shared/utils/logger.utils.js";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { ChatGroq } from "@langchain/groq";
 
 export const llm = new ChatGoogleGenerativeAI({
   model: "gemini-3.5-flash-lite",

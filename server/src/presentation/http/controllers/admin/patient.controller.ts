@@ -10,7 +10,6 @@ import {
 import { MESSAGE } from "#shared/constants/messages.js";
 import type { IToggleBlockPatientUseCase } from "#application/ports/use-cases/admin/patient/IToggleBlockPatientUseCase.js";
 import type { IGetPatientUseCase } from "#application/ports/use-cases/admin/patient/IGetPatientUseCase.js";
-import { GetPatientMapper } from "#application/use-cases/admin/patient/getPatient/GetPatientMapper.js";
 
 export class AdminPatientController {
   constructor(

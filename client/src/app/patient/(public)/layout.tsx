@@ -1,5 +1,4 @@
 import Navbar from "@/src/components/Navbar";
-import { useAuth } from "@/src/features/auth/hooks/useAuth";
 import React from "react";
 
 type PatientPublicLayoutProps = {

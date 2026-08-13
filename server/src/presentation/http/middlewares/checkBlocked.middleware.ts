@@ -5,7 +5,6 @@ import { MESSAGE } from "#shared/constants/messages.js";
 import { AppError } from "#shared/errors/AppError.js";
 import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import { removeToken } from "#shared/utils/apiReponse.utils.js";
-import { logger } from "#shared/utils/logger.utils.js";
 import type { NextFunction, Request, Response } from "express";
 
 export class CheckBlockMiddleware {

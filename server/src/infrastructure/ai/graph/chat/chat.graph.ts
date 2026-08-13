@@ -13,7 +13,6 @@ import { bookingAgent, routeAfterAgent } from "./chat.agent.js";
 
 import { bookingAgentTools } from "./chat.tools.js";
 
-import { afterTools, routeAfterTools } from "./chat.router.js";
 import { AIMessage } from "@langchain/core/messages";
 
 export async function doctorSearchResponse(

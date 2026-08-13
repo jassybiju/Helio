@@ -195,7 +195,7 @@ const useDoctorConsultation = (id: string) => {
    * -----------------------------------
    */
 
-  const [labTests, _setLabTests] = useState<LabTest[]>([
+  const [labTests] = useState<LabTest[]>([
     {
       id: "1",
       name: "Blood Sugar Test",

@@ -9,7 +9,7 @@ import type { IPatientRepository } from "#application/ports/repositories/IPatien
 import type { IAppointmentRepository } from "#application/ports/repositories/IAppointmentRepository.js";
 import { NotFoundError } from "#shared/errors/NotFoundError.js";
 import { MESSAGE } from "#shared/constants/messages.js";
-import { istToUtc, utcToIst } from "#shared/utils/date.utils.js";
+import { istToUtc } from "#shared/utils/date.utils.js";
 import { APPOINTMENT_STATUS } from "#domain/common/enums/appointment.enum.js";
 import type { IFileUpload } from "#application/ports/services/IFileUpload.js";
 import type { Appointment } from "#domain/entities/Appointment.js";

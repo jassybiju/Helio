@@ -5,7 +5,6 @@ import {
   DollarSign,
   LayoutGrid,
   LogOut,
-  Settings,
   Stethoscope,
   Users,
 } from "lucide-react";

@@ -66,6 +66,9 @@ services:
 
     restart: unless-stopped
 
+    environment:
+      - SERVER_BACKEND_URL=value
+
     expose:
       - "3000"
 

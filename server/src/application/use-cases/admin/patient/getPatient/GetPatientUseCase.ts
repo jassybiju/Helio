@@ -1,7 +1,6 @@
 import type { IPatientRepository } from "#application/ports/repositories/IPatientRepository.js";
 import type { ILogger } from "#application/ports/services/ILogger.js";
 import type { IGetPatientUseCase } from "#application/ports/use-cases/admin/patient/IGetPatientUseCase.js";
-import type { Patient } from "#domain/entities/Patient.js";
 import { AppError } from "#shared/errors/AppError.js";
 import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type { IGetPatientResponseDTO } from "./IGetPatientDTO.js";

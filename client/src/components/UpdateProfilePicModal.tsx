@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import {  X, Check } from "lucide-react";
 import { ModalProps } from "@/src/layout/ModalProvider";
 import Cropper, { Area } from "react-easy-crop";
@@ -21,8 +21,6 @@ export function UpdateProfilePicModal({
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<null | Area>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [showCropper, setShowCropper] = useState(false);
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
 
   function onFileChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -49,120 +47,8 @@ export function UpdateProfilePicModal({
       }, ()=>{setIsUploading(false)})
     }
   }
-  async function showCroppedImage() {
-    if (!croppedAreaPixels || !imageSrc) {
-      return;
-    }
 
-    setCroppedImage(await getCroppedImg(imageSrc, croppedAreaPixels));
-  }
-  // const onCropComplete = useCallback(
-  //   (croppedArea: Area, croppedAreaPixels: Area) => {
-  //     setCroppedAreaPixels(croppedAreaPixels);
-  //   },
-  //   [],
-  // );
-
-  // const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setImageSrc(reader.result as string);
-  //       setShowCropper(true);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const createImage = (url: string): Promise<HTMLImageElement> =>
-  //   new Promise((resolve, reject) => {
-  //     const image = new Image();
-  //     image.addEventListener("load", () => resolve(image));
-  //     image.addEventListener("error", (err) => reject(err));
-  //     image.setAttribute("crossOrigin", "anonymous");
-  //     image.src = url;
-  //   });
-
-  // const getCroppedImg = async (imageSrc: string, pixelCrop: Area) => {
-  //   const image = await createImage(imageSrc);
-  //   const canvas = document.createElement("canvas");
-  //   const ctx = canvas.getContext("2d");
-
-  //   if (!ctx) return null;
-
-  //   canvas.width = pixelCrop.width;
-  //   canvas.height = pixelCrop.height;
-
-  //   ctx.drawImage(
-  //     image,
-  //     pixelCrop.x,
-  //     pixelCrop.y,
-  //     pixelCrop.width,
-  //     pixelCrop.height,
-  //     0,
-  //     0,
-  //     pixelCrop.width,
-  //     pixelCrop.height,
-  //   );
-
-  //   return new Promise((resolve) => {
-  //     canvas.toBlob((blob) => {
-  //       if (!blob) return;
-  //       const url = URL.createObjectURL(blob);
-  //       resolve(url);
-  //     }, "image/jpeg");
-  //   });
-  // };
-
-  // const handleSaveImage = async () => {
-  //   if (!imageSrc || !croppedAreaPixels) return;
-
-  //   setIsUploading(true);
-  //   try {
-  //     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-  //     if (croppedImage) {
-  //       onImageSave(croppedImage as string);
-  //       setShowCropper(false);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error cropping image:", error);
-  //   } finally {
-  //     setIsUploading(false);
-  //   }
-  // };
-
-  // const handleCancel = () => {
-  //   setShowCropper(false);
-  //   setImageSrc(null);
-  //   setCrop({ x: 0, y: 0 });
-  //   setZoom(1);
-  // };
-
-  // return (
-  //   <div className="min-h-[50vh] min-w-[50vw]">
-  //     <div className="cropper">
-  //       <input type="file" accept="image/*" onChange={onFileChange} />
-  //       <div className="relative w-full h-[500px]">
-  //         {imageSrc && (
-  //           <Cropper
-  //             image={imageSrc}
-  //             crop={crop}
-  //             zoom={zoom}
-  //             aspect={4 / 3}
-  //             onCropChange={setCrop}
-  //             onCropComplete={onCropComplete}
-  //             onZoomChange={setZoom}
-  //           />
-  //         )}
-  //       </div>
-  //     </div>
-
-  //     <button onClick={showCroppedImage}>Show cropped image</button>
-  //     <button onClick={() => onSave()}>Submit</button>
-  //     {croppedImage ? <img src={croppedImage} alt="Cropped result" /> : null}
-  //   </div>
-  // );
+  
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-6">
@@ -293,20 +179,9 @@ async function getCroppedImg(imageSrc: string, pixelCrop: Area) {
   });
 }
 
-function getRadianAngle(degreeValue: number) {
-  return (degreeValue * Math.PI) / 180;
-}
 
-function rotateSize(width: number, height: number, rotation: number) {
-  const rotRad = getRadianAngle(rotation);
 
-  return {
-    width:
-      Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
-    height:
-      Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
-  };
-}
+
 
 function createImage(url: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {

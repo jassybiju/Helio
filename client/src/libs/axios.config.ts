@@ -4,14 +4,20 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import { invalidateQuery } from "./queryClient";
-import Config from "@/config";
+import { getRuntimeConfig } from "./config";
 
 const isServer = typeof window === "undefined";
 
+const backendUrl = isServer
+  ? process.env.SERVER_BACKEND_URL
+  : getRuntimeConfig().backendUrl;
+
+
 export const apiClient = axios.create({
-  baseURL: isServer ? process.env.SERVER_BACKEND_URL : "",
   withCredentials: true,
+  baseURL : backendUrl
 });
+
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -19,7 +25,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 
 //response interceptors : Handle 401 and Retry
 
-let isRefreshing = false;
+let isRefreshing = false;  
 let failedQueue: {
   resolve: (value?: unknown) => void;
   reject: (reason?: unknown) => void;
@@ -55,6 +61,7 @@ apiClient.interceptors.response.use(
 
       isRefreshing = true;
       try {
+
         // refresh token request using cookies
         await apiClient.post("/auth/refresh");
 
@@ -62,11 +69,13 @@ apiClient.interceptors.response.use(
         processQueue(null);
         return apiClient(originalRequest);
       } catch (refreshError) {
+
         isRefreshing = false;
         processQueue(refreshError);
-        invalidateQuery("me");
+        invalidateQuery('me')
         return Promise.reject(refreshError);
       } finally {
+
         isRefreshing = false;
       }
     }

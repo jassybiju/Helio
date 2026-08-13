@@ -19,7 +19,6 @@ import { AppointmentRepository } from "#infrastructure/database/repositories/App
 import { SpecialtyRepository } from "#infrastructure/database/repositories/SpecialityRepository.js";
 import { SlotGenerator } from "#application/service/SlotGenerator.js";
 import { logger } from "#shared/utils/logger.utils.js";
-import type { BookingState } from "./chat.state.js";
 import { CONSULTATION_TYPE } from "#domain/common/enums/doctorShift.enum.js";
 import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
 import { NotificationService } from "#application/service/NotificationService.js";

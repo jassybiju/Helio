@@ -1,6 +1,4 @@
 import type { NextConfig } from "next";
-import { hostname } from "os";
-import { protocol } from "socket.io-client";
 
 const nextConfig: NextConfig = {
   /* config options here */

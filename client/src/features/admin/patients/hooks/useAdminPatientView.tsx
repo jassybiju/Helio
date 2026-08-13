@@ -6,7 +6,6 @@ import { PatientView } from "../../services/patient.service";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import { useToggleBlockPatient } from "./useToggleBlockPatient";
 import { ColumnType } from "@/src/components/TableComponent";
-import { CONSULTATION_TYPE } from "@/src/types/appointment.types";
 
 export const useAdminPatientView = (id: string) => {
   const router = useRouter();

@@ -1,26 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef,  } from "react";
 import {
   Bell,
   X,
-  CheckCircle,
-  AlertCircle,
   Info,
-  Clock,
-  Trash2,
 } from "lucide-react";
 import { useGetAllNotificationQuery } from "../hooks/useGetAllNotificationQuery";
 
-interface Notification {
-  id: string;
-  type: "appointment" | "message" | "alert" | "reminder";
-  title: string;
-  description: string;
-  timestamp: string;
-  isRead: boolean;
-  icon?: "check" | "alert" | "info" | "clock";
-}
+
 
 interface NotificationDropdownProps {
   isOpen: boolean;
@@ -37,7 +25,6 @@ export function NotificationComponent({
   const notifications =
     data?.pages.flatMap((page) => page.data.notifications) ?? [];
 
-  const [deletingId, setDeletingId] = useState<string | null>(null);
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -80,21 +67,21 @@ export function NotificationComponent({
   //   setNotifications([]);
   // };
 
-  const getIconComponent = (notification: Notification) => {
-    switch (notification.icon) {
-      case "check":
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case "alert":
-        return <AlertCircle className="w-5 h-5 text-red-500" />;
-      case "clock":
-        return <Clock className="w-5 h-5 text-blue-500" />;
-      case "info":
-      default:
-        return <Info className="w-5 h-5 text-blue-500" />;
-    }
-  };
+  // const getIconComponent = (notification: Notification) => {
+  //   switch (notification.icon) {
+  //     case "check":
+  //       return <CheckCircle className="w-5 h-5 text-green-500" />;
+  //     case "alert":
+  //       return <AlertCircle className="w-5 h-5 text-red-500" />;
+  //     case "clock":
+  //       return <Clock className="w-5 h-5 text-blue-500" />;
+  //     case "info":
+  //     default:
+  //       return <Info className="w-5 h-5 text-blue-500" />;
+  //   }
+  // };
 
-  const getBackgroundColor = (isRead: boolean) => {
+  const getBackgroundColor = (_isRead: boolean) => {
     return "bg-white";
   };
 
@@ -160,9 +147,7 @@ export function NotificationComponent({
               <div
                 key={notification.id}
                 className={`transition-all ${
-                  deletingId === notification.id
-                    ? "opacity-0 translate-x-full"
-                    : "opacity-100 translate-x-0"
+                    "opacity-100 translate-x-0"
                 }`}
               >
                 <div

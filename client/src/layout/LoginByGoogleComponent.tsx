@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { GoogleLoginFn } from "../features/auth/types/auth.types";
 import { toast } from "react-toastify";
-import Config from "@/config";
+import { getRuntimeConfig } from "../libs/config";
 
 const LoginByGoogleComponent = ({
   googleLogin,
@@ -29,8 +29,10 @@ const LoginByGoogleComponent = ({
     console.log("Login Failed");
   };
 
+  const CLIENT_ID = getRuntimeConfig()
+
   return (
-    <GoogleOAuthProvider clientId={Config.GOOGLE_CLIENT_ID!}>
+    <GoogleOAuthProvider clientId={CLIENT_ID.googleClientID!}>
       <GoogleLogin
         onSuccess={handleLoginSuccess}
         onError={handleLoginError}

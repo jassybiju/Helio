@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { USER_ROLES } from "@/src/types/user.types";
 import { useConsultationChat } from "@/src/features/shared/chat/hooks/useConsultationChat";
 import {
