@@ -1,13 +1,14 @@
 // 'use client'
 
-import { socket } from "@/src/libs/socket";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { initPeer } from "../services/webrtc.service";
 import type Peer from "simple-peer";
+import { getSocket } from "@/src/libs/socket";
 
 export const useWebRTC = (appointmentId: string) => {
   const [remoteMediaStream, setRemoteMediaStream] =
     useState<MediaStream | null>();
+    const socket = getSocket()
   // const [isMicOn, setIsMicOn] = useState(true);
   // const [isCameraOn, setIsCameraOn] = useState(true);
   const userVideoRef = useRef<HTMLVideoElement>(null);

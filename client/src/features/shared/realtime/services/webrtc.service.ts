@@ -1,8 +1,9 @@
-import { socket } from "@/src/libs/socket";
+import { getSocket } from "@/src/libs/socket";
 import Peer from "simple-peer";
 
 export const createPeer = (stream: MediaStream, appointmentId: string) => {
   const peer = new Peer({ initiator: true, trickle: true, stream });
+  const socket = getSocket();
 
   peer.on("signal", (signal) => {
     socket.emit("webrtc:signal", { appointmentId, signal });
@@ -17,6 +18,7 @@ export const addPeer = (
   appointmentId: string,
 ) => {
   const peer = new Peer({ initiator: false, trickle: true, stream });
+  const socket = getSocket();
 
   peer.on("signal", (signal) => {
     socket.emit("webrtc:signal", { signal, appointmentId });
@@ -26,7 +28,6 @@ export const addPeer = (
 
   return peer;
 };
-
 
 type PeerWithPC = Peer.Instance & {
   _pc: RTCPeerConnection;
@@ -43,26 +44,24 @@ export const initPeer = (
     trickle: false,
     stream,
   }) as PeerWithPC;
+  const socket = getSocket();
 
   peer.on("signal", (signal) => {
     socket.emit("webrtc:signal", { appointmentId, to: targetSocketId, signal });
   });
-  peer._pc.addEventListener("icegatheringstatechange", () => {
-  });
+  peer._pc.addEventListener("icegatheringstatechange", () => {});
 
-  peer._pc.addEventListener("iceconnectionstatechange", () => {
-  });
+  peer._pc.addEventListener("iceconnectionstatechange", () => {});
 
   peer.on("connect", () => {
     peer.send("Hello From custom room peer");
   });
 
-  peer.on("data", (_data) => {
-  });
+  peer.on("data", (_data) => {});
 
   peer.on("error", (err) => {
     // Ignore expected aborts when closing
-    if (err.message === 'User-Initiated Abort, reason=Close called' ) {
+    if (err.message === "User-Initiated Abort, reason=Close called") {
       return;
     }
   });

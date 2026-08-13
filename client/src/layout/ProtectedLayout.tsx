@@ -7,9 +7,9 @@ import { redirectToRole } from "../utils/redirectToRole";
 import { useAuth } from "../features/auth/hooks/useAuth";
 import { getSubdomain } from "../utils/getSubdomain";
 import { getExpectedSubdomain } from "../utils/getExpectedSubdomain";
-import { socket } from "../libs/socket";
 import {  useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { getSocket } from "../libs/socket";
 
 type PropType = {
   children: React.ReactNode;
@@ -69,6 +69,7 @@ const ProtectedLayout = ({ children, role }: PropType) => {
   ]);
 
   // * SOCKET FOR NOTIFICATION
+  const socket = getSocket()
   const queryClient = useQueryClient()
   useEffect(() => {
     if (!user) return;

@@ -14,11 +14,11 @@ import { AddLabReportModal } from "../components/AddLabReportModal";
 import { useDoctorViewHistoryQuery } from "./useDoctorViewHistoryQuery";
 import { useDoctorCompleteConsultationMutation } from "./useDoctorCompleteConsultationMutation";
 import ViewHistoryDetailModal from "../components/ViewHistoryDetailModal";
-import { socket } from "@/src/libs/socket";
 import { invalidateQuery } from "@/src/libs/queryClient";
 import { ConfirmModal } from "@/src/components/ConfirmModal";
 import useDoctorRemoveTestMutation from "./useDoctorRemoveTestMutation";
 import { IDoctorViewHistory } from "../../../services/consultation.service";
+import { getSocket } from "@/src/libs/socket";
 
 interface LabTest {
   id: string;
@@ -66,7 +66,7 @@ const useDoctorConsultation = (id: string) => {
   const [isEditingVitals, setIsEditingVitals] = useState(false);
 
   const [isRecordingNewVitals, setIsRecordingNewVitals] = useState(false);
-
+  const socket =  getSocket()
   useEffect(() => {
     // socket.emit("join-appointment", id);
     socket.on("consultation-started", () => {
