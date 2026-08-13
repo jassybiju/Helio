@@ -6,6 +6,14 @@ import { setIO } from "#config/socket.instance.js";
 import { ChatHandler } from "../../presentation/socket/handlers/ChatHandler.js";
 import { ChatSessionRepository } from "#infrastructure/database/repositories/ChatSessionRepository.js";
 import { logger } from "#shared/utils/logger.utils.js";
+
+const allowedOrigins = new Set(
+  (process.env.CORS_ORIGINS ?? "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
+
 export class SocketServer {
   private _io!: Server;
 
@@ -14,12 +22,17 @@ export class SocketServer {
   public initialize(): void {
     this._io = new Server(this._httpServer, {
       cors: {
-        origin: [
-          "http://localhost",
-          "http://helixo.com",
-          "http://doctor.helixo.com",
-          "http://admin.helixo.com",
-        ],
+        origin: (origin, callback) => {
+          if (!origin) {
+            return callback(null, true);
+          }
+
+          if (allowedOrigins.has(origin)) {
+            return callback(null, true);
+          }
+
+          return callback(new Error("Not allowed by CORS"));
+        },
         credentials: true,
       },
     });
