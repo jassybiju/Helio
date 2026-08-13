@@ -57,14 +57,14 @@ export function removeToken(res: Response) {
   res.cookie("refreshToken", null, {
     maxAge: 0,
     httpOnly: true,
-    domain: ".helixo.com",
+    domain: process.env.COOKIE_DOMAIN || undefined,
     secure: process.env.NODE_ENV === "production",
   });
   res.cookie("accessToken", null, {
     maxAge: 0,
     httpOnly: true,
     sameSite: "lax",
-    domain: ".helixo.com",
+    domain: process.env.COOKIE_DOMAIN || undefined,
 
     secure: process.env.NODE_ENV === "production",
   });

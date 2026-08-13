@@ -21,6 +21,7 @@ export interface IDoctorViewAppointmentDTO {
   paymentId: string | null;
 
   createdAt: string;
+  chatSessionId: string | null;
 
   consultation: {
     id: string;
@@ -56,7 +57,6 @@ export interface IDoctorViewAppointmentDTO {
       instruction: string | null;
     }[];
     medicationPeriod: number | null;
-
     startedAt: Date;
     endedAt: Date | null;
   } | null;

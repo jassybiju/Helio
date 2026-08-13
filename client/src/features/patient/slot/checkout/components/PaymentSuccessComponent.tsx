@@ -65,7 +65,7 @@ const PaymentSuccessComponent = () => {
                   Amount Paid
                 </p>
                 <p className="text-3xl font-bold text-slate-900">
-                  ${data?.data.appointment.totalAmount}
+                  ₹{data?.data.appointment.totalAmount}
                 </p>
               </div>
               <div>

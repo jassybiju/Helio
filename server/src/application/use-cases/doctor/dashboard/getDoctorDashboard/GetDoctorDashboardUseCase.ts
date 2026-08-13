@@ -75,6 +75,12 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
       wallet.id,
       5
     );
+
+    const { totalAppointments, appointmentStatusDistribution } =
+      await this._appointmentRepo.getDoctorAppointmentStatusDistribution(
+        doctor.id
+      );
+
     return {
       summary: {
         todayAppointments: appointments.length,
@@ -102,6 +108,11 @@ export class GetDoctorDashboardUseCase implements IGetDoctorDashboardUseCase {
         amount: trans.amount,
         status: trans.status,
       })),
+
+      statusDistribution: {
+        totalAppointments,
+        data: appointmentStatusDistribution,
+      },
     };
   }
 }

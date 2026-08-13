@@ -31,6 +31,7 @@ import { CloudinaryFileUploadService } from "#infrastructure/services/Cloudinary
 import { SocketRealTimeNotifier } from "#infrastructure/services/SocketRealTimeNotifier.js";
 import { NotificationService } from "#application/service/NotificationService.js";
 import { NotificationRepository } from "#infrastructure/database/repositories/NotificationRepository.js";
+import { ChatSessionRepository } from "#infrastructure/database/repositories/ChatSessionRepository.js";
 
 const logger = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
@@ -47,7 +48,7 @@ const consultationRepo = new ConsultationRepository(logger);
 const labRepo = new LabReportRepository(logger);
 const notificationRepo = new NotificationRepository(logger);
 const slotService = new SlotGenerator();
-
+const chatSessionRepo = new ChatSessionRepository(logger);
 const uow = new MongoUnitOfWork();
 
 const walletService = new WalletPaymentService(
@@ -80,7 +81,8 @@ const getAppointment = new GetAppointmentUseCase(
   patientRepo,
   appointmentRepo,
   consultationRepo,
-  doctorRepo
+  doctorRepo,
+  chatSessionRepo
 );
 
 // implement razorpay service

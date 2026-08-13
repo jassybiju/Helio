@@ -44,7 +44,7 @@ export interface IGetAllPatientAppointments {
 
 export interface IGetPatientAppointment {
   appointmentId: string;
-
+  chatSessionId : string;
   doctor: {
     id: string;
     name: string;

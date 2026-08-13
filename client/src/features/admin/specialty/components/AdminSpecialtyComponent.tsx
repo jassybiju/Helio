@@ -29,7 +29,7 @@ const AdminSpecialtyComponent = () => {
       render: (x) => x,
     },
     {
-      key: "_id",
+      key: "label",
       title: "SPecialyt",
       render: (x) => (
         <div
@@ -43,6 +43,7 @@ const AdminSpecialtyComponent = () => {
     },
   ];
   const handleDelete = (id: string) => {
+    console.log("DELETEING")
     deleteSpecialty(id);
   };
   const handleOpenAddSpecialty = () => {

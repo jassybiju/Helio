@@ -73,7 +73,7 @@ export default function DoctorCard({
               Consultation
             </p>
             <p className="font-semibold text-gray-900 text-base">
-              ${fees?.online}
+              ₹{fees?.online}
             </p>
           </div>
           {/* <div>

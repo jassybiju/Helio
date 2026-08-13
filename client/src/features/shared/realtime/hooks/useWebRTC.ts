@@ -97,7 +97,7 @@ export const useWebRTC = (appointmentId: string) => {
     if (userVideoRef.current) userVideoRef.current.srcObject = null;
     setRemoteMediaStream(null);
     setIsJoined(false);
-  }, [appointmentId]);
+  }, [appointmentId, socket]);
   useEffect(() => {
     return () => {
       leave();

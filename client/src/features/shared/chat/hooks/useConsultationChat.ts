@@ -55,7 +55,7 @@ export const useConsultationChat = ({
     return () => {
       socket.off("chat:list-update", handleListUpdate);
     };
-  }, [queryClient]); // no activeSessionId dependency — runs for the lifetime of this hook's owner
+  }, [queryClient, socket]); // no activeSessionId dependency — runs for the lifetime of this hook's owner
 
   useEffect(() => {
     if (!activeSessionId) return;
@@ -87,5 +87,5 @@ export const useConsultationChat = ({
       socket.off("chat:send", handleActiveChatMessage);
       socket.emit("chat:leave-chat", activeSessionId);
     };
-  }, [activeSessionId, userType, queryClient]);
+  }, [activeSessionId, userType, queryClient, socket]);
 };

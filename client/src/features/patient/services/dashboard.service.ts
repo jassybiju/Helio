@@ -1,4 +1,13 @@
-export interface IGetPatientDashboardDTO {
+import { apiRequest } from "@/src/libs/axios.config"
+import { APIResponse, HTTP_METHOD } from "@/src/types/API.types"
+
+export const patientDashboardService = {
+    getDashboard : ()=>{
+        return apiRequest('/patient/dashboard',HTTP_METHOD.GET) as Promise<APIResponse<GetPatientDashboardDTO>>
+    }
+}
+
+export interface GetPatientDashboardDTO {
   stats: {
     totalAppointments: number;
     completedAppointments: number;
@@ -22,7 +31,7 @@ export interface IGetPatientDashboardDTO {
       foodTiming: number;
       timing: { morning: boolean; afternoon: boolean; night: boolean };
       durationInDays: number;
-      validTill: Date | null;
+      validTill: number | null;
       instructions: string | null;
     }[];
     fromAppointemnts: string;
@@ -30,7 +39,7 @@ export interface IGetPatientDashboardDTO {
   nextAppointment: {
     doctorName: string;
     specialty: string;
-    date: Date;
+    date: string;
     appointmentId: string;
   } | null;
 }

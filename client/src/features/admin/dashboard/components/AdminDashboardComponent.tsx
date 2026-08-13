@@ -225,9 +225,9 @@ const revenueData = data?.data.revenueAnalytics.labels.map((x,i)=>({label : x, p
                   <h2 className="text-lg font-bold text-gray-900">
                     Revenue Analytics
                   </h2>
-                  <p className="text-2xl font-bold text-green-600 mt-1">
+                  {/* <p className="text-2xl font-bold text-green-600 mt-1">
                     $42,500
-                  </p>
+                  </p> */}
                 </div>
                 {/* <select
                   value={revenueFilter}

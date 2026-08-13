@@ -12,12 +12,14 @@ import { MongoUnitOfWork } from "#infrastructure/database/unitOfWork/MongoUnitOf
 import { DoctorViewTodaysAppointmentUseCase } from "#application/use-cases/doctor/appointment/doctorViewTodaysAppointment/DoctorViewTodaysAppointmentUseCase.js";
 import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { SkipDoctorAppointmentUseCase } from "#application/use-cases/doctor/appointment/skipAppointment/SkipDoctorAppointmentUseCase.js";
+import { ChatSessionRepository } from "#infrastructure/database/repositories/ChatSessionRepository.js";
 
 const loggerService = PinoLoggerService.getInstance();
 
 const appointmentRepo = new AppointmentRepository(loggerService);
 const doctorRepo = new MongoDoctorRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
+const chatSessionRepo = new ChatSessionRepository(loggerService);
 const consultationRepo = new ConsultationRepository(loggerService);
 const idGenerator = new NanoidGenerator();
 const fileUpload = new CloudinaryFileUploadService();
@@ -32,7 +34,8 @@ const doctorViewAppointment = new DoctorViewAppointmentUseCase(
   doctorRepo,
   appointmentRepo,
   patientRepo,
-  consultationRepo
+  consultationRepo,
+  chatSessionRepo
 );
 const startConsultation = new DoctorStartConsultationUseCase(
   loggerService,

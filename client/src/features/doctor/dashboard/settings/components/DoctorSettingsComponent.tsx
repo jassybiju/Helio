@@ -259,13 +259,13 @@ const DoctorSettingsComponent = () => {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
               <div>
                 <label className="text-xs font-semibold text-slate-600 uppercase">
-                  Online Fee ($)
+                  Online Fee (₹)
                 </label>
                 <input type="number" {...register("onlineFee")} />
               </div>
               <div>
                 <label className="text-xs font-semibold text-slate-600 uppercase">
-                  Clinic Fee ($)
+                  Clinic Fee (₹)
                 </label>
                 <input type="number" {...register("clinicFee")} />
               </div>

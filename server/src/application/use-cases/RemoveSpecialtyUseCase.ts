@@ -17,7 +17,7 @@ export class RemoveSpecialtyUseCase implements IRemoveSpecialtyUseCase {
       throw new AppError("Specialty ID is required", HTTPStatus.BAD_REQUEST);
     }
 
-    const existing = await this._specialtyRepo.findById(id);
+    const existing = await this._specialtyRepo.findByName(id);
 
     if (!existing) {
       throw new AppError("Specialty not found", HTTPStatus.NOT_FOUND);

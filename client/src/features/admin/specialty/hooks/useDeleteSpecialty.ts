@@ -11,7 +11,7 @@ export const useDeleteSpecialtyMutation = () => {
       apiRequest("admin/specialty/" + id, HTTP_METHOD.DELETE),
     onSuccess() {
       invalidateQuery("specialty");
-      toast.success("Specialty Saved Successfulyy");
+      toast.success("Specialty Deleted Successfulyy");
     },
     onError(error) {
       if (isAxiosError(error)) toast.error(error.response?.data.message);

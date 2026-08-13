@@ -9,6 +9,7 @@ export interface ISpecialityRepository {
     description?: string | null;
   }): Promise<void>;
 
+  findByName(name: string): Promise<Specialty | null>;
   findAllActive(): Promise<Specialty[]>;
 
   findMany(filters: {

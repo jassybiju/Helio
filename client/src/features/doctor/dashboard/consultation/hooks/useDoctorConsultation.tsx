@@ -83,7 +83,7 @@ const useDoctorConsultation = (id: string) => {
       socket.off("consultation-started");
       socket.off("consultation-ended");
     };
-  }, []);
+  }, [socket]);
   /**
    * -----------------------------------
    * API

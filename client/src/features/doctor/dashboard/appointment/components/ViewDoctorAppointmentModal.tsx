@@ -9,6 +9,7 @@ import {
   Printer,
   X,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function ViewDoctorAppointmentModal({
   close,
@@ -281,10 +282,10 @@ export default function ViewDoctorAppointmentModal({
         {/* FOOTER */}
         <div className="sticky bottom-0 bg-[#FCFCFD] border-t border-[#EEF2F6] px-8 py-5 rounded-b-[34px]">
           <div className="flex items-center justify-between">
-            <button className="flex items-center gap-2 text-[#2563EB] font-medium">
+            <Link href={`/chat/${appointment.chatSessionId}`} className="flex items-center gap-2 text-[#2563EB] font-medium">
               <MessageCircle size={18} />
               Message Patient
-            </button>
+            </Link>
 
             <div className="flex items-center gap-4">
               <button className="rounded-full border border-[#D0D5DD] px-6 py-3 font-medium hover:bg-gray-50">

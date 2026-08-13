@@ -9,6 +9,7 @@ import { NotFoundError } from "#shared/errors/NotFoundError.js";
 import type { IDoctorViewAppointmentDTO } from "./IDoctorViewAppointmentDTO.js";
 import { DoctorViewAppointmentMapper } from "./DoctorViewAppointmentMapper.js";
 import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
 
 export class DoctorViewAppointmentUseCase implements IDoctorViewAppointmentUseCase {
   constructor(
@@ -16,7 +17,8 @@ export class DoctorViewAppointmentUseCase implements IDoctorViewAppointmentUseCa
     private readonly _doctorRepo: IDoctorRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _patientRepo: IPatientRepository,
-    private readonly _consultationRepo: IConsultationRepository
+    private readonly _consultationRepo: IConsultationRepository,
+    private readonly _chatSessionRepo: IChatSessionRepository
   ) {}
   async execute(
     doctorId: string,
@@ -51,11 +53,16 @@ export class DoctorViewAppointmentUseCase implements IDoctorViewAppointmentUseCa
     const consultation = await this._consultationRepo.findByAppointmentId(
       appointment.id
     );
+    const chatSession = await this._chatSessionRepo.findByPatientIdAndDoctorId(
+      patient.id,
+      doctor.id
+    );
 
     return DoctorViewAppointmentMapper.toDto(
       appointment,
       patient,
-      consultation
+      consultation,
+      chatSession?.id ?? null
     );
   }
 }

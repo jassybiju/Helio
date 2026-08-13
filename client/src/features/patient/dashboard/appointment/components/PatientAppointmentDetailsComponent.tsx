@@ -8,8 +8,6 @@ import {
   Video,
   Users,
   ArrowLeft,
-  MessageSquare,
-  Download,
   User,
   AlertTriangle,
 } from "lucide-react";
@@ -20,7 +18,7 @@ import { useModal } from "@/src/hooks/useModal";
 import PatientAppointmentCancellationConfirmationModal from "./PatientAppointmentCancellationConfirmationModal";
 import VideoCall from "@/src/components/VideoCall";
 import PatientAppointmentCancellationModal from "./PatientAppointmentCancellationModal";
-
+import Link from "next/link";
 // interface Appointment {
 //   id: string;
 //   doctorName: string;
@@ -308,7 +306,7 @@ export default function PatientAppointmentDetailsComponent() {
       {/* Doctor Information */}
       <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
         <h2 className="text-lg font-bold text-slate-900 mb-4">
-          Doctor Information 
+          Doctor Information
         </h2>
         <div className="space-y-3">
           <div className="flex items-center gap-3 pb-3 border-b border-slate-200">
@@ -529,32 +527,30 @@ export default function PatientAppointmentDetailsComponent() {
       {/* Action Buttons */}
       <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row gap-3">
-          <div className="w-full">
-            {appointment.appointment.status === "ONGOING" && (
+          <div className="w-full flex ">
+            {/* {appointment.appointment.status === "ONGOING" && (
               <>
                 <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
                   <Video className="w-5 h-5" />
                   Join Consultation
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-                  <MessageSquare className="w-5 h-5" />
-                  Message Doctor
-                </button>
+             
               </>
-            )}
-
+            )} */}
+{/* 
             {appointment.appointment.status ===
               APPOINTMENT_STATUS.COMPLETED && (
-              <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+              <button className=" flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
                 <Download className="w-5 h-5" />
                 Download Prescription
               </button>
-            )}
+            )} */}
 
-            <button className="w-full sm:w-auto px-4 sm:px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
-              View Notes
-            </button>
-          </div>
+            <Link href={`/dashboard/chat/${appointment.chatSessionId}`}>
+              <button className="w-full sm:w-auto px-4 sm:px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+                View Chat
+              </button>
+            </Link>
           {appointment.appointment.status === APPOINTMENT_STATUS.CONFIRMED && (
             <button
               onClick={handleCancelAppointment}
@@ -563,6 +559,7 @@ export default function PatientAppointmentDetailsComponent() {
               Cancel Appointment
             </button>
           )}
+          </div>
         </div>
       </div>
     </div>

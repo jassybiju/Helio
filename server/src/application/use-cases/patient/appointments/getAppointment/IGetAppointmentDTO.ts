@@ -56,6 +56,6 @@ export interface IGetAppointmentDTO {
   } | null;
 
   cancellationReason: string | null;
-
+  chatSessionId: string | null;
   createdAt: Date;
 }

@@ -1,8 +1,10 @@
 import type {
   DoctorAppointmentListItem,
   FindAppointmentsFilter,
+  IActiveMedication,
   IAppointmentDashboardStatistics,
   IAppointmentRepository,
+  PatientLatestVitals,
 } from "#application/ports/repositories/IAppointmentRepository.js";
 import { Appointment } from "#domain/entities/Appointment.js";
 import { BaseRepository } from "./BaseRepository.js";
@@ -35,6 +37,220 @@ export class AppointmentRepository
 
   withSession(session: ClientSession): IAppointmentRepository {
     return new AppointmentRepository(this._logger, session);
+  }
+
+  async getActiveMedications(patientId: string): Promise<IActiveMedication[]> {
+    this._logger.info("Fetching active medications", { patientId });
+
+    const now = new Date();
+
+    const pipeline: PipelineStage[] = [
+      {
+        $match: {
+          patient_id: patientId,
+          status: APPOINTMENT_STATUS.COMPLETED,
+          is_deleted: false,
+        },
+      },
+      {
+        $lookup: {
+          from: "consultationmodels",
+          localField: "_id",
+          foreignField: "appointment_id",
+          as: "consultation",
+        },
+      },
+      {
+        $unwind: "$consultation",
+      },
+      {
+        $match: {
+          "consultation.is_deleted": false,
+          "consultation.medication_period": { $ne: null },
+          "consultation.prescriptions.0": { $exists: true },
+        },
+      },
+      {
+        $addFields: {
+          medication_expiry_date: {
+            $dateAdd: {
+              startDate: "$consultation.ended_at",
+              unit: "day",
+              amount: "$consultation.medication_period",
+            },
+          },
+        },
+      },
+      {
+        $match: {
+          medication_expiry_date: {
+            $gte: now,
+          },
+        },
+      },
+      {
+        $sort: {
+          "consultation.ended_at": -1,
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          patient_id: 1,
+          doctor_id: 1,
+
+          consultation: 1,
+        },
+      },
+    ];
+
+    const result = await super.aggregate<{
+      _id: string;
+      patient_id: string;
+      doctor_id: string;
+      consultation: {
+        appointment_id: string;
+        doctor_id: string;
+        patient_id: string;
+        consultation_type: CONSULTATION_TYPE;
+        prescriptions: {
+          name: string;
+          food_timing: number;
+          timings: {
+            morning: boolean;
+            afternoon: boolean;
+            night: boolean;
+          };
+          duration_in_days: number;
+          instructions: string | null;
+        }[];
+        medication_period: number | null;
+        started_at: Date;
+        ended_at: Date | null;
+      };
+    }>(pipeline);
+
+    return result.map((item) => ({
+      appointmentId: item.consultation.appointment_id,
+      doctorId: item.doctor_id,
+      patientId: item.patient_id,
+      consultationType: item.consultation.consultation_type,
+      startedAt: item.consultation.started_at,
+      endedAt: item.consultation.ended_at,
+      medicationPeriod: item.consultation.medication_period,
+      prescriptions: item.consultation.prescriptions.map((pres) => ({
+        name: pres.name,
+        foodTiming: pres.food_timing,
+        timings: {
+          morning: pres.timings.morning,
+          afternoon: pres.timings.afternoon,
+          night: pres.timings.night,
+        },
+        durationInDays: pres.duration_in_days,
+        instructions: pres.instructions,
+      })),
+    }));
+  }
+
+  async getLatestCompletedAppointmentWithVitals(
+    patientId: string
+  ): Promise<PatientLatestVitals | null> {
+    this._logger.info("Fetching latest completed appointment with vitals");
+
+    const [result] = await super.aggregate<
+      AppointmentRaw & {
+        consultation: {
+          vitals: {
+            blood_pressure: string | null;
+            oxygen_level: number | null;
+            heart_rate: number | null;
+            temperature: number | null;
+            weight: number | null;
+            height: number | null;
+          } | null;
+        };
+      }
+    >([
+      {
+        $match: {
+          patient_id: patientId,
+          status: APPOINTMENT_STATUS.COMPLETED,
+          is_deleted: false,
+        },
+      },
+      {
+        $lookup: {
+          from: "consultationmodels",
+          localField: "_id",
+          foreignField: "appointment_id",
+          as: "consultation",
+        },
+      },
+      {
+        $unwind: "$consultation",
+      },
+      {
+        $match: {
+          "consultation.is_deleted": false,
+          $or: [
+            {
+              "consultation.vitals.blood_pressure": {
+                $ne: null,
+              },
+            },
+            {
+              "consultation.vitals.oxygen_level": {
+                $ne: null,
+              },
+            },
+            {
+              "consultation.vitals.heart_rate": {
+                $ne: null,
+              },
+            },
+            {
+              "consultation.vitals.temperature": {
+                $ne: null,
+              },
+            },
+            {
+              "consultation.vitals.weight": {
+                $ne: null,
+              },
+            },
+            {
+              "consultation.vitals.height": {
+                $ne: null,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $sort: {
+          start_time: 1,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+
+    if (!result) {
+      return null;
+    }
+
+    return {
+      appointment: AppointmentMapper.toDomain(result),
+      vitals: {
+        bloodPressure: result.consultation.vitals?.blood_pressure ?? null,
+        oxygenLevel: result.consultation.vitals?.oxygen_level ?? null,
+        heartRate: result.consultation.vitals?.heart_rate ?? null,
+        temperature: result.consultation.vitals?.temperature ?? null,
+        height: result.consultation.vitals?.height ?? null,
+        weight: result.consultation.vitals?.weight ?? null,
+      },
+    };
   }
 
   async countCompletedAppointments(

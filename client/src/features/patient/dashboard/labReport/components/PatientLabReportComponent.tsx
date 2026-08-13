@@ -7,6 +7,7 @@ import { useModal } from "@/src/hooks/useModal";
 import PatientUploadLabReportModal from "./PatientUploadLabReportModal";
 import ViewPDFModal from "@/src/components/ViewPDFModal";
 import Pagination from "@/src/components/Pagination";
+import Link from "next/link";
 
 const LIMIT = 1;
 const PatientLabReportComponent = () => {
@@ -81,7 +82,7 @@ const PatientLabReportComponent = () => {
                         {request.instructions}
                       </td>
                       <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
-                        {request.appointmentId}
+                        <Link href={`/dashboard/appointment/${request.appointmentId}`}>{request.appointmentId}</Link>
                       </td>
                       <td className="px-3 sm:px-6 py-3 text-sm text-slate-600">
                         {new Date(request.requestedAt).toDateString()}

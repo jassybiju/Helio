@@ -8,6 +8,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  PieChart,
+  Pie,
+  Cell,
   ResponsiveContainer,
 } from "recharts";
 import { Calendar, Clock, CheckCircle, Users, Wallet } from "lucide-react";
@@ -114,6 +117,28 @@ const DoctorDashboardComponent = () => {
     return null;
   }
 
+  const totalAppointments = data?.data.statusDistribution.totalAppointments
+  const appointmentStatus = data?.data.statusDistribution.data
+  const appointmentStatusData = [
+    {
+      name: "Confirmed",
+      value: appointmentStatus?.confirmed,
+      color: "#3b82f6",
+    },
+    {
+      name: "Completed",
+      value: appointmentStatus?.completed,
+      color: "#10b981",
+    },
+    { name: "Ongoing", value: appointmentStatus?.ongoing, color: "#8b5cf6" },
+    // { name: "No Show", value: appointmentStatus?.noShow, color: "#f59e0b" },
+    { name: "Expired", value: appointmentStatus?.expired, color: "#6b7280" },
+    {
+      name: "Cancelled",
+      value: appointmentStatus?.cancelled,
+      color: "#ef4444",
+    },
+  ];
   const appointmentTrendData = data?.data.bookingTrend.values.map((v, i) => ({
     date: data.data.bookingTrend.labels[i],
     bookings: v,
@@ -234,6 +259,30 @@ const DoctorDashboardComponent = () => {
                 </div>
               </div>
 
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all">
+                <h2 className="text-lg font-bold text-gray-900 mb-6">
+                  Appointment Status Distribution
+                </h2>
+                <ResponsiveContainer width="100%" height={250}>
+                  <PieChart>
+                    <Pie
+                      data={appointmentStatusData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, value }) => `${name} ${value}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {appointmentStatusData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+                Total {totalAppointments ?? 0} appointments
+              </div>
               {/* Quick Actions */}
               {/* <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">

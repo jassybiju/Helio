@@ -154,7 +154,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
                       Consultation Fee
                     </p>
                     <p className="text-sm font-semibold text-slate-900">
-                      ${doctor?.onlineFee} - ${doctor?.clinicFee}
+                      ₹{doctor?.onlineFee} - ₹{doctor?.clinicFee}
                     </p>
                   </div>
                 </div>

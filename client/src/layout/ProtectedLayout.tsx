@@ -102,7 +102,7 @@ const ProtectedLayout = ({ children, role }: PropType) => {
     return () => {
       socket.off("notification:new");
     };
-  }, [user, queryClient]);
+  }, [user, queryClient, socket]);
   if (isLoading) {
     return <p className="text-black">"Loading..."</p>;
   }

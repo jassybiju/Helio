@@ -5,13 +5,30 @@ import type { PipelineStage } from "mongoose";
 
 export class SpecialtyRepository implements ISpecialityRepository {
   async findAll() {
-    const docs = await SpecialtyModel.find({ isActive: true }).lean();
+    const docs = await SpecialtyModel.find({
+      isActive: true,
+      is_deleted: false,
+    }).lean();
     return docs.map(
       (doc) =>
         new Specialty(doc._id, doc.name, doc.description ?? "", doc.isActive)
     );
   }
 
+  async findByName(name: string) {
+    const doc = await SpecialtyModel.findOne({ name: name, is_deleted: false });
+    console.log(doc);
+    if (!doc) {
+      return null;
+    }
+
+    return new Specialty(
+      doc._id,
+      doc.name,
+      doc.description ?? "",
+      doc.isActive
+    );
+  }
   async findById(id: string) {
     const doc = await SpecialtyModel.findById(id);
     if (!doc) {
@@ -40,7 +57,10 @@ export class SpecialtyRepository implements ISpecialityRepository {
   }
 
   async findAllActive(): Promise<Specialty[]> {
-    const docs = await SpecialtyModel.find({ isActive: true }).lean();
+    const docs = await SpecialtyModel.find({
+      isActive: true,
+      is_deleted: false,
+    }).lean();
     return docs.map(
       (doc) =>
         new Specialty(doc._id, doc.name, doc.description ?? "", doc.isActive)
@@ -48,7 +68,10 @@ export class SpecialtyRepository implements ISpecialityRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await SpecialtyModel.updateOne({ _id: id }, { $set: { is_deleted: true } });
+    await SpecialtyModel.updateOne(
+      { name: id },
+      { $set: { is_deleted: true } }
+    );
   }
 
   async findMany(filters: { page?: number; limit?: number }): Promise<{
@@ -58,6 +81,7 @@ export class SpecialtyRepository implements ISpecialityRepository {
     const query: Record<string, unknown> = {};
 
     query.isActive = true;
+    query.is_deleted = false;
     if (!filters.page) {
       filters.page = 1;
     }

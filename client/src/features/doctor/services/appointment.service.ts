@@ -68,7 +68,7 @@ export type APPOINTMENT_LIST = {
 
 export interface IDoctorViewAppointment {
   id: string;
-
+  chatSessionId :string;
   patientId: string;
   patientName: string;
 

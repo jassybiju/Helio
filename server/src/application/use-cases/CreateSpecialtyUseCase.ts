@@ -25,6 +25,14 @@ export class CreateSpecialtyUseCase implements ICreateSpecialtyUseCase {
       throw new AppError("Specialty name is required", HTTPStatus.BAD_REQUEST);
     }
 
+    const execSpec = await this._specialtyRepo.findByName(name);
+
+    if (execSpec) {
+      throw new AppError(
+        "Specialty Exists with that name",
+        HTTPStatus.BAD_REQUEST
+      );
+    }
     // (optional but recommended) check duplicate
 
     const id = this._idGenerator.generate("SPEC_");

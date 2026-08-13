@@ -35,6 +35,41 @@ export type FindAppointmentsFilter = {
   order?: "asc" | "desc";
 };
 
+export interface PatientLatestVitals {
+  appointment: Appointment;
+  vitals: {
+    bloodPressure: string | null;
+    oxygenLevel: number | null;
+    heartRate: number | null;
+    temperature: number | null;
+    weight: number | null;
+    height: number | null;
+  };
+}
+
+export interface IActiveMedication {
+  appointmentId: string;
+  doctorId: string;
+  patientId: string;
+  consultationType: CONSULTATION_TYPE;
+
+  startedAt: Date;
+  endedAt: Date | null;
+  medicationPeriod: number | null;
+
+  prescriptions: {
+    name: string;
+    foodTiming: number;
+    timings: {
+      morning: boolean;
+      afternoon: boolean;
+      night: boolean;
+    };
+    durationInDays: number;
+    instructions: string | null;
+  }[];
+}
+
 export interface IAppointmentRepository {
   /**
    * Creates appointment
@@ -132,6 +167,12 @@ export interface IAppointmentRepository {
       expired: number;
     };
   }>;
+
+  getLatestCompletedAppointmentWithVitals(
+    patientId: string
+  ): Promise<PatientLatestVitals | null>;
+
+  getActiveMedications(patientId: string): Promise<IActiveMedication[]>;
 }
 
 export interface IAppointmentDashboardStatistics {

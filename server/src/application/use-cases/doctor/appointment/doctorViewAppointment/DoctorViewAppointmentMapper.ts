@@ -7,12 +7,14 @@ export class DoctorViewAppointmentMapper {
   static toDto(
     appointment: Appointment,
     patient: Patient,
-    consultation: Consultation | null
+    consultation: Consultation | null,
+    chatSessionId: string | null
   ): IDoctorViewAppointmentDTO {
     return {
       id: appointment.id,
       patientId: appointment.patientId,
       patientName: patient.fullName,
+      chatSessionId,
       startTime: appointment.startTime.toISOString(),
       endTime: appointment.endTime.toISOString(),
       consultationType: appointment.consultationType,

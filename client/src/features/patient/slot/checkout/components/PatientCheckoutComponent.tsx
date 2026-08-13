@@ -157,13 +157,13 @@ const PatientCheckoutComponent = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Consultation Fee</span>
                     <span className="font-semibold text-slate-900">
-                      ${checkoutData.appointment.consultationFee?.toFixed(2)}
+                      ₹{checkoutData.appointment.consultationFee?.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Service Charge</span>
                     <span className="font-semibold text-slate-900">
-                      ${checkoutData.appointment.platformFee?.toFixed(2)}
+                      ₹{checkoutData.appointment.platformFee?.toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -172,7 +172,7 @@ const PatientCheckoutComponent = () => {
                 <div className="flex items-center justify-between pt-2">
                   <span className="font-bold text-slate-900">Total Amount</span>
                   <span className="text-3xl font-bold text-blue-600">
-                    ${checkoutData.appointment.totalAmount?.toFixed(2)}
+                    ₹{checkoutData.appointment.totalAmount?.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -255,7 +255,7 @@ const PatientCheckoutComponent = () => {
                     </label>
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold text-slate-900">
-                        ${wallet?.data.balance}
+                      ₹{wallet?.data.balance}
                       </span>
                       <span className="text-sm text-green-600 font-medium">
                         Sufficient funds available
@@ -266,7 +266,7 @@ const PatientCheckoutComponent = () => {
                     <p className="text-sm text-slate-600">
                       Amount to be deducted:{" "}
                       <span className="font-semibold text-slate-900">
-                        ${checkoutData.appointment.totalAmount?.toFixed(2)}
+                        ₹{checkoutData.appointment.totalAmount?.toFixed(2)}
                       </span>
                     </p>
                   </div>
@@ -349,7 +349,7 @@ const PatientCheckoutComponent = () => {
                 <Lock className="w-5 h-5" />
                 {isProcessing
                   ? "Processing..."
-                  : `Pay & Confirm Appointment ($${data.data.appointment.totalAmount?.toFixed(2)})`}
+                  : `Pay & Confirm Appointment (₹${data.data.appointment.totalAmount?.toFixed(2)})`}
               </button>
 
               {/* Security Info */}

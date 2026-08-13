@@ -8,6 +8,7 @@ import { MESSAGE } from "#shared/constants/messages.js";
 import { HTTPStatus } from "#shared/types/HTTPStatus.js";
 import type { IDoctorRepository } from "#application/ports/repositories/IDoctorRepository.js";
 import type { IConsultationRepository } from "#application/ports/repositories/IConsultationRepository.js";
+import type { IChatSessionRepository } from "#application/ports/repositories/IChatSessionRepository.js";
 
 export class GetAppointmentUseCase implements IGetAppointmentUseCase {
   constructor(
@@ -15,7 +16,8 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
     private readonly _patientRepo: IPatientRepository,
     private readonly _appointmentRepo: IAppointmentRepository,
     private readonly _consultationRepo: IConsultationRepository,
-    private readonly _doctorRepo: IDoctorRepository
+    private readonly _doctorRepo: IDoctorRepository,
+    private readonly _chatSessionRepo: IChatSessionRepository
   ) {}
   async execute(
     patientId: string,
@@ -74,6 +76,10 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
       };
     }
 
+    const chatSession = await this._chatSessionRepo.findByPatientIdAndDoctorId(
+      patient.id,
+      doctor.id
+    );
     return {
       appointmentId: appointment.id,
       doctor: {
@@ -100,6 +106,7 @@ export class GetAppointmentUseCase implements IGetAppointmentUseCase {
       consultation: consultationDTO,
       cancellationReason: appointment.cancellationReason,
       createdAt: appointment.createdAt,
+      chatSessionId: chatSession?.id ?? null,
     };
   }
 }

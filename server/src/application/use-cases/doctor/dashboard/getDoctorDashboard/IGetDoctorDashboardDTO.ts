@@ -21,4 +21,15 @@ export interface IGetDoctorDashboardDTO {
     status: string;
     amount: number;
   }[];
+  statusDistribution: {
+    totalAppointments: number;
+    data: {
+      confirmed: number;
+      ongoing: number;
+      completed: number;
+      cancelled: number;
+      noShow: number;
+      expired: number;
+    };
+  };
 }
