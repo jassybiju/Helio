@@ -8,6 +8,7 @@ import PatientAppointmentRescheduleModal from "./PatientAppointmentRescheduleMod
 import { toast } from "react-toastify";
 import { useCancelPatientAppointmentMutation } from "../hooks/useCancelPatientAppointment";
 import { useReschedulePatientAppointmentMutation } from "../hooks/useReschedulePatientAppointmentMutation";
+import { isAxiosError } from "axios";
 
 const PatientAppointmentCancellationModal = ({
   close,
@@ -184,6 +185,12 @@ const PatientAppointmentCancellationModal = ({
                     toast.success("Cacnelled Succesffuly");
                     close();
                   },
+                  onError(error){
+                    console.log(123)
+                    if(isAxiosError(error)){
+                      toast.error(error.response?.data.error)
+                    }
+                  }
                 });
               }
             }}

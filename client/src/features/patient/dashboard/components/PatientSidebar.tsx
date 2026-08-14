@@ -77,7 +77,7 @@ const PatientSidebar = ({ open, onClose }: SidebarProps) => {
         <nav className="flex-1 px-4 py-6 space-y-2">
           {menuItems.map((item) => {
             const isActive =
-              pathname === item.href || pathname.startsWith(item.href + "/");
+              pathname === item.href || pathname.endsWith(item.href + "/");
             const Icon = item.icon;
             return (
               <Link

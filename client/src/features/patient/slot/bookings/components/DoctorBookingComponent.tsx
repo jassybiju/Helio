@@ -166,7 +166,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
           </div>
 
           {/* Booking Interface - Main Content */}
-          <div className="lg:col-span-3 my-10 space-y-4 md:space-y-6">
+          <div className="lg:col-span-3  space-y-4 md:space-y-6">
             {/* DATE */}
             <div className="bg-white p-4 sm:p-6 rounded-lg border">
               {" "}
@@ -272,7 +272,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
             {selectedTime && selectedType && activeDate && (
               <button
                 onClick={handleBooking}
-                className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded"
+                className="w-full mb-4 sm:w-auto bg-blue-600 text-white px-6 py-3 rounded"
               >
                 Continue Booking
               </button>

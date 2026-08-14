@@ -21,7 +21,7 @@ const PatientChatComponent = () => {
   return (
     <div className="flex h-full w-full flex-col">
       <ConsultationChat
-      onBack={()=>router.push('/dashboard/ead chat')}
+      onBack={()=>router.push('/dashboard/chat')}
         onSendMessage={onSendMessage}
         chatData={chatData}
         sendeeData={sendeeData}

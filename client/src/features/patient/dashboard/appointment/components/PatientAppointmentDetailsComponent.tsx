@@ -147,23 +147,23 @@ export default function PatientAppointmentDetailsComponent() {
     CONFIRMED: {
       badge: "Confirmed",
       color: "bg-green-100",
-      textColor: "bg-green-700",
+      textColor: "text-green-700",
     },
     CANCELLED_BY_PATIENT: {
       badge: "Cancelled By Patient",
       color: "bg-red-100",
-      textColor: "bg-red-700",
+      textColor: "text-red-700",
     },
-    SKIPPED: { badge: "Skipped", color: "bg-red-100", textColor: "bg-red-700" },
+    SKIPPED: { badge: "Skipped", color: "bg-red-100", textColor: "text-red-700" },
     DOCTOR_CANCELLATION_REQUESTED: {
       badge: "Doctor Requested Cancellation",
       color: "bg-red-100",
-      textColor: "bg-red-700",
+      textColor: "text-red-700",
     },
     EXPIRED: {
       badge: "Expired",
       color: "bg-gray-100",
-      textColor: "bg-gray-700",
+      textColor: "text-gray-700",
     },
   };
 
@@ -221,7 +221,6 @@ export default function PatientAppointmentDetailsComponent() {
             {config?.badge ?? "UNKOWN"}
           </span>
         </div>
-        {appointment.appointment.status}sdd
         {/* Appointment Details */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <div className="border-l-4 border-blue-600 pl-4">
@@ -230,12 +229,9 @@ export default function PatientAppointmentDetailsComponent() {
             </p>
             <p className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <Calendar className="w-5 h-5 text-blue-600" />
-              {new Date(appointment.appointment.startTime).toLocaleTimeString(
+              {new Date(appointment.appointment.startTime).toLocaleDateString(
                 [],
-                {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                },
+      
               )}
             </p>
           </div>
@@ -285,8 +281,7 @@ export default function PatientAppointmentDetailsComponent() {
           </div>
         </div>
       </div>
-      sddf
-      {fakeDate.toString()}
+      
       {fakeDate ===
         new Date(
           new Date(appointment.appointment.startTime).setHours(0, 0, 0, 0),
@@ -547,7 +542,7 @@ export default function PatientAppointmentDetailsComponent() {
             )} */}
 
             <Link href={`/dashboard/chat/${appointment.chatSessionId}`}>
-              <button className="w-full sm:w-auto px-4 sm:px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
+              <button className="w-full text-nowrap sm:w-auto px-4 sm:px-6 py-3 border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold rounded-lg transition">
                 View Chat
               </button>
             </Link>

@@ -1,5 +1,5 @@
 {
     "backendUrl" : "http://api.helixo.com/v1/api",
-    "backendWsUrl" : "http://api.helixo.com/"
-    
+    "backendWsUrl" : "http://api.helixo.com/",
+    "RazorpayURL" : "rzp_test_TAgRpqGy9zO1UT"
 }    

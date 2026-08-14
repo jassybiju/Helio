@@ -6,12 +6,12 @@ export interface IGetPatientDashboardDTO {
     cancelledAppointments: number;
   };
   vitals: {
-    heartRate: string;
-    bloodPressure: string;
-    oxygenLevel: string;
-    temperature: string;
-    weight: string;
-    height: string;
+    heartRate: string | null;
+    bloodPressure: string | null;
+    oxygenLevel: string | null;
+    temperature: string | null;
+    weight: string | null;
+    height: string | null;
     fromAppointmentId: string;
     date: Date;
   };

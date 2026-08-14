@@ -123,12 +123,12 @@ export class GetPatientDashboardUseCase implements IGetPatientDashboardUseCase {
     const appointment = latestCompletedAppointment.appointment;
 
     return {
-      heartRate: String(vitals.heartRate) ?? "",
-      bloodPressure: vitals.bloodPressure ?? "",
-      oxygenLevel: String(vitals.oxygenLevel) ?? "",
-      temperature: String(vitals.temperature) ?? "",
-      weight: String(vitals.weight) ?? "",
-      height: String(vitals.height) ?? "",
+      heartRate: String(vitals.heartRate) ?? null,
+      bloodPressure: vitals.bloodPressure ?? null,
+      oxygenLevel: String(vitals.oxygenLevel) ?? null,
+      temperature: String(vitals.temperature) ?? null,
+      weight: String(vitals.weight) ?? null,
+      height: String(vitals.height) ?? null,
       fromAppointmentId: appointment.id,
       date: appointment.startTime,
     };

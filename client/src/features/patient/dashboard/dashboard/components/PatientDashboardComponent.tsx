@@ -156,18 +156,20 @@ export default function PatientDashboardComponent() {
             </p>
             <div className="space-y-2 mt-4">
               <p className="text-sm">
-                <span className="font-semibold">Date:</span> {nextVisit?.date}{" "}
-                at{" "}
+                {nextVisit?.date && (
+                <span className="font-semibold">Date: {new Date(nextVisit?.date).toLocaleString()}</span>
+                )
+                }
               </p>
               <p className="text-sm">
                 <span className="font-semibold">Doctor:</span>{" "}
-                {nextVisit?.doctorName} -{" "}
+                {nextVisit?.doctorName} 
               </p>
             </div>
           </div>
-          <button className="px-4 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
-            Reschedule
-          </button>
+          <Link href={`/dashboard/appointment/${nextVisit?.appointmentId}`} className="px-4 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+            View
+          </Link>
         </div>
       </div>
 
