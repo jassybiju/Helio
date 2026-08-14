@@ -38,7 +38,7 @@ const ForgetPasswordForm = ({
           </label>
           <Input
             type="email"
-            placeholder="doctor@stitch.com"
+            placeholder="doctor@helixo.com"
             {...register("email")}
             className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
               errors.email ? "border-red-500" : "border-slate-200"

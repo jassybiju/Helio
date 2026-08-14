@@ -42,7 +42,7 @@ const LoginForm = ({ login, googleLogin }: PropType) => {
           </label>
           <Input
             type="email"
-            placeholder="doctor@stitch.com"
+            placeholder="doctor@helixo.com"
             {...register("email")}
             className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-slate-50 ${
               errors.email ? "border-red-500" : "border-slate-200"
@@ -108,13 +108,7 @@ const LoginForm = ({ login, googleLogin }: PropType) => {
       </div>
 
       {/* Social Login Icons */}
-      <div className="flex justify-center gap-4 mb-8">
-        <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-all shadow-md shadow-slate-200/50 hover:shadow-lg hover:shadow-slate-300/60 hover:scale-110 active:scale-95">
-          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-          </svg>
-        </button>
-      </div>
+     
     </>
   );
 };

@@ -18,7 +18,7 @@ const PatientRegister = () => {
         <PatientRegistrationForm />
         {/* Terms */}
         <p className="text-center text-sm text-slate-600">
-          By signing up, you agree to Stitch's
+          By signing up, you agree to helixo's
           <a href="#" className="text-blue-600 hover:underline">
             Terms of Service
           </a>

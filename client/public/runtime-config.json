@@ -1,3 +1,5 @@
 {
-    "backendUrl" : "http://api.itsjassy.xyz/v1/api"
-}
+    "backendUrl" : "http://api.helixo.com/v1/api",
+    "backendWsUrl" : "http://api.helixo.com/"
+    
+}    

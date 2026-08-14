@@ -140,7 +140,7 @@ export default function FilterSidebar({ onFiltersChange }: FilterSidebarProps) {
             Consultation Fee
           </label>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex  sm:flex-row gap-2">
             <input
               type="number"
               placeholder="Min"

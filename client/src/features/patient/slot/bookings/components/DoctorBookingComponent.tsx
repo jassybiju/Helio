@@ -91,7 +91,10 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
               <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 mx-auto  mb-4  bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-3xl sm:text-4xl relative">
                 <div className=" relative w-full h-full overflow-hidden rounded-full flex items-center justify-center">
                   {doctor?.profilePic ? (
-                       <Image fill style={{objectFit :'cover'}} sizes="100vw"
+                    <Image
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="100vw"
                       className="w-full h-full"
                       src={doctor.profilePic}
                       alt=""
@@ -100,7 +103,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
                     doctor?.fullName[0]
                   )}
                 </div>
-                <span className="absolute bottom-2 right-2 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></span>
+                {/* <span className="absolute bottom-2 right-2 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></span> */}
               </div>
               {/* Doctor Info */}
               <h2 className="text-xl font-bold text-slate-900 text-center">
@@ -163,7 +166,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
           </div>
 
           {/* Booking Interface - Main Content */}
-          <div className="lg:col-span-3 space-y-4 md:space-y-6">
+          <div className="lg:col-span-3 my-10 space-y-4 md:space-y-6">
             {/* DATE */}
             <div className="bg-white p-4 sm:p-6 rounded-lg border">
               {" "}
@@ -175,7 +178,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
                     key={date}
                     onClick={() => changeDate(date)}
                     className={`min-w-[100px] text-nowrap flex-shrink-0  p-2 rounded ${
-                      activeDate === date 
+                      activeDate === date
                         ? "bg-blue-600 text-white"
                         : "bg-gray-100"
                     }`}
@@ -193,68 +196,76 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
             {/* CLINIC */}
             <div className="bg-white p-6 text-nowrap rounded-lg border">
               <h3 className="font-bold mb-4">In-Clinic</h3>
+              {inClinicSlots.length !== 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {inClinicSlots?.map((slot, i: number) => (
+                    <button
+                      key={i}
+                      disabled={slot.status !== "AVAILABLE"}
+                      onClick={() => {
+                        if (slot.status !== "AVAILABLE") return;
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {inClinicSlots.map((slot, i: number) => (
-                  <button
-                    key={i}
-                    disabled={slot.status !== "AVAILABLE"}
-                    onClick={() => {
-                      if (slot.status !== "AVAILABLE") return;
-
-                      setSelectedTime(slot.time);
-                      setSelectedType("in-clinic");
-                    }}
-                    className={`p-2 rounded border transition ${
-                      selectedTime === slot.time && selectedType === "in-clinic"
-                        ? "bg-blue-600 text-white"
-                        : slot.status === "AVAILABLE"
-                          ? "bg-green-100 text-black"
-                          : slot.status === "BOOKED"
-                            ? "bg-red-200 text-red-800 cursor-not-allowed"
-                            : "bg-gray-300 text-gray-700 cursor-not-allowed"
-                    }`}
-                  >
-                    {new Date(slot.time).toLocaleTimeString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </button>
-                ))}
-              </div>
+                        setSelectedTime(slot.time);
+                        setSelectedType("in-clinic");
+                      }}
+                      className={`p-2 rounded border transition ${
+                        selectedTime === slot.time &&
+                        selectedType === "in-clinic"
+                          ? "bg-blue-600 text-white"
+                          : slot.status === "AVAILABLE"
+                            ? "bg-green-100 text-black"
+                            : slot.status === "BOOKED"
+                              ? "bg-red-200 text-red-800 cursor-not-allowed"
+                              : "bg-gray-300 text-gray-700 cursor-not-allowed"
+                      }`}
+                    >
+                      {new Date(slot.time).toLocaleTimeString("en-IN", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                "No Slots Available"
+              )}
             </div>
 
             {/* ONLINE */}
             <div className="bg-white p-6 rounded-lg border">
               <h3 className="font-bold mb-4">Online</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {onlineSlots.map((slot, i: number) => (
-                  <button
-                    key={i}
-                    disabled={slot.status !== "AVAILABLE"}
-                    onClick={() => {
-                      if (slot.status !== "AVAILABLE") return;
+              {onlineSlots.length !== 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {onlineSlots.map((slot, i: number) => (
+                    <button
+                      key={i}
+                      disabled={slot.status !== "AVAILABLE"}
+                      onClick={() => {
+                        if (slot.status !== "AVAILABLE") return;
 
-                      setSelectedTime(slot.time);
-                      setSelectedType("online");
-                    }}
-                    className={`p-2 rounded border transition ${
-                      selectedTime === slot.time && selectedType === "online"
-                        ? "bg-blue-600 text-white"
-                        : slot.status === "AVAILABLE"
-                          ? "bg-green-100 text-black"
-                          : slot.status === "BOOKED"
-                            ? "bg-red-200 text-red-800 cursor-not-allowed"
-                            : "bg-gray-300 text-gray-700 cursor-not-allowed"
-                    }`}
-                  >
-                    {new Date(slot.time).toLocaleTimeString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </button>
-                ))}
-              </div>
+                        setSelectedTime(slot.time);
+                        setSelectedType("online");
+                      }}
+                      className={`p-2 rounded border transition ${
+                        selectedTime === slot.time && selectedType === "online"
+                          ? "bg-blue-600 text-white"
+                          : slot.status === "AVAILABLE"
+                            ? "bg-green-100 text-black"
+                            : slot.status === "BOOKED"
+                              ? "bg-red-200 text-red-800 cursor-not-allowed"
+                              : "bg-gray-300 text-gray-700 cursor-not-allowed"
+                      }`}
+                    >
+                      {new Date(slot.time).toLocaleTimeString("en-IN", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                "No Slots Available"
+              )}
             </div>
 
             {/* BOOK */}
@@ -266,6 +277,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
                 Continue Booking
               </button>
             )}
+          
           </div>
         </div>
         {doctor && (

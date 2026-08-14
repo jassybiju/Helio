@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import UserAuthButtons from "./UserAuthButtons";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = ({ isPatient = false }: { isPatient?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,30 +30,30 @@ const Navbar = ({ isPatient = false }: { isPatient?: boolean }) => {
           {/* Desktop Navigation */}
           {isPatient && (
             <nav className="hidden md:flex items-center gap-8">
-              <a
+              <Link
                 href="/search"
                 className="text-slate-700 hover:text-slate-900 font-medium text-sm"
               >
                 Find Doctors
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/#howitworks"
                 className="text-slate-700 hover:text-slate-900 font-medium text-sm"
               >
                 How it Works
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/#testimonials"
                 className="text-slate-700 hover:text-slate-900 font-medium text-sm"
               >
-                Pricing
-              </a>
-              <a
-                href="#"
+                Testimonials
+              </Link>
+              <Link
+                href="/#faq"
                 className="text-slate-700 hover:text-slate-900 font-medium text-sm"
               >
                 FAQ
-              </a>
+              </Link>
             </nav>
           )}
 

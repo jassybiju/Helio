@@ -61,7 +61,7 @@ export default function DoctorCard({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {" "}
           <div>
-            <p className="text-gray-300 uppercase text-xs font-semibold tracking-wide">
+            <p className="text-gray-600 uppercase text-xs font-semibold tracking-wide">
               Experience
             </p>
             <p className="font-semibold text-gray-900 text-base">

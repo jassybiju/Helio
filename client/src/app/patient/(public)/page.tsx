@@ -121,7 +121,7 @@ const page = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-4 bg-blue-50">
+      <section id="howitworks" className="py-20 px-4 bg-blue-50">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <h2 className="text-4xl font-bold text-slate-900">How It Works</h2>
@@ -154,7 +154,7 @@ const page = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-white">
+      <section id='testimonials' className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <h2 className="text-4xl font-bold text-slate-900">
@@ -205,7 +205,7 @@ const page = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-4 bg-slate-50">
+      <section id="faq" className="py-20 px-4 bg-slate-50">
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-4xl font-bold text-slate-900">
@@ -232,11 +232,6 @@ const page = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="bg-white rounded-2xl p-8 text-center space-y-4 border border-slate-200">
-            <p className="text-slate-600">Still need help?</p>
-            <ClayButton variant="primary">Start Live Chat</ClayButton>
           </div>
         </div>
       </section>
