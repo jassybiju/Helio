@@ -122,8 +122,8 @@ const PatientCheckoutComponent = () => {
                 {/* Doctor */}
                 <div className="flex items-center justify-between pb-4 border-b border-slate-200">
                   <span className="text-slate-600">Doctor</span>
-                  <span className="font-semibold text-slate-900">
-                    Dr. Sarah Johnson (Cardiologist)
+                  <span className="font-semibold text-slate-900 text-wrap text-right">
+                   {checkoutData.doctor.name} ({checkoutData.doctor.specialization})
                   </span>
                 </div>
 
@@ -177,7 +177,7 @@ const PatientCheckoutComponent = () => {
                 </div>
               </div>
 
-              {/* Promo Code */}
+              {/* Promo Code
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Tag className="w-5 h-5 text-blue-600" />
@@ -195,7 +195,7 @@ const PatientCheckoutComponent = () => {
                   onChange={(e) => setPromoCode(e.target.value)}
                   className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Payment Method */}
