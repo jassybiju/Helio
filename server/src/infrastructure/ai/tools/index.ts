@@ -246,12 +246,8 @@ export function createBookAppointment(
         break;
       }
     }
-    console.log("SHFIT DETAILS", {
-      matchedShift,
-      shifts,
-      day: jsToEnumDay[istStart.getDay()]!,
-      getday: istStart.getDay(),
-    });
+
+
     if (!matchedShift) {
       throw new AppError("Invalid slot selected", HTTPStatus.BAD_REQUEST);
     }
@@ -360,6 +356,7 @@ export function createBookAppointment(
       type: TRANSACTION_TYPE.DEBIT,
     });
 
+    transaction.paymentSuccessful()
     /*
      * 12. Persist appointment.
      */
