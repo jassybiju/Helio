@@ -33,7 +33,7 @@ export class GetDoctorProfileUseCase implements IGetDoctorProfileUseCase {
     }
 
     const profilePic = doctor.profilePicKey
-      ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+      ? await this._fileUpload.getFileUrl(doctor.profilePicKey)
       : null;
     return GetDoctorProfileMapper.toDto(doctor, profilePic);
   }

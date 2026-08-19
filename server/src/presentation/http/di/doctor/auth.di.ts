@@ -21,14 +21,14 @@ import { ResetPasswordUseCase } from "#application/use-cases/auth/ResetPasswordU
 import { GoogleLoginUseCase } from "#application/use-cases/auth/googleLogin/GoogleLoginUseCase.js";
 import { GoogleAuthService } from "#infrastructure/services/GoogleAuthService.js";
 import { WalletRepository } from "#infrastructure/database/repositories/WalletRepository.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { BullMQMessageQueue } from "#infrastructure/services/BullMQMessageQueue.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const bcryptPasswordService = new BcryptPasswordService();
 const nanoidGenerator = new NanoidGenerator();
 const otpService = new OTPService();
-const fileUploadService = new CloudinaryFileUploadService();
+const fileUploadService = new S3FileUploadService();
 const accessTokenService = new JWTAccessTokenService();
 const refreshTokenService = new CryptoRefreshTokenService();
 const resetTokenService = new RedisResetTokenService(loggerService);

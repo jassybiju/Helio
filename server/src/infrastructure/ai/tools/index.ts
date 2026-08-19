@@ -247,7 +247,6 @@ export function createBookAppointment(
       }
     }
 
-
     if (!matchedShift) {
       throw new AppError("Invalid slot selected", HTTPStatus.BAD_REQUEST);
     }
@@ -356,7 +355,7 @@ export function createBookAppointment(
       type: TRANSACTION_TYPE.DEBIT,
     });
 
-    transaction.paymentSuccessful()
+    transaction.paymentSuccessful();
     /*
      * 12. Persist appointment.
      */

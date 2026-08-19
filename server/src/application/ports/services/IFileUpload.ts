@@ -8,5 +8,5 @@ export interface IFileUpload {
     secured?: boolean
   ): Promise<string>;
 
-  getFileUrl(filename: string, signed?: boolean): string;
+  getFileUrl(filename: string, signed?: boolean): Promise<string>;
 }

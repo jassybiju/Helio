@@ -9,7 +9,7 @@ import { DoctorBlockShiftRepository } from "#infrastructure/database/repositorie
 import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
 import { ReviewRepository } from "#infrastructure/database/repositories/ReviewRepository.js";
 import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const slotGenerator = new SlotGenerator();
@@ -21,7 +21,7 @@ const appointmentRepo = new AppointmentRepository(loggerService);
 const reviewRepo = new ReviewRepository(loggerService);
 const patientRepo = new PatientRepository(loggerService);
 
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 
 const searchDoctorUseCase = new SearchDoctorsUseCase(
   loggerService,

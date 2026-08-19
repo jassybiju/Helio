@@ -8,12 +8,12 @@ import { UpdateDoctorProfileUseCase } from "#application/use-cases/doctor/profil
 import { ChangeDoctorPasswordUseCase } from "#application/use-cases/doctor/profile/changePassword/DoctorChangePasswordUseCase.js";
 import { BcryptPasswordService } from "#infrastructure/services/BcryptPasswordService.js";
 import { DoctorValidator } from "#application/validators/DoctorValidator.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { DoctorUpdateProfilePictureUseCase } from "#application/use-cases/doctor/profile/updateProfilePicture/DoctorUpdateProfilePictureUseCase.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const doctorRepo = new MongoDoctorRepository(loggerService);
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 const passwordService = new BcryptPasswordService();
 const doctorValidator = new DoctorValidator(doctorRepo, passwordService);
 

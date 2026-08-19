@@ -1,3 +1,4 @@
+# === BASE STAGE ===
 
 FROM node:24-alpine AS base
 
@@ -7,17 +8,29 @@ COPY package*.json ./
 
 RUN npm ci
 
-COPY . .
+# === DEVELOPMENT STAGE ===
 
 FROM base AS development
+COPY . .
 
-CMD ["npm", "run", "dev"]
+# Install Doppler CLI
+RUN apk add --no-cache curl gnupg && \
+    curl -Ls https://cli.doppler.com/install.sh | sh
 
+CMD ["doppler", "run", "--", "npm", "run", "dev"]
+
+# === BUILDER STAGE === 
 
 FROM base AS builder
+
+COPY . .
+
+
 RUN echo "BUILDING NEW CODE"
 
 RUN npm run build
+
+# === PRODUCTION STAGE ===
 
 
 FROM node:24-alpine AS production
@@ -25,6 +38,11 @@ FROM node:24-alpine AS production
 WORKDIR /app
 
 ENV NODE_ENV=production
+# Install Doppler CLI
+RUN apk add --no-cache curl gnupg && \
+    curl -Ls https://cli.doppler.com/install.sh | sh
+
+
 
 COPY package*.json ./
 
@@ -36,10 +54,4 @@ COPY --from=builder /app/templates ./templates
 
 EXPOSE 5000
 
-CMD ["node", "dist/server.js"]
-
-# FROM base as production
-
-# ENV NODE_PATH=./build
-
-# RUN npm run dev
+CMD ["doppler", "run", "--", "node", "dist/server.js"]

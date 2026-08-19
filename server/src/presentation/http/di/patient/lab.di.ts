@@ -4,11 +4,11 @@ import { PinoLoggerService } from "#infrastructure/services/PinoLoggerService.js
 import { PatientRepository } from "#infrastructure/database/repositories/MongoPatientRepository.js";
 import { LabReportRepository } from "#infrastructure/database/repositories/LabReportRepository.js";
 import { UploadPatientLabReportUseCase } from "#application/use-cases/patient/appointments/lab/uploadLabReport/UploadPatientLabReportUseCase.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 const logger = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(logger);
 const labRepo = new LabReportRepository(logger);
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 const getAllLabReport = new GetPatientLabReportUseCase(
   logger,
   patientRepo,

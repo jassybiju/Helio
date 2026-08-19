@@ -137,24 +137,26 @@ export class GetSlotUseCase implements IGetSlotUseCase {
         onlineFee: doctor.onlineFee,
         yearsOfExperience: doctor.yearsOfExperience,
         profilePic: doctor.profilePicKey
-          ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+          ? await this._fileUpload.getFileUrl(doctor.profilePicKey)
           : null,
       },
 
-      reviews: reviews.map((review) => {
-        const patient = patientsById.get(review.patientId);
+      reviews: await Promise.all(
+        reviews.map(async (review) => {
+          const patient = patientsById.get(review.patientId);
 
-        return {
-          id: review.id,
-          comments: review.comments,
-          patientName: patient?.fullName ?? "No Name",
-          ratings: review.rating,
-          createdAt: review.createdAt,
-          profilePic: patient?.profilePicKey
-            ? this._fileUpload.getFileUrl(patient.profilePicKey)
-            : null,
-        };
-      }),
+          return {
+            id: review.id,
+            comments: review.comments,
+            patientName: patient?.fullName ?? "No Name",
+            ratings: review.rating,
+            createdAt: review.createdAt,
+            profilePic: patient?.profilePicKey
+              ? await this._fileUpload.getFileUrl(patient.profilePicKey)
+              : null,
+          };
+        })
+      ),
 
       totalReviews,
     };

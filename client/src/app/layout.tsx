@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "../layout/QueryProvider";
-import {ApiConfigProvider} from "../layout/ApiConfigProvider";
 import AuthProvider from "../layout/AuthProvider";
 import { Bounce, ToastContainer } from "react-toastify";
 import { ModalProvider, } from "../layout/ModalProvider";
@@ -33,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ApiConfigProvider>
+        
         <QueryProvider>
           <AuthProvider>
             <ModalProvider>
@@ -54,7 +53,7 @@ export default function RootLayout({
             </ModalProvider>
           </AuthProvider>
         </QueryProvider>
-        </ApiConfigProvider>
+        
       </body>
     </html>
   );

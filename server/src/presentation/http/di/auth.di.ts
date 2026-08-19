@@ -11,8 +11,8 @@ import { RedisSessionRepository } from "#infrastructure/database/repositories/Re
 import { CryptoRefreshTokenService } from "#infrastructure/services/CryptoRefreshTokenService.js";
 import { JWTAccessTokenService } from "#infrastructure/services/JWTAccessTokenService.js";
 import { LogoutUseCase } from "#application/use-cases/auth/logout/LogoutUseCase.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { AdminRepository } from "#infrastructure/database/repositories/AdminRepository.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 
@@ -23,7 +23,7 @@ const adminRepo = new AdminRepository();
 
 const refreshTokenService = new CryptoRefreshTokenService();
 const accessTokenService = new JWTAccessTokenService();
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 
 const doctorGetMeHandler = new DoctorGetMeHandler(doctorRepo, fileUpload);
 const patientGetMeHandler = new PatientGetMeHandler(patientRepo, fileUpload);

@@ -66,7 +66,7 @@ export class GetAllAppointmentUseCase implements IGetAllAppointmentsUseCase {
             name: doctor?.fullName ?? "Unknown Doctor",
             specialization: doctor?.specialization ?? "",
             profilePicture: doctor?.profilePicKey
-              ? this._fileUpload.getFileUrl(doctor.profilePicKey)
+              ? await this._fileUpload.getFileUrl(doctor.profilePicKey)
               : null,
           },
 

@@ -5,12 +5,12 @@ import { PatientRepository } from "#infrastructure/database/repositories/MongoPa
 import { ToggleBlockPatientUseCase } from "#application/use-cases/admin/patient/toggleBlock/ToggleBlockPatientUseCase.js";
 import { GetPatientUseCase } from "#application/use-cases/admin/patient/getPatient/GetPatientUseCase.js";
 import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 const appointmentRepo = new AppointmentRepository(loggerService);
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 
 const getAllPatientsUseCase = new GetAllPatientsUseCase(
   loggerService,

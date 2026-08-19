@@ -47,7 +47,11 @@ export class CloudinaryFileUploadService implements IFileUpload {
     });
   }
 
-  getFileUrl(filename: string, secured: boolean = false): string {
+  async getFileUrl(
+    filename: string,
+    secured: boolean = false
+  ): Promise<string> {
+    console.log("ERROR");
     return cloudinary.url(filename, {
       secure: true,
       resource_type: "image",

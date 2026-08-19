@@ -27,17 +27,19 @@ export class GetDoctorUseCase implements IGetDoctorUseCase {
     }
 
     const documentUrl = doctor.documentKey
-      ? this._fileUpload.getFileUrl(doctor.documentKey, true)
+      ? await this._fileUpload.getFileUrl(doctor.documentKey, true)
       : null;
 
-    const verificationHistory = doctor.verificationHistory.map((his) => ({
-      status: his.status,
-      reason: his.reason,
-      documentUrl: his.documentKey
-        ? this._fileUpload.getFileUrl(his.documentKey, true)
-        : null,
-      actedAt: his.actedAt.toISOString(),
-    }));
+    const verificationHistory = await Promise.all(
+      doctor.verificationHistory.map(async (his) => ({
+        status: his.status,
+        reason: his.reason,
+        documentUrl: his.documentKey
+          ? await this._fileUpload.getFileUrl(his.documentKey, true)
+          : null,
+        actedAt: his.actedAt.toISOString(),
+      }))
+    );
 
     const { totalAppointments, appointmentStatusDistribution } =
       await this._appointmentRepo.getDoctorAppointmentStatusDistribution(

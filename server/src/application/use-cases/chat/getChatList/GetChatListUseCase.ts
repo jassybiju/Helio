@@ -70,7 +70,7 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           id: session.id,
           name: sendee?.fullName ?? "Unknown User",
           profilePic: sendee?.profilePicKey
-            ? this._fileUpload.getFileUrl(sendee.profilePicKey)
+            ? await this._fileUpload.getFileUrl(sendee.profilePicKey)
             : null,
           message: lastMessage?.message,
           expiresIn,
@@ -80,7 +80,7 @@ export class GetChatListUseCase implements IGetChatListUseCase {
           id: session.id,
           name: sendee?.fullName ?? "Unknown User",
           profilePic: sendee?.profilePicKey
-            ? this._fileUpload.getFileUrl(sendee.profilePicKey)
+            ? await this._fileUpload.getFileUrl(sendee.profilePicKey)
             : null,
           message: lastMessage?.message,
           expiresIn,

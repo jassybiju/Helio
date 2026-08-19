@@ -137,8 +137,8 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
       })
     );
 
-    const labReportHistory =
-      labReports.reports?.map((report) => ({
+    const labReportHistory = await Promise.all(
+      labReports.reports?.map(async (report) => ({
         id: report.id,
         type: "LAB_REPORT",
         date: report.uploadedAt ?? report.requestedAt,
@@ -150,13 +150,14 @@ export class DoctorViewHistoryUseCase implements IViewHistoryUseCase {
 
         uploadedAt: report.uploadedAt,
 
-        documentKey: this._fileUpload.getFileUrl(
+        documentKey: await this._fileUpload.getFileUrl(
           report.documentKey ?? "",
           true
         ),
 
         status: report.status,
-      })) ?? [];
+      })) ?? []
+    );
     console.log(consultationHistory, labReportHistory);
 
     const history = [...consultationHistory, ...labReportHistory].sort(

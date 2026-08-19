@@ -52,22 +52,24 @@ export class SearchDoctorsUseCase implements ISearchDoctorUseCase {
     );
 
     return {
-      data: slots.map((s) => {
-        const doctor = doctors.find((doc) => doc.id == s.doctorId)!;
-        return {
-          doctorId: s.doctorId,
-          name: doctor.fullName,
-          specialization: doctor.specialization,
-          experienceYears: doctor.yearsOfExperience,
-          fees: { clinic: doctor?.clinicFee, online: doctor?.onlineFee },
-          consultationType: s.consultationType,
-          location: s.location ?? null,
-          nextAvailableSlot: s.startTime,
-          profilePic: doctor.profilePicKey
-            ? this._fileUpload.getFileUrl(doctor.profilePicKey)
-            : null,
-        };
-      }),
+      data: await Promise.all(
+        slots.map(async (s) => {
+          const doctor = doctors.find((doc) => doc.id == s.doctorId)!;
+          return {
+            doctorId: s.doctorId,
+            name: doctor.fullName,
+            specialization: doctor.specialization,
+            experienceYears: doctor.yearsOfExperience,
+            fees: { clinic: doctor?.clinicFee, online: doctor?.onlineFee },
+            consultationType: s.consultationType,
+            location: s.location ?? null,
+            nextAvailableSlot: s.startTime,
+            profilePic: doctor.profilePicKey
+              ? await this._fileUpload.getFileUrl(doctor.profilePicKey)
+              : null,
+          };
+        })
+      ),
       totalCount,
     };
   }

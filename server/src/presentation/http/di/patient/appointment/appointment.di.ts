@@ -27,15 +27,15 @@ import { RespondPatientResheduleAppointmentUseCase } from "#application/use-case
 import { RespondPatientCancelAndRefundAppointmentUseCase } from "#application/use-cases/patient/appointments/cancellation/cancelAndRefundResponse/RespondPatientCancelAndRefundUseCase.js";
 import { PatientAppointmentCancellationUseCase } from "#application/use-cases/patient/appointments/cancellation/patientCancel/PatientAppointmentCancellationUseCase.js";
 import { PatientRescheduleAppointmentUseCase } from "#application/use-cases/patient/appointments/cancellation/reschedulePatient/PatientRescheduleAppointmentUseCase.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { SocketRealTimeNotifier } from "#infrastructure/services/SocketRealTimeNotifier.js";
 import { NotificationService } from "#application/service/NotificationService.js";
 import { NotificationRepository } from "#infrastructure/database/repositories/NotificationRepository.js";
 import { ChatSessionRepository } from "#infrastructure/database/repositories/ChatSessionRepository.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const logger = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(logger);
 const doctorShiftRepo = new DoctorShiftRepository(logger);

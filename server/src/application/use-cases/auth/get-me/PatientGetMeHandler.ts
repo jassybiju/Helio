@@ -28,7 +28,7 @@ export class PatientGetMeHandler implements IGetMeHandler {
     }
 
     const profilePic = patient.profilePicKey
-      ? this._fileUpload.getFileUrl(patient.profilePicKey)
+      ? await this._fileUpload.getFileUrl(patient.profilePicKey)
       : null;
 
     return {

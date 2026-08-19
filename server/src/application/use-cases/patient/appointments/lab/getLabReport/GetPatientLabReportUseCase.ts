@@ -45,20 +45,22 @@ export class GetPatientLabReportUseCase implements IGetPatientLabReportUseCase {
       })),
 
       uploaded: {
-        reports: uploadedReports.map((report) => ({
-          id: report.id,
-          testName: report.testName,
-          documentKey: this._fileUpload.getFileUrl(
-            report.documentKey ?? "",
-            true
-          ),
-          remarks: report.remarks,
-          instructions: report.instructions,
-          requestedAt: report.requestedAt,
-          uploadedAt: report.uploadedAt,
-          status: report.status,
-          appointmentId: report.appointmentId,
-        })),
+        reports: await Promise.all(
+          uploadedReports.map(async (report) => ({
+            id: report.id,
+            testName: report.testName,
+            documentKey: await this._fileUpload.getFileUrl(
+              report.documentKey ?? "",
+              true
+            ),
+            remarks: report.remarks,
+            instructions: report.instructions,
+            requestedAt: report.requestedAt,
+            uploadedAt: report.uploadedAt,
+            status: report.status,
+            appointmentId: report.appointmentId,
+          }))
+        ),
 
         totalCount,
         page: data.page,

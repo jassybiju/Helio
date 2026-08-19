@@ -85,11 +85,11 @@ services:
       - ./server:/app
       - backend_node_modules:/app/node_modules
     container_name: backend
-    env_file:
-      - ./server/.env
+    environment:
+      DOPPLER_TOKEN:
     expose:
        - '5000'
-    command: sh -c "npm run eslint-fix && npm run dev"
+    command: doppler run -- sh -c "npm run eslint-fix && npm run dev"
     depends_on:
       - mongo
       - redis

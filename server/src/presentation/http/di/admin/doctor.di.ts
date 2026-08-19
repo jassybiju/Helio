@@ -5,19 +5,18 @@ import { AdminDoctorController } from "../../controllers/admin/doctor.controller
 import { ChangeDoctorApprovalStatusUseCase } from "#application/use-cases/admin/doctor/changeDoctorApprovalStatus/ChangeDoctorApprovalStatusUseCase.js";
 import { GetDoctorUseCase } from "#application/use-cases/admin/doctor/getDoctor/GetDoctorUseCase.js";
 import { ToggleBlockDoctorUseCase } from "#application/use-cases/admin/doctor/toggleBlock/ToggleBlockDoctorUseCase.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { AppointmentRepository } from "#infrastructure/database/repositories/AppointmentRepository.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
-const fileUploadService = new CloudinaryFileUploadService();
+const fileUploadService = new S3FileUploadService();
 
 const doctorRepo = new MongoDoctorRepository(loggerService);
-const fileUpload = new CloudinaryFileUploadService();
 const appointmentRepo = new AppointmentRepository(loggerService);
 const getAllDoctorsUseCase = new GetAllDoctorUseCase(
   loggerService,
   doctorRepo,
-  fileUpload
+  fileUploadService
 );
 const changeDoctorApprovalStatusUseCase = new ChangeDoctorApprovalStatusUseCase(
   loggerService,

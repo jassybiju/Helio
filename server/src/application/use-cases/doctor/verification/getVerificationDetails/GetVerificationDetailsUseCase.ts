@@ -22,21 +22,23 @@ export class GetVerificationDetailsUseCase implements IGetVerificationDetailsUse
     }
 
     let document_url: string = doctor.documentKey
-      ? this._fileUpload.getFileUrl(doctor.documentKey, true)
+      ? await this._fileUpload.getFileUrl(doctor.documentKey, true)
       : "";
 
     return {
       verification_status: doctor.verificationStatus,
       document_url: document_url,
       rejection_reason: doctor.rejectionReason ?? "",
-      verification_history: doctor.verificationHistory.map((doc) => ({
-        verification_status: doc.status,
-        rejection_reason: doc.reason ?? "",
-        actedAt: doc.actedAt.toLocaleString(),
-        document_url: doc.documentKey
-          ? this._fileUpload.getFileUrl(doc.documentKey, true)
-          : "",
-      })),
+      verification_history: await Promise.all(
+        doctor.verificationHistory.map(async (doc) => ({
+          verification_status: doc.status,
+          rejection_reason: doc.reason ?? "",
+          actedAt: doc.actedAt.toLocaleString(),
+          document_url: doc.documentKey
+            ? await this._fileUpload.getFileUrl(doc.documentKey, true)
+            : "",
+        }))
+      ),
       userId: doctor.id,
     };
   }

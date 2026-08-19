@@ -24,7 +24,7 @@ export class GetPatientProfileUseCase implements IGetPatientProfileUseCase {
     }
 
     const profilePic = patient.profilePicKey
-      ? this._fileUpload.getFileUrl(patient.profilePicKey)
+      ? await this._fileUpload.getFileUrl(patient.profilePicKey)
       : null;
     return GetPatientProfileMapper.toDto(patient, profilePic);
   }

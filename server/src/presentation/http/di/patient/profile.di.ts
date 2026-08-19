@@ -14,13 +14,13 @@ import { BcryptPasswordService } from "#infrastructure/services/BcryptPasswordSe
 import { PatientValidator } from "#application/validators/PatientValidator.js";
 import { UpdatePatientProfileUseCase } from "#application/use-cases/patient/profile/updatePatientProfile/UpdatePatientProfileUseCase.js";
 import { PatientUpdateProfilePictureUseCase } from "#application/use-cases/patient/updateProfilePic/PatientUpdateProfilePictureUseCase.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const patientRepo = new PatientRepository(loggerService);
 const idGenerator = new NanoidGenerator();
 const bcryptPasswordService = new BcryptPasswordService();
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 
 const patientProfileCompleteUseCase = new CompletePatientProfileUseCase(
   loggerService,

@@ -51,7 +51,10 @@ export class GetAllDoctorUseCase implements IGetAllDoctorsUseCase {
       await this._doctorRepo.findAllWithFilters(filter);
 
     return {
-      doctors: GetAllDoctorMapper.toDto(doctors, this._fileUpload.getFileUrl),
+      doctors: await GetAllDoctorMapper.toDto(
+        doctors,
+        this._fileUpload.getFileUrl
+      ),
       totalCount,
       page,
       limit,

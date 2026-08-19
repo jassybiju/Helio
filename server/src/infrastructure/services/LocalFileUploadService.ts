@@ -32,7 +32,7 @@ export class LocalFileUploadService implements IFileUpload {
     return uniqueNamme;
   }
 
-  getFileUrl(filename: string): string {
+  async getFileUrl(filename: string): Promise<string> {
     return `${this._baseUrl}/uploads/${filename}`;
   }
 }

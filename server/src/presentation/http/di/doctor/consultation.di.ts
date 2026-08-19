@@ -16,10 +16,10 @@ import { LabReportRepository } from "#infrastructure/database/repositories/LabRe
 import { NanoidGenerator } from "#infrastructure/services/NanoidGenerator.js";
 import { DoctorRemoveLabReportUseCase } from "#application/use-cases/doctor/consultation/labReport/DoctorRemoveLabReportUseCase.js";
 import { DoctorViewHistoryUseCase } from "#application/use-cases/doctor/consultation/viewHistory/DoctorViewHistoryUseCase.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
 import { ChatSessionRepository } from "#infrastructure/database/repositories/ChatSessionRepository.js";
 import { WalletTransactionRepository } from "#infrastructure/database/repositories/WalletTransactionRepository.js";
 import { WalletRepository } from "#infrastructure/database/repositories/WalletRepository.js";
+import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 
 const loggerService = PinoLoggerService.getInstance();
 const idGenerator = new NanoidGenerator();
@@ -30,7 +30,7 @@ const patientRepo = new PatientRepository(loggerService);
 const consultationRepo = new ConsultationRepository(loggerService);
 const labRepo = new LabReportRepository(loggerService);
 const uow = new MongoUnitOfWork();
-const fileUpload = new CloudinaryFileUploadService();
+const fileUpload = new S3FileUploadService();
 const chatSessionRepo = new ChatSessionRepository(loggerService);
 const transactionRepo = new WalletTransactionRepository(loggerService);
 const walletRepo = new WalletRepository(loggerService);
