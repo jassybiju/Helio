@@ -98,7 +98,7 @@ export interface IDOCTOR_VIEW_CONSULTATION {
     height: number | null;
   };
   currentVitals: {
-    bloodPressure: string | null;
+    bloodPressure: number | null;
     oxygenLevel: number | null;
     heartRate: number | null;
     temperature: number | null;
@@ -134,7 +134,7 @@ export const doctorConsultationService = {
   updateVitals: (
     id: string,
     data: {
-      bloodPressure: string | null;
+      bloodPressure: number | null;
       oxygenLevel: number | null;
       temperature: number | null;
       weight: number | null;

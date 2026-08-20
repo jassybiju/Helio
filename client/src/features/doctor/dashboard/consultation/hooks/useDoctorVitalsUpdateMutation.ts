@@ -6,7 +6,7 @@ import { isAxiosError } from "axios";
 export const useDoctorVitalsUpdateMutations = (id: string) => {
   return useMutation({
     mutationFn: (data: {
-      bloodPressure: string | null;
+      bloodPressure: number | null;
       oxygenLevel: number| null;
       temperature: number| null;
       weight: number| null;

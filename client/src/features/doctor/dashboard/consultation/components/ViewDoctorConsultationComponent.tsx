@@ -258,7 +258,7 @@ font-semibold
                     )} */}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                    {previousVitals.bloodPressure && (
+                    {!!previousVitals.bloodPressure && (
                       <div className="bg-blue-50 rounded-lg p-4 sm:p-6 text-center border border-blue-200">
                         <p className="text-xs font-semibold text-blue-600 uppercase mb-2">
                           Blood Pressure
@@ -269,7 +269,7 @@ font-semibold
                         <p className="text-xs text-slate-600 mt-1">mmHg</p>
                       </div>
                     )}
-                    {previousVitals.heartRate && (
+                    {!!previousVitals.heartRate && (
                       <div className="bg-red-50 rounded-lg p-4 sm:p-6 text-center border border-red-200">
                         <p className="text-xs font-semibold text-red-600 uppercase mb-2">
                           Heart Rate
@@ -280,7 +280,7 @@ font-semibold
                         <p className="text-xs text-slate-600 mt-1">bpm</p>
                       </div>
                     )}
-                    {previousVitals.temperature && (
+                    {!!previousVitals.temperature && (
                       <div className="bg-amber-50 rounded-lg p-4 sm:p-6 text-center border border-amber-200">
                         <p className="text-xs font-semibold text-amber-600 uppercase mb-2">
                           Temperature
@@ -292,7 +292,7 @@ font-semibold
                       </div>
                     )}
 
-                    {previousVitals.oxygenLevel && (
+                    {!!previousVitals.oxygenLevel && (
                       <div className="bg-green-50 rounded-lg p-4 sm:p-6 text-center border border-green-200">
                         <p className="text-xs font-semibold text-green-600 uppercase mb-2">
                           SPO2
@@ -303,7 +303,7 @@ font-semibold
                         <p className="text-xs text-slate-600 mt-1">%</p>
                       </div>
                     )}
-                    {previousVitals.weight && (
+                    {!!previousVitals.weight && (
                       <div className="bg-purple-50 rounded-lg p-4 sm:p-6 text-center border border-purple-200">
                         <p className="text-xs font-semibold text-purple-600 uppercase mb-2">
                           Weight
@@ -315,7 +315,7 @@ font-semibold
                       </div>
                     )}
 
-                    {previousVitals.height && (
+                    {!!previousVitals.height && (
                       <div className="bg-indigo-50 rounded-lg p-4 sm:p-6 text-center border border-indigo-200">
                         <p className="text-xs font-semibold text-indigo-600 uppercase mb-2">
                           Height

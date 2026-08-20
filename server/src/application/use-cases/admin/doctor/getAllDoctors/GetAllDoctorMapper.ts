@@ -1,6 +1,4 @@
 import type { Doctor } from "#domain/entities/Doctor.js";
-import { CloudinaryFileUploadService } from "#infrastructure/services/CloudinaryFileUploadService.js";
-import { S3FileUploadService } from "#infrastructure/services/S3FileUploadService.js";
 import type { IGetAllDoctorsResponseDTO } from "./IGetAllDoctorsDTO.js";
 
 export class GetAllDoctorMapper {

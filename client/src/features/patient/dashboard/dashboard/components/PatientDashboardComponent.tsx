@@ -279,7 +279,7 @@ export default function PatientDashboardComponent() {
           {/* Doctor Header */}
           <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-semibold text-slate-700">
-              Dr. {medication.doctorName}
+              For Appointment :  {medication.fromAppointemnts}
             </p>
 
             <Link

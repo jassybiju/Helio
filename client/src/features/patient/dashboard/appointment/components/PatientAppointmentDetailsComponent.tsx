@@ -276,7 +276,7 @@ export default function PatientAppointmentDetailsComponent() {
               Consultation Fees
             </p>
             <p className="text-lg font-bold text-slate-900 whitespace-nowrap">
-              ${appointment.appointment.totalAmount}
+              ₹{appointment.appointment.totalAmount}
             </p>
           </div>
         </div>

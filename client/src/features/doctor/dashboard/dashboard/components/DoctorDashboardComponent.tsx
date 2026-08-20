@@ -16,7 +16,7 @@ import {
 import { Calendar, Clock, CheckCircle, Users, Wallet } from "lucide-react";
 import ClayWrapper from "@/src/components/ui/ClayWrapper";
 import { useDoctorDashboardQuery } from "../hooks/useDoctorDashboardQuery";
-
+import Link from "next/link";
 // Mock Data
 const kpiCards = [
   {
@@ -372,9 +372,10 @@ const DoctorDashboardComponent = () => {
                     </tbody>
                   </table>
                 </div>
-
                 <button className="mt-6 w-full py-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                <Link href={'/wallet'}>
                   View All Transactions
+                </Link>
                 </button>
               </div>
 

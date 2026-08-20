@@ -1,4 +1,8 @@
 import type {
+  IGetAllAppointmentDTO,
+  IGetAllAppointmentInput,
+} from "#application/use-cases/admin/appointments/getAllAppointment/IGetAllAppointmentDTO.js";
+import type {
   APPOINTMENT_STATUS,
   BOOKING_PERIOD,
 } from "#domain/common/enums/appointment.enum.js";
@@ -137,6 +141,10 @@ export interface IAppointmentRepository {
     doctorId: string,
     startTime: Date
   ): Promise<Appointment[]>;
+
+  paginatedAppointmentDetailsForAdmin(
+    input: IGetAllAppointmentInput
+  ): Promise<IGetAllAppointmentDTO>;
 
   findAllWithFilters(
     filters: FindAppointmentsFilter

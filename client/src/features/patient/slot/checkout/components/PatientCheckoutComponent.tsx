@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { DollarSign, Tag, Lock, Wallet, CreditCard } from "lucide-react";
+import { DollarSign,  Lock, Wallet, CreditCard } from "lucide-react";
 import { useParams } from "next/navigation";
 import { usePatientCheckoutQuery } from "../hooks/usePatientCheckoutQuery";
 import { useGetWalletQuery } from "@/src/features/wallet/hooks/useGetWalletQuery";
@@ -23,7 +23,6 @@ const PatientCheckoutComponent = () => {
   const [selectedPayment, setSelectedPayment] = useState<"WALLET" | "RAZORPAY">(
     "WALLET",
   );
-  const [promoCode, setPromoCode] = useState("");
 
   const CONFIG = getRuntimeConfig()
   const handlePayment = async () => {

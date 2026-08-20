@@ -107,6 +107,8 @@ export class DoctorEndConsultationUseCase implements IDoctorEndConsultationUseCa
         description: `PAYMENT FOR APPOINTMENT OF ID ${appointment.id}`,
       });
 
+      transaction.paymentSuccessful();
+
       wallet.credit(appointment.consultationFee);
 
       const adminWallet = await walletRepo.findAdminWallet();

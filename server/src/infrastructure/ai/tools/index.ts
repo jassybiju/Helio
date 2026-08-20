@@ -349,10 +349,11 @@ export function createBookAppointment(
     wallet.debit(consultationFee!);
 
     const transaction = WalletTransaction.createTransaction({
-      id: idGenerator.generate(process.env.TRANS_PREFIX!),
+      id: idGenerator.generate(process.env.TRANSACTION_PREFIX!),
       walletId: wallet.id,
       amount: consultationFee!,
       type: TRANSACTION_TYPE.DEBIT,
+      description: `AI PAYMENT FOR APPOINTMENT ${appointment.id}`,
     });
 
     transaction.paymentSuccessful();

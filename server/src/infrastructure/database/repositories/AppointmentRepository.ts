@@ -23,6 +23,10 @@ import type { PatientRawDoc } from "../model/PatientModel.js";
 import type { DoctorRawDoc } from "../model/DoctorModel.js";
 import { istToUtc, utcToIst } from "#shared/utils/date.utils.js";
 import type { ILogger } from "#application/ports/services/ILogger.js";
+import type {
+  IGetAllAppointmentDTO,
+  IGetAllAppointmentInput,
+} from "#application/use-cases/admin/appointments/getAllAppointment/IGetAllAppointmentDTO.js";
 
 export class AppointmentRepository
   extends BaseRepository<Appointment, AppointmentRaw>
@@ -228,7 +232,7 @@ export class AppointmentRepository
       },
       {
         $sort: {
-          start_time: 1,
+          end_time: -1,
         },
       },
       {
@@ -250,6 +254,142 @@ export class AppointmentRepository
         height: result.consultation.vitals?.height ?? null,
         weight: result.consultation.vitals?.weight ?? null,
       },
+    };
+  }
+
+  async paginatedAppointmentDetailsForAdmin(
+    input: IGetAllAppointmentInput
+  ): Promise<IGetAllAppointmentDTO> {
+    const page = Math.max(input.page ?? 1, 1);
+    const limit = Math.max(input.limit ?? 10, 1);
+
+    const skip = (page - 1) * limit;
+
+    const matchStage: Record<string, unknown> = {};
+
+    if (input.status) {
+      matchStage.status = input.status;
+    }
+
+    const search = input.search?.trim();
+
+    const pipeline: PipelineStage[] = [
+      {
+        $match: matchStage,
+      },
+
+      {
+        $lookup: {
+          from: "patientmodels",
+          localField: "patient_id",
+          foreignField: "_id",
+          as: "patient",
+        },
+      },
+
+      {
+        $lookup: {
+          from: "doctormodels",
+          localField: "doctor_id",
+          foreignField: "_id",
+          as: "doctor",
+        },
+      },
+
+      {
+        $unwind: {
+          path: "$patient",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+
+      {
+        $unwind: {
+          path: "$doctor",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+
+      ...(search
+        ? [
+            {
+              $match: {
+                $or: [
+                  {
+                    _id: {
+                      $regex: search,
+                      $options: "i",
+                    },
+                  },
+                  {
+                    "patient.first_name": {
+                      $regex: search,
+                      $options: "i",
+                    },
+                  },
+                  {
+                    "doctor.full_name": {
+                      $regex: search,
+                      $options: "i",
+                    },
+                  },
+                ],
+              },
+            },
+          ]
+        : []),
+
+      {
+        $facet: {
+          appointments: [
+            {
+              $sort: {
+                createdAt: -1,
+              },
+            },
+            {
+              $skip: skip,
+            },
+            {
+              $limit: limit,
+            },
+            {
+              $project: {
+                _id: 0,
+                id: { $toString: "$_id" },
+
+                patientName: "$patient.first_name",
+                doctorName: "$doctor.full_name",
+
+                specialty: "$doctor.specialization",
+
+                type: "$consultation_type",
+                status: 1,
+                payment_status: 1,
+              },
+            },
+          ],
+
+          totalCount: [
+            {
+              $count: "count",
+            },
+          ],
+        },
+      },
+    ];
+
+    const [result] = await super.aggregate<{
+      totalCount: [{ count: number }];
+      appointments: IGetAllAppointmentDTO["appointments"];
+    }>(pipeline);
+
+    const totalCount = result?.totalCount?.[0]?.count ?? 0;
+    return {
+      appointments: result?.appointments ?? [],
+      totalCount,
+      page,
+      limit,
     };
   }
 

@@ -40,7 +40,7 @@ interface RecordedVital {
 export type TAB_TYPES = "overview" | "history" | "prescription" | "labtest";
 
 type ConsultationForm = {
-  bloodPressure: string | null;
+  bloodPressure: number | null;
   heartRate: number | null;
   temperature: number | null;
   oxygenLevel: number | null;
@@ -217,7 +217,7 @@ const useDoctorConsultation = (id: string) => {
 
   const handleSaveVitals = handleSubmit((values) => {
     updateVitals({
-      bloodPressure: values.bloodPressure as string,
+      bloodPressure: Number(values.bloodPressure) as number,
 
       heartRate: Number(values.heartRate) as number,
 

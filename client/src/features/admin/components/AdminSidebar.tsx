@@ -18,6 +18,7 @@ const menuItems = [
   { label: "Dashboard", href: "/", icon: LayoutGrid },
   { label: "Patients", href: "/patients", icon: Users },
   { label: "Doctors", href: "/doctor", icon: Stethoscope },
+  { label: "Appointment", href: "/appointment", icon: Stethoscope },
   { label: "Specialty", href: "/specialty", icon: ClipboardPlus },
   { label: "Revenue", href: "/wallet", icon: DollarSign },
   // { label: "Revenue", href: "/revenue", icon: DollarSign },

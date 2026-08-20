@@ -4,7 +4,7 @@ export type USER_DATA = {
   role: USER_ROLES;
   status?: DOCTOR_STATUS;
   isProfileComplete: boolean;
-  profilePic? : string
+  profilePic?: string;
 };
 
 export enum USER_ROLES {
@@ -20,8 +20,12 @@ export enum DOCTOR_STATUS {
 }
 
 export enum BLOOD_GROUP {
+  A_NEG = "A-",
+  B_NEG = "B-",
+  AB_NEG = "AB-",
+  O_NEG = "O-",
+  O_POS = "O+",
   A_POS = "A+",
   B_POS = "B+",
-  C_POS = "C+",
-  D_POS = "D+",
+  AB_POS = "AB+",
 }

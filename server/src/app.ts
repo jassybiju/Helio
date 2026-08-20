@@ -28,6 +28,7 @@ import { notificationRouter } from "./presentation/http/routes/notification.rout
 import { adminDashboardRoutes } from "./presentation/http/routes/admin/dashboard.routes.js";
 import client from "prom-client";
 import responseTime from "response-time";
+import { adminAppointmentRouter } from "./presentation/http/routes/admin/appointment.router.js";
 
 export const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -105,6 +106,7 @@ app.use(`${api}admin/patient`, adminPatientRouter);
 app.use(`${api}admin/specialty`, adminSpecialtyRouter);
 app.use(`${api}admin/doctor`, adminDoctorRouter);
 app.use(`${api}admin/dashboard`, adminDashboardRoutes);
+app.use(`${api}admin/appointment`, adminAppointmentRouter);
 
 app.use(`${api}doctor`, doctorRouter);
 app.use(`${api}patient`, patientRouter);

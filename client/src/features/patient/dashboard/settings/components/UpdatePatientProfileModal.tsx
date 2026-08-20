@@ -161,7 +161,12 @@ const UpdatePatientProfileModal = ({ close }: ModalProps) => {
               <option value="">Select Blood Group</option>
               <option value="A+">A+</option>
               <option value="B+">B+</option>
-              <option value="other">Other</option>
+              <option value="O+">O+</option>
+              <option value="AB+">AB+</option>
+              <option value="A-">A-</option>
+              <option value="B-">B-</option>
+              <option value="O-">O-</option>
+              <option value="AB-">AB-</option>
             </select>
             {errors.bloodGroup && (
               <p className="text-red-600 text-sm mt-1">

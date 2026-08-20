@@ -3,7 +3,7 @@ import z from "zod";
 
 export const doctorUpdateVitalsSchema = z.object({
   body: z.object({
-    bloodPressure: z.string().nullable().optional(),
+    bloodPressure: z.number().nullable().optional(),
     oxygenLevel: z.number().nullable().optional(),
     heartRate: z.number().nullable().optional(),
     temperature: z.number().nullable().optional(),

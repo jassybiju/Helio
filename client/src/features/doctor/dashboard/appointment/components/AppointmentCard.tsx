@@ -1,7 +1,6 @@
 import {
   Clock,
   ExternalLink,
-  LogOut,
   Play,
   Users,
   Video,
@@ -123,10 +122,7 @@ const AppointmentCard = ({
 
           {appointment.status === APPOINTMENT_STATUS.ONGOING && (
             <>
-              <button className="flex-1 px-2 py-1.5 text-xs font-semibold rounded bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1">
-                <LogOut className="w-3 h-3" />
-                End
-              </button>
+         
               <button
                 onClick={viewOngoingConsultation}
                 className="flex-1 px-2 py-1.5 text-xs font-semibold rounded bg-amber-700 text-white hover:bg-amber-500 transition-colors flex items-center justify-center gap-1 p-2 text-red-600  rounded-lg transition"

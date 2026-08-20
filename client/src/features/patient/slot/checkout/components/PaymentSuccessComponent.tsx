@@ -107,9 +107,7 @@ const PaymentSuccessComponent = () => {
                 <Download className="w-5 h-5" />
                 Download Receipt
               </button>
-              <button className="flex items-center justify-center gap-2 px-6 py-3 border border-slate-300 hover:bg-slate-50 text-slate-900 font-semibold rounded-lg transition">
-                📅 Add to Calendar
-              </button>
+            
             </div>
           </div>
 

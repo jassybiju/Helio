@@ -83,6 +83,7 @@ export class SendMessageUseCase implements ISendMessageUseCase {
       const chatMessageId = this._idGenerator.generate(
         process.env.MESSAGE_PREFIX!
       );
+      console.log("CREATING");
       const chatMessage = ChatMessage.create(
         chatMessageId,
         chatSession.id,

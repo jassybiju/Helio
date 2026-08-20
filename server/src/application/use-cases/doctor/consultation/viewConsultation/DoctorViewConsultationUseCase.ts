@@ -56,9 +56,8 @@ export class DoctorViewConsultationUseCase implements IDoctorViewConsultationUse
 
     // get consultations
     const prev_consultations =
-      await this._consultationRepo.findLatestPatientConsultation(
-        patient.id,
-        consultation.id
+      await this._appointmentRepo.getLatestCompletedAppointmentWithVitals(
+        patient.id
       );
 
     // get lab reports
