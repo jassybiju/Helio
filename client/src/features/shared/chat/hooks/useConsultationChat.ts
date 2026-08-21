@@ -14,7 +14,7 @@ export const useConsultationChat = ({
   userType: USER_ROLES;
 }) => {
   const queryClient = useQueryClient();
-  const socket = getSocket()
+  const socket = getSocket();
 
   useEffect(() => {
     const handleListUpdate = (message: IncomingMessage) => {
@@ -68,8 +68,13 @@ export const useConsultationChat = ({
 
       queryClient.setQueryData(
         ["chat-data", activeSessionId],
-        (old: { data: { chats: ChatType[] } } | undefined) => {
+        (old: { data: { chats: ChatMessageType[] } } | undefined) => {
           if (!old) return old;
+          const exists = old.data.chats.some((chat) => chat.id === message.id);
+          if (exists) {
+            return old;
+          }
+
           return {
             ...old,
             data: {

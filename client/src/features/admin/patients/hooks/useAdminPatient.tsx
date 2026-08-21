@@ -52,6 +52,7 @@ export const useAdminPatient = () => {
                 alt="Profile"
                 className="h-full w-full object-cover"
                 src={row.profilePic}
+                unoptimized
               />
             ) : (
               row.fullName[0]

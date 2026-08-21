@@ -134,7 +134,7 @@ const PatientSettingsComponent = () => {
               className="block relative group h-20 w-20 sm:h-24 sm:w-24 overflow-hidden bg-blue-100 rounded-full flex items-center justify-center relative group"
             >
               {PERSON?.profilePic ? (
-                   <Image fill style={{objectFit :'cover'}} sizes="100vw" alt="Profile Pic" className="w-full h-full" src={PERSON?.profilePic} />
+                   <Image fill style={{objectFit :'cover'}} sizes="100vw" alt="Profile Pic" className="w-full h-full" src={PERSON?.profilePic} unoptimized/>
               ) : (
                 <svg
                   className="h-12 w-12 sm:h-16 sm:w-16"

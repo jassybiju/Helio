@@ -53,6 +53,7 @@ export const useAdminDoctor = () => {
                 sizes="100vw"
                 className="w-full h-full object-cover "
                 src={row.profilePic}
+                unoptimized
               />
             ) : (
               row.fullName?.[0]

@@ -98,6 +98,7 @@ const DoctorBookingComponent = ({ id }: { id: string }) => {
                       className="w-full h-full"
                       src={doctor.profilePic}
                       alt=""
+                      unoptimized
                     />
                   ) : (
                     doctor?.fullName[0]

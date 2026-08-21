@@ -94,6 +94,7 @@ export default function ConsultationChatList({
                         sizes="100vw" // Helps browser choose optimal image size
                         src={chat.profilePic}
                         alt="Profile Pic"
+                        unoptimized
                       />
                     ) : (
                       chat?.name?.[0]

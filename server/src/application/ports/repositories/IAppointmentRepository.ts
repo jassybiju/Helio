@@ -202,4 +202,5 @@ export interface IAppointmentDashboardStatistics {
     noShow: number;
     expired: number;
   };
+
 }

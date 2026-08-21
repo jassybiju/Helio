@@ -50,6 +50,7 @@ export const usePatientAppointment = () => {
                 src={row.doctor.profilePicture}
                 alt={row.doctor.name}
                 className="w-full h-full object-cover"
+                unoptimized
               />
             ) : (
               <span className="text-sm font-semibold text-slate-700">

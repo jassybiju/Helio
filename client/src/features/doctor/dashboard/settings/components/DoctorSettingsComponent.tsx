@@ -114,7 +114,7 @@ const DoctorSettingsComponent = () => {
               className="group relative block h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 bg-teal-500 rounded-full overflow-hidden flex items-center  justify-center text-white"
             >
               {DOCTOR?.profilePic ? (
-              <Image fill style={{objectFit :'cover'}} sizes="100vw" alt='profilePic' className="w-full h-full" src={DOCTOR?.profilePic} />
+              <Image fill style={{objectFit :'cover'}} sizes="100vw" alt='profilePic' className="w-full h-full" src={DOCTOR?.profilePic} unoptimized/>
               ) : (
                 <svg
                   className="h-12 w-12 sm:h-16 sm:w-16"

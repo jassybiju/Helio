@@ -70,6 +70,7 @@ export default function ConsultationChat({
                 alt="Profile Pic"
                 src={sendeeData.profilePic}
                 className="h-full w-full object-cover"
+                unoptimized
               />
             ) : (
               sendeeData?.name?.[0]
@@ -127,6 +128,7 @@ export default function ConsultationChat({
                           alt="Profile Pic"
                           className="w-full h-full"
                           src={sendeeData.profilePic}
+                          unoptimized
                         />
                       ) : (
                         sendeeData?.name?.[0]

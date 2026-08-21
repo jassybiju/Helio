@@ -40,6 +40,7 @@ export default function DoctorCard({
                 sizes="100vw"
                 src={profilePic}
                 alt=""
+                unoptimized
               />
             ) : (
               name.charAt(0)

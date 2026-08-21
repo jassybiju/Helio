@@ -95,7 +95,7 @@ export function ReviewsSection({
               {/* Review Header */}
               <div className="flex items-start gap-4 mb-3">
                 <div className="flex relative h-10 w-10 items-center overflow-hidden justify-center rounded-full bg-blue-100 text-blue-600 font-semibold text-sm flex-shrink-0">
-                  {review.profilePic ?    <Image fill style={{objectFit :'cover'}} sizes="100vw" alt="Profile Pic" src={review.profilePic}/> : review.patientName[0]}
+                  {review.profilePic ?    <Image fill style={{objectFit :'cover'}} sizes="100vw" alt="Profile Pic" src={review.profilePic} unoptimized/> : review.patientName[0]}
                 </div>
 
                 <div className="flex-1">

@@ -52,6 +52,7 @@ const UserAuthButtons = () => {
                     src={data.user?.profilePic}
                     alt="Profile"
                     className="h-full w-full object-cover"
+                    unoptimized
                   />
                 ) : (
                   <UserIcon className="h-5 w-5" />
