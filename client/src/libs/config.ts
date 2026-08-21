@@ -6,8 +6,8 @@ export interface RuntimeConfig {
 }
 
 let runtimeConfig: RuntimeConfig | null = {
-  backendUrl: "http://api.helixo.com/v1/api",
-  backendWsUrl: "http://api.helixo.com/",
+  backendUrl: "https://api.itsjassy.xyz/v1/api",
+  backendWsUrl: "https://api.itsjassy.xyz/",
   RazorpayURL: "rzp_test_TAgRpqGy9zO1UT",
   googleClientID:
     "603438853272-qr8nh9lnf9i1kni8rggt670ghk8nbt7t.apps.googleusercontent.com",

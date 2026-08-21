@@ -42,7 +42,7 @@ services:
       - app
 
   worker:
-    image: jassymon/helio-worker:latest
+    image: jassymon/helio-backend:latest
 
     container_name: worker
 
